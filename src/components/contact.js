@@ -1,9 +1,13 @@
 import Image from "next/Image";
 
-const Contact = ({ name, username, url, image }) => {
+const Contact = ({ name, username, url, icon }) => {
+    const size = 50;
+
     return (
-        <div>
-            <Image src={ image } width={ 50 } height={ 50 } />
+        <div className="m-1 duration-150 hover:translate-x-3">
+            <a href={ url } title={ `${username} (${name})` }>
+                <Image className="rounded-full" src={ icon } width={ size } height={ size } />
+            </a>
         </div>
     );
 }
