@@ -1,11 +1,4 @@
 import Contact from "@/components/contacts/contact";
-
-// Import all the needed icons
-import LinkedInIcon from "@/resources/icons/linkedIn.png"
-import InstagramIcon from "@/resources/icons/instagram.png"
-import GithubIcon from "@/resources/icons/github.png"
-import WebsiteIcon from "@/resources/icons/website.png"
-import DiscordIcon from "@/resources/icons/discord.png"
 import { useState } from "react";
 
 const Contacts = () => {
