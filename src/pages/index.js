@@ -1,11 +1,11 @@
-import Contacts from '@/components/Contacts'
-import Projects from '@/components/Projects'
+import Contacts from '@/components/contacts/Contacts'
+import Projects from '@/components/projects/Projects'
 
 const Home = () => {
     return (
-        <div className="bg-gray-200">
-            <h1 className="text-2xl">Hi! I'm Wolf Mermelstein</h1>
-            <Contacts className="fixed float-left h-full"/>
+        <div>
+            <div className="fixed float-left w-max-fit "><Contacts/></div>
+            <h1 className="text-7xl text-center">Hi! I'm Wolf Mermelstein</h1>
             <Projects/>
         </div>
     )
