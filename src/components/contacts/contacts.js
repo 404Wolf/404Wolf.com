@@ -1,4 +1,4 @@
-import Contact from "@/components/contacts/contact";
+import Contact from "@/components/contacts/Contact";
 import { useState } from "react";
 
 const Contacts = () => {
