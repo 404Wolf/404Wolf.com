@@ -1,4 +1,4 @@
-import Contact from "@/components/contact";
+import Contact from "@/components/Contact";
 
 // Import all the needed icons
 import LinkedInIcon from "@/resources/icons/linkedIn.png"
