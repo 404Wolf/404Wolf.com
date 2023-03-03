@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        dropShadow: {
+          'xl-c': '0px 0px 10px rgba(0, 0, 0, 0.4)',
+        }
+    }
   },
   plugins: [],
 }

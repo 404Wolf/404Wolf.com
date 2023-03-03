@@ -6,9 +6,9 @@ const Projects = () => {
     // A list of project IDs to include, in order. 
     // Automatically fetches data from the project's data.json file.
     const projects = [
-        useState("hydroponics"),
-        useState("bitwardenBackup"),
-    ]
+        "hydroponics",
+        "bitwardenBackup",
+    ].map(project => useState(project))
     projects.forEach(
         (project) => {
             if (typeof project[0] === "string") {
@@ -18,23 +18,28 @@ const Projects = () => {
             }
         }
     )
+    for (let i = 0; i < 20; i++) {
+        projects.push(useState(null))
+    }
 
     return (
         <div>
-            <div className="flex flex-wrap justify-start items-center">
+            <div className="flex flex-wrap justify-start items-center gap-4">
                 {
                     projects.map(
                         (project, index) => {
-                            if (typeof project[0] !== "string") 
-                                {
-                                    return <Project 
-                                        id={ project[0].id }
-                                        name={ project[0].name }
-                                        image={ project[0].cover }
-                                        page={ `/projects/${project[0].name}` }
-                                        key={ index }
-                                    />
-                                }
+                            if (project[0] === null || typeof project[0] === "string") {
+                                return <Project isDummy={ true } key={ index} />
+                            }
+                            else {
+                                return <Project 
+                                    id={ project[0].id }
+                                    name={ project[0].name }
+                                    cover={ project[0].cover }
+                                    page={ `/projects/${project[0].name}` }
+                                    key={ index }
+                                />
+                            }
                         }
                     )
                 }
