@@ -11,8 +11,6 @@ const Home = () => {
                 <Header/>
             </div>
 
-            <div className="mt-[-2.5rem]"/>
-
             <div className="flex flex-col md:flex-row gap-5">
                 <div className="basis-[65%]">
                     <Projects gap={ 5 }/>
