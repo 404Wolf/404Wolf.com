@@ -8,12 +8,7 @@ const Project = ( { id, name, cover, date, page, isDummy=false } ) => {
 
     useEffect(() => {
         if (!isDummy) {
-            import(`@/projects/${id}/${cover}`)
-            .then(
-                (module) => setBackground(
-                    {backgroundImage:`url(${module.default.src})`}
-                )
-            )
+            setBackground({backgroundImage: `url(${`/projects/${id}/${cover}`.toString()})`})
         }
     }, [cover])
     

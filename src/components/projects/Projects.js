@@ -2,28 +2,52 @@ import Project from "./Project";
 import "react";
 import { useEffect, useState } from "react";
 import Card from "../misc/Card";
-import { projects as projectNames} from "@/projects/projects.json";
 
 const Projects = ({ gap }) => {
     // A list of project IDs to include, in order. 
     // Automatically fetches data from the project's data.json file.
 
-    let projects = projectNames.map(project => useState(project))
-    for (let i = 0; i < 20; i++) {
-        projects.push(useState(null))
-    }
+    const [ projectIds, setProjectIds ] = useState([])
+    const [ projects, setProjects ] = useState([])
+
+    useEffect(() => {
+        fetch("/projects/projects.json")
+        .then((fetched) => fetched.json())
+        .then((json) => json.projectIds)
+        .then((projectIds) => {
+            for (let i = 0; i < 20; i++) {
+                projectIds.push(null)
+            }
+            setProjectIds(projectIds)
+        })
+    }, [])
     
     useEffect(() => {
-        projects.forEach(
-            (project) => {
-                if (typeof project[0] === "string") {
-                    import("@/projects/" + project[0] + "/project.json")
-                    .then(fetched => project[1](fetched))
-                    .catch(err => console.log(err))
+        async function fetchProject(projectId) {
+            let fetched = await fetch("/projects/" + projectId + "/project.json")
+            let json = await fetched.json()
+            return json
+        }
+
+        async function fetchProjects() {
+            let _projects = []
+            for (let i = 0; i < projectIds.length; i++) {
+                let projectId = projectIds[i]
+                if (projectId === null) {
+                    _projects.push([ null ])
+                }
+                else {
+                    let project = await fetchProject(projectId)
+                    _projects.push([ project ])
                 }
             }
-        )
-    }, [projects])
+            setProjects(_projects)
+        }
+        
+        fetchProjects()
+        
+    }, [projectIds])
+    
 
     return (
         <div>
