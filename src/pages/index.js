@@ -7,7 +7,7 @@ import Greeter from '@/components/header/Greeter'
 const Home = () => {
     return (
         <MainLayout header={<Greeter/>}>
-            <div className="bg-slate-300 p-5 rounded-2xl mb-10">
+            <div className="bg-slate-300 p-5 rounded-2xl mb-8">
                 <Header/>
             </div>
 
