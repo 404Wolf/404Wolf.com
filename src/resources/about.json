@@ -1,0 +1,39 @@
+{
+    "url": "techy.cc",
+    "name": "Wolf Mermelstein",
+    "email": "caffeinate@msn.com",
+    "phone": "(929)265-7180",
+    "location": "Brooklyn, NY",
+    "contacts": [
+        {
+            "name": "linkedIn",
+            "username":"WolfMermelstein",
+            "link":"https://www.linkedin.com/in/WolfMermelstein",
+            "id": 0
+        },
+        {
+            "name": "instagram",
+            "username":"wolf.mermelstein",
+            "link":"https://www.instagram.com/wolf.mermelstein/",
+            "id": 1
+        },
+        {
+            "name": "github",
+            "username":"404Wolf",
+            "link":"https://github.com/404Wolf",
+            "id": 2
+        },
+        {
+            "name": "website",
+            "username":"techy.cc",
+            "link":"https://techy.cc",
+            "id": 3
+        },
+        {
+            "name": "discord",
+            "username":"Wolf#1452",
+            "link":"https://discords.com/bio/p/twilak",
+            "id": 4
+        }
+    ]
+}

@@ -23,27 +23,25 @@ const Projects = () => {
     }
 
     return (
-        <div>
-            <div className="flex flex-wrap justify-start items-center gap-4">
-                {
-                    projects.map(
-                        (project, index) => {
-                            if (project[0] === null || typeof project[0] === "string") {
-                                return <Project isDummy={ true } key={ index} />
-                            }
-                            else {
-                                return <Project 
-                                    id={ project[0].id }
-                                    name={ project[0].name }
-                                    cover={ project[0].cover }
-                                    page={ `/projects/${project[0].name}` }
-                                    key={ index }
-                                />
-                            }
+        <div className="grid grid-cols-2 lg:grid-cols-3 justify-between items-center gap-5">
+            {
+                projects.map(
+                    ([ project ], index) => {
+                        if (project === null || typeof project === "string") {
+                            return <Project isDummy={ true } key={ index} />
                         }
-                    )
-                }
-            </div>
+                        else {
+                            return <Project 
+                                id={ project.id }
+                                name={ project.name }
+                                cover={ project.cover }
+                                page={ "/projects/"+ project.id }
+                                key={ index }
+                            />
+                        }
+                    }
+                )
+            }
         </div>
     );
 }

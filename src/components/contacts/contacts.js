@@ -12,7 +12,7 @@ const Contacts = () => {
 
     return (
         <div >
-            <div className="flex h-screen flex-col justify-center max-w-fit items-center">
+            <div className="flex flex-col justify-center items-center">
                 <Contact 
                     name="Linked In" 
                     key="linkedIn"
