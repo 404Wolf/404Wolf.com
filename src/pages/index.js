@@ -16,9 +16,9 @@ const Home = () => {
                 <div className="p-2"/>
 
                 <div className="bg-gray-300 p-5 rounded-xl">
-                    <div className="flex gap-5">
-                        <div className="basis-2/3 bg-gray-350 p-5 rounded-[24px]"><Projects/></div>
+                    <div className="flex flex-col md:flex-row gap-5">
                         <div className="basis-1/3 bg-gray-350 p-5 rounded-[24px]"><About/></div>
+                        <div className="basis-2/3 bg-gray-350 p-5 rounded-[24px]"><Projects/></div>
                     </div>
                 </div>
             </div>

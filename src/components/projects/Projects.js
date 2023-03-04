@@ -29,7 +29,10 @@ const Projects = () => {
     return (
         <div>
             <div className="">
-                <div className="grid grid-cols-2 justify-between items-center gap-5">
+                <h2 className="text-center text-2xl text-bold indent-0 mb-2">
+                    Projects
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-5">
                     {
                         projects.map(
                             ([ project ], index) => {

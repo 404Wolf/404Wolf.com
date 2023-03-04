@@ -16,15 +16,15 @@ const Greeter = () => {
                 options={
                     {
                         delay: 25, 
-                        wrapperClassName: "text-7xl text-blue",
+                        wrapperClassName: "text-4xl md:text-7xl text-blue",
                         cursor: ""
                     }
                 }
                 skipAddStyles={ true }
             />
 
-                <h2 className="text-xl">
-                    I'm a student in NYC with a passion for coding and figuring things out.
+                <h2 className="text-xl text-justify md:text-left mt-2 md:mt-0">
+                    I'm a student in NYC with a passion for tinkering, coding, Latin, D&D, creating, engineering, making, and figuring things out.
                 </h2>
         </div>
     );

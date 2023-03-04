@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/Image";
 import Contacts from "../contacts/Contacts";
 import Greeter from "./Greeter"
 import Navbar from "./Navbar";
@@ -13,12 +13,13 @@ const Header = () => {
                 src={ profileImage } 
                 width={ profileSize } 
                 height={ profileSize } 
-                className="float-right rounded-full border-[6px] border-black"
+                alt="Profile"
+                className="mx-auto md:float-right rounded-full border-[6px] border-black"
             />
 
             <Greeter/>
             
-            <div className="flex py-4 items-center gap-10">
+            <div className="flex-col md:flex-row flex py-4 items-center gap-10">
                 <Navbar/>
                 <Contacts/>
             </div>
