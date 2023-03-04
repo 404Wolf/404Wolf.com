@@ -24,7 +24,7 @@ const Greeter = () => {
             />
 
                 <h2 className="text-xl text-justify md:text-left mt-2 md:mt-0">
-                    I'm a student in NYC with a passion for tinkering, coding, Latin, D&D, creating, engineering, making, and figuring things out.
+                    I'm a student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
                 </h2>
         </div>
     );
