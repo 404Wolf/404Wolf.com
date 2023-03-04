@@ -1,8 +1,9 @@
 import Project from "./Project";
 import "react";
 import { useState } from "react";
+import Card from "../misc/Card";
 
-const Projects = () => {
+const Projects = ({ gap }) => {
     // A list of project IDs to include, in order. 
     // Automatically fetches data from the project's data.json file.
     const projects = [
@@ -28,11 +29,8 @@ const Projects = () => {
 
     return (
         <div>
-            <div className="">
-                <h2 className="text-center text-2xl text-bold indent-0 mb-2">
-                    Projects
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-5">
+            <Card title="Projects">
+                <div className={`grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-${gap}`}>
                     {
                         projects.map(
                             ([ project ], index) => {
@@ -53,7 +51,7 @@ const Projects = () => {
                         )
                     }
                 </div>
-            </div>
+            </Card>
         </div>
     );
 }

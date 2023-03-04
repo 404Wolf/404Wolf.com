@@ -3,22 +3,21 @@ import About from '@/components/about/About'
 import Header from '@/components/header/Header'
 
 const Home = () => {
-
     return (
-        <div>
-            <div className="bg-gray-400 p-5 rounded-xl">
-                <div className="bg-gray-300 p-5 rounded-xl">
-                    <div className="bg-gray-350 p-5 rounded-[24px]">
-                        <Header/>
-                    </div>
+        <div className="p-8 bg-gradient-to-tr from-[#16697a] to-[#1d4480]">
+            <div className={"bg-slate-500 p-5 rounded-xl flex flex-col gap-5"}>
+                <div className="bg-slate-300 p-5 rounded-2xl">
+                    <Header/>
                 </div>
 
-                <div className="p-2"/>
+                <div className="mt-[-.5rem]"/>
 
-                <div className="bg-gray-300 p-5 rounded-xl">
-                    <div className="flex flex-col md:flex-row gap-5">
-                        <div className="basis-1/3 bg-gray-350 p-5 rounded-[24px]"><About/></div>
-                        <div className="basis-2/3 bg-gray-350 p-5 rounded-[24px]"><Projects/></div>
+                <div className="flex flex-col md:flex-row gap-5">
+                    <div className="basis-2/3 bg-slate-300 p-5 rounded-2xl">
+                        <Projects gap={ 5 }/>
+                    </div>
+                    <div className="basis-1/3 bg-slate-300 p-5 rounded-2xl">
+                        <About/>
                     </div>
                 </div>
             </div>
