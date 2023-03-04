@@ -1,35 +1,38 @@
-// import MainLayout from '@/components/layouts/main';
-// import { projectIds } from "@/projects/projects.json";
+import MainLayout from '@/components/layouts/main';
+import fs from 'fs';
+import path from 'path';
 
-// const Project = ({ projectId }) => {
-//     return (
-//         <MainLayout>
-//             { projectId }
-//         </MainLayout>
-//     );
-// }
- 
-// export async function getStaticPaths () {
-//     const paths = []
-//     for (let i=0; i < projectIds.length; i++) {
-//         paths.push({
-//             params: { projectId: projectIds[i] }
-//         })
-//     }
-//     console.log(paths)
-//     return {
-//         paths,
-//         fallback: false
-//     }
-// }
+export async function getStaticPaths () {
+    const filePath = path.join(process.cwd(), 'public', 'projects/projects.json');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const projectIds = JSON.parse(fileContents).projectIds;
+    const paths = []
 
-// export async function getStaticProps({ params }) {
-//     const postData = getPostData(params.id);
-//     return {
-//         props: {
-//         postData,
-//         },
-//     };
-// }
+    for (let i=0; i < projectIds.length; i++) {
+        paths.push({
+            params: { projectId: projectIds[i] }
+        })
+    }
+    return {
+        paths,
+        fallback: false
+    }
+}
 
-// export default Project;
+const Project = ({ projectId }) => {
+    return (
+        <MainLayout>
+            <h1>{ projectId }</h1>
+        </MainLayout>
+    );
+}
+
+export async function getStaticProps({ params }) {
+    return {
+        props: {
+            projectId: params.projectId
+        }
+    }
+}
+
+export default Project;
