@@ -1,5 +1,5 @@
 const Navbar = () => {
-    const buttonStyle = "bg-black text-white px-3 py-1 rounded-xl w-24"
+    const buttonStyle = "bg-black text-white text-xl px-4 py-2 rounded-xl w-30 duration-150 hover:scale-110"
 
     return (
         <navbar className="flex justify-start text-center gap-5">

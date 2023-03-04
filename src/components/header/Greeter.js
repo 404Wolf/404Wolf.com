@@ -1,9 +1,6 @@
-import { useState } from "react";
 import Typewriter from "typewriter-effect";
 
 const Greeter = () => {
-    const [ showAboutMeText, setShowAboutMeText ] = useState(false)
-
     return (
         <div>
             <Typewriter 
@@ -14,7 +11,6 @@ const Greeter = () => {
                             .pauseFor(300)
                             .typeString("I'm Wolf Mermelstein")
                             .start()
-                            .callFunction(() => setShowAboutMeText(true))
                     }
                 }
                 options={
@@ -24,26 +20,12 @@ const Greeter = () => {
                         cursor: ""
                     }
                 }
-                skipAddStyles={true}
+                skipAddStyles={ true }
             />
 
-            {showAboutMeText ? <Typewriter
-                onInit={
-                    (typewriter) => {
-                        typewriter
-                            .typeString("I'm a student in NYC with a passion for coding and figuring things out.")
-                            .start()
-                    }
-                }
-                options={
-                    {
-                        delay: 10, 
-                        wrapperClassName: "text-xl",
-                        cursor: ""
-                    }
-                }
-            /> : <h2 className="text-xl">&nbsp;</h2>
-            }
+                <h2 className="text-xl">
+                    I'm a student in NYC with a passion for coding and figuring things out.
+                </h2>
         </div>
     );
 }

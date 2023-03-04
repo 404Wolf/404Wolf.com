@@ -8,6 +8,10 @@ const Projects = () => {
     const projects = [
         "hydroponics",
         "bitwardenBackup",
+        "caffeinatedGranolaBars",
+        "emberSniper",
+        "googlePhotoSync",
+        "minecraftAPI"
     ].map(project => useState(project))
     projects.forEach(
         (project) => {
@@ -23,25 +27,29 @@ const Projects = () => {
     }
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-3 justify-between items-center gap-5">
-            {
-                projects.map(
-                    ([ project ], index) => {
-                        if (project === null || typeof project === "string") {
-                            return <Project isDummy={ true } key={ index} />
-                        }
-                        else {
-                            return <Project 
-                                id={ project.id }
-                                name={ project.name }
-                                cover={ project.cover }
-                                page={ "/projects/"+ project.id }
-                                key={ index }
-                            />
-                        }
+        <div>
+            <div className="">
+                <div className="grid grid-cols-2 justify-between items-center gap-5">
+                    {
+                        projects.map(
+                            ([ project ], index) => {
+                                if (project === null || typeof project === "string") {
+                                    return <Project isDummy={ true } key={ index} />
+                                }
+                                else {
+                                    return <Project 
+                                        id={ project.id }
+                                        name={ project.name }
+                                        cover={ project.cover }
+                                        page={ "/projects/"+ project.id }
+                                        key={ index }
+                                    />
+                                }
+                            }
+                        )
                     }
-                )
-            }
+                </div>
+            </div>
         </div>
     );
 }

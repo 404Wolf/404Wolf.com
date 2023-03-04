@@ -1,7 +1,7 @@
 const About = () => {
     return (
         <div className="text-left indent-10">
-            <h2 className="text-center text-2xl text-semibold indent-0 mb-2">
+            <h2 className="text-center text-2xl text-bold indent-0 mb-2">
                 About Me
             </h2>
             <p>

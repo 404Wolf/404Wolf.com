@@ -5,7 +5,7 @@ const Contact = ({ name, username, url, icon }) => {
     const alt = `${username} (${name})`
 
     return (
-        <div className="my-2 duration-150 hover:scale-110">
+        <div className="duration-150 hover:scale-110">
             <a href={ url } title={ alt } target="_blank" rel="noreferrer noopener">
                 {icon && <Image
                     priority
