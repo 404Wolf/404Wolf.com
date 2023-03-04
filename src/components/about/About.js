@@ -5,7 +5,7 @@ const About = () => {
                 About Me
             </h2>
             <p>
-                I've always been an impulsive tinkerer. An eager explorer and fervent maker. Since I was little, I've always been a highly project based person—from a 3D printed avocado journey to a massive hydroponic basic farm embarkment to a Minecraft username autoclaiming business. So, while I was originally interested in art, and loved dumping ideas into the endless canvas of graphic design, 3D modeling, and crafty projects, code's been my true, inevitable passion.
+                I've always been an impulsive tinkerer. An eager explorer and fervent maker. So, naturally, I'm a highly project based person—from my 3D printed avocado journey to a massive hydroponic basic farm embarkment to a Minecraft username autoclaiming business. So, while I was originally interested in art, and loved dumping ideas into the endless canvas of graphic design, 3D modeling, and crafty projects, code's been my true, inevitable passion.
             </p>
             <div className="py-2"/>
             <p>

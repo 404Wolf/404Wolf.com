@@ -45,6 +45,7 @@ const Projects = () => {
                                         name={ project.name }
                                         cover={ project.cover }
                                         page={ "/projects/"+ project.id }
+                                        date={ project.date }
                                         key={ index }
                                     />
                                 }
