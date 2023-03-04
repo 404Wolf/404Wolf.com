@@ -1,7 +1,7 @@
 const Card = ( {title, children} ) => {
     return (
-        <div className="h-full">
-            <div className="mx-auto translate-y-[1rem] bg-gray-700 text-white text-lg py-1 px-2 rounded-full w-32">
+        <div className="h-full relative">
+            <div className="absolute -translate-x-[.9rem] -translate-y-[1rem] bg-gray-700 text-white text-lg p-1 px-2 rounded-full w-32">
                 <h2 className="text-center text-2xl text-bold">
                     { title }
                 </h2>

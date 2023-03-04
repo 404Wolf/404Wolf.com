@@ -1,10 +1,10 @@
 const MainLayout = ({ children, header }) => {
     return (
-        <div className="p-12 bg-gradient-to-tr from-[#16697a] to-[#1d4480]">
-            {header && <div className="md:absolute md:bg-gray-700 md:text-white md:rounded-full md:py-[10px] md:px-4 md:w-[28rem] md:scale-110 md:-translate-y-[2rem] md:-translate-x-[1rem] border-slate-900">
+        <div className="p-[4.5%] bg-gradient-to-tr from-[#16697a] to-[#1d4480]">
+            {header && <div className="absolute bg-gray-700 text-white rounded-full py-[10px] px-4 w-[28rem] scale-110 -translate-y-[2rem] -translate-x-[1rem]">
                 { header }
             </div>}
-            <div className={"bg-slate-500 p-5 rounded-3xl flex flex-col"}>
+            <div className={"bg-slate-500 p-5 rounded-3xl"}>
                 { children }
             </div>
         </div>

@@ -2,7 +2,7 @@ import Card from "../misc/Card";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 
-const About = ({ className }) => {
+const About = () => {
     const [ aboutMe, setAboutMe ] = useState(null);
 
     useEffect(() => {

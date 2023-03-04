@@ -3,7 +3,7 @@ import "react";
 import { useEffect, useState } from "react";
 import Card from "../misc/Card";
 
-const Projects = ({ gap }) => {
+const Projects = () => {
     // A list of project IDs to include, in order. 
     // Automatically fetches data from the project's data.json file.
 
@@ -15,7 +15,7 @@ const Projects = ({ gap }) => {
         .then((fetched) => fetched.json())
         .then((json) => json.projectIds)
         .then((projectIds) => {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 14; i++) {
                 projectIds.push(null)
             }
             setProjectIds(projectIds)
@@ -52,7 +52,7 @@ const Projects = ({ gap }) => {
     return (
         <div>
             <Card title="Projects">
-                <div className={`grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-${gap}`}>
+                <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-5">
                     {
                         projects.map(
                             ([ project ], index) => {
