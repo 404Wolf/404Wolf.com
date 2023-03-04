@@ -1,10 +1,11 @@
 import Projects from '@/components/projects/Projects'
 import About from '@/components/about/About'
 import Header from '@/components/header/Header'
+import MainLayout from '@/components/layouts/main'
 
 const Home = () => {
     return (
-        <div className="p-12 bg-gradient-to-tr from-[#16697a] to-[#1d4480]">
+        <MainLayout>
             <div className={"bg-slate-500 p-5 rounded-3xl flex flex-col gap-5"}>
                 <div className="bg-slate-300 p-5 rounded-2xl">
                     <Header/>
@@ -21,7 +22,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </MainLayout>
     )
 }
 

@@ -14,14 +14,17 @@ module.exports = {
                 "blurple-wave": "linear-gradient(to top right, #3f6d85, #7e65ad)",
             },
             fontFamily: {
-                sans: ['Trebuchet MS', 'sans-serif'],
+                "sans": ['Trebuchet MS', 'sans-serif'],
+                'sleek': ["Varta", "sans-serif"],
             },
             dropShadow: {
                 'xl-c': '0px 0px 6px rgba(0, 0, 0, 0.4)',
             },
             colors: {
+                "slate-350": "#adb9c9",
                 "gray-350": "#E5E9EF",
                 'regal-blue': '#243c5a',
+                "mid-blue": "#3c5375",
             },
         }
     },
