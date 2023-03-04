@@ -56,7 +56,7 @@ const Projects = ({ gap }) => {
                     {
                         projects.map(
                             ([ project ], index) => {
-                                if (project === null || typeof project === "string") {
+                                if (project === null) {
                                     return <Project isDummy={ true } key={ index} />
                                 }
                                 else {

@@ -2,12 +2,12 @@ import Card from "../misc/Card";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 
-const About = () => {
-    const [ aboutMe, setAboutMe ] = useState(null)
+const About = ({ className }) => {
+    const [ aboutMe, setAboutMe ] = useState(null);
 
     fetch("/markdown/about.md")
-        .then(resp => resp.text())
-        .then(text => setAboutMe(text))
+    .then(resp => resp.text())
+    .then(text => setAboutMe(text));
 
     return (
         <Card title="About">
