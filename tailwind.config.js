@@ -17,7 +17,7 @@ module.exports = {
                 sans: ['Trebuchet MS', 'sans-serif'],
             },
             dropShadow: {
-                'xl-c': '0px 0px 8px rgba(0, 0, 0, 0.3)',
+                'xl-c': '0px 0px 6px rgba(0, 0, 0, 0.4)',
             },
             colors: {
                 "gray-350": "#E5E9EF",
