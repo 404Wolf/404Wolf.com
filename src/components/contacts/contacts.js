@@ -12,7 +12,7 @@ const Contacts = () => {
 
     return (
         <div >
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex items-center gap-3">
                 <Contact 
                     name="Linked In" 
                     key="linkedIn"

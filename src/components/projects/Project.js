@@ -1,4 +1,3 @@
-import Image from "next/Image";
 import Link from "next/Link";
 import { useEffect, useState } from "react";
 

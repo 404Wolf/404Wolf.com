@@ -1,35 +1,22 @@
-import Contacts from '@/components/contacts/Contacts'
 import Projects from '@/components/projects/Projects'
-import Image from 'next/Image'
-import profileImage from "@/resources/profileMe.jpg"
+import About from '@/components/about/About'
+import Header from '@/components/header/Header'
 
 const Home = () => {
-    const profileSize = 180
-    const buttonStyle = "bg-slate-300 px-3 py-1 m-2 rounded-xl w-24"
 
     return (
         <div>
-            <div className="fixed right-5 bottom-5 mt-full">
-                <Contacts/>
+            <div className="bg-gradient-to-tr from-sky-500 to-indigo-500 p-5 rounded-3xl">
+                <Header/>
             </div>
 
-            <Image 
-                src={ profileImage } 
-                width={ profileSize } 
-                height={ profileSize } 
-                className="float-right rounded-full"
-            />
+            <div className="p-2"/>
 
-            <h1 className="text-7xl">Hi! I'm Wolf Mermelstein</h1>
-
-            <div className="flex justify-start text-center pt-3 pb-10">
-                <button className={ buttonStyle }>About Me</button>
-                <button className={ buttonStyle }>Contacts</button>
-                <button className={ buttonStyle }>Resume</button>
-            </div>
-
-            <div className="mr-[45%] lg:mr-[55%]">
-                <Projects/>
+            <div className="bg-gradient-to-tr from-sky-500 to-indigo-500 p-5 rounded-3xl">
+                <div className="flex gap-5">
+                    <div className="basis-2/3"><Projects/></div>
+                    <div className="basis-1/3"><About/></div>
+                </div>
             </div>
         </div>
     )
