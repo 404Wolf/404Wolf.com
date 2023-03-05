@@ -54,25 +54,23 @@ const Projects = () => {
         <div>
             <Card title="Projects">
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-between items-center gap-5">
-                    <JackInTheBox cascade triggerOnce duration={ 700 }>
-                            {projects.map(
-                                ([ project ], index) => {
-                                    if (project === null) {
-                                        return <Project isDummy={ true } key={ index} />
-                                    }
-                                    else {
-                                        return <Project 
-                                            id={ project.id }
-                                            name={ project.name }
-                                            cover={ project.cover }
-                                            page={ "/projects/"+ project.id }
-                                            date={ project.date }
-                                            key={ index }
-                                        />
-                                    }
+                        {projects.map(
+                            ([ project ], index) => {
+                                if (project === null) {
+                                    return <Project isDummy={ true } key={ index} />
                                 }
-                            )}
-                    </JackInTheBox>
+                                else {
+                                    return <Project 
+                                        id={ project.id }
+                                        name={ project.name }
+                                        cover={ project.cover }
+                                        page={ "/projects/"+ project.id }
+                                        date={ project.date }
+                                        key={ index }
+                                    />
+                                }
+                            }
+                        )}
                 </div>
             </Card>
         </div>
