@@ -8,7 +8,7 @@ const profileImageMe = "/resources/profileMe.jpg"
 const profileImageDog = "/resources/profileDog.jpg"
 
 const Header = () => {
-    const profileSize = 190
+    const profileSize = 160
     const [ profileImage, setProfileImage ] = useState(profileImageMe)
 
     return (
@@ -21,9 +21,12 @@ const Header = () => {
                 width={ profileSize } 
                 height={ profileSize } 
                 alt="Profile"
-                className="mx-auto rounded-[2.5rem] md:ml-4 border-[9.5px] border-gray-500 drop-shadow-sm float-right"
+                className="mx-auto rounded-full md:rounded-[2.5rem] md:ml-4 m-4 md:m-0 border-[9.5px] border-gray-500 drop-shadow-sm md:float-right"
             />
-            <h2 className="text-lg text-center md:text-left mb-5 indent-0 md:indent-8 leading-6">
+            <div className="block mb-5 md:hidden text-center">
+                <Greeter/>
+            </div>
+            <h2 className="text-lg text-center md:text-left indent-0 md:indent-8 leading-6 mb-4">
                 <p className="mb-2">
                     I'm a BHSEC student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
                 </p>
@@ -34,6 +37,7 @@ const Header = () => {
             </h2>
 
             <Navbar/>
+            
         </div>
     );
 }

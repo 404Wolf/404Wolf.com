@@ -15,7 +15,7 @@ const Projects = () => {
         .then((fetched) => fetched.json())
             .then((json) => json.projectIds)
             .then((projectIds) => {
-                for (let i = 0; i < 14; i++) {
+                for (let i = 0; i < 24; i++) {
                     projectIds.push(null)
                 }
                 setProjectIds(projectIds)
