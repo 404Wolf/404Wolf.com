@@ -54,7 +54,7 @@ const Projects = () => {
         <div>
             <Card title="Projects">
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-between items-center gap-5">
-                    <JackInTheBox cascade duration={ 700 }>
+                    <JackInTheBox cascade triggerOnce duration={ 700 }>
                             {projects.map(
                                 ([ project ], index) => {
                                     if (project === null) {
