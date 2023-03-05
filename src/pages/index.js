@@ -6,7 +6,7 @@ import Greeter from '@/components/header/Greeter'
 
 const Home = () => {
     return (
-        <MainLayout header={<Greeter/>}>
+        <MainLayout header={<Greeter/>} type={ false }>
             <div className="flex flex-col gap-7">
                 <div className="bg-slate-300 p-5 rounded-2xl">
                     <Header/>
