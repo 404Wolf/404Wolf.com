@@ -12,7 +12,7 @@ const Home = () => {
                     <Header/>
                 </div>
 
-                <div className="flex flex-col-reverse md:flex-row gap-7">
+                <div className="flex flex-col-reverse sm:flex-row gap-7">
                     <div className="basis-[45%] lg:basis-[65%]">
                         <Projects/>
                     </div>

@@ -19,23 +19,23 @@ const Header = () => {
             width={ profileSize } 
             height={ profileSize } 
             alt="Profile"
-            className="rounded-full md:rounded-[2.5rem] border-[9.5px] border-gray-500"
+            className="rounded-full sm:rounded-[2.5rem] border-[9.5px] border-gray-500"
         />
     )
 
     return (
         <div>
-            <div className="md:flex md:justify-between">
+            <div className="sm:flex sm:justify-between">
                 <div className="flex flex-col gap-5 justify-between">
-                    <div className="block md:hidden mx-auto -m-2 scale-[105%]">
+                    <div className="block sm:hidden mx-auto -m-2 scale-[105%]">
                         { profileImage }
                     </div>
 
-                    <div className="block md:hidden text-center text-3xl">
+                    <div className="block sm:hidden text-center text-3xl">
                         <Greeter/>
                     </div>
 
-                    <h2 className="text-lg text-center md:text-left indent-0 md:indent-8 leading-6 my-auto">
+                    <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 my-auto">
                         <p className="mb-2">
                             I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
                         </p>
@@ -47,12 +47,12 @@ const Header = () => {
                     <Navbar/>
                 </div>
 
-                <div className="flex md:flex-col md:gap-5 justify-between">
-                    <div className="hidden md:block mx-auto scale-[105%] my-1">
+                <div className="flex sm:flex-col sm:gap-5 justify-between">
+                    <div className="hidden sm:block mx-auto scale-[105%] my-1">
                         { profileImage }
                     </div>
 
-                    <div className="bg-[#A3b4cb] p-2 rounded-xl flex-col hidden md:flex">
+                    <div className="bg-[#A3b4cb] p-2 rounded-xl flex-col hidden sm:flex">
                         <InlineButton background={false} externalTo="mailto:caffeinate@msn.com">
                             Caffeinate@msn.com
                         </InlineButton>
