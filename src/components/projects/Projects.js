@@ -10,13 +10,14 @@ const Projects = () => {
 
     const [ projectIds, setProjectIds ] = useState([])
     const [ projects, setProjects ] = useState([])
+    const dummyProjectCount = 24
 
     useEffect(() => {
         fetch("/projects/projects.json")
         .then((fetched) => fetched.json())
             .then((json) => json.projectIds)
             .then((projectIds) => {
-                for (let i = 0; i < 24; i++) {
+                for (let i = 0; i < dummyProjectCount; i++) {
                     projectIds.push(null)
                 }
                 setProjectIds(projectIds)

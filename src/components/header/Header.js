@@ -8,16 +8,27 @@ const profileImageMe = "/resources/profileMe.jpg"
 const profileImageDog = "/resources/profileDog.jpg"
 
 const Header = () => {
-    const profileSize = 160
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
-    const profileImage = (
+    const profileImageDesktop = (
         <Image 
             onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
             onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
             priority
             src={ profileImageSrc } 
-            width={ profileSize } 
-            height={ profileSize } 
+            width={ 300 } 
+            height={ 300 } 
+            alt="Profile"
+            className="rounded-full sm:rounded-[2.5rem] border-[9.5px] border-gray-500"
+        />
+    )
+    const profileImageMobile = (
+        <Image 
+            onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
+            onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
+            priority
+            src={ profileImageSrc } 
+            width={ 160 } 
+            height={ 160 } 
             alt="Profile"
             className="rounded-full sm:rounded-[2.5rem] border-[9.5px] border-gray-500"
         />
@@ -28,14 +39,10 @@ const Header = () => {
             <div className="sm:flex sm:justify-between">
                 <div className="flex flex-col gap-5 justify-between">
                     <div className="block sm:hidden mx-auto -m-2 scale-[105%]">
-                        { profileImage }
+                        { profileImageMobile }
                     </div>
 
-                    <div className="block sm:hidden text-center text-3xl">
-                        <Greeter/>
-                    </div>
-
-                    <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 my-auto">
+                    <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 mt-1 my-auto">
                         <p className="mb-2">
                             I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
                         </p>
@@ -47,23 +54,11 @@ const Header = () => {
                     <Navbar/>
                 </div>
 
-                <div className="flex sm:flex-col sm:gap-5 justify-between">
-                    <div className="hidden sm:block mx-auto scale-[105%] my-1">
-                        { profileImage }
-                    </div>
-
-                    <div className="bg-[#A3b4cb] p-2 rounded-xl flex-col hidden sm:flex">
-                        <InlineButton background={false} externalTo="mailto:caffeinate@msn.com">
-                            Caffeinate@msn.com
-                        </InlineButton>
-                        <InlineButton background={false} externalTo="tel:+10202657180">
-                            (929)265-7180
-                        </InlineButton>
-                    </div>
+                <div className="hidden sm:block mx-auto sm:scale-[105%] my-1 ml-5">
+                    { profileImageDesktop }
                 </div>
 
             </div>
-            
         </div>
     );
 }
