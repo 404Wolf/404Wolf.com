@@ -28,7 +28,7 @@ const Header = () => {
             </div>
             <h2 className="text-lg text-center md:text-left indent-0 md:indent-8 leading-6 mb-4">
                 <p className="mb-2">
-                    I'm a BHSEC student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
+                    I'm a <InlineButton to="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
                 </p>
                 
                 <p>
