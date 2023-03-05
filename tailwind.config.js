@@ -19,6 +19,7 @@ module.exports = {
             },
             dropShadow: {
                 'xl-c': '0px 0px 6px rgba(0, 0, 0, 0.4)',
+                '4xl-c': '0px 0px 33px rgba(20, 20, 20, 0.3)',
             },
             colors: {
                 "slate-350": "#adb9c9",

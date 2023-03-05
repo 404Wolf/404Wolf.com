@@ -13,13 +13,13 @@ const Projects = () => {
     useEffect(() => {
         fetch("/projects/projects.json")
         .then((fetched) => fetched.json())
-        .then((json) => json.projectIds)
-        .then((projectIds) => {
-            for (let i = 0; i < 14; i++) {
-                projectIds.push(null)
-            }
-            setProjectIds(projectIds)
-        })
+            .then((json) => json.projectIds)
+            .then((projectIds) => {
+                for (let i = 0; i < 14; i++) {
+                    projectIds.push(null)
+                }
+                setProjectIds(projectIds)
+            })
     }, [])
     
     useEffect(() => {

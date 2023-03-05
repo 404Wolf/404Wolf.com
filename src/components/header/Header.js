@@ -8,7 +8,7 @@ const profileImageMe = "/resources/profileMe.jpg"
 const profileImageDog = "/resources/profileDog.jpg"
 
 const Header = () => {
-    const profileSize = 180
+    const profileSize = 190
     const [ profileImage, setProfileImage ] = useState(profileImageMe)
 
     return (
@@ -21,7 +21,7 @@ const Header = () => {
                 width={ profileSize } 
                 height={ profileSize } 
                 alt="Profile"
-                className="mx-auto rounded-full md:ml-4 border-[9.5px] border-slate-600 drop-shadow-md float-right"
+                className="mx-auto rounded-[2.5rem] md:ml-4 border-[9.5px] border-gray-500 drop-shadow-sm float-right"
             />
             <h2 className="text-lg text-center md:text-left mb-5 indent-0 md:indent-8 leading-6">
                 <p className="mb-2">

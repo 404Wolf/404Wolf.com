@@ -5,7 +5,6 @@ const Navbar = () => {
         <div className="flex flex-col sm:flex-row justify-start text-center gap-[3%]">
             <button className={ buttonStyle }>About Me</button>
             <button className={ buttonStyle }>Contacts</button>
-            <button className={ buttonStyle }>Placehodler</button>
             <button className={ buttonStyle }>Resume</button>
         </div>
     );

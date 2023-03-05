@@ -5,8 +5,8 @@ const Contacts = () => {
     function fetchIcon (name) {
         let icon = useState(null)
         import(`/resources/icons/${name}.png`)
-        .then ((fetched) => icon[1](fetched))
-        .catch ((err) => console.log(err))
+            .then ((fetched) => icon[1](fetched))
+            .catch ((err) => console.log(err))
         return icon[0]
     }
 
