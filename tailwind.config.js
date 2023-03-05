@@ -26,6 +26,7 @@ module.exports = {
                 "gray-350": "#E5E9EF",
                 'regal-blue': '#243c5a',
                 "mid-blue": "#3c5375",
+                "link-blue": "#072c42"
             },
         }
     },

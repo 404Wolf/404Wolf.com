@@ -9,34 +9,60 @@ const profileImageDog = "/resources/profileDog.jpg"
 
 const Header = () => {
     const profileSize = 160
-    const [ profileImage, setProfileImage ] = useState(profileImageMe)
+    const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
+    const profileImage = (
+        <Image 
+            onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
+            onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
+            priority
+            src={ profileImageSrc } 
+            width={ profileSize } 
+            height={ profileSize } 
+            alt="Profile"
+            className="rounded-full md:rounded-[2.5rem] border-[9.5px] border-gray-500"
+        />
+    )
 
     return (
         <div>
-            <Image 
-                onMouseEnter={(e) => setProfileImage(profileImageDog)}
-                onMouseLeave={(e) => setProfileImage(profileImageMe)}
-                priority
-                src={ profileImage } 
-                width={ profileSize } 
-                height={ profileSize } 
-                alt="Profile"
-                className="mx-auto rounded-full md:rounded-[2.5rem] md:ml-4 m-4 md:m-0 border-[9.5px] border-gray-500 drop-shadow-sm md:float-right"
-            />
-            <div className="block mb-5 md:hidden text-center">
-                <Greeter/>
-            </div>
-            <h2 className="text-lg text-center md:text-left indent-0 md:indent-8 leading-6 mb-4">
-                <p className="mb-2">
-                    I'm a <InlineButton to="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
-                </p>
-                
-                <p>
-                    Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton to="mailto:wolfmermelstein@gmail.com">email me!</InlineButton>
-                </p>
-            </h2>
+            <div className="md:flex md:justify-between">
+                <div className="flex flex-col gap-5 justify-between">
+                    <div className="block md:hidden mx-auto -m-2 scale-[105%]">
+                        { profileImage }
+                    </div>
 
-            <Navbar/>
+                    <div className="block md:hidden text-center text-3xl">
+                        <Greeter/>
+                    </div>
+
+                    <h2 className="text-lg text-center md:text-left indent-0 md:indent-8 leading-6 my-auto">
+                        <p className="mb-2">
+                            I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
+                        </p>
+                        <p>
+                            Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton externalTo="mailto:wolfmermelstein@gmail.com">email me!</InlineButton>
+                        </p>
+                    </h2>
+
+                    <Navbar/>
+                </div>
+
+                <div className="flex md:flex-col md:gap-5 justify-between">
+                    <div className="hidden md:block mx-auto -m-2 scale-[105%] my-1">
+                        { profileImage }
+                    </div>
+
+                    <div className="bg-[#A3b4cb] p-2 rounded-xl flex-col hidden md:flex">
+                        <InlineButton background={false} externalTo="mailto:caffeinate@msn.com">
+                            Caffeinate@msn.com
+                        </InlineButton>
+                        <InlineButton background={false} externalTo="tel:+10202657180">
+                            (929)265-7180
+                        </InlineButton>
+                    </div>
+                </div>
+
+            </div>
             
         </div>
     );

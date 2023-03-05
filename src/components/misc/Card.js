@@ -8,23 +8,11 @@ const Card = ( {title, className, children} ) => {
         <div className="h-full relative">
             {title && <div className={ headerStyle }>
                 <h2 className="text-2xl text-bold">
-                <Typewriter 
-                    onInit={
-                        (typewriter) => {
-                            typewriter
-                            .typeString(title)
-                            .pauseFor(1000)
-                            .start()
-                        }
-                    }
-                    options={
-                        {
-                            delay: 200, 
-                            cursor: " "
-                        }
-                    }
-                    skipAddStyles={ true }
-                />
+                    <Typewriter 
+                        onInit={(typewriter) => {typewriter.typeString(title).start()}}
+                        options={{delay: 100, cursor: " "}}
+                        skipAddStyles={ true }
+                    />
                 </h2>
             </div>}
             <div className={"p-5 pt-8 bg-slate-300 rounded-2xl h-full "+className}>

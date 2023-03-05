@@ -12,13 +12,7 @@ const Greeter = () => {
                         .start()
                 }
             }
-            options={
-                {
-                    delay: 70, 
-                    wrapperClassName: "text-4xl font-bold",
-                    cursor: ""
-                }
-            }
+            options={{delay: 70, cursor: ""}}
             skipAddStyles={ true }
         />
     );

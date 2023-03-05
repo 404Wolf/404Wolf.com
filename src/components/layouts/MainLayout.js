@@ -7,20 +7,8 @@ const MainLayout = ({ children, header, type=true }) => {
     if (type) {
         headerTyper = (
             <Typewriter 
-                onInit={
-                    (typewriter) => {
-                        typewriter
-                        .typeString(header)
-                        .start()
-                    }
-                }
-                options={
-                    {
-                        delay: 70, 
-                        wrapperClassName: "text-4xl font-bold",
-                        cursor: ""
-                    }
-                }
+                onInit={(typewriter) => {typewriter.typeString(header).start()}}
+                options={{delay: 70, wrapperClassName: "text-4xl font-bold", cursor: ""}}
                 skipAddStyles={ true }
             />
         );

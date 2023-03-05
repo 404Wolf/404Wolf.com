@@ -2,6 +2,7 @@ import Project from "./Project";
 import "react";
 import { useEffect, useState } from "react";
 import Card from "../misc/Card";
+import { Fade, JackInTheBox } from "react-awesome-reveal";
 
 const Projects = () => {
     // A list of project IDs to include, in order. 
@@ -52,26 +53,26 @@ const Projects = () => {
     return (
         <div>
             <Card title="Projects">
-                <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-5">
-                    {
-                        projects.map(
-                            ([ project ], index) => {
-                                if (project === null) {
-                                    return <Project isDummy={ true } key={ index} />
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-between items-center gap-5">
+                    <JackInTheBox cascade duration={ 700 }>
+                            {projects.map(
+                                ([ project ], index) => {
+                                    if (project === null) {
+                                        return <Project isDummy={ true } key={ index} />
+                                    }
+                                    else {
+                                        return <Project 
+                                            id={ project.id }
+                                            name={ project.name }
+                                            cover={ project.cover }
+                                            page={ "/projects/"+ project.id }
+                                            date={ project.date }
+                                            key={ index }
+                                        />
+                                    }
                                 }
-                                else {
-                                    return <Project 
-                                        id={ project.id }
-                                        name={ project.name }
-                                        cover={ project.cover }
-                                        page={ "/projects/"+ project.id }
-                                        date={ project.date }
-                                        key={ index }
-                                    />
-                                }
-                            }
-                        )
-                    }
+                            )}
+                    </JackInTheBox>
                 </div>
             </Card>
         </div>
