@@ -17,7 +17,7 @@ const MainLayout = ({ children, header, type=true }) => {
     }
 
     return (
-        <div className="px-[6.5%] p-[4.5%] lg:px-[6%] xl:px-[8%] bg-gradient-to-tr from-[#16697a] to-[#1d4480]">
+        <div className="px-[6.5%] p-[4.5%] lg:px-[10%] xl:px-[12.5%] bg-gradient-to-tr from-[#16697a] to-[#1d4480]">
             {header && 
             <Link href="/"> 
                 <div className="absolute bg-gray-700 text-white rounded-full py-[6px] px-4 w-[15rem] md:w-[28rem] scale-110 md:-translate-y-[1.4rem] md:-translate-x-[.3rem] text-lg md:text-4xl font-bold z-50">
