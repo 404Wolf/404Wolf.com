@@ -1,4 +1,4 @@
-import Link from "next/Link";
+import Link from "next/link";
 import Typewriter from "typewriter-effect";
 
 const MainLayout = ({ children, header, type=true }) => {

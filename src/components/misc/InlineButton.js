@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 
 const InlineButton = ({ to, sameSiteTo, externalTo, background=true, children }) => {
     return (
