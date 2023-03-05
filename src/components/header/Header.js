@@ -48,7 +48,7 @@ const Header = () => {
                 </div>
 
                 <div className="flex md:flex-col md:gap-5 justify-between">
-                    <div className="hidden md:block mx-auto -m-2 scale-[105%] my-1">
+                    <div className="hidden md:block mx-auto scale-[105%] my-1">
                         { profileImage }
                     </div>
 
