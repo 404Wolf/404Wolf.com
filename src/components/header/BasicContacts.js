@@ -1,7 +1,7 @@
 import InlineButton from "@/components/misc/InlineButton";
 
 const BasicContacts = () => {
-    const backgroundColor = "bg-slate-350/[26%] backdrop-blur-xl drop-shadow-2xl-c text-[#C2d1d6]/[40%]";
+    const backgroundColor = "bg-slate-350/[22%] backdrop-blur-xl drop-shadow-2xl-c text-slate-200/[35%]";
 
     return (
         <div className="p-2 rounded-xl hidden sm:flex sm:gap-2">
