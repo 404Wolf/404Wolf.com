@@ -1,45 +1,32 @@
 import Image from "next/image";
 import Navbar from "./Navbar";
 import { useState } from "react";
-import Greeter from "./Greeter";
 import InlineButton from "../misc/InlineButton";
 
-const profileImageMe = "/resources/profileMe.jpg"
-const profileImageDog = "/resources/profileDog.jpg"
+const profileImageMe = "/resources/profileMe.webp"
+const profileImageDog = "/resources/profileDog.webp"
 
 const Header = () => {
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
-    const profileImageDesktop = (
+    const profileImage = (
         <Image 
             onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
             onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
             priority
             src={ profileImageSrc } 
-            width={ 300 } 
-            height={ 300 } 
+            width={ 400 } 
+            height={ 400 } 
             alt="Profile"
             className="rounded-full sm:rounded-[2.5rem] border-[9.5px] border-gray-500"
         />
     )
-    const profileImageMobile = (
-        <Image 
-            onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
-            onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
-            priority
-            src={ profileImageSrc } 
-            width={ 160 } 
-            height={ 160 } 
-            alt="Profile"
-            className="rounded-full sm:rounded-[2.5rem] border-[9.5px] border-gray-500"
-        />
-    )
-
+        
     return (
         <div>
             <div className="sm:flex sm:justify-between">
                 <div className="flex flex-col gap-5 justify-between">
-                    <div className="block sm:hidden mx-auto -m-2 scale-[105%]">
-                        { profileImageMobile }
+                    <div className="block sm:hidden mx-auto -m-2">
+                        { profileImage }
                     </div>
 
                     <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 mt-1 my-auto">
@@ -55,7 +42,7 @@ const Header = () => {
                 </div>
 
                 <div className="hidden sm:block mx-auto sm:scale-[105%] my-1 ml-5">
-                    { profileImageDesktop }
+                    { profileImage }
                 </div>
 
             </div>
