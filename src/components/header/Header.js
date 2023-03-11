@@ -25,17 +25,8 @@ const Header = () => {
     return (
         <div>
             <div className="flex flex-col gap-5 justify-between">
-                
-                <div className="bg-slate-700 text-white rounded-3xl text-xl text-center p-2">
-                    <Greeter/>
-                </div>
-                
-                <div className="block sm:hidden mx-auto w-40 h-40 relative">
-                    { profileImage }
-                </div>
-
-                <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 mt-1 my-auto">
-                    <div className="hidden sm:block h-36 w-36 relative float-right ml-4 mb-4 lg:mb-0">
+                <h2 className="text-sm md:text-lg text-left md:text-center sm:text-left indent-8 md:leading-6 mt-1 my-auto">
+                    <div className="h-28 w-28 md:h-36 md:w-36 relative float-right ml-2 mb-2 md:ml-4 md:mb-4 lg:mb-0">
                         { profileImage }
                     </div>
 

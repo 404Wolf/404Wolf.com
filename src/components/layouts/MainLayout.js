@@ -5,12 +5,12 @@ const MainLayout = ({ children, header, type=true }) => {
     return (
         <div>
             {header && <Link href="/"> 
-                <div className="hidden md:block absolute bg-gray-700 text-white rounded-full py-[6px] px-4 w-[23.6rem] scale-110 -translate-y-[1.4rem] -translate-x-[.3rem] text-lg text-4xl font-bold z-50 text-3xl font-bold">
+                <div className="md:absolute bg-gray-700 text-white rounded-full py-2 md:py-[6px] px-4 mx-auto mb-1 md:mb-4 md:my-0 md:mx-0 md:w-[23.6rem] md:scale-110 md:-translate-y-[1.4rem] md:-translate-x-[.3rem] text-2xl max-[690px]:text-3xl md:text-4xl text-center md:text-left font-bold z-50">
                     { type && <Greeter/> || header }
                 </div>
             </Link>}
 
-            <div className="hidden sm:block absolute top-[11.5rem] right-[-11.5rem] lg:top-0 lg:right-0 rotate-90 lg:rotate-0 z-50 rounded-xl">
+            <div className="md:absolute md:top-[11.5rem] md:right-[-11.5rem] lg:top-0 lg:right-0 md:rotate-90 lg:rotate-0 z-50 mb-1">
                 <BasicContacts/>
             </div>
 
