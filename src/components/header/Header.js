@@ -2,6 +2,7 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import InlineButton from "../misc/InlineButton";
+import Greeter from "./Greeter";
 
 const profileImageMe = "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
@@ -13,38 +14,40 @@ const Header = () => {
             onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
             onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
             priority
+            fill
+            sizes="100%"
             src={ profileImageSrc } 
-            width={ 400 } 
-            height={ 400 } 
             alt="Profile"
-            className="rounded-full sm:rounded-[2.5rem] border-[9.5px] border-gray-500"
+            className="rounded-[2.5rem] border-[9.5px] border-gray-500"
         />
     )
         
     return (
         <div>
-            <div className="sm:flex sm:justify-between">
-                <div className="flex flex-col gap-5 justify-between">
-                    <div className="block sm:hidden mx-auto -m-2">
-                        { profileImage }
-                    </div>
-
-                    <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 mt-1 my-auto">
-                        <p className="mb-2">
-                            I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
-                        </p>
-                        <p>
-                            Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton externalTo="mailto:wolfmermelstein@gmail.com">email me!</InlineButton>
-                        </p>
-                    </h2>
-
-                    <Navbar/>
+            <div className="flex flex-col gap-5 justify-between">
+                
+                <div className="bg-slate-700 text-white rounded-3xl text-xl text-center p-2">
+                    <Greeter/>
                 </div>
-
-                <div className="hidden sm:block mx-auto sm:scale-[105%] my-1 ml-5">
+                
+                <div className="block sm:hidden mx-auto w-40 h-40 relative">
                     { profileImage }
                 </div>
 
+                <h2 className="text-lg text-center sm:text-left indent-0 sm:indent-8 leading-6 mt-1 my-auto">
+                    <div className="hidden sm:block h-36 w-36 relative float-right ml-4 mb-4 lg:mb-0">
+                        { profileImage }
+                    </div>
+
+                    <p className="mb-2">
+                        I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
+                    </p>
+                    <p>
+                        Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton externalTo="mailto:wolfmermelstein@gmail.com">email me!</InlineButton>
+                    </p>
+                </h2>
+
+                <Navbar/>
             </div>
         </div>
     );
