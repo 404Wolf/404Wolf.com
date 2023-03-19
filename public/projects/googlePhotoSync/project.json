@@ -1,6 +1,7 @@
 {
     "id": "googlePhotoSync",
     "name": "Google Photo Syncer",
+    "tags": ["personal"],
     "date": "2022",
     "cover": "cover.webp",
     "description":""

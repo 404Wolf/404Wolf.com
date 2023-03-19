@@ -1,6 +1,7 @@
 {
     "id": "minecraftAPI",
     "name": "Minecraft Name API",
+    "tags": ["personal"],
     "date": "2022",
     "cover": "cover.webp",
     "description":""
