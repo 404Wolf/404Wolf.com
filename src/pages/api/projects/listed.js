@@ -19,6 +19,12 @@ export default async function handler(req, res) {
             .then(data => data.data)
             .then((data) => {by_id[projectId] = data; return data})
     }))
+    // Change the relative cover path to be absolute
+    projects = Object.entries(projects).forEach(
+        ([id, data]) => {
+            by_id[id].cover = `projects/${id}/${data.cover}`
+        }
+    )
 
     // Return the list of projects and the data for each project
     res.status(200).json({ projects: by_id })
