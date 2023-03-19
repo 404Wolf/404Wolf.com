@@ -1,8 +1,25 @@
 import path from 'path';
 import fs from 'fs';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+    const url = `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`
+
+    // The path where all projects are stored
     const projectsPath = path.join(process.cwd(), "public", 'projects')
-    const projects = fs.readdirSync(projectsPath).filter(project => project !== "projects.json")
-    res.status(200).json({ projects: projects })
+
+    // Fetch all the project ids from the 
+    let projects = fs.readdirSync(projectsPath)
+
+    const by_id = {}
+    // Fetch data for each project, and then store the Promise that is fetching the data
+    // into the projects array, and the actual data into the by_id object
+    projects = await Promise.all(projects.map(projectId => {
+        return fetch(`${url}/api/projects/by_id`, {headers: {id: projectId}})
+            .then(res => res.json())
+            .then(data => data.data)
+            .then((data) => {by_id[projectId] = data; return data})
+    }))
+
+    // Return the list of projects and the data for each project
+    res.status(200).json({ projects: by_id })
 }
