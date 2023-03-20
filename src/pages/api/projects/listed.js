@@ -1,9 +1,12 @@
 import path from 'path';
 import fs from 'fs';
+import { worker as projectFromId } from './by_id';
 
 export default async function handler(req, res) {
-    const url = `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`
+    res.status(200).json({ projects: worker() })
+}
 
+export function worker () {
     // The path where all projects are stored
     const projectsPath = path.join(process.cwd(), "public", 'projects')
 
@@ -13,19 +16,10 @@ export default async function handler(req, res) {
     const by_id = {}
     // Fetch data for each project, and then store the Promise that is fetching the data
     // into the projects array, and the actual data into the by_id object
-    projects = await Promise.all(projects.map(projectId => {
-        return fetch(`${url}/api/projects/by_id`, {headers: {id: projectId}})
-            .then(res => res.json())
-            .then(data => data.data)
-            .then((data) => {by_id[projectId] = data; return data})
-    }))
-    // Change the relative cover path to be absolute
-    projects = Object.entries(projects).forEach(
-        ([id, data]) => {
-            by_id[id].cover = `projects/${id}/${data.cover}`
-        }
+    projects = projects.forEach(
+        (id) => {by_id[id] = projectFromId(id)}
     )
 
     // Return the list of projects and the data for each project
-    res.status(200).json({ projects: by_id })
+    return by_id
 }
