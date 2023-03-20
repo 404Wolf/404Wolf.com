@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BasicContacts from "../header/BasicContacts";
+import Greeter from "../header/Greeter";
 
 const MainLayout = ({ children, header, type=true }) => {
     return (
