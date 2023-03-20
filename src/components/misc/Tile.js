@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Typewriter from "typewriter-effect";
 
 const Card = ( {title, className, children} ) => {

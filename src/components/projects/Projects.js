@@ -1,6 +1,6 @@
 import Project from "./Project";
 import "react";
-import Tile from "../misc/Card";
+import Tile from "../misc/Tile";
 import { Grid } from "@material-ui/core";
 
 const Projects = ( { projects } ) => {

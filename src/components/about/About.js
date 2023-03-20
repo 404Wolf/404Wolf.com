@@ -1,4 +1,4 @@
-import Card from "../misc/Card";
+import Card from "../misc/Tile";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 

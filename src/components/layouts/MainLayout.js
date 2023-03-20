@@ -15,7 +15,7 @@ const MainLayout = ({ children, header, type=true }) => {
                 <BasicContacts/>
             </div>
 
-            <div className={"bg-slate-500 p-5 rounded-3xl  drop-shadow-4xl-c"}>
+            <div className={"bg-slate-500 p-5 rounded-3xl drop-shadow-4xl-c"}>
                 { children }
             </div>
         </div>
