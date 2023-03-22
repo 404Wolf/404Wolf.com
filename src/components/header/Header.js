@@ -2,7 +2,6 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import InlineButton from "../misc/InlineButton";
-import Greeter from "./Greeter";
 
 const profileImageMe = "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
