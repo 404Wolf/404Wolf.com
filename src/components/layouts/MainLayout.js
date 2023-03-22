@@ -2,14 +2,14 @@ import Link from "next/link";
 import BasicContacts from "../header/BasicContacts";
 import Greeter from "../header/Greeter";
 
-const MainLayout = ({ children, header, type=true }) => {
+const MainLayout = ({ children, header, headerWidth="w-fit", type=true }) => {
     return (
         <div>
-            <div className="bg-slate-500 p-5 sm:p-0 rounded-3xl mb-5 sm:mb-0 m-0 sm:m-2 sm:bg-transparent">
+            <div className="bg-slate-500 p-5 sm:p-0 rounded-3xl mb-5 sm:mb-3 sm:bg-transparent">
                 <div className="bg-slate-300 sm:bg-transparent p-5 sm:p-0 rounded-2xl">
                     {header && <Link href="/"> 
-                        <div className="sm:absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 mx-auto mb-1 sm:mb-4 sm:my-0 sm:mx-0 sm:w-[20rem] sm:scale-[120%] sm:-translate-y-[1.35rem] text-[22px] sm:text-[25px] text-center sm:text-left font-bold z-50">
-                            { type && <Greeter/> || header }
+                        <div className={ `sm:absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 mx-auto mb-1 sm:mb-4 sm:my-0 sm:mx-0 ${headerWidth} sm:scale-[120%] sm:-translate-y-[1.35rem] text-[22px] sm:text-[25px] text-center sm:text-left font-bold z-50` }>
+                            { type && header || <Greeter/> }
                         </div>
                     </Link>}
                     

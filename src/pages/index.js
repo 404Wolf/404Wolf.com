@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
 
 const Home = ({ projects }) => {
     return (
-        <MainLayout header={<Greeter/>} type={ false }>
+        <MainLayout header={<Greeter/>} headerWidth="w-full sm:w-[20rem] sm:translate-x-4" type={ false }>
             <div className="flex flex-col gap-7">
                 <div className="bg-slate-300 p-5 rounded-2xl">
                     <Header/>
