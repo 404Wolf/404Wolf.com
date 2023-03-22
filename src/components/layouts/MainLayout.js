@@ -2,7 +2,7 @@ import Link from "next/link";
 import BasicContacts from "../header/BasicContacts";
 import Greeter from "../header/Greeter";
 
-const MainLayout = ({ children, header, headerWidth="w-fit", type=true }) => {
+const MainLayout = ({ children, header, headerWidth="w-full sm:w-fit", type=true }) => {
     return (
         <div>
             <div className="bg-slate-500 p-5 sm:p-0 rounded-3xl mb-5 sm:mb-3 sm:bg-transparent">
