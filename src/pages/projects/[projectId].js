@@ -5,11 +5,12 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { worker as projectFromId } from '../api/projects/by_id';
 import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
+import Tag from '@/components/misc/Tag';
 
 const Project = ({ projectId, projectData }) => {
     const [ projectMd, setProjectMd ] = useState('Loading...')
 
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -20,6 +21,10 @@ const Project = ({ projectId, projectData }) => {
     }, []);
 
     useEffect(() => {
+        setWindowWidth(window.innerWidth);
+    }, []);
+
+    useEffect(() => {
         fetch(`/projects/${projectId}/project.md`)
             .then(res => res.text())
             .then(text => {
@@ -27,24 +32,28 @@ const Project = ({ projectId, projectData }) => {
                 const replacer = (match, alt, path, width, height, float) => {
                     const mobileExtraWidth = 40
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
-                    // than 400 pixels wide
-                    let idealWidth = Number(width) + ((windowWidth < 400) ? mobileExtraWidth : 0)
-                    // Map the idealWidth to be out of 100, so that it can be used as a percentage
-                    // of the window's width
-                    idealWidth = (100/(100+mobileExtraWidth)) * idealWidth
+                    // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
+                    let idealWidth = (Number(width) + ((windowWidth < 400) ? mobileExtraWidth : 0)) * (100/(100+mobileExtraWidth))
 
-                    const replaced = <img
-                        src={`${projectId}/${path}`}
-                        alt={alt}
-                        style={{
+                    const styles = {
                         float: float ? `${float}` : 'right',
                         width: width ? `${idealWidth}%` : height ? "" : "25%",
                         height: height ? `${height}px` : "",
                         marginRight: float == "left" ? "1rem" : "",
                         marginLeft: float == "right" ? "1rem" : "",
-                        }}
-                    />
-                    console.log(replaced)
+                    }
+
+                    const replaced = (
+                        <div className="relative inline-block float-right container" style={ styles }>
+                            <img
+                                src={`${projectId}/${path}`}
+                                alt={alt}
+                            />
+                            <Tag position={ (float == "left") ? "br" : "bl" }>
+                                {alt}
+                            </Tag>
+                        </div>
+                    )
                     return ReactDOMServer.renderToString(replaced)
                 }
 
