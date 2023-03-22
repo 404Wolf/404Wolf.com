@@ -1,19 +1,20 @@
 import InlineButton from "@/components/misc/InlineButton";
+import BasicContact from "./BasicContact";
 
 const BasicContacts = () => {
-    const backgroundColor = "bg-mid-blue md:bg-slate-350/[27%] backdrop-blur-xl drop-shadow-2xl-c text-slate-200/[55%] md:text-slate-200/[35%]";
-
     return (
-        <div className="p-2 rounded-xl flex gap-1 md:gap-2 text-sm justify-center">
-            <InlineButton internalTo="404Wolf.com" customBackgroundColor={ backgroundColor }>
+        <div className="p-2 rounded-xl flex gap-1 md:gap-2 text-xs justify-between justify-items-stretch">
+            <BasicContact url="404Wolf.com">
                 404Wolf.com
-            </InlineButton>
-            <InlineButton externalTo="mailto:caffeinate@msn.com" customBackgroundColor={ backgroundColor }>
+            </BasicContact>
+
+            <BasicContact url="mailto:caffeinate@msn.com">
                 Caffeinate@msn.com
-            </InlineButton>
-            <InlineButton externalTo="tel:+10202657180" customBackgroundColor={ backgroundColor }>
+            </BasicContact>
+
+            <BasicContact url="tel:+10202657180">
                 (929)265-7180
-            </InlineButton>
+            </BasicContact>
         </div>
     );
 }
