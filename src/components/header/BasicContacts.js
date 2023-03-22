@@ -3,7 +3,7 @@ import BasicContact from "./BasicContact";
 
 const BasicContacts = () => {
     return (
-        <div className="py-2 rounded-xl flex gap-2 text-xs justify-between justify-items-stretch">
+        <div className="py-2 flex flex-col xs:flex-row gap-2 justify-between">
             <BasicContact url="404Wolf.com">
                 404Wolf.com
             </BasicContact>
