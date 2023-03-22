@@ -13,11 +13,13 @@ const Project = ({ projectId, projectData }) => {
             .then(res => res.text())
             .then(text => {
                 const replacer = (match, alt, path, width, height, float) => {
-                    return `<img src="${projectId}/${path}" alt="${alt}" style="float: ${float ? float : 'right'}${width ? `width: ${width}px;` : ""}${height ? `height: ${height}px;` : ""}"/>`
+                    console.log(float)
+                    const replaced = `<img src="${projectId}/${path}" alt="${alt}" style="float: ${float ? float : 'right'};${width ? `width: ${width}px` : ""};${height ? `height: ${height}px;` : ""}"/>`
+                    console.log(replaced)
+                    return replaced
                 }
 
                 text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)/g, replacer);
-                console.log(text)
                 setProjectMd(text)
             })
     }, [projectId])
