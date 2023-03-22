@@ -26,7 +26,7 @@ const Home = ({ projects }) => {
                     <Header/>
                 </div>
 
-                <div className="flex flex-row gap-7">
+                <div className="flex flex-row gap-5 sm:gap-7">
                     <div className="basis-[40%] sm:basis-[45%] lg:basis-[65%]">
                         <Projects projects={ projects }/>
                     </div>
