@@ -4,7 +4,14 @@ import Tile from "../misc/Tile";
 import { Grid } from "@material-ui/core";
 
 const Projects = ( { projects } ) => {
-    console.log(projects)
+    const gridProjects = Object.values(projects)
+
+    // Fill projects up with dummy projects to make the grid look nice
+    // We want a minimum of 20 projects
+    while (gridProjects.length < 20) {
+        gridProjects.push(null)
+    }
+
     return (
         <div>
             <Tile title="Projects">
@@ -13,23 +20,19 @@ const Projects = ( { projects } ) => {
                         (project, index) => {
                             if (project === null) {
                                 return (
-                                    <Grid item key={ index}> 
-                                        <Project isDummy={ true } key={ index} /> 
-                                    </Grid>
+                                    <Project isDummy={ true } key={ index} /> 
                                 )
                             }
                             else {
                                 return (
-                                    <Grid item key={ index}> 
-                                        <Project 
-                                            id={ project.id }
-                                            name={ project.name }
-                                            cover={ project.cover }
-                                            page={ "/projects/"+ project.id }
-                                            date={ project.date }
-                                            key={ index }
-                                        />
-                                    </Grid>
+                                    <Project 
+                                        id={ project.id }
+                                        name={ project.name }
+                                        cover={ project.cover }
+                                        page={ "/projects/"+ project.id }
+                                        date={ project.date }
+                                        key={ index }
+                                    />
                                 )
                             }
                         }
