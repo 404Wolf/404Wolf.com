@@ -30,10 +30,27 @@ const Project = ({ projectId, projectData }) => {
             .then(text => {
                 console.log(windowWidth)
                 const replacer = (match, alt, path, width, height, float) => {
-                    const mobileExtraWidth = 20
+                    let extraWidth
+
+                    if (windowWidth < 400) {
+                        extraWidth = 30
+                    }
+                    else if (windowWidth < 600) {
+                        extraWidth = 25
+                    }
+                    else if (windowWidth < 800) {
+                        extraWidth = 20
+                    }
+                    else if (windowWidth < 1000) {
+                        extraWidth = 10
+                    }
+                    else {
+                        extraWidth = 0
+                    }
+
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
                     // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
-                    let idealWidth = (Number(width) + ((windowWidth < 500) ? mobileExtraWidth : 0))
+                    let idealWidth = (Number(width) + extraWidth)
                     if (idealWidth > 100) {
                         idealWidth = 100
                     }
