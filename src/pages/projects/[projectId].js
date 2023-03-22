@@ -13,7 +13,7 @@ const Project = ({ projectId, projectData }) => {
             .then(res => res.text())
             .then(text => {
                 const replacer = (match, alt, path, width, height, float) => {
-                    return `<img src="${projectId}/${path}" alt="${alt}" style="float: ${float ? float : 'none'}${width ? `width: ${width}px;` : ""}${height ? `height: ${height}px;` : ""}"/>`
+                    return `<img src="${projectId}/${path}" alt="${alt}" style="float: ${float ? float : 'right'}${width ? `width: ${width}px;` : ""}${height ? `height: ${height}px;` : ""}"/>`
                 }
 
                 text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)/g, replacer);
