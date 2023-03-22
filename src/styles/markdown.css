@@ -51,7 +51,7 @@
 
 @media not all and (min-width: 640px) { /* 1024px is "lg" with tailwind */
   .markdown p {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 

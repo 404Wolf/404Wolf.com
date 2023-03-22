@@ -17,7 +17,7 @@ const Header = () => {
             sizes="100%"
             src={ profileImageSrc } 
             alt="Profile"
-            className="rounded-[2.5rem] border-[9.5px] border-gray-500"
+            className="rounded-[2.5rem] border-[8px] md:border-[9.5px] border-gray-500"
         />
     )
         
@@ -25,7 +25,7 @@ const Header = () => {
         <div>
             <div className="py-0 sm:py-[.2rem]"/>
             <div className="flex flex-col gap-5 justify-between">
-                <h2 className="text-sm md:text-lg text-left sm:text-left indent-6 sm:indent-8 md:leading-6 mt-1 my-auto">
+                <h2 className="text-xs md:text-lg text-left sm:text-left indent-6 sm:indent-8 md:leading-6 mt-1 my-auto">
                     <div className="h-28 w-28 md:h-36 md:w-36 relative float-right ml-2 mb-2 md:ml-4 md:mb-4 lg:mb-0">
                         { profileImage }
                     </div>
