@@ -28,7 +28,6 @@ const Project = ({ projectId, projectData }) => {
         fetch(`/projects/${projectId}/project.md`)
             .then(res => res.text())
             .then(text => {
-                console.log(windowWidth)
                 const replacer = (match, alt, path, width, height, float) => {
                     let extraWidth
 
