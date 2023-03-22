@@ -1,6 +1,6 @@
 import Typewriter from "typewriter-effect";
 
-const Card = ( {title, className, children} ) => {
+const Tile = ( {title, className, children} ) => {
     const headerStyle = "text-center absolute -translate-x-[.9rem] -translate-y-[1rem] bg-gray-700 text-white text-lg p-1 px-2 rounded-full w-32";
 
     return (
@@ -21,4 +21,4 @@ const Card = ( {title, className, children} ) => {
     );
 }
  
-export default Card;
+export default Tile;

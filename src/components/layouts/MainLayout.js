@@ -13,7 +13,7 @@ const MainLayout = ({ children, header, type=true }) => {
                         </div>
                     </Link>}
                     
-                    <div className="sm:absolute sm:top-[10rem] sm:right-[-8.55rem] md:right-[-8.08rem] lg:top-0 lg:right-2 sm:rotate-90 lg:rotate-0 z-50 -mb-4 sm:mb-1">
+                    <div className="sm:absolute sm:top-[10rem] sm:right-[-8rem] md:right-[-7.7rem] lg:top-0 lg:right-2 sm:rotate-90 lg:rotate-0 z-50 -mb-4 sm:mb-1">
                         <BasicContacts/>
                     </div>
                 </div>

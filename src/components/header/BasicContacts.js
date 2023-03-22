@@ -1,4 +1,3 @@
-import InlineButton from "@/components/misc/InlineButton";
 import BasicContact from "./BasicContact";
 
 const BasicContacts = () => {

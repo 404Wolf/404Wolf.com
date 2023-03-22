@@ -1,4 +1,5 @@
 import MainLayout from '@/components/layouts/MainLayout';
+import Tile from '@/components/misc/Tile';
 import { useEffect, useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { worker as projectFromId } from '../api/projects/by_id';
@@ -16,13 +17,13 @@ const Project = ({ projectId, projectData }) => {
     }, [projectId])
 
     return (
-        <MainLayout header={projectData.name}>
+        <MainLayout header={ projectData.name }>
             <div>
-                <Card className="overflow-auto">
+                <Tile className="overflow-auto">
                     <ReactMarkdown className="markdown">
                         {projectMd}
                     </ReactMarkdown>
-                </Card>
+                </Tile>
             </div>
         </MainLayout>
     );
