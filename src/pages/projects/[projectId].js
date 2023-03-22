@@ -1,5 +1,4 @@
 import MainLayout from '@/components/layouts/MainLayout';
-import Card from '@/components/misc/Tile';
 import { useEffect, useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { worker as projectFromId } from '../api/projects/by_id';

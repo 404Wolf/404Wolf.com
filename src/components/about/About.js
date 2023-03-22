@@ -1,4 +1,4 @@
-import Card from "../misc/Tile";
+import Tile from "../misc/Tile";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 
@@ -12,13 +12,13 @@ const About = () => {
     }, []);
 
     return (
-        <Card title="About">
+        <Tile title="About">
             <div className="text-left indent-10">
                 <ReactMarkdown className="markdown">
                     { aboutMe }
                 </ReactMarkdown>
             </div>
-        </Card>
+        </Tile>
     );
 }
  

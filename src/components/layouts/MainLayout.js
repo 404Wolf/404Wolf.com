@@ -5,15 +5,17 @@ import Greeter from "../header/Greeter";
 const MainLayout = ({ children, header, type=true }) => {
     return (
         <div>
-            <div className="bg-slate-500 p-5 md:p-0 rounded-3xl mb-4 md:bg-transparent">
-                {header && <Link href="/"> 
-                    <div className="md:absolute bg-gray-700 text-white rounded-3xl md:rounded-full py-2 md:py-[6px] px-4 mx-auto mb-1 md:mb-4 md:my-0 md:mx-0 md:w-[20rem] md:scale-[120%] md:-translate-y-[1.35rem] text-[22px] sm:text-[25px] text-center md:text-left font-bold z-50">
-                        { type && <Greeter/> || header }
+            <div className="bg-slate-500 p-5 sm:p-0 rounded-3xl mb-5 sm:mb-0 m-0 sm:m-2 sm:bg-transparent">
+                <div className="bg-slate-300 sm:bg-transparent p-5 sm:p-0 rounded-2xl">
+                    {header && <Link href="/"> 
+                        <div className="sm:absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 mx-auto mb-1 sm:mb-4 sm:my-0 sm:mx-0 sm:w-[20rem] sm:scale-[120%] sm:-translate-y-[1.35rem] text-[22px] sm:text-[25px] text-center sm:text-left font-bold z-50">
+                            { type && <Greeter/> || header }
+                        </div>
+                    </Link>}
+                    
+                    <div className="sm:absolute sm:top-[10rem] sm:right-[-8.55rem] md:right-[-8.08rem] lg:top-0 lg:right-2 sm:rotate-90 lg:rotate-0 z-50 -mb-4 sm:mb-1">
+                        <BasicContacts/>
                     </div>
-                </Link>}
-                
-                <div className="md:absolute md:top-[10rem] md:right-[-10rem] lg:top-0 lg:right-0 md:rotate-90 lg:rotate-0 z-50 -mb-4 md:mb-1">
-                    <BasicContacts/>
                 </div>
             </div>
 
