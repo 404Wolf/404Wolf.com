@@ -6,7 +6,7 @@ const MainLayout = ({ children, header, type=true }) => {
     return (
         <div>
             {header && <Link href="/"> 
-                <div className="md:absolute bg-gray-700 text-white rounded-full py-2 md:py-[6px] px-4 mx-auto mb-1 md:mb-4 md:my-0 md:mx-0 md:w-[19.5rem] md:scale-110 md:-translate-y-[1.4rem] md:-translate-x-[.3rem] text-2xl max-[690px]:text-3xl text-center md:text-left font-bold z-50">
+                <div className="md:absolute bg-gray-700 text-white rounded-full py-2 md:py-[6px] px-4 mx-auto mb-1 md:mb-4 md:my-0 md:mx-0 md:w-[19.5rem] md:scale-[120%] md:-translate-y-[1rem] text-2xl max-[690px]:text-3xl text-center md:text-left font-bold z-50">
                     { type && <Greeter/> || header }
                 </div>
             </Link>}

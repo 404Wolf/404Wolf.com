@@ -1,7 +1,6 @@
 import Project from "./Project";
 import "react";
 import Tile from "../misc/Tile";
-import { Grid } from "@material-ui/core";
 
 const Projects = ( { projects } ) => {
     const gridProjects = Object.values(projects)
@@ -16,7 +15,7 @@ const Projects = ( { projects } ) => {
         <div>
             <Tile title="Projects">
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-between items-center gap-5">
-                    {Object.values(projects).map(
+                    {Object.values(gridProjects).map(
                         (project, index) => {
                             if (project === null) {
                                 return (
