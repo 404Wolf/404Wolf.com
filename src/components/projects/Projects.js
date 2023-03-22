@@ -14,7 +14,7 @@ const Projects = ( { projects } ) => {
     return (
         <div>
             <Tile title="Projects">
-                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-between items-center gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-between items-center gap-4 sm:gap-5">
                     {Object.values(gridProjects).map(
                         (project, index) => {
                             if (project === null) {

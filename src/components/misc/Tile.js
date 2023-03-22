@@ -14,7 +14,7 @@ const Tile = ( {title, className, children} ) => {
                     />
                 </h2>
             </div>}
-            <div className={`p-5 ${title ? "pt-8" : "pt-0"} bg-slate-300 rounded-2xl h-full ${className}`}>
+            <div className={`p-4 md:p-5 ${title ? "pt-8" : "pt-0"} bg-slate-300 rounded-2xl h-full ${className}`}>
                 { children }
             </div>
         </div>
