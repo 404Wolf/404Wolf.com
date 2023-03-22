@@ -33,7 +33,9 @@ const Project = ({ projectId, projectData }) => {
                     const mobileExtraWidth = 40
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
                     // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
-                    let idealWidth = (Number(width) + ((windowWidth < 400) ? mobileExtraWidth : 0)) * (100/(100+mobileExtraWidth))
+                    let idealWidth = (Number(width) + ((windowWidth < 500) ? mobileExtraWidth : 0)) * (100/(100+mobileExtraWidth))
+                    console.log(idealWidth)
+                    console.log(windowWidth < 500)
 
                     const styles = {
                         float: float ? `${float}` : 'right',
