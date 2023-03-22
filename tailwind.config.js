@@ -11,7 +11,7 @@ module.exports = {
     theme: {
         extend: {
             screens: {
-                "xs": "400px",
+                "xs": "330px",
             },
             backgroundImage: {
                 "blurple-wave": "linear-gradient(to top right, #3f6d85, #7e65ad)",
