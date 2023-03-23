@@ -6,6 +6,7 @@ import { worker as projectFromId } from '../api/projects/by_id';
 import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
 import Tag from '@/components/misc/Tag';
+import Link from 'next/link';
 
 const Project = ({ projectId, projectData }) => {
     const [ projectMd, setProjectMd ] = useState('Loading...')
@@ -63,16 +64,18 @@ const Project = ({ projectId, projectData }) => {
                     }
 
                     const replaced = (
-                        <div className="relative inline-block float-right container my-2" style={ styles }>
-                            <img
-                                src={`${projectId}/${path}`}
-                                alt={alt}
-                                className="border-slate-500 border-4"
-                            />
-                            <Tag position={ (float == "left") ? "br" : "bl" }>
-                                {alt}
-                            </Tag>
-                        </div>
+                        <Link href={`/projects/${projectId}/${path}`}>
+                            <div className="relative inline-block float-right container my-2" style={ styles }>
+                                <img
+                                    src={`${projectId}/${path}`}
+                                    alt={alt}
+                                    className="border-slate-500 border-4"
+                                />
+                                <Tag position={ (float == "left") ? "br" : "bl" }>
+                                    {alt}
+                                </Tag>
+                            </div>
+                        </Link>
                     )
                     return ReactDOMServer.renderToString(replaced)
                 }
@@ -96,6 +99,7 @@ const Project = ({ projectId, projectData }) => {
 }
 
 export async function getServerSideProps({ params }) {
+    console.log(params)
     return {
         props: {
             projectId: params.projectId,
