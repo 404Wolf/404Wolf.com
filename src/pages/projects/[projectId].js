@@ -35,31 +35,38 @@ const Project = ({ projectId, projectData }) => {
                     let extraWidth
 
                     if (windowWidth < 400) {
-                        extraWidth = 32
+                        extraWidth = 28
                     }
                     else if (windowWidth < 600) {
-                        extraWidth = 26
+                        extraWidth = 22
                     }
                     else if (windowWidth < 1000) {
-                        extraWidth = 14
+                        extraWidth = 9
                     }
                     else if (windowWidth < 1300) {
-                        extraWidth = 8
+                        extraWidth = 7
                     }
                     else {
                         extraWidth = 2
                     }
 
+                    let idealWidth
+
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
                     // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
-                    let idealWidth = (Number(width) + extraWidth)
+                    if (width) {
+                        idealWidth = (Number(width) + extraWidth)
+                    }
+                    else {
+                        idealWidth = 22
+                    }
                     if (idealWidth > 100) {
                         idealWidth = 100
                     }
 
                     const styles = {
                         float: float ? `${float}` : 'right',
-                        width: width ? `${idealWidth}%` : height ? "" : "25%",
+                        width: `${idealWidth}%`,
                         height: height ? `${height}px` : "",
                         marginRight: float == "left" ? "1rem" : "",
                         marginLeft: float == "right" ? "1rem" : "",
