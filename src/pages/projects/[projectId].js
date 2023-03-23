@@ -82,7 +82,7 @@ const Project = ({ projectId, projectData }) => {
 
     return (
         <MainLayout header={ projectData.name }>
-            <div className={projectData.description && "mt-10"}>
+            <div className={projectData.description && "mt-1 sm:mt-10"}>
                 { projectData.description && <Tile title="Overview" className={"mb-6"}>{ projectData.description }</Tile> }
 
                 <Tile className="overflow-auto" title="Project">
