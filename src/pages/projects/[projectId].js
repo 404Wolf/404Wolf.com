@@ -8,6 +8,7 @@ import ReactDOMServer from 'react-dom/server';
 import Tag from '@/components/misc/Tag';
 import Link from 'next/link';
 import ProjectImage from '@/components/projects/ProjectImage';
+import Image from "next/image"
 
 const Project = ({ projectId, projectData }) => {
     const [ projectMd, setProjectMd ] = useState('Loading...')
@@ -83,7 +84,15 @@ const Project = ({ projectId, projectData }) => {
     return (
         <MainLayout header={ projectData.name }>
             <div className={projectData.description && "mt-1 sm:mt-10"}>
-                { projectData.description && <Tile title="Overview" className={"mb-6"}>{ projectData.description }</Tile> }
+                {projectData.description && 
+                <Tile title="Overview" className="flex gap-5 mb-6">
+                    <div className="basis-5/6">
+                        {projectData.description}
+                    </div>
+                    <div className="relative basis-1/6 pointer-events-none">
+                        <ProjectImage src={ projectData.cover }/>
+                    </div>
+                </Tile>}
 
                 <Tile className="overflow-auto" title="Project">
                     <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
