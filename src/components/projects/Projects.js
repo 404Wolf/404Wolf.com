@@ -7,7 +7,7 @@ const Projects = ( { projects } ) => {
 
     // Fill projects up with dummy projects to make the grid look nice
     // We want a minimum of 20 projects
-    while (gridProjects.length < 20) {
+    while (gridProjects.length < 30) {
         gridProjects.push(null)
     }
 
