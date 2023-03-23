@@ -63,10 +63,11 @@ const Project = ({ projectId, projectData }) => {
                     }
 
                     const replaced = (
-                        <div className="relative inline-block float-right container" style={ styles }>
+                        <div className="relative inline-block float-right container my-2" style={ styles }>
                             <img
                                 src={`${projectId}/${path}`}
                                 alt={alt}
+                                className="border-slate-500 border-4"
                             />
                             <Tag position={ (float == "left") ? "br" : "bl" }>
                                 {alt}
