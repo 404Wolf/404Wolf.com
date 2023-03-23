@@ -12,7 +12,7 @@
 .markdown h1 {
   text-align: center;
   padding-top: 1em;
-  padding-bottom: 1em;
+  padding-bottom: .2em;
   font-size: 1.8em;
   line-height: .8;
   font-weight: 500;
@@ -23,18 +23,18 @@
 }
 
 .markdown h2 {
-  padding-bottom: .4em;
+  padding-bottom: .2em;
   font-size: 1.5em;
   font-weight: 430;
 }
 .markdown h3 {
-  font-size: 1em;
+  font-size: 1.4em;
 }
 .markdown h4 {
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
 .markdown h5, h6 {
-  font-size: 1em;
+  font-size: 1.2em;
 }
 
 .markdown p {
@@ -54,6 +54,28 @@
   }
 }
 
+ul {
+  list-style-type: disc;
+  padding-left: 2em;
+}
+
+li {
+  font-size: 1em;
+  padding-bottom: .15em;
+  margin: .1rem
+}
+
+a {
+  color: rgb(46, 62, 102);
+  text-decoration: underline;
+  text-decoration-color: rgb(118, 141, 172);
+  text-decoration-thickness: 1.4px;
+  transition: color .15s;
+}
+a:hover {
+  color: rgb(100 116 139);
+}
+
 .markdown pre, code {
   font-family: 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Consolas', monospace;
 }
@@ -71,17 +93,6 @@
   looks subtly better. */
   tab-size: 4;
    /* Tab size of 4 is probably more common in editors etc. */
-}
-
-.markdown .page-a4, .page.page-a4 {
-   /* A4 paper used in most places. */
-  width: 21cm;
-  height: 29.7cm;
-}
-.markdown .page-letter, .page.page-letter {
-   /* Standard U.S. letter */
-  width: 8.5in;
-  height: 11in;
 }
 
 .link {

@@ -7,6 +7,7 @@ import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
 import Tag from '@/components/misc/Tag';
 import Link from 'next/link';
+import ProjectImage from '@/components/projects/ProjectImage';
 
 const Project = ({ projectId, projectData }) => {
     const [ projectMd, setProjectMd ] = useState('Loading...')
@@ -38,14 +39,14 @@ const Project = ({ projectId, projectData }) => {
                     else if (windowWidth < 600) {
                         extraWidth = 25
                     }
-                    else if (windowWidth < 800) {
-                        extraWidth = 20
-                    }
                     else if (windowWidth < 1000) {
-                        extraWidth = 10
+                        extraWidth = 12
+                    }
+                    else if (windowWidth < 1300) {
+                        extraWidth = 7
                     }
                     else {
-                        extraWidth = 0
+                        extraWidth = 3
                     }
 
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
@@ -64,18 +65,12 @@ const Project = ({ projectId, projectData }) => {
                     }
 
                     const replaced = (
-                        <Link href={`/projects/${projectId}/${path}`}>
-                            <div className="relative inline-block float-right container my-2" style={ styles }>
-                                <img
-                                    src={`${projectId}/${path}`}
-                                    alt={alt}
-                                    className="border-slate-500 border-4"
-                                />
-                                <Tag position={ (float == "left") ? "br" : "bl" }>
-                                    {alt}
-                                </Tag>
-                            </div>
-                        </Link>
+                        <ProjectImage 
+                            src={ `${projectId}/${path}` } 
+                            styles={ styles }
+                            tag={ alt }
+                            float={ float }
+                        />
                     )
                     return ReactDOMServer.renderToString(replaced)
                 }
@@ -87,8 +82,10 @@ const Project = ({ projectId, projectData }) => {
 
     return (
         <MainLayout header={ projectData.name }>
-            <div>
-                <Tile className="overflow-auto">
+            <div className={projectData.description && "mt-10"}>
+                { projectData.description && <Tile title="Overview" className={"mb-6"}>{ projectData.description }</Tile> }
+
+                <Tile className="overflow-auto" title="Project">
                     <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
                         {projectMd}
                     </ReactMarkdown>
