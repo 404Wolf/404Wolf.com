@@ -30,23 +30,23 @@ const Project = ({ projectId, projectData }) => {
         fetch(`/projects/${projectId}/project.md`)
             .then(res => res.text())
             .then(text => {
-                const replacer = (match, alt, path, width, height, float) => {
+                const replacer = (match, alt, filename, width, height, float) => {
                     let extraWidth
 
                     if (windowWidth < 400) {
-                        extraWidth = 30
+                        extraWidth = 32
                     }
                     else if (windowWidth < 600) {
-                        extraWidth = 25
+                        extraWidth = 26
                     }
                     else if (windowWidth < 1000) {
-                        extraWidth = 12
+                        extraWidth = 14
                     }
                     else if (windowWidth < 1300) {
-                        extraWidth = 7
+                        extraWidth = 8
                     }
                     else {
-                        extraWidth = 3
+                        extraWidth = 2
                     }
 
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
@@ -66,7 +66,7 @@ const Project = ({ projectId, projectData }) => {
 
                     const replaced = (
                         <ProjectImage 
-                            src={ `${projectId}/${path}` } 
+                            src={ `${projectId}/resources/${filename}` } 
                             styles={ styles }
                             tag={ alt }
                             float={ float }
