@@ -54,19 +54,24 @@ const Project = ({ projectId, projectData }) => {
 
                     // Ideal width is the width of the image, plus 20 pixels if the window is less
                     // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
-                    if (width) {
-                        idealWidth = (Number(width) + extraWidth)
+                    if (height) {
+                        idealWidth = null
                     }
                     else {
-                        idealWidth = 22
-                    }
-                    if (idealWidth > 100) {
-                        idealWidth = 100
+                        if (width) {
+                            idealWidth = (Number(width) + extraWidth)
+                        }
+                        else {
+                            idealWidth = 22
+                        }
+                        if (idealWidth > 100) {
+                            idealWidth = 100
+                        }
                     }
 
                     const styles = {
                         float: float ? `${float}` : 'right',
-                        width: `${idealWidth}%`,
+                        width: idealWidth ? `${idealWidth}%` : "",
                         height: height ? `${height}px` : "",
                         marginRight: float == "left" ? "1rem" : "",
                         marginLeft: float == "right" ? "1rem" : "",
