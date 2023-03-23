@@ -54,25 +54,25 @@
   }
 }
 
-ul {
+.markdown ul {
   list-style-type: disc;
   padding-left: 2em;
 }
 
-li {
+.markdown li {
   font-size: 1em;
   padding-bottom: .15em;
   margin: .1rem
 }
 
-a {
+.markdown a {
   color: rgb(46, 62, 102);
   text-decoration: underline;
   text-decoration-color: rgb(118, 141, 172);
   text-decoration-thickness: 1.4px;
   transition: color .15s;
 }
-a:hover {
+.markdown a:hover {
   color: rgb(100 116 139);
 }
 
