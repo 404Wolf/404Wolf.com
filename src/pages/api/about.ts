@@ -12,7 +12,7 @@ export default function handler (req: NextApiRequest, res: Response) {
 }
     
 export function worker (): AboutData {
-    const aboutPath = path.join(process.cwd(), 'about.json');
+    const aboutPath = path.join(process.cwd(), 'public', 'about.json');
     const aboutData = fs.readFileSync(aboutPath, 'utf8');
     const about = JSON.parse(aboutData);
     return about;
