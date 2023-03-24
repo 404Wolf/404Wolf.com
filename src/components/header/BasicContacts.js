@@ -7,7 +7,7 @@ const BasicContacts = () => {
                 404Wolf.com
             </BasicContact>
 
-            <BasicContact url="mailto:caffeinate@msn.com">
+            <BasicContact url="mailto:reimagine@msn.com">
                 Caffeinate@msn.com
             </BasicContact>
 
