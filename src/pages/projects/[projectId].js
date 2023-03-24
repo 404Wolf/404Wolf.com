@@ -60,13 +60,14 @@ const Project = ({ projectId, projectData }) => {
                             src={ `${projectId}/resources/${filename}` } 
                             styles={ styles }
                             tag={ alt }
+                            clear={ clear }
                             float={ float }
                         />
                     )
                     return ReactDOMServer.renderToString(replaced)
                 }
 
-                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)/g, replacer);
+                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)?\|?(?:clear=([a-z]+))?\)/g, replacer);
                 setProjectMd(text)
             })
     }, [projectId, windowWidth])
