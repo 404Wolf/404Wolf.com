@@ -1,8 +1,11 @@
 import path from 'path';
 import fs from 'fs';
 import { worker as projectFromId } from './by_id';
+import { NextApiRequest, NextApiResponse } from 'next';
+import ProjectData from '../../../interfaces/projects';
+import ProjectsData from '../../../interfaces/projects_data';
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({ projects: worker() })
 }
 
@@ -13,10 +16,11 @@ export function worker () {
     // Fetch all the project ids from the 
     let projects = fs.readdirSync(projectsPath)
 
-    const by_id = {}
-    // Fetch data for each project, and then store the Promise that is fetching the data
-    // into the projects array, and the actual data into the by_id object
-    projects = projects.forEach(
+    // Create a map of the projects to their data
+    const by_id: ProjectsData = {}
+
+    // Map the project ids to their data
+    projects.forEach(
         (id) => {by_id[id] = projectFromId(id)}
     )
 

@@ -1,7 +1,13 @@
 import Link from "next/link";
 import BasicContacts from "../header/BasicContacts";
 
-const MainLayout = ({ children, header, headerWidth="w-fit" }) => {
+interface MainLayoutProps {
+    children: React.ReactNode;
+    header?: string | JSX.Element;
+    headerWidth?: string;
+}
+
+const MainLayout = ({ children, header, headerWidth="w-fit" }: MainLayoutProps) => {
     return (
         <div className="pt-6">
             {header && 

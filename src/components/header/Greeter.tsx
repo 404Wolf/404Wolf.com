@@ -13,7 +13,6 @@ const Greeter = () => {
                 }
             }
             options={{delay: 70, cursor: ""}}
-            skipAddStyles={ true }
         />
     );
 }

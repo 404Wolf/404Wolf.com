@@ -3,13 +3,13 @@ import About from '@/components/about/About'
 import Header from '@/components/header/Header'
 import MainLayout from '@/components/layouts/MainLayout'
 import Greeter from '@/components/header/Greeter'
+import { worker as list_projects } from '@/pages/api/projects/listed'
+import { worker as about_data } from '@/pages/api/about'
+import ProjectsData from "@/interfaces/projects"
 
-export async function getServerSideProps(context) {
-    const url = `http://${context.req.headers.host}`
-
-    const projects = await fetch(`${url}/api/projects/listed`)
-        .then(res => res.json())
-        .then(data => data.projects)
+export async function getServerSideProps() {
+    const projects = await list_projects()
+    const about = await about_data()
 
     return {
         props: {
@@ -18,9 +18,13 @@ export async function getServerSideProps(context) {
     }
 }
 
-const Home = ({ projects }) => {
+interface HomeProps {
+    projects: ProjectsData
+}
+
+const Home = ({ projects }: HomeProps) => {
     return (
-        <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]" type={ false }>
+        <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
             <div className="flex flex-col gap-6">
                 <div className="bg-slate-300 p-5 rounded-2xl">
                     <Header/>

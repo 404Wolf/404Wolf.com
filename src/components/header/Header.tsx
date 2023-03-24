@@ -1,17 +1,17 @@
 import Image from "next/image";
-import Navbar from "./Navbar";
-import { useState } from "react";
-import InlineButton from "../misc/InlineButton";
+import Navbar from "@/components/header/Navbar";
+import { useState, MouseEvent } from "react";
+import InlineButton from "@/components/misc/InlineButton";
 
-const profileImageMe = "/resources/profileMe.webp"
+const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
 
 const Header = () => {
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
     const profileImage = (
         <Image 
-            onMouseEnter={(e) => setProfileImageSrc(profileImageDog)}
-            onMouseLeave={(e) => setProfileImageSrc(profileImageMe)}
+            onMouseEnter={(e: MouseEvent) => setProfileImageSrc(profileImageDog)}
+            onMouseLeave={(e: MouseEvent) => setProfileImageSrc(profileImageMe)}
             priority
             fill
             sizes="100%"

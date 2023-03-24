@@ -1,4 +1,9 @@
-const Tag = ({ children, position=null}) => {
+interface TagProps {
+    children: React.ReactNode;
+    position?: "br" | "bl" | "tr" | "tl" | "none";
+}
+
+const Tag = ({ children, position=null}: TagProps) => {
     let positioning
     let translations
 

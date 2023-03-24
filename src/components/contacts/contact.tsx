@@ -1,6 +1,13 @@
 import Image from "next/image";
 
-const Contact = ({ name, username, url, icon }) => {
+interface ContactProps {
+    name: string;
+    username: string;
+    url: string;
+    icon: string;
+}
+
+const Contact = ({ name, username, url, icon }: ContactProps) => {
     const size = 50;
     const alt = `${username} (${name})`
 

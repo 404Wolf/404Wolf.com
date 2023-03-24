@@ -1,8 +1,12 @@
-import Project from "./Project";
-import "react";
-import Tile from "../misc/Tile";
+import Project from "@/components/projects/Project";
+import Tile from "@/components/misc/Tile";
+import ProjectData from "@/interfaces/projects";
 
-const Projects = ( { projects } ) => {
+interface ProjectsProps {
+    projects: ProjectData;
+}
+
+const Projects = ( { projects }: ProjectsProps ) => {
     const gridProjects = Object.values(projects)
 
     // Fill projects up with dummy projects to make the grid look nice
@@ -43,4 +47,3 @@ const Projects = ( { projects } ) => {
 }
  
 export default Projects;
-

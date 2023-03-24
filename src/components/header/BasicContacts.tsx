@@ -1,4 +1,4 @@
-import BasicContact from "./BasicContact";
+import BasicContact from "@/components/header/BasicContact";
 
 const BasicContacts = () => {
     return (
