@@ -36,7 +36,8 @@ const Project = ({ projectId, projectData }) => {
 
                     if (!height) {
                         if (windowWidth < 460) {
-                            idealWidth = 50
+                            idealWidth = Math.min(55, Number(width) + 30)
+                            float = "right"
                         }
                         else if (windowWidth < 1000) {
                             idealWidth = (Number(width) + 16)
@@ -60,14 +61,13 @@ const Project = ({ projectId, projectData }) => {
                             src={ `${projectId}/resources/${filename}` } 
                             styles={ styles }
                             tag={ alt }
-                            clear={ clear }
                             float={ float }
                         />
                     )
                     return ReactDOMServer.renderToString(replaced)
                 }
 
-                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)?\|?(?:clear=([a-z]+))?\)/g, replacer);
+                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)?/g, replacer);
                 setProjectMd(text)
             })
     }, [projectId, windowWidth])
