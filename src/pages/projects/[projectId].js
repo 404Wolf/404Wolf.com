@@ -93,9 +93,9 @@ const Project = ({ projectId, projectData }) => {
                 </Tile>}
                 {console.log(projectMd)}
                 <Tile className="overflow-auto" title="Project" direction="right">
-                    {(projectMd == "\n") ? <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
+                    <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
                         {projectMd}
-                    </ReactMarkdown> : "Page in progress..."}
+                    </ReactMarkdown>
                 </Tile>
             </div>
         </MainLayout>

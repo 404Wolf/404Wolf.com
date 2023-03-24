@@ -12,7 +12,7 @@ const Tile = ( {title, className, children, direction="left" } ) => {
                     />
                 </h2>
             </div>}
-            <div className={`p-4 md:p-5 bg-slate-300 rounded-2xl h-full ${className}`}>
+            <div className={`p-3 md:p-5 bg-slate-300 rounded-2xl h-full ${className}`}>
                 { children }
             </div>
         </div>
