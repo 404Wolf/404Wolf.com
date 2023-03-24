@@ -1,11 +1,9 @@
 import Typewriter from "typewriter-effect";
 
-const Tile = ( {title, className, children} ) => {
-    const headerStyle = "text-center absolute -translate-x-[.9rem] -translate-y-[1rem] bg-gray-700 text-white text-lg p-1 rounded-full w-24 sm:w-32";
-
+const Tile = ( {title, className, children, direction="left" } ) => {
     return (
         <div className="h-full relative">
-            {title && <div className={ headerStyle }>
+            {title && <div className={ `text-center absolute -translate-y-[1.15rem] ${direction == "left" ? "-translate-x-[.9rem]": "translate-x-[.9rem] right-0" } bg-gray-700 text-white text-lg p-1 rounded-full w-24 sm:w-32` }>
                 <h2 className="text-xl sm:text-2xl text-bold">
                     <Typewriter 
                         onInit={(typewriter) => {typewriter.typeString(title).start()}}
@@ -14,7 +12,7 @@ const Tile = ( {title, className, children} ) => {
                     />
                 </h2>
             </div>}
-            <div className={`p-4 md:p-5 ${title ? "pt-8 md:pt-8" : "pt-0 md:pt-0"} bg-slate-300 rounded-2xl h-full ${className}`}>
+            <div className={`p-4 md:p-5 bg-slate-300 rounded-2xl h-full ${className}`}>
                 { children }
             </div>
         </div>

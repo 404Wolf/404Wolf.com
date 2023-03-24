@@ -31,21 +31,26 @@ const Project = ({ projectId, projectData }) => {
         fetch(`/projects/${projectId}/project.md`)
             .then(res => res.text())
             .then(text => {
-                const replacer = (match, alt, filename, width, height, float) => {
+                const replacer = (match, alt, filename, width, height, float, clear) => {
                     let idealWidth
 
                     if (!height) {
                         if (windowWidth < 460) {
-                            idealWidth = Math.min(55, Number(width) + 30)
+                            idealWidth = width ? Number(width) + 37 : 52
                             float = "right"
+                            clear = "both"
                         }
                         else if (windowWidth < 1000) {
-                            idealWidth = (Number(width) + 16)
+                            idealWidth = width ? (Number(width) + 20) : 30
                         }
                         else {
-                            idealWidth = (Number(width) + 2)
+                            idealWidth = width ? (Number(width) + 9) : 21
                         }
                         idealWidth = Math.min(idealWidth, 100)
+                    }
+
+                    if (!float) {
+                        float = "right"
                     }
 
                     const styles = {
@@ -54,6 +59,7 @@ const Project = ({ projectId, projectData }) => {
                         height: height ? `${height}px` : "",
                         marginRight: float == "left" ? "1rem" : "",
                         marginLeft: float == "right" ? "1rem" : "",
+                        clear: clear ? clear : "",
                     }
 
                     const replaced = (
@@ -67,25 +73,26 @@ const Project = ({ projectId, projectData }) => {
                     return ReactDOMServer.renderToString(replaced)
                 }
 
-                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)?/g, replacer);
+                text = text.replace(/#\s*(.*)/, "<h1 class='!mt-[-.5em]'>$1</h1>")
+                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)??\|?(?:clear=([a-z]+))?\)?/g, replacer);
                 setProjectMd(text)
             })
     }, [projectId, windowWidth])
 
     return (
         <MainLayout header={ projectData.name }>
-            <div className={projectData.description && "mt-1 sm:mt-10"}>
+            <div className={projectData.description && "mt-1"}>
                 {projectData.description && 
-                <Tile title="Overview" className="mb-6 overflow-auto">
-                    <div className="relative pointer-events-none w-2/5 sm:w-[13%] sm:ml-2 float-right">
+                <Tile title="Overview" className="mb-6 overflow-auto" direction="right">
+                    <div className="relative pointer-events-none w-2/5 sm:w-[13%] ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
                     </div>
-                    <div>
+                    <div className="markdown">
                         {projectData.description}
                     </div>
                 </Tile>}
 
-                <Tile className="overflow-auto" title="Project">
+                <Tile className="overflow-auto" title="Project" direction="right">
                     <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
                         {projectMd}
                     </ReactMarkdown>
