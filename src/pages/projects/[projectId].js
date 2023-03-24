@@ -91,11 +91,11 @@ const Project = ({ projectId, projectData }) => {
                         {projectData.description}
                     </div>
                 </Tile>}
-
+                {console.log(projectMd)}
                 <Tile className="overflow-auto" title="Project" direction="right">
-                    <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
+                    {(projectMd == "\n") ? <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
                         {projectMd}
-                    </ReactMarkdown>
+                    </ReactMarkdown> : "Page in progress..."}
                 </Tile>
             </div>
         </MainLayout>
