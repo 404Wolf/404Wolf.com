@@ -32,34 +32,24 @@ const Project = ({ projectId, projectData }) => {
             .then(res => res.text())
             .then(text => {
                 const replacer = (match, alt, filename, width, height, float) => {
-                    let extraWidth
+                    let idealWidth
 
-                    if (windowWidth < 400) {
-                        extraWidth = 32
-                    }
-                    else if (windowWidth < 600) {
-                        extraWidth = 26
-                    }
-                    else if (windowWidth < 1000) {
-                        extraWidth = 14
-                    }
-                    else if (windowWidth < 1300) {
-                        extraWidth = 8
-                    }
-                    else {
-                        extraWidth = 2
-                    }
-
-                    // Ideal width is the width of the image, plus 20 pixels if the window is less
-                    // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
-                    let idealWidth = (Number(width) + extraWidth)
-                    if (idealWidth > 100) {
-                        idealWidth = 100
+                    if (!height) {
+                        if (windowWidth < 460) {
+                            idealWidth = 50
+                        }
+                        else if (windowWidth < 1000) {
+                            idealWidth = (Number(width) + 16)
+                        }
+                        else {
+                            idealWidth = (Number(width) + 2)
+                        }
+                        idealWidth = Math.min(idealWidth, 100)
                     }
 
                     const styles = {
                         float: float ? `${float}` : 'right',
-                        width: width ? `${idealWidth}%` : height ? "" : "25%",
+                        width: `${idealWidth}%`,
                         height: height ? `${height}px` : "",
                         marginRight: float == "left" ? "1rem" : "",
                         marginLeft: float == "right" ? "1rem" : "",
