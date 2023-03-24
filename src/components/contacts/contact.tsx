@@ -8,21 +8,20 @@ interface ContactProps {
 }
 
 const Contact = ({ name, username, url, icon }: ContactProps) => {
-    const size = 50;
     const alt = `${username} (${name})`
 
     return (
-        <div className="duration-150 hover:scale-110">
-            <a href={ url } title={ alt } target="_blank" rel="noreferrer noopener">
-                {icon && <Image
-                    priority
-                    className="rounded-full" 
-                    alt={ alt }
-                    src={ icon } 
-                    width={ size } 
-                    height={ size } 
-                />}
-            </a>
+        <div className="p-1 rounded-xl">
+            <div className="duration-150 hover:scale-110 relative w-16 h-16">
+                <a href={ url } title={ alt } target="_blank" rel="noreferrer noopener">
+                    {icon && <Image
+                        priority 
+                        alt={ alt }
+                        src={ icon } 
+                        fill
+                    />}
+                </a>
+            </div>
         </div>
     );
 }
