@@ -76,12 +76,12 @@ const Project = ({ projectId, projectData }) => {
         <MainLayout header={ projectData.name }>
             <div className={projectData.description && "mt-1 sm:mt-10"}>
                 {projectData.description && 
-                <Tile title="Overview" className="flex gap-5 mb-6">
-                    <div className="basis-5/6">
-                        {projectData.description}
-                    </div>
-                    <div className="relative basis-1/6 pointer-events-none">
+                <Tile title="Overview" className="mb-6 overflow-auto">
+                    <div className="relative pointer-events-none w-2/5 sm:w-[13%] sm:ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
+                    </div>
+                    <div>
+                        {projectData.description}
                     </div>
                 </Tile>}
 
