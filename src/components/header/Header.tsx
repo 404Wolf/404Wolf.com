@@ -2,12 +2,15 @@ import Image from "next/image";
 import Navbar from "@/components/header/Navbar";
 import { useState, MouseEvent } from "react";
 import InlineButton from "@/components/misc/InlineButton";
+import useAbout from "@/hooks/useAbout";
 
 const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
 
 const Header = () => {
+    const about = useAbout()
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
+    
     const profileImage = (
         <Image 
             onMouseEnter={(e: MouseEvent) => setProfileImageSrc(profileImageDog)}
@@ -35,7 +38,7 @@ const Header = () => {
                             I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
                         </p>
                         <p>
-                            Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton externalTo="mailto:wolfmermelstein@gmail.com">email me!</InlineButton>
+                            Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton externalTo={ `mailto:${about.email}` }>email me!</InlineButton>
                         </p>
                     </div>
                 </h2>

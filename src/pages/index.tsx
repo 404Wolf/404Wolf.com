@@ -9,7 +9,6 @@ import ProjectsData from "@/interfaces/project_data"
 
 export async function getServerSideProps() {
     const projects = await list_projects()
-    const about = await about_data()
 
     return {
         props: {
