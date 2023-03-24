@@ -20,13 +20,13 @@ export async function getServerSideProps(context) {
 
 const Home = ({ projects }) => {
     return (
-        <MainLayout header={<Greeter/>} headerWidth="w-full sm:w-[20rem] sm:translate-x-4" type={ false }>
-            <div className="flex flex-col gap-7">
+        <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]" type={ false }>
+            <div className="flex flex-col gap-6">
                 <div className="bg-slate-300 p-5 rounded-2xl">
                     <Header/>
                 </div>
 
-                <div className="flex flex-row gap-5 sm:gap-7">
+                <div className="flex flex-row gap-5 sm:gap-6">
                     <div className="basis-[40%] sm:basis-[45%] lg:basis-[65%]">
                         <Projects projects={ projects }/>
                     </div>

@@ -1,33 +1,24 @@
 import Link from "next/link";
 import BasicContacts from "../header/BasicContacts";
-import Greeter from "../header/Greeter";
 
-const MainLayout = ({ children, header, headerWidth="w-full sm:w-fit", type=true }) => {
+const MainLayout = ({ children, header, headerWidth="w-fit" }) => {
     return (
-        <div>
-            <div className="bg-slate-500 p-5 sm:p-0 rounded-3xl mb-5 sm:bg-transparent">
-                <div className="bg-slate-300 sm:bg-transparent p-5 sm:p-0 rounded-2xl">
-                    {header && 
-                        <div>
-                            <Link href="/"> 
-                                <div className={ `sm:absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 mx-auto sm:mx-0 ${headerWidth} sm:scale-[120%] sm:-translate-y-[1.35rem] text-[4.2vw] xs:text-[4.5vw] sm:text-[25px] text-center sm:text-left font-bold z-50` }>
-                                    { type && header || <Greeter/> }
-                                </div>
-                            </Link>
-
-                            <div className="block sm:hidden mx-auto -mb-3">
-                                <BasicContacts/>
-                            </div>
+        <div className="pt-6">
+            {header && 
+                <div>
+                    <Link href="/"> 
+                        <div className={ `absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 ${headerWidth} scale-[120%] translate-x-2 sm:translate-x-[.2rem] -translate-y-7 sm:-translate-y-[2.5rem] text-[1rem] sm:text-[25px] text-center sm:text-left font-bold z-50` }>
+                            { header }
                         </div>
-                    }
-                    
-                    <div className="hidden sm:block absolute sm:fixed sm:top-[7.9rem] sm:right-[-8rem] md:right-[-7.7rem] sm:rotate-90 z-50 -mb-4 sm:mb-1">
-                        <BasicContacts/>
-                    </div>
+                    </Link>
                 </div>
+            }
+            
+            <div className="absolute sm:fixed sm:top-[7.9rem] sm:right-[-8rem] md:right-[-7.7rem] sm:rotate-90">
+                <BasicContacts/>
             </div>
 
-            <div className="bg-slate-500 p-5 rounded-3xl drop-shadow-4xl-c">
+            <div className="bg-slate-500 p-6 rounded-3xl drop-shadow-4xl-c">
                 { children }
             </div>
         </div>

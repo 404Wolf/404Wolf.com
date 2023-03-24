@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Tag from "../misc/Tag";
 
-const ProjectImage = ({ tag, alt, src, float, imageClasses="", clear="", styles={} }) => {
-    console.log(clear)
+const ProjectImage = ({ tag, alt, src, float, imageClasses, styles={} }) => {
     return (
         <Link href={ src }>
-            <div className={ `clear-${clear} relative inline-block float-right container my-2 duration-100 hover:scale-105` } style={ styles }>
+            <div className="relative inline-block float-right container my-2 duration-100 hover:scale-105" style={ styles }>
                 <img
                     src={ src }
                     alt={ tag || alt }

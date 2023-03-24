@@ -32,49 +32,34 @@ const Project = ({ projectId, projectData }) => {
             .then(res => res.text())
             .then(text => {
                 const replacer = (match, alt, filename, width, height, float, clear) => {
-                    let extraWidth
-
-                    if (windowWidth < 400) {
-                        extraWidth = 28
-                    }
-                    else if (windowWidth < 600) {
-                        extraWidth = 22
-                    }
-                    else if (windowWidth < 1000) {
-                        extraWidth = 9
-                    }
-                    else if (windowWidth < 1300) {
-                        extraWidth = 7
-                    }
-                    else {
-                        extraWidth = 2
-                    }
-
                     let idealWidth
 
-                    // Ideal width is the width of the image, plus 20 pixels if the window is less
-                    // than 400 pixels wide. We map it to a percentage of the window width (out of 100%).
-                    if (height) {
-                        idealWidth = null
-                    }
-                    else {
-                        if (width) {
-                            idealWidth = (Number(width) + extraWidth)
+                    if (!height) {
+                        if (windowWidth < 460) {
+                            idealWidth = width ? Number(width) + 37 : 52
+                            float = "right"
+                            clear = "both"
+                        }
+                        else if (windowWidth < 1000) {
+                            idealWidth = width ? (Number(width) + 20) : 30
                         }
                         else {
-                            idealWidth = 22
+                            idealWidth = width ? (Number(width) + 9) : 21
                         }
-                        if (idealWidth > 100) {
-                            idealWidth = 100
-                        }
+                        idealWidth = Math.min(idealWidth, 100)
+                    }
+
+                    if (!float) {
+                        float = "right"
                     }
 
                     const styles = {
                         float: float ? `${float}` : 'right',
-                        width: idealWidth ? `${idealWidth}%` : "",
+                        width: `${idealWidth}%`,
                         height: height ? `${height}px` : "",
                         marginRight: float == "left" ? "1rem" : "",
                         marginLeft: float == "right" ? "1rem" : "",
+                        clear: clear ? clear : "",
                     }
 
                     const replaced = (
@@ -82,32 +67,32 @@ const Project = ({ projectId, projectData }) => {
                             src={ `${projectId}/resources/${filename}` } 
                             styles={ styles }
                             tag={ alt }
-                            clear={ clear }
                             float={ float }
                         />
                     )
                     return ReactDOMServer.renderToString(replaced)
                 }
 
-                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)?\|?(?:clear=([a-z]+))?\)/g, replacer);
+                text = text.replace(/#\s*(.*)/, "<h1 class='!mt-[-.5em]'>$1</h1>")
+                text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)??\|?(?:clear=([a-z]+))?\)?/g, replacer);
                 setProjectMd(text)
             })
     }, [projectId, windowWidth])
 
     return (
         <MainLayout header={ projectData.name }>
-            <div className={projectData.description && "mt-1 sm:mt-10"}>
+            <div className={projectData.description && "mt-1"}>
                 {projectData.description && 
-                <Tile title="Overview" className="flex gap-5 mb-6">
-                    <div className="basis-5/6">
-                        {projectData.description}
-                    </div>
-                    <div className="relative basis-1/6 pointer-events-none">
+                <Tile title="Overview" className="mb-6 overflow-auto" direction="right">
+                    <div className="relative pointer-events-none w-2/5 sm:w-[13%] ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
+                    </div>
+                    <div className="markdown">
+                        {projectData.description}
                     </div>
                 </Tile>}
 
-                <Tile className="overflow-auto" title="Project">
+                <Tile className="overflow-auto" title="Project" direction="right">
                     <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
                         {projectMd}
                     </ReactMarkdown>
