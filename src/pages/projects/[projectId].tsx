@@ -10,7 +10,7 @@ import Link from 'next/link';
 import ProjectImage from '@/components/projects/ProjectImage';
 import Image from "next/image"
 import useSize from '@/hooks/useSize';
-import ProjectData from '../../interfaces/projects';
+import ProjectData from '../../interfaces/project_data';
 
 interface ProjectProps {
     projectId: string;

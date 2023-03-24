@@ -19,7 +19,7 @@ const ProjectImage = ({ tag, alt, src, float, imageClasses, styles={} }: Project
                     alt={ tag || alt }
                     className={ `rounded-xl border-slate-500 bg-slate-200 border-4 ${imageClasses}` }
                 />
-                {tag && <Tag position={ float ? "none" : ((float == "left") ? "br" : "bl") }>
+                {tag && <Tag position={ (float === "none") ? null : ((float == "left") ? "br" : "bl") }>
                     { tag }
                 </Tag>}
             </div>

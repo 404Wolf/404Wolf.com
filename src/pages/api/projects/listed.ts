@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { worker as projectFromId } from './by_id';
 import { NextApiRequest, NextApiResponse } from 'next';
-import ProjectData from '../../../interfaces/projects';
+import ProjectData from '../../../interfaces/project_data';
 import ProjectsData from '../../../interfaces/projects_data';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -1,6 +1,6 @@
 interface TagProps {
     children: React.ReactNode;
-    position?: "br" | "bl" | "tr" | "tl" | "none";
+    position?: "br" | "bl" | "tr" | "tl" | null;
 }
 
 const Tag = ({ children, position=null}: TagProps) => {

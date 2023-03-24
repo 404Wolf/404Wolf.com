@@ -1,6 +1,6 @@
 import Project from "@/components/projects/Project";
 import Tile from "@/components/misc/Tile";
-import ProjectData from "@/interfaces/projects";
+import ProjectData from "@/interfaces/project_data";
 
 interface ProjectsProps {
     projects: ProjectData;

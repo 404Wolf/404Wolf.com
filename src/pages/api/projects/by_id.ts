@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import ProjectData from '../../../interfaces/projects';
+import ProjectData from "@/interfaces/project_data";
+import ProjectsData from "@/interfaces/projects_data";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface Request extends NextApiRequest {
@@ -10,7 +11,7 @@ interface Request extends NextApiRequest {
 }
 
 export default function handler(req: Request, res: NextApiResponse) {
-    const projectData: ProjectData = worker(req.headers.id)
+    const projectData: null | ProjectData = worker(req.headers.id)
     
     if (projectData !== null) {
         // Return the project's data

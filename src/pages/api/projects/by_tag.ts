@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import ProjectData from '../../../interfaces/projects';
+import ProjectData from '../../../interfaces/project_data';
 import { worker as list_projects } from './listed';
 
 interface Request extends NextApiRequest {

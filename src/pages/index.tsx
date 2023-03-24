@@ -5,7 +5,7 @@ import MainLayout from '@/components/layouts/MainLayout'
 import Greeter from '@/components/header/Greeter'
 import { worker as list_projects } from '@/pages/api/projects/listed'
 import { worker as about_data } from '@/pages/api/about'
-import ProjectsData from "@/interfaces/projects"
+import ProjectsData from "@/interfaces/project_data"
 
 export async function getServerSideProps() {
     const projects = await list_projects()
