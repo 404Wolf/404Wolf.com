@@ -1,8 +1,8 @@
-import Contact from "@/components/contacts/Contact";
+import Contact from "./contact";
 import { useState } from "react";
 
 const Contacts = () => {
-    function fetchIcon (name) {
+    function fetchIcon (name: string): string | null {
         let icon = useState(null)
         import(`/resources/icons/${name}.png`)
             .then ((fetched) => icon[1](fetched))

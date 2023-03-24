@@ -4,7 +4,7 @@ interface ContactProps {
     name: string;
     username: string;
     url: string;
-    icon: string;
+    icon: string | null;
 }
 
 const Contact = ({ name, username, url, icon }: ContactProps) => {
