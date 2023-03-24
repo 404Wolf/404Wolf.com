@@ -9,23 +9,11 @@ import Tag from '@/components/misc/Tag';
 import Link from 'next/link';
 import ProjectImage from '@/components/projects/ProjectImage';
 import Image from "next/image"
+import useSize from '@/hooks/useSize';
 
 const Project = ({ projectId, projectData }) => {
     const [ projectMd, setProjectMd ] = useState('Loading...')
-
-    const [windowWidth, setWindowWidth] = useState(null);
-
-    useEffect(() => {
-        const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    useEffect(() => {
-        setWindowWidth(window.innerWidth);
-    }, []);
+    const windowSize = useSize()
 
     useEffect(() => {
         fetch(`/projects/${projectId}/project.md`)
@@ -35,12 +23,12 @@ const Project = ({ projectId, projectData }) => {
                     let idealWidth
 
                     if (!height) {
-                        if (windowWidth < 460) {
+                        if (windowSize[0] < 460) {
                             idealWidth = width ? Number(width) + 37 : 52
                             float = "right"
                             clear = "both"
                         }
-                        else if (windowWidth < 1000) {
+                        else if (windowSize[0] < 1000) {
                             idealWidth = width ? (Number(width) + 20) : 30
                         }
                         else {
@@ -88,13 +76,12 @@ const Project = ({ projectId, projectData }) => {
                         <ProjectImage src={ projectData.cover }/>
                     </div>
                     <div className="markdown">
-                        {projectData.description}
+                        { projectData.description }
                     </div>
                 </Tile>}
-                {console.log(projectMd)}
                 <Tile className="overflow-auto" title="Project" direction="right">
-                    <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
-                        {projectMd}
+                    <ReactMarkdown className="markdown" rehypePlugins={[ rehypeRaw ]}>
+                        { projectMd }
                     </ReactMarkdown>
                 </Tile>
             </div>
