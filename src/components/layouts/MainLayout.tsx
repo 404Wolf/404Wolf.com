@@ -13,7 +13,7 @@ const MainLayout = ({ children, header, headerWidth="w-fit" }: MainLayoutProps) 
             {header && 
                 <div>
                     <Link href="/"> 
-                        <div className={ `absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 ${headerWidth} scale-[120%] translate-x-2 sm:translate-x-[.2rem] -translate-y-7 sm:-translate-y-[2.5rem] text-[1rem] sm:text-[25px] text-center sm:text-left font-bold z-50` }>
+                        <div className={ `absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-2 sm:py-[6px] px-4 ${headerWidth} scale-[120%] lg:scale-[130%] translate-x-2 sm:translate-x-[.2rem] -translate-y-7 sm:-translate-y-[2.5rem] lg:-translate-y-[1.5rem] text-[1rem] sm:text-[25px] text-center sm:text-left font-bold z-50` }>
                             { header }
                         </div>
                     </Link>
