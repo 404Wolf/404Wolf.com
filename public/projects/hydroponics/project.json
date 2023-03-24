@@ -3,6 +3,11 @@
     "name": "Hydroponics",
     "tags": ["personal"],
     "date": "2020",
-    "cover": "cover.webp",
+    "cover": [
+        "dalle.webp", 
+        "a_harvest.webp", 
+        "hydroGreen",
+        "early_growth.webp"
+    ],
     "description":"My closet's taken many forms. First, it was LARP equipment (foam sword-fighting), followed by a Kombucha brewing apparatus, and intermediately a quilt-sowing setup and 3d-printing haven. However, most recently it's taken the form of a hydroponic farm. This post documents my journey from the very beginning, starting off with my soil based auto-watering strawberry endeavor, spanning to the present, with my current hydroponic Shishito Pepper growing setup. I discuss the inspiration, process, pitfalls, and ultimate success of my hydroponic journey."
 }

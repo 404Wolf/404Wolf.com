@@ -3,6 +3,6 @@
     "name": "Caffeinated Granola Bars",
     "tags": ["personal"],
     "date": "2022",
-    "cover": "cover.webp",
+    "cover": ["dalle.webp"],
     "description":""
 }

@@ -3,6 +3,6 @@
     "name": "Minecraft Username Autoclaimer",
     "tags": ["personal"],
     "date": "2022",
-    "cover": "cover.webp",
+    "cover": ["dalle.webp"],
     "description":""
 }

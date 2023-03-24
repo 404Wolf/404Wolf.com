@@ -26,9 +26,11 @@ export default function handler(req: Request, res: NextApiResponse) {
 export function worker (id: string): null | ProjectData {
     if (id !== undefined) {
         const projectPath: string = path.join(process.cwd(), "public", 'projects', `${id}`)
-        const projectData: ProjectData = JSON.parse(fs.readFileSync(path.join(projectPath, "project.json"), 'utf-8'))
-        projectData.cover = `/projects/${id}/${projectData.cover}`
         
+        const projectData: ProjectData = JSON.parse(fs.readFileSync(path.join(projectPath, "project.json"), 'utf-8'))
+        const resource = projectData.cover[Math.floor(Math.random() * projectData.cover.length)]
+        projectData.cover = `/projects/${id}/resources/${resource}`
+
         return projectData
     }
     else {
