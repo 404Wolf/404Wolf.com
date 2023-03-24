@@ -1,9 +1,9 @@
 import Tile from "../misc/Tile";
 import ReactMarkdown from "react-markdown";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 const About = () => {
-    const [ aboutMe, setAboutMe ] = useState(null);
+    const [ aboutMe, setAboutMe ] = useState("");
 
     useEffect(() => {
         fetch("/markdown/about.md")
