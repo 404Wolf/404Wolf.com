@@ -20,7 +20,7 @@ const MainLayout = ({ children, header, headerWidth="w-fit" }: MainLayoutProps) 
                 </div>
             }
             
-            <div className="absolute sm:fixed sm:top-[7.9rem] sm:right-[-8rem] md:right-[-7.7rem] sm:rotate-90">
+            <div className="hidden sm:block absolute sm:fixed sm:top-[7.1rem] sm:right-[-8rem] md:right-[-7rem] sm:rotate-90">
                 <BasicContacts/>
             </div>
 

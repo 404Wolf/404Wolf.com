@@ -86,7 +86,7 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
             <div className={projectData.description && "mt-1"}>
                 {projectData.description && 
                 <Tile title="Overview" className="mb-6 overflow-auto" direction="right">
-                    <div className="relative pointer-events-none w-2/5 sm:w-[13%] ml-2 float-right">
+                    <div className="relative pointer-events-none w-3/5 sm:w-[17%] ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
                     </div>
                     <div className="markdown">
