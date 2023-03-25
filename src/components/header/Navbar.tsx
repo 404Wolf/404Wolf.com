@@ -3,10 +3,10 @@ import { useState } from "react";
 import ContactsPopup from "../contacts/ContactsPopup";
 
 interface NavbarProps {
-    setBlurPage: (blur: boolean) => void
+    setBackdropBlur: (blur: boolean) => void
 }
 
-const Navbar = ({ setBlurPage }: NavbarProps) => {
+const Navbar = ({setBackdropBlur}: NavbarProps) => {
     const [contactsPopupShown, setContactsPopupShown] = useState(false);
 
     return (
@@ -14,7 +14,7 @@ const Navbar = ({ setBlurPage }: NavbarProps) => {
             <ContactsPopup 
                 open={ contactsPopupShown }
                 setOpen={ setContactsPopupShown }
-                setBlurPage={ setBlurPage }
+                setBackdropBlur={ setBackdropBlur }
             />
             
             <div className="flex flex-row justify-start text-center gap-3">

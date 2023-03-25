@@ -1,28 +1,30 @@
-import Contacts from "@/components/contacts/contacts";
+import Contacts from "@/components/contacts/Contacts";
 import { useEffect } from "react";
 import Modal from "../misc/Modal";
+import Tile from "../misc/Tile";
 
 interface ContactsPopupProps {
     open: boolean
     setOpen: (open: boolean) => void
-    setBlurPage: (blurPage: boolean) => void
+    setBackdropBlur: (blur: boolean) => void
 }
 
-const ContactsPopup = ({ open, setOpen, setBlurPage }: ContactsPopupProps) => {
-    useEffect(() => setBlurPage(open), [open])
+const ContactsPopup = ({ open, setOpen, setBackdropBlur }: ContactsPopupProps) => {
+    useEffect(() => {setBackdropBlur(open)}, [open])
 
     return (
         <Modal
             open={ open }
             setOpen={ setOpen }
-            setBlurPage={ setBlurPage }
+            onClose={ () => setBackdropBlur(false) }
         >
-            <div className="bg-slate-600 p-5 rounded-2xl">
-                <div className="bg-slate-300 p-3 rounded-2xl">
-                    <h1>Contacts</h1>
-                    <Contacts/>
+            <>
+                <div className="bg-slate-500 p-6 pt-8 rounded-2xl drop-shadow-5xl-c">
+                    <Tile title="Contacts" className="bg-slate-300 p-3 rounded-2xl">
+                        <Contacts/>
+                    </Tile>
                 </div>
-            </div>
+            </>
         </Modal>
     )
 }

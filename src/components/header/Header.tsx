@@ -8,10 +8,10 @@ const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
 
 interface HeaderProps {
-    setBlurPage: (blur: boolean) => void
+    setBackdropBlur: (blur: boolean) => void;
 }
 
-const Header = ({ setBlurPage }: HeaderProps) => {
+const Header = ({ setBackdropBlur }: HeaderProps) => {
     const about = useAbout()
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
     
@@ -47,7 +47,7 @@ const Header = ({ setBlurPage }: HeaderProps) => {
                     </div>
                 </h2>
 
-                <Navbar setBlurPage={ setBlurPage }/>
+                <Navbar setBackdropBlur={setBackdropBlur}/>
             </div>
         </div>
     );

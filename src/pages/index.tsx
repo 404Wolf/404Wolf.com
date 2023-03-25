@@ -23,14 +23,14 @@ interface HomeProps {
 }
 
 const Home = ({ projects }: HomeProps) => {
-    const [ blurPage, setBlurPage ] = useState(false)
+    const [backdropBlur, setBackdropBlur] = useState(false)
 
     return (
-        <div className={`duration-200 ${blurPage ? "blur-md" : ""}`}>
+        <div className={`duration-100 ${backdropBlur ? "blur-sm contrast-75" : ""}`}>
             <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
                 <div className="flex flex-col gap-6">
                     <div className="bg-slate-300 p-5 rounded-2xl">
-                        <Header setBlurPage={ setBlurPage }/>
+                        <Header setBackdropBlur={ setBackdropBlur }/>
                     </div>
 
                     <div className="flex flex-row gap-5 sm:gap-6">
