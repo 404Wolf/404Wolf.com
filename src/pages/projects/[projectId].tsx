@@ -1,18 +1,16 @@
 import MainLayout from '@/components/layouts/MainLayout';
 import Tile from '@/components/misc/Tile';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { worker as projectFromId } from '../api/projects/by_id';
 import rehypeRaw from 'rehype-raw'
-import ReactDOMServer from 'react-dom/server';
-import Tag from '@/components/misc/Tag';
-import Link from 'next/link';
 import ProjectImage from '@/components/projects/ProjectImage';
-import { worker as listProjects } from '../api/projects/listed';
 import useSize from '@/hooks/useSize';
 import ProjectData from '../../interfaces/project_data';
 import fs from 'fs';
 import path from 'path';
+import { worker as fetchMd } from '../api/projects/md';
+import { parseMd } from '@/workers/projects/parseMd';
 
 interface ProjectParams {
     params: {
@@ -30,7 +28,8 @@ export async function getStaticProps({ params: { projectId } }: ProjectParams) {
     return {
         props: {
             projectId: projectId,
-            projectData: projectFromId(projectId)
+            projectData: projectFromId(projectId),
+            projectMd: fetchMd(projectId)
         }
     }
 }
@@ -38,73 +37,18 @@ export async function getStaticProps({ params: { projectId } }: ProjectParams) {
 interface ProjectProps {
     projectId: string;
     projectData: ProjectData;
+    projectMd: string;
 }
 
-const Project = ({ projectId, projectData }: ProjectProps) => {
-    const [ projectMd, setProjectMd ] = useState('Loading...')
-    const [ ready, setReady ] = useState(false)
+const Project = ({ projectId, projectData, projectMd }: ProjectProps) => {
+    const [ parsedProjectMd, setParsedProjectMd ] = useState('Loading...')
     const windowSize = useSize()
 
     useEffect(() => {
-        fetch(`/projects/${projectId}/project.md`)
-            .then(res => res.text())
-            .then(text => {
-                const replacer = (
-                    match: string, 
-                    alt: string, 
-                    filename: string, 
-                    width: string, 
-                    height: string, 
-                    float: "left" | "right" | "none", 
-                    clear: "left" | "right" | "both" | "none"
-                ) => {
-                let idealWidth
-
-                if (!height) {
-                    if (windowSize[0] < 460) {
-                        idealWidth = width ? Number(width) + 37 : 52
-                        float = "right"
-                        clear = "both"
-                    }
-                    else if (windowSize[0] < 1000) {
-                        idealWidth = width ? (Number(width) + 20) : 30
-                    }
-                    else {
-                        idealWidth = width ? (Number(width) + 9) : 21
-                    }
-                    idealWidth = Math.min(idealWidth, 100)
-                }
-
-                if (!float) {
-                    float = "right"
-                }
-
-                const styles = {
-                    float: float ? `${float}` : 'right',
-                    width: `${idealWidth}%`,
-                    height: height ? `${height}px` : "",
-                    marginRight: float == "left" ? "1rem" : "",
-                    marginLeft: float == "right" ? "1rem" : "",
-                    clear: clear ? clear : "",
-                }
-
-                const replaced = (
-                    <ProjectImage 
-                        src={ `${projectId}/resources/${filename}` } 
-                        styles={ styles }
-                        tag={ alt }
-                        float={ float }
-                    />
-                )
-                return ReactDOMServer.renderToString(replaced)
-            }
-
-            text = text.replace(/#\s*(.*)/, "<h1 class='!mt-[-.5em]'>$1</h1>")
-            text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)??\|?(?:clear=([a-z]+))?\)?/g, replacer);
-            setProjectMd(text)
-            setReady(true)
-        })
-    }, [projectId, windowSize])
+        setParsedProjectMd(
+            parseMd(projectMd, projectId, windowSize[0])
+        )
+    }, [ projectMd, projectId, windowSize[0] ])
 
     return (
         <MainLayout header={ projectData.name }>
@@ -121,7 +65,7 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
                 <div className='m-6'/>
                 <Tile className="overflow-auto" title="Project" direction="right">
                     <ReactMarkdown className="markdown" rehypePlugins={[ rehypeRaw ]}>
-                        { projectMd }
+                        { parsedProjectMd }
                     </ReactMarkdown>
                 </Tile>
             </div>

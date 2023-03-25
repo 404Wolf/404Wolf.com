@@ -5,17 +5,17 @@ import ProjectsData from "@/interfaces/projects_data";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface Request extends NextApiRequest {
-    headers: {
-        id: string;
+    query: {
+        id: string
     }
 }
 
 export default function handler(req: Request, res: NextApiResponse) {
-    const projectData: null | ProjectData = worker(req.headers.id)
+    const projectData: null | ProjectData = worker(req.query.id)
     
     if (projectData !== null) {
         // Return the project's data
-        res.status(200).json({ data: worker(req.headers.id) })
+        res.status(200).json({ data: worker(req.query.id) })
     }
     else {
         // Return an error
