@@ -24,13 +24,12 @@ const Header = ({ setBackdropBlur }: HeaderProps) => {
             sizes="100%"
             src={ profileImageSrc } 
             alt="Profile"
-            className="rounded-[2.5rem] border-[8px] md:border-[9.5px] border-gray-500"
+            className="rounded-[2.5rem] border-[6px] sm:border-4 border-slate-400 sm:border-slate-700"
         />
     )
         
     return (
         <div>
-            <div className="py-0 sm:py-[.2rem]"/>
             <div className="flex flex-col gap-5 justify-between">
                 <h2 className="my-auto">
                     <div className="h-32 w-32 md:h-36 md:w-36 relative float-right ml-1 sm:ml-2 mb-1 sm:mb-2 md:ml-4 md:mb-4 lg:mb-0">

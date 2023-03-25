@@ -7,6 +7,7 @@ import { worker as list_projects } from '@/pages/api/projects/listed'
 import { worker as about_data } from '@/pages/api/about'
 import ProjectsData from "@/interfaces/project_data"
 import { useState } from 'react'
+import Tile from '@/components/misc/Tile'
 
 export async function getServerSideProps() {
     const projects = await list_projects()
@@ -29,9 +30,9 @@ const Home = ({ projects }: HomeProps) => {
         <div className={`duration-100 ${backdropBlur ? "blur-sm contrast-75" : ""}`}>
             <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
                 <div className="flex flex-col gap-6">
-                    <div className="bg-slate-300 p-5 rounded-2xl">
+                    <Tile className="">
                         <Header setBackdropBlur={ setBackdropBlur }/>
-                    </div>
+                    </Tile>
 
                     <div className="flex flex-row gap-5 sm:gap-6">
                         <div className="basis-[40%] sm:basis-[45%] lg:basis-[65%]">

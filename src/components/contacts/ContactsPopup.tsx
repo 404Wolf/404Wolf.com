@@ -1,7 +1,9 @@
-import Contacts from "@/components/contacts/Contacts";
+import Contacts from "@/components/contacts/contacts";
+import useAbout from "@/hooks/useAbout";
 import { useEffect } from "react";
 import Modal from "../misc/Modal";
 import Tile from "../misc/Tile";
+import Contact from "./contact";
 
 interface ContactsPopupProps {
     open: boolean
@@ -11,6 +13,7 @@ interface ContactsPopupProps {
 
 const ContactsPopup = ({ open, setOpen, setBackdropBlur }: ContactsPopupProps) => {
     useEffect(() => {setBackdropBlur(open)}, [open])
+    const about = useAbout()
 
     return (
         <Modal
@@ -18,13 +21,11 @@ const ContactsPopup = ({ open, setOpen, setBackdropBlur }: ContactsPopupProps) =
             setOpen={ setOpen }
             onClose={ () => setBackdropBlur(false) }
         >
-            <>
-                <div className="bg-slate-500 p-6 pt-8 rounded-2xl drop-shadow-5xl-c">
-                    <Tile title="Contacts" className="bg-slate-300 p-3 rounded-2xl">
-                        <Contacts/>
-                    </Tile>
-                </div>
-            </>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-500 p-6 pt-8 rounded-2xl drop-shadow-5xl-c">
+                <Tile title="Contacts" className="sm:border-4 sm:border-slate-700">
+                    <Contacts/>
+                </Tile>
+            </div>
         </Modal>
     )
 }

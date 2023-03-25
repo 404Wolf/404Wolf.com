@@ -7,9 +7,10 @@ interface ModalProps {
     setOpen: (open: boolean) => void;
     onClose?: () => void;
     children: React.ReactNode;
+    className?: string;
 }
 
-const Modal = ({ open, onOpen, setOpen, onClose, children }: ModalProps) => {
+const Modal = ({ open, onOpen, setOpen, onClose, children, className }: ModalProps) => {
     return (
         <Popup
             open={ open }
@@ -17,8 +18,8 @@ const Modal = ({ open, onOpen, setOpen, onClose, children }: ModalProps) => {
             closeOnDocumentClick
             modal
         >
-            <div>
-                <a className="absolute w-7 h-7 top-0 right-0 cursor-pointer" onClick={() => setOpen(false)}>
+            <div className={`${className ? className : ""} relative`}>
+                <a className="absolute w-7 h-7 right-0 top-0 cursor-pointer" onClick={() => setOpen(false)}>
                     <Image 
                         src="/icons/close.svg" 
                         className="z-50 bg-slate-400 rounded-full translate-x-2 -translate-y-2 drop-shadow-xl hover:brightness-90 hover:scale-105 transition-all duration-200 ease-in-out"

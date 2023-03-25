@@ -9,5 +9,6 @@ export default interface AboutData {
         username: string;
         link: string;
         id: number;
+        at: boolean | undefined;
     }[];
 }

@@ -19,10 +19,10 @@ const InlineButton = ({
             <a href={ externalTo } target="_blank" rel="noreferrer noopener">
                 { children }
             </a>}
-            
+
             {internalTo &&
             <Link href={ internalTo }>
-                <h1>{ children }</h1>
+                { children }
             </Link>}
         </span>
     );

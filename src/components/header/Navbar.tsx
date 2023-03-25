@@ -1,4 +1,5 @@
 import Navbutton from "@/components/header/Navbutton";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import ContactsPopup from "../contacts/ContactsPopup";
 
@@ -8,8 +9,6 @@ interface NavbarProps {
 
 const Navbar = ({setBackdropBlur}: NavbarProps) => {
     const [contactsPopupShown, setContactsPopupShown] = useState(false);
-
-const Navbar = () => {
     const { push } = useRouter();
 
     return (

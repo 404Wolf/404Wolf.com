@@ -83,9 +83,9 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
 
     return (
         <MainLayout header={ projectData.name }>
-            <div className={projectData.description && "mt-1"}>
+            <div className={projectData.description && "mt-[5px]"}>
                 {projectData.description && 
-                <Tile title="Overview" className="mb-6 overflow-auto" direction="right">
+                <Tile title="Overview" className="mb-8 overflow-auto" direction="right">
                     <div className="relative pointer-events-none w-3/5 sm:w-[17%] ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
                     </div>
