@@ -6,7 +6,7 @@ const BasicContacts = () => {
 
     return (
         <div className="py-2 flex flex-col min-[370px]:flex-row gap-2 justify-between">
-            <BasicContact url={ `${about.url}` }>
+            <BasicContact url={ `https://${about.url}` }>
                 {about.url}
             </BasicContact>
 
