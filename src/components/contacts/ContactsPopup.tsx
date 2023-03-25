@@ -1,4 +1,4 @@
-import Contacts from "@/components/contacts/Contacts";
+import Contacts from "./Contacts"
 import useAbout from "@/hooks/useAbout";
 import { useEffect } from "react";
 import Modal from "../misc/Modal";
