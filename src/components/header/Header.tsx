@@ -24,7 +24,7 @@ const Header = ({ setBackdropBlur }: HeaderProps) => {
             sizes="100%"
             src={ profileImageSrc } 
             alt="Profile"
-            className="rounded-[2.5rem] border-[6px] sm:border-4 border-slate-400 sm:border-slate-700"
+            className="rounded-[2.5rem] border-[6px] sm:border-[5px] border-slate-400"
         />
     )
         
