@@ -1,5 +1,5 @@
 import Tag from "../misc/Tag";
-import ContactIcon from "./ContactIcon";
+import ContactIcon from "@/components/contacts/ContactIcon";
 
 interface ContactProps {
     name: string;
