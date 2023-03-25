@@ -19,6 +19,7 @@ interface ProjectProps {
 
 const Project = ({ projectId, projectData }: ProjectProps) => {
     const [ projectMd, setProjectMd ] = useState('Loading...')
+    const [ ready, setReady ] = useState(false)
     const windowSize = useSize()
 
     useEffect(() => {
@@ -78,6 +79,7 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
             text = text.replace(/#\s*(.*)/, "<h1 class='!mt-[-.5em]'>$1</h1>")
             text = text.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)??\|?(?:clear=([a-z]+))?\)?/g, replacer);
             setProjectMd(text)
+            setReady(true)
         })
     }, [projectId, windowSize])
 
@@ -85,7 +87,7 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
         <MainLayout header={ projectData.name }>
             <div className={projectData.description && "mt-[5px]"}>
                 {projectData.description && 
-                <Tile title="Overview" className="mb-8 overflow-auto" direction="right">
+                <Tile title="Overview" className={ `${ready && 'mb-6'} overflow-auto` } direction="right">
                     <div className="relative pointer-events-none w-3/5 sm:w-[17%] ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
                     </div>
