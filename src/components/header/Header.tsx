@@ -7,7 +7,11 @@ import useAbout from "@/hooks/useAbout";
 const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
 
-const Header = () => {
+interface HeaderProps {
+    setBackdropBlur: (blur: boolean) => void;
+}
+
+const Header = ({ setBackdropBlur }: HeaderProps) => {
     const about = useAbout()
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
     
@@ -43,7 +47,7 @@ const Header = () => {
                     </div>
                 </h2>
 
-                <Navbar/>
+                <Navbar setBackdropBlur={setBackdropBlur}/>
             </div>
         </div>
     );
