@@ -19,8 +19,8 @@
       ]
     },
     "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
