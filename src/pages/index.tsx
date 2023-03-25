@@ -4,12 +4,11 @@ import Header from '@/components/header/Header'
 import MainLayout from '@/components/layouts/MainLayout'
 import Greeter from '@/components/header/Greeter'
 import { worker as list_projects } from '@/pages/api/projects/listed'
-import { worker as about_data } from '@/pages/api/about'
 import ProjectsData from "@/interfaces/project_data"
 import { useState } from 'react'
 import Tile from '@/components/misc/Tile'
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const projects = await list_projects()
 
     return {

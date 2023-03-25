@@ -8,9 +8,32 @@ import ReactDOMServer from 'react-dom/server';
 import Tag from '@/components/misc/Tag';
 import Link from 'next/link';
 import ProjectImage from '@/components/projects/ProjectImage';
-import Image from "next/image"
+import { worker as listProjects } from '../api/projects/listed';
 import useSize from '@/hooks/useSize';
 import ProjectData from '../../interfaces/project_data';
+import fs from 'fs';
+import path from 'path';
+
+interface ProjectParams {
+    params: {
+        projectId: string;
+    }
+}
+
+export async function getStaticPaths() {
+    const projectsPath = path.join(process.cwd(), "public", 'projects')
+    const paths = fs.readdirSync(projectsPath).map(projectId => ({ params: { projectId: projectId } }))
+    return { paths: paths, fallback: false }
+}
+
+export async function getStaticProps({ params: { projectId } }: ProjectParams) {
+    return {
+        props: {
+            projectId: projectId,
+            projectData: projectFromId(projectId)
+        }
+    }
+}
 
 interface ProjectProps {
     projectId: string;
@@ -104,21 +127,6 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
             </div>
         </MainLayout>
     );
-}
-
-interface ProjectParams {
-    params: {
-        projectId: string;
-    }
-}
-
-export async function getServerSideProps({ params: { projectId } }: ProjectParams) {
-    return {
-        props: {
-            projectId: projectId,
-            projectData: projectFromId(projectId)
-        }
-    }
 }
 
 export default Project;
