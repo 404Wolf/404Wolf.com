@@ -87,7 +87,7 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
         <MainLayout header={ projectData.name }>
             <div className={projectData.description && "mt-[5px]"}>
                 {projectData.description && 
-                <Tile title="Overview" className={ `${ready && 'mb-6'} overflow-auto` } direction="right">
+                <Tile title="Overview" className={ `overflow-auto` } direction="right">
                     <div className="relative pointer-events-none w-3/5 sm:w-[17%] ml-2 float-right">
                         <ProjectImage src={ projectData.cover }/>
                     </div>
@@ -95,6 +95,7 @@ const Project = ({ projectId, projectData }: ProjectProps) => {
                         { projectData.description }
                     </div>
                 </Tile>}
+                <div className='m-6'/>
                 <Tile className="overflow-auto" title="Project" direction="right">
                     <ReactMarkdown className="markdown" rehypePlugins={[ rehypeRaw ]}>
                         { projectMd }
