@@ -28,12 +28,12 @@ const Home = ({ projects }: HomeProps) => {
     return (
         <div className={`duration-100 ${backdropBlur ? "blur-sm contrast-75" : ""}`}>
             <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
-                <div className="flex flex-col gap-6">
-                    <Tile className="">
+                <div className="flex flex-col gap-7">
+                    <Tile>
                         <Header setBackdropBlur={ setBackdropBlur }/>
                     </Tile>
 
-                    <div className="flex flex-row gap-5 sm:gap-6">
+                    <div className="flex flex-row gap-4 sm:gap-6">
                         <div className="basis-[40%] sm:basis-[45%] lg:basis-[65%]">
                             <Projects projects={ projects }/>
                         </div>

@@ -13,7 +13,7 @@ const About = () => {
 
     return (
         <Tile title="About">
-            <div className="text-left indent-10">
+            <div className="pt-2 sm:pt-1 text-left indent-10">
                 <ReactMarkdown className="markdown">
                     { aboutMe }
                 </ReactMarkdown>
