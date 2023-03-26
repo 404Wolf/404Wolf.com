@@ -14,7 +14,7 @@ const Navbar = () => {
                 setOpen={ setContactsPopupShown }
             />
             
-            <div className="flex flex-row justify-start text-center gap-3">
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-4 text-center gap-3">
                 <Navbutton>About</Navbutton>
                     
                 <Navbutton onClick={() => setContactsPopupShown(true)}>
