@@ -5,11 +5,12 @@ import ProjectData from "@/interfaces/project_data";
 interface ProjectsProps {
     projects: (ProjectData | null)[];
     featuredOnly?: boolean;
+    projectTags?: boolean;
     minAmount?: number;
     className?: string;
 }
 
-const Projects = ( { projects, minAmount: showAmount, featuredOnly, className }: ProjectsProps ) => {
+const Projects = ( { projects, minAmount: showAmount, featuredOnly, className, projectTags }: ProjectsProps ) => {
     if (featuredOnly) {
         projects = projects.filter(project => (project === null) ? false : project.featured)
     }
@@ -40,6 +41,7 @@ const Projects = ( { projects, minAmount: showAmount, featuredOnly, className }:
                                 page={ "/projects/"+ project.id }
                                 date={ project.date }
                                 key={ index }
+                                projectTag={ projectTags }
                             />
                         )
                     }

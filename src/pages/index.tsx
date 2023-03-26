@@ -34,9 +34,10 @@ const Home = ({ projects }: HomeProps) => {
                     <div className="hidden sm:block basis-[30%]">
                         <Tile title="Projects">
                             <Projects
+                                projectTags
+                                featuredOnly
                                 projects={ projects } 
-                                featuredOnly={ true }
-                                className="pt-3 sm:pt-2 grid grid-cols-2 sm:grid-cols-1 justify-between items-center gap-4 sm:gap-5"
+                                className="pt-3 sm:pt-2 grid grid-cols-2 sm:grid-cols-1 justify-between items-center gap-1 sm:gap-2"
                             />
                         </Tile>
                     </div>
