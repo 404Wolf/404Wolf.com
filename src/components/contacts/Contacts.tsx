@@ -1,5 +1,5 @@
 import Contact from "@/components/contacts/Contact";
-import useAbout from "@/hooks/useAbout";
+import useAbout from "@/components/about/useAbout";
 //flex sm:flex-col items-center gap-3 pt-2
 const Contacts = () => {
     const about = useAbout()

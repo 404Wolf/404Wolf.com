@@ -1,24 +1,25 @@
 import Link from "next/link";
 import Tag from "@/components/misc/Tag"
 
-interface ProjectProps {
+interface PostCardProps {
     id?: string;
     name?: string;
     cover?: string;
     date?: string;
     page?: string;
+    type?: string;
     isDummy?: boolean;
-    projectTag?: boolean;
+    tags?: boolean;
 }
 
-const Project = ( { id, name, cover, date, page, projectTag=false, isDummy=false }: ProjectProps ) => {
+const PostCard = ( { id, name, cover, date, page, type, isDummy=false }: PostCardProps ) => {
     return (
         <div className="relative p-2">
             <Link href={ page || "/" } className={`z-10 ${isDummy ? "pointer-events-none" : ""}`}>
                 <div className="bg-cover rounded-xl drop-shadow-md hover:brightness-90 ease-in transition-all relative h-[5.5rem] md:h-32 lg:h-24 bg-cover bg-center duration-100 hover:scale-105 flex items-center justify-center bg-gray-100/[35%]" style={ {backgroundImage: `url('${cover}')`} }>
-                    {!isDummy && <div className="flex gap-1 absolute bottom-0 right-0">
-                        <Tag children="project" absolute={ false }/>
-                        <Tag children={ date } absolute={ false }/> 
+                    {!isDummy && <div className={type && "flex gap-1 absolute bottom-0 right-0"}>
+                        {type && <Tag children={ type } absolute={ !type }/> }
+                        <Tag children={ date } absolute={ !type }/> 
                     </div>
                     }
 
@@ -33,4 +34,4 @@ const Project = ( { id, name, cover, date, page, projectTag=false, isDummy=false
     );
 };
  
-export default Project;
+export default PostCard;

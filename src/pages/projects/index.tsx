@@ -1,8 +1,8 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
-import ProjectsTile from "@/components/projects/Projects";
-import ProjectData from "@/interfaces/project_data";
-import { worker as list_projects } from "../api/projects/listed";
+import ProjectsTile from "@/components/posts/PostCardGrid";
+import PostData from "@/components/posts/PostData";
+import { list_projects as list_projects } from "../api/projects/listed";
 import Navbar from "@/components/header/Navbar";
 
 export async function getStaticProps() {
@@ -16,7 +16,7 @@ export async function getStaticProps() {
 }
 
 interface ProjectsProps {
-    projects: ProjectData[]
+    projects: PostData[]
 }
 
 const Projects = ({ projects }: ProjectsProps) => {
@@ -32,9 +32,8 @@ const Projects = ({ projects }: ProjectsProps) => {
             </div>
             <Tile title="Projects">
                 <ProjectsTile 
-                    projects={ projects }
+                    posts={ projects }
                     minAmount={ 12 }
-                    className="pt-3 sm:pt-2 grid grid-cols-2 md:grid-cols-3 justify-between items-center gap-4 sm:gap-5"
                 />
             </Tile>
         </MainLayout>

@@ -2,15 +2,16 @@ import MainLayout from '@/components/layouts/MainLayout';
 import Tile from '@/components/misc/Tile';
 import { useEffect, useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { worker as projectFromId } from '../api/projects/by_id';
+import { project_by_id as projectFromId } from '../api/projects/by_id';
 import rehypeRaw from 'rehype-raw'
-import ProjectImage from '@/components/projects/ProjectImage';
-import useSize from '@/hooks/useSize';
-import ProjectData from '../../interfaces/project_data';
+import MdImage from '@/components/posts/MdImage';
+import useSize from '@/utils/useSize';
+import PostData from '../../components/posts/PostData';
 import fs from 'fs';
 import path from 'path';
 import { worker as fetchMd } from '../api/projects/md';
-import { parseMd } from '@/workers/projects/parseMd';
+import { parseMd } from '@/utils/parseMd';
+import PostLayout from '@/components/layouts/PostLayout';
 
 interface ProjectParams {
     params: {
@@ -36,7 +37,7 @@ export async function getStaticProps({ params: { projectId } }: ProjectParams) {
 
 interface ProjectProps {
     projectId: string;
-    projectData: ProjectData;
+    projectData: PostData;
     projectMd: string;
 }
 
@@ -51,25 +52,12 @@ const Project = ({ projectId, projectData, projectMd }: ProjectProps) => {
     }, [ projectMd, projectId, windowSize[0] ])
 
     return (
-        <MainLayout header={ projectData.name }>
-            <div className={projectData.description && "mt-[5px]"}>
-                {projectData.description && 
-                <Tile title="Overview" className={ `overflow-auto` } direction="right">
-                    <div className="relative pointer-events-none w-3/5 sm:w-[17%] ml-2 float-right">
-                        <ProjectImage src={ projectData.cover }/>
-                    </div>
-                    <div className="markdown">
-                        { projectData.description }
-                    </div>
-                </Tile>}
-                <div className='m-6'/>
-                <Tile className="overflow-auto" title="Project" direction="right">
-                    <ReactMarkdown className="markdown" rehypePlugins={[ rehypeRaw ]}>
-                        { parsedProjectMd }
-                    </ReactMarkdown>
-                </Tile>
-            </div>
-        </MainLayout>
+        <PostLayout
+            header={ projectData.name }
+            md={ parsedProjectMd }
+            summary={ projectData.description }
+            icon={ projectData.cover }
+        />
     );
 }
 

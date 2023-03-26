@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Tag from "../misc/Tag";
 
-interface ProjectImageProps {
+interface mdImageProps {
     tag?: string;
     alt?: string;
     src: string;
@@ -10,7 +10,7 @@ interface ProjectImageProps {
     styles?: object;
 }
 
-const ProjectImage = ({ tag, alt, src, float, imageClasses, styles={} }: ProjectImageProps) => {
+const MdImage = ({ tag, alt, src, float, imageClasses, styles={} }: mdImageProps) => {
     return (
         <Link href={ src }>
             <div className="relative inline-block float-right container my-2 duration-100 hover:scale-105" style={ styles }>
@@ -27,4 +27,4 @@ const ProjectImage = ({ tag, alt, src, float, imageClasses, styles={} }: Project
     );
 }
  
-export default ProjectImage;
+export default MdImage;

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Navbar from "@/components/header/Navbar";
 import { useState, MouseEvent } from "react";
 import InlineButton from "@/components/misc/InlineButton";
-import useAbout from "@/hooks/useAbout";
+import useAbout from "@/components/about/useAbout";
 
 const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"

@@ -1,4 +1,4 @@
-export default interface ProjectData {
+export default interface PostData {
     id: string;
     name: string;
     tags: string[];
@@ -6,4 +6,5 @@ export default interface ProjectData {
     cover: string;
     description: string;
     featured: boolean;
+    type: string;
 }

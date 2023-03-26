@@ -25,6 +25,7 @@ module.exports = {
                 'xl-c': '0px 0px 6px rgba(0, 0, 0, 0.4)',
                 '4xl-c': '0px 0px 28px rgba(20, 20, 20, 0.3)',
                 '5xl-c': '0px 0px 30px rgba(20, 20, 20, 0.71)',
+                '5xl-c-white': '0px 0px 30px rgba(200, 200, 220, 0.39)',
             },
             colors: {
                 "slate-350": "#adb9c9",

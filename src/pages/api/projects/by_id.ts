@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import ProjectData from "@/interfaces/project_data";
+import PostData from "@/components/posts/PostData";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface Request extends NextApiRequest {
@@ -10,11 +10,11 @@ interface Request extends NextApiRequest {
 }
 
 export default function handler(req: Request, res: NextApiResponse) {
-    const projectData: null | ProjectData = worker(req.query.id)
+    const projectData: null | PostData = project_by_id(req.query.id)
     
     if (projectData !== null) {
         // Return the project's data
-        res.status(200).json({ data: worker(req.query.id) })
+        res.status(200).json({ data: project_by_id(req.query.id) })
     }
     else {
         // Return an error
@@ -22,13 +22,14 @@ export default function handler(req: Request, res: NextApiResponse) {
     }
 }
 
-export function worker (id: string): null | ProjectData {
+export function project_by_id (id: string): null | PostData {
     if (id !== undefined) {
         const projectPath: string = path.join(process.cwd(), "public", 'projects', `${id}`)
         
-        const projectData: ProjectData = JSON.parse(fs.readFileSync(path.join(projectPath, "project.json"), 'utf-8'))
+        const projectData: PostData = JSON.parse(fs.readFileSync(path.join(projectPath, "project.json"), 'utf-8'))
         const resource = projectData.cover[Math.floor(Math.random() * projectData.cover.length)]
         projectData.cover = `/projects/${id}/resources/${resource}`
+        projectData.type = "Project"
 
         return projectData
     }

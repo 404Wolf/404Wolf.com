@@ -1,5 +1,5 @@
-import BasicContact from "@/components/header/BasicContact";
-import useAbout from "@/hooks/useAbout";
+import BasicContact from "@/components/contacts/BasicContact";
+import useAbout from "@/components/about/useAbout";
 
 const BasicContacts = () => {
     const about = useAbout()

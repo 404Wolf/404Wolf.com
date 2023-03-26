@@ -1,28 +1,31 @@
-import Projects from '@/components/projects/Projects'
+import PostCardGrid from '@/components/posts/PostCardGrid'
 import About from '@/components/about/About'
 import Header from '@/components/header/Header'
 import MainLayout from '@/components/layouts/MainLayout'
 import Greeter from '@/components/header/Greeter'
-import { worker as list_projects } from '@/pages/api/projects/listed'
-import ProjectsData from "@/interfaces/project_data"
-import { useState } from 'react'
+import { list_projects as list_projects } from '@/pages/api/projects/listed'
 import Tile from '@/components/misc/Tile'
+import useSize from '@/utils/useSize'
+import PostData from '@/components/posts/PostData'
+import { list_posts } from './api/posts'
 
 export async function getStaticProps() {
-    const projects = await list_projects()
+    const posts = await list_posts();
 
     return {
         props: {
-            projects
+            posts
         },
     }
 }
 
 interface HomeProps {
-    projects: ProjectsData[]
+    posts: PostData[];
 }
 
-const Home = ({ projects }: HomeProps) => {
+const Home = ({ posts }: HomeProps) => {
+    const screenSize = useSize()
+
     return (
         <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
             <div className="flex flex-col gap-7">
@@ -30,14 +33,14 @@ const Home = ({ projects }: HomeProps) => {
                     <Header/>
                 </Tile>
 
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                    <div className="hidden sm:block basis-[30%]">
-                        <Tile title="Projects">
-                            <Projects
-                                projectTags
+                <div className="flex flex-col sm:flex-row gap-7 sm:gap-6">
+                    <div className="sm:basis-[30%]">
+                        <Tile title="Featured">
+                            <PostCardGrid
+                                postTags
                                 featuredOnly
-                                projects={ projects } 
-                                className="pt-3 sm:pt-2 grid grid-cols-2 sm:grid-cols-1 justify-between items-center gap-1 sm:gap-2"
+                                posts={ posts } 
+                                minAmount={ (screenSize[0] <= 640) ? 6 : undefined }
                             />
                         </Tile>
                     </div>

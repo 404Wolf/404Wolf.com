@@ -1,4 +1,4 @@
-import AboutData from "@/interfaces/about_data";
+import AboutData from "@/components/about/AboutData";
 import { useEffect, useState } from "react";
 
 const blankAbout = {

@@ -1,5 +1,5 @@
 import ReactDOMServer from "react-dom/server"
-import ProjectImage from "@/components/projects/ProjectImage"
+import MdImage from "@/components/posts/MdImage"
 
 export function parseMd (projectMd: string, projectId: string, screenWidth: number): string {
     const replacer = (
@@ -42,7 +42,7 @@ export function parseMd (projectMd: string, projectId: string, screenWidth: numb
         }
 
         const replaced = (
-            <ProjectImage 
+            <MdImage 
                 src={ `${projectId}/resources/${filename}` } 
                 styles={ styles }
                 tag={ alt }

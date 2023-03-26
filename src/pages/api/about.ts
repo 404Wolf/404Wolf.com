@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
-import AboutData from '@/interfaces/about_data';
+import AboutData from '@/components/about/AboutData';
 
 interface Response extends NextApiResponse {
     json: (data: AboutData) => void;

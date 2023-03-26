@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BasicContacts from "../header/BasicContacts";
+import BasicContacts from "../contacts/BasicContacts";
 import React from "react";
 
 interface MainLayoutProps {

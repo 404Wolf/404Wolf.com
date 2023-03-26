@@ -19,11 +19,11 @@ const Contact = ({ name, username, url, icon, at=true, textSize="md" }: ContactP
                 </Tag>
             
                 <div className="flex items-center">
-                    <div className="bg-slate-500 p-[.35rem] rounded-3xl z-20">
+                    <div className="bg-slate-400 p-[.35rem] rounded-3xl z-20">
                         <ContactIcon src={ `/icons/${name}.svg` } alt={ `${username} - ${name}` }/>
                     </div>
 
-                    <div className={ `text-${textSize} bg-slate-400 w-full pl-7 pr-2 py-1 rounded-full -translate-x-6 z-0` }>
+                    <div className={ `text-${textSize} bg-slate-200 w-full pl-7 pr-2 py-1 rounded-full -translate-x-6 z-0` }>
                         <span className="text-xl font-bold">{at ? '@' : ' '}</span>
                         { username }
                     </div>
