@@ -1,6 +1,7 @@
 import Project from "@/components/projects/Project";
 import Tile from "@/components/misc/Tile";
 import ProjectData from "@/interfaces/project_data";
+import useSize from "@/hooks/useSize";
 
 interface ProjectsProps {
     projects: ProjectData;
@@ -8,10 +9,20 @@ interface ProjectsProps {
 
 const Projects = ( { projects }: ProjectsProps ) => {
     const gridProjects = Object.values(projects)
+    const screenSize = useSize()
+
+    let totalProjectCount
+    if (screenSize[0] <= 400) totalProjectCount = 12
+    else if (screenSize[0] <= 550) totalProjectCount = 10
+    else if (screenSize[0] <= 650) totalProjectCount = 12
+    else if (screenSize[0] <= 768) totalProjectCount = 10
+    else if (screenSize[0] <= 1024) totalProjectCount = 12
+    else if (screenSize[0] <= 1280) totalProjectCount = 24
+    else totalProjectCount = 30
 
     // Fill projects up with dummy projects to make the grid look nice
     // We want a minimum of 20 projects
-    while (gridProjects.length < 30) {
+    while (gridProjects.length < totalProjectCount) {
         gridProjects.push(null)
     }
 
