@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import ProjectData from "@/interfaces/project_data";
-import ProjectsData from "@/interfaces/projects_data";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface Request extends NextApiRequest {
