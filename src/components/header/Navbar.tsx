@@ -3,32 +3,29 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import ContactsPopup from "../contacts/ContactsPopup";
 
-interface NavbarProps {
-    setBackdropBlur: (blur: boolean) => void
-}
-
-const Navbar = ({setBackdropBlur}: NavbarProps) => {
+const Navbar = () => {
     const [contactsPopupShown, setContactsPopupShown] = useState(false);
     const { push } = useRouter();
 
     return (
-        <>
+        <div className="pt-3">
             <ContactsPopup 
                 open={ contactsPopupShown }
                 setOpen={ setContactsPopupShown }
-                setBackdropBlur={ setBackdropBlur }
             />
             
             <div className="flex flex-row justify-start text-center gap-3">
-                <Navbutton>About Me</Navbutton>
+                <Navbutton>About</Navbutton>
                     
                 <Navbutton onClick={() => setContactsPopupShown(true)}>
                     Contacts
                 </Navbutton>
 
                 <Navbutton onClick={() => push("/resume")}>Resume</Navbutton>
+
+                <Navbutton onClick={() => push("/projects")}>Projects</Navbutton>
             </div>
-        </>
+        </div>
     );
 }
  

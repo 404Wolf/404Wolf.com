@@ -20,7 +20,7 @@ const Tile = ({title, children, className="", direction="left", extraPadding=0 }
                     />
                 </h2>
             </div>}
-            <div className={`${className} mb-auto p-2 md:p-5 bg-slate-300 rounded-2xl h-full ${className}`}>
+            <div className={`${className} mb-auto p-3 md:p-5 bg-slate-300 rounded-2xl h-full ${className}`}>
                 <div style={{padding: `${extraPadding}px`}}>
                     { children }
                 </div>

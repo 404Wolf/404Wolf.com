@@ -7,11 +7,7 @@ import useAbout from "@/hooks/useAbout";
 const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
 
-interface HeaderProps {
-    setBackdropBlur: (blur: boolean) => void;
-}
-
-const Header = ({ setBackdropBlur }: HeaderProps) => {
+const Header = () => {
     const about = useAbout()
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
     
@@ -21,7 +17,6 @@ const Header = ({ setBackdropBlur }: HeaderProps) => {
             onMouseLeave={(e: MouseEvent) => setProfileImageSrc(profileImageMe)}
             priority
             fill
-            sizes="100%"
             src={ profileImageSrc } 
             alt="Profile"
             className="rounded-[2.5rem] border-[6px] sm:border-[5px] border-slate-400"
@@ -32,7 +27,7 @@ const Header = ({ setBackdropBlur }: HeaderProps) => {
         <div>
             <div className="flex flex-col gap-5 justify-between">
                 <h2 className="my-auto">
-                    <div className="h-32 w-32 md:h-36 md:w-36 relative float-right ml-1 sm:ml-2 mb-1 sm:mb-2 md:ml-4 md:mb-4 lg:mb-0">
+                    <div className="h-32 w-32 md:h-30 md:w-30 relative float-right ml-1 sm:ml-2">
                         { profileImage }
                     </div>
 
@@ -46,7 +41,7 @@ const Header = ({ setBackdropBlur }: HeaderProps) => {
                     </div>
                 </h2>
 
-                <Navbar setBackdropBlur={setBackdropBlur}/>
+                <Navbar/>
             </div>
         </div>
     );

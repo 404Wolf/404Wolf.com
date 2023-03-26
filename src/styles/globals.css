@@ -7,3 +7,9 @@
     color: rgb(226, 229, 231);
     border-radius: 1rem;
 }
+
+body {
+    background-image: linear-gradient(to top right, #2b65be, #2658a6);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

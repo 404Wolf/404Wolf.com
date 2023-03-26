@@ -13,7 +13,7 @@ interface ProjectProps {
 const Project = ( { id, name, cover, date, page, isDummy=false }: ProjectProps ) => {
     return (
         <Link href={ page || "/" } className={isDummy ? "pointer-events-none" : ""}>
-            <div className="bg-cover rounded-xl drop-shadow-md hover:brightness-90 ease-in transition-all p-2 relative h-[5.5rem] md:h-24 bg-cover bg-center duration-100 hover:scale-105 flex items-center justify-center bg-gray-100/[35%]" style={ {backgroundImage: `url('${cover}')`} }>
+            <div className="bg-cover rounded-xl drop-shadow-md hover:brightness-90 ease-in transition-all p-2 relative h-[5.5rem] md:h-32 lg:h-24 bg-cover bg-center duration-100 hover:scale-105 flex items-center justify-center bg-gray-100/[35%]" style={ {backgroundImage: `url('${cover}')`} }>
                 {!isDummy && <Tag children={ date }/>}
 
                 <div className="flex flex-col">

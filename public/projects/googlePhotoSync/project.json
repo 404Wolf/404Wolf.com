@@ -4,5 +4,6 @@
     "tags": ["personal"],
     "date": "2022",
     "cover": ["dalle.webp"],
-    "description":""
+    "description":"",
+    "featured": true
 }

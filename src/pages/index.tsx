@@ -19,31 +19,33 @@ export async function getStaticProps() {
 }
 
 interface HomeProps {
-    projects: ProjectsData
+    projects: ProjectsData[]
 }
 
 const Home = ({ projects }: HomeProps) => {
-    const [backdropBlur, setBackdropBlur] = useState(false)
-
     return (
-        <div className={`duration-100 ${backdropBlur ? "blur-sm contrast-75" : ""}`}>
-            <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
-                <div className="flex flex-col gap-7">
-                    <Tile>
-                        <Header setBackdropBlur={ setBackdropBlur }/>
-                    </Tile>
+        <MainLayout header={<Greeter/>} headerWidth="w-[13.5rem] sm:w-[20rem]">
+            <div className="flex flex-col gap-7">
+                <Tile>
+                    <Header/>
+                </Tile>
 
-                    <div className="flex flex-row gap-4 sm:gap-6">
-                        <div className="basis-[40%] sm:basis-[45%] lg:basis-[65%]">
-                            <Projects projects={ projects }/>
-                        </div>
-                        <div className="basis-[60%] sm:basis-[55%] lg:basis-[35%]">
-                            <About/>
-                        </div>
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                    <div className="hidden sm:block basis-[30%]">
+                        <Tile title="Projects">
+                            <Projects
+                                projects={ projects } 
+                                featuredOnly={ true }
+                                className="pt-3 sm:pt-2 grid grid-cols-2 sm:grid-cols-1 justify-between items-center gap-4 sm:gap-5"
+                            />
+                        </Tile>
+                    </div>
+                    <div className="basis-[75%]">
+                        <About/>
                     </div>
                 </div>
-            </MainLayout>
-        </div>
+            </div>
+        </MainLayout>
     )
 }
 

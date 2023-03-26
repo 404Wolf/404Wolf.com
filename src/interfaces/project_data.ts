@@ -5,4 +5,5 @@ export default interface ProjectData {
     date: string;
     cover: string;
     description: string;
+    featured: boolean;
 }
