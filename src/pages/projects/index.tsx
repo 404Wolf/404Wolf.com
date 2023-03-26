@@ -1,9 +1,11 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
-import ProjectsTile from "@/components/posts/PostCardGrid";
+import PostCardGrid from "@/components/posts/PostCardGrid";
 import PostData from "@/components/posts/PostData";
 import { list_projects as list_projects } from "../api/projects/listed";
 import Navbar from "@/components/header/Navbar";
+import useSize from "@/utils/useSize";
+import { useEffect, useState } from "react";
 
 export async function getStaticProps() {
     const projects = await list_projects()
@@ -20,6 +22,21 @@ interface ProjectsProps {
 }
 
 const Projects = ({ projects }: ProjectsProps) => {
+    const screenSize = useSize()
+    const [ minProjects, setMinProjects ] = useState(6)
+
+    useEffect(() => {
+        if (screenSize[0] <= 640) {
+            setMinProjects(8)
+        }
+        else if (screenSize[0] <= 1024) {
+            setMinProjects(9)
+        }
+        else {
+            setMinProjects(12)
+        }
+    }, [screenSize[0]])
+
     return (
         <MainLayout header="Projects">
             <div className="mb-8">
@@ -31,9 +48,10 @@ const Projects = ({ projects }: ProjectsProps) => {
                 </Tile>
             </div>
             <Tile title="Projects">
-                <ProjectsTile 
+                <PostCardGrid 
                     posts={ projects }
-                    minAmount={ 12 }
+                    minAmount={ minProjects }
+                    gridConfig="grid grid-cols-2 sm:grid-cols-3"
                 />
             </Tile>
         </MainLayout>
