@@ -21,7 +21,7 @@ const ContactsPopup = ({ open, setOpen, setBackdropBlur }: ContactsPopupProps) =
             onClose={ () => setBackdropBlur(false) }
         >
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-500 p-6 pt-8 rounded-2xl drop-shadow-5xl-c">
-                <Tile title="Contacts" className="sm:border-4 sm:border-slate-700">
+                <Tile title="Contacts" className="sm:border-4 sm:border-slate-700 pt-7" extraPadding={2}>
                     <Contacts/>
                 </Tile>
             </div>

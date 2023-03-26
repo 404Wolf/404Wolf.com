@@ -33,7 +33,7 @@ const Tag = ({ children, width="fit", position=null}: TagProps) => {
     }
 
     return (
-        <div className={ `w-${width} text-xs sm:text-md absolute ${positioning} ${translations} bg-[#545454] text-white p-1 py-px rounded-lg` }>
+        <div className={ `w-${width} text-xs sm:text-md absolute ${positioning} ${translations} bg-[#545454] text-white p-1 py-px rounded-lg z-50` }>
             { children }
         </div>
     );
