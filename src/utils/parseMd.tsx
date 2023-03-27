@@ -1,5 +1,5 @@
 import ReactDOMServer from "react-dom/server"
-import MdImage from "@/components/posts/MdImage"
+import MdImage from "@/components/misc/MdImage"
 
 export function parseMd (projectMd: string, projectId: string, screenWidth: number): string {
     const replacer = (

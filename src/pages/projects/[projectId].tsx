@@ -1,10 +1,5 @@
-import MainLayout from '@/layouts/MainLayout';
-import Tile from '@/components/misc/Tile';
 import { useEffect, useState } from 'react';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { projectById as projectFromId } from '../api/projects/byId';
-import rehypeRaw from 'rehype-raw'
-import MdImage from '@/components/posts/MdImage';
 import useSize from '@/utils/useSize';
 import PostData from '../../components/posts/PostData';
 import fs from 'fs';

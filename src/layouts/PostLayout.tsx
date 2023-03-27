@@ -1,7 +1,7 @@
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
 import Tile from "../components/misc/Tile";
-import MdImage from "../components/posts/MdImage";
+import MdImage from "../components/misc/MdImage";
 import MainLayout from "./MainLayout";
 
 interface PostLayoutProps {

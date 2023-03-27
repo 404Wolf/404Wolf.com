@@ -12,7 +12,7 @@ interface mdImageProps {
 
 const MdImage = ({ tag, alt, src, float, imageClasses, styles={} }: mdImageProps) => {
     return (
-        <Link href={ src }>
+        <Link href={ src } target="_blank" rel="noopener noreferrer">
             <div className="relative inline-block float-right container my-2 duration-100 hover:scale-105" style={ styles }>
                 <img
                     src={ src }
