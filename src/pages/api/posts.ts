@@ -19,7 +19,7 @@ export default function handler(req: Request, res: Response) {
     if (posts) {
         if (featuredOnly) {
             const featuredPosts = posts.filter(
-                (post) => post.featured
+                (post) => post.tags.includes("featured")
             )
             res.status(200).json({ posts: featuredPosts })
             return
