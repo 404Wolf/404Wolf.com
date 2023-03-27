@@ -40,7 +40,7 @@ const Home = ({ posts }: HomeProps) => {
                                 posts={ posts }
                                 showTags={ ["ongoing"] }
                                 minAmount={ (screenSize[0] <= 640) ? 6 : undefined }
-                                gridConfig="grid-cols-1"
+                                gridConfig="grid-cols-2 sm:grid-cols-1"
                             />
                         </Tile>
                     </div>

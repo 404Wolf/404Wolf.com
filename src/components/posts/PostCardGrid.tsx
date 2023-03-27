@@ -24,7 +24,7 @@ const PostCardGrid = ( { posts, minAmount, onlyFeatured, showTags, tags=[], grid
     }
 
     return (
-        <div className={`pt-3 sm:pt-2 ${gridConfig} justify-between items-center gap-1 sm:gap-2`}>
+        <div className={`pt-3 sm:pt-2 grid ${gridConfig} justify-between items-center gap-1 sm:gap-2`}>
             {posts.map(
                 (post, index) => {
                     if (post === null) {
