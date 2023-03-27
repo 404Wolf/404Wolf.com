@@ -1,7 +1,6 @@
 import Link from "next/link";
 import BasicContacts from "../components/contacts/BasicContacts";
-import React from "react";
-import Pulsate from "@/components/misc/pulsate";
+import React, { useEffect } from "react";
 
 interface MainLayoutProps {
     children: React.ReactNode;

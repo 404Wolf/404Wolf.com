@@ -1,12 +1,20 @@
 import Navbutton from "@/components/header/Navbutton";
 import Pulsate from "@/components/misc/pulsate";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContactsPopup from "../contacts/ContactsPopup";
 
-const Navbar = () => {
+interface NavbarProps {
+    setBackgroundBlurred: (blurred: boolean) => void
+}
+
+const Navbar = ({ setBackgroundBlurred }: NavbarProps) => {
     const [contactsPopupShown, setContactsPopupShown] = useState(false);
     const { push } = useRouter();
+
+    useEffect(() => {
+        setBackgroundBlurred(contactsPopupShown);
+    }, [contactsPopupShown]);
 
     return (
         <div className="pt-3">

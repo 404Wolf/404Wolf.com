@@ -7,7 +7,11 @@ import useAbout from "@/components/about/useAbout";
 const profileImageMe =  "/resources/profileMe.webp"
 const profileImageDog = "/resources/profileDog.webp"
 
-const Header = () => {
+interface HeaderProps {
+    setBackgroundBlurred: (blurred: boolean) => void
+}
+
+const Header = ({ setBackgroundBlurred }: HeaderProps) => {
     const about = useAbout()
     const [ profileImageSrc, setProfileImageSrc ] = useState(profileImageMe)
     
@@ -44,7 +48,7 @@ const Header = () => {
                     </div>
                 </h2>
 
-                <Navbar/>
+                <Navbar setBackgroundBlurred={ setBackgroundBlurred }/>
             </div>
         </div>
     );

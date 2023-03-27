@@ -16,6 +16,7 @@ const Contacts = () => {
                                 url={ contact.link }
                                 icon={ contact.name }
                                 at={ contact.at ? contact.at : false }
+                                key={ index }
                             />
                         </div>
                     )

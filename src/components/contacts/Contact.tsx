@@ -8,9 +8,10 @@ interface ContactProps {
     icon: string | null;
     at?: boolean;
     textSize?: string;
+    key: number;
 }
 
-const Contact = ({ name, username, url, icon, at=true, textSize="md" }: ContactProps) => {
+const Contact = ({ name, username, url, icon, at=true, textSize="md", key }: ContactProps) => {
     return (
         <a href={ url } target="_blank" rel="noopener noreferrer" className="duration-150 hover:scale-105 hover:drop-shadow-sm mr-auto">
             <div className="relative -mr-4">
