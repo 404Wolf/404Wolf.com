@@ -21,7 +21,9 @@ interface ProjectParams {
 
 export async function getStaticPaths() {
     const projectsPath = path.join(process.cwd(), "public", 'projects')
-    const paths = fs.readdirSync(projectsPath).map(projectId => ({ params: { projectId: projectId } }))
+    const paths = fs.readdirSync(projectsPath)
+        .filter(projectId => projectId !== "projects.json")
+        .map(projectId => ({ params: { projectId: projectId } }))
     return { paths: paths, fallback: false }
 }
 
