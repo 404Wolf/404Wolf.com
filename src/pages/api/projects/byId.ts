@@ -10,11 +10,11 @@ interface Request extends NextApiRequest {
 }
 
 export default function handler(req: Request, res: NextApiResponse) {
-    const projectData: null | PostData = project_by_id(req.query.id)
+    const projectData: null | PostData = projectById(req.query.id)
     
     if (projectData !== null) {
         // Return the project's data
-        res.status(200).json({ data: project_by_id(req.query.id) })
+        res.status(200).json({ data: projectById(req.query.id) })
     }
     else {
         // Return an error
@@ -22,7 +22,7 @@ export default function handler(req: Request, res: NextApiResponse) {
     }
 }
 
-export function project_by_id (id: string): null | PostData {
+export function projectById (id: string): null | PostData {
     if (id !== undefined) {
         const projectPath: string = path.join(process.cwd(), "public", 'projects', `${id}`)
         

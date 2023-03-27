@@ -3,15 +3,15 @@ import postData from "@/components/posts/PostData";
 
 interface PostCardGridProps {
     posts: (postData | null)[];
-    featuredOnly?: boolean;
-    postTags?: boolean;
+    onlyFeatured?: boolean;
+    tags?: string[];
     minAmount?: number;
     gridConfig?: string;
 }
 
-const PostCardGrid = ( { posts, minAmount, featuredOnly, postTags, gridConfig="grid grid-cols-2" }: PostCardGridProps ) => {
-    if (featuredOnly) {
-        posts = posts.filter(post => (post === null) ? false : post.featured)
+const PostCardGrid = ( { posts, minAmount, tags, onlyFeatured, gridConfig="grid grid-cols-2" }: PostCardGridProps ) => {
+    if (onlyFeatured) {
+        posts = posts.filter(post => post && post.tags.includes("featured"))
     }
 
     if (minAmount) {
@@ -41,7 +41,7 @@ const PostCardGrid = ( { posts, minAmount, featuredOnly, postTags, gridConfig="g
                                 date={ post.date }
                                 type={ post.type }
                                 key={ index }
-                                tags={ postTags }
+                                tags={ tags }
                             />
                         )
                     }

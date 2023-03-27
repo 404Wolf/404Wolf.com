@@ -1,9 +1,8 @@
 {
     "id": "caffeinatedGranolaBars",
     "name": "Caffeinated Granola Bars",
-    "tags": ["personal"],
+    "tags": ["personal", "featured"],
     "date": "2022",
     "cover": ["dalle.webp"],
-    "description":"",
-    "featured": true
+    "description":""
 }

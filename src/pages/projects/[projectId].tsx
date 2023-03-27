@@ -2,7 +2,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 import Tile from '@/components/misc/Tile';
 import { useEffect, useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { project_by_id as projectFromId } from '../api/projects/by_id';
+import { projectById as projectFromId } from '../api/projects/byId';
 import rehypeRaw from 'rehype-raw'
 import MdImage from '@/components/posts/MdImage';
 import useSize from '@/utils/useSize';

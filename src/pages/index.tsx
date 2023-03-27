@@ -37,8 +37,7 @@ const Home = ({ posts }: HomeProps) => {
                     <div className="sm:basis-[30%]">
                         <Tile title="Featured">
                             <PostCardGrid
-                                postTags
-                                featuredOnly
+                                onlyFeatured
                                 posts={ posts } 
                                 minAmount={ (screenSize[0] <= 640) ? 6 : undefined }
                             />
