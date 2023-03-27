@@ -13,7 +13,7 @@ interface PostLayoutProps {
 
 const PostLayout = ({ header, md, summary, icon }: PostLayoutProps) => {
     return (
-        <MainLayout header={ header }>
+        <MainLayout title={ header }>
             <div className={summary && "mt-[5px]"}>
                 {summary && 
                 <Tile title="Overview" className="overflow-auto" direction="right">

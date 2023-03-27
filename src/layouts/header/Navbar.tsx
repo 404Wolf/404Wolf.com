@@ -1,8 +1,8 @@
-import Navbutton from "@/components/header/Navbutton";
+import Navbutton from "@/layouts/header/Navbutton";
 import Pulsate from "@/components/misc/pulsate";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ContactsPopup from "../contacts/ContactsPopup";
+import ContactsPopup from "../../components/contacts/ContactsPopup";
 
 interface NavbarProps {
     setBackgroundBlurred: (blurred: boolean) => void

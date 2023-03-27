@@ -3,7 +3,7 @@ import Tile from "@/components/misc/Tile";
 
 const Blogs = () => {
     return (
-        <MainLayout header="Blogs">
+        <MainLayout title="Blogs">
             <Tile>
                 <h1>
                     Page in progress. Check back later.
