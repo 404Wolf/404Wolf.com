@@ -24,6 +24,7 @@ interface ProjectsProps {
 const Projects = ({ projects }: ProjectsProps) => {
     const screenSize = useSize()
     const [ minProjects, setMinProjects ] = useState(6)
+    const [ blurred, setBlurred ] = useState(false)
 
     useEffect(() => {
         if (screenSize[0] <= 640) {
@@ -38,13 +39,13 @@ const Projects = ({ projects }: ProjectsProps) => {
     }, [screenSize[0]])
 
     return (
-        <MainLayout header="Projects">
+        <MainLayout header="Projects" blurred={ blurred }>
             <div className="mb-8">
                 <Tile className="markdown">
                     <p>
                         This page is to showcase some of the projects I've worked on. It's a healthy blend of personal projects, academic projects, and more. Not all the projects are code-related, but many are. Each project has its own page with more information about it, so feel free to click on any of them to learn more. If you have any questions, feel free to contact me. More projects will be coming soon!
                     </p>
-                    <Navbar/>
+                    <Navbar setBackgroundBlurred={ setBlurred }/>
                 </Tile>
             </div>
             <Tile title="Projects">
