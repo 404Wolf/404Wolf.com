@@ -26,11 +26,11 @@ const Navbar = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-                <Pulsate period={1100} transition={800}>
+                <Pulsate period={ 825 } transition={ 400 }>
                     <Navbutton onClick={() => push("/projects")}>Projects</Navbutton>
                 </Pulsate>
 
-                <Pulsate period={1100} transition={800}>
+                <Pulsate period={ 825 } transition={ 400 }>
                     <Navbutton onClick={() => push("/blogs")}>Blogs</Navbutton>
                 </Pulsate>
             </div>

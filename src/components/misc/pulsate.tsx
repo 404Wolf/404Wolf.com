@@ -19,8 +19,8 @@ const Pulsate = ({ period=800, transition=300, children }: PulsateProps) => {
     return (
         <div
             style={{
-                transform: `scale(${scale ? "100%, 100%" : "100.6%, 102.4%"})`,
-                transition: `transform ${transition}ms cubic-bezier(0.65, 0, 0.35, 1)`,
+                transform: `scale(${scale ? "100%, 100%" : "101.4%, 102.8%"})`,
+                transition: `transform ${transition}ms cubic-bezier(0.65, 0, 0.36, 1)`,
             }}
         >
             { children }
