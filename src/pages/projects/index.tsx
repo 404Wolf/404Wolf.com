@@ -1,4 +1,4 @@
-import MainLayout from "@/components/layouts/MainLayout";
+import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
 import PostCardGrid from "@/components/posts/PostCardGrid";
 import PostData from "@/components/posts/PostData";

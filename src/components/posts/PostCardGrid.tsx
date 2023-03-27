@@ -7,9 +7,10 @@ interface PostCardGridProps {
     tags?: string[];
     minAmount?: number;
     gridConfig?: string;
+    showTags?: string[];
 }
 
-const PostCardGrid = ( { posts, minAmount, tags, onlyFeatured, gridConfig="grid grid-cols-2" }: PostCardGridProps ) => {
+const PostCardGrid = ( { posts, minAmount, onlyFeatured, showTags, tags=[], gridConfig="grid grid-cols-2" }: PostCardGridProps ) => {
     if (onlyFeatured) {
         posts = posts.filter(post => post && post.tags.includes("featured"))
     }
@@ -23,7 +24,7 @@ const PostCardGrid = ( { posts, minAmount, tags, onlyFeatured, gridConfig="grid 
     }
 
     return (
-        <div className={`pt-3 sm:pt-2 ${gridConfig} sm:grid-cols-1 justify-between items-center gap-1 sm:gap-2`}>
+        <div className={`pt-3 sm:pt-2 ${gridConfig} justify-between items-center gap-1 sm:gap-2`}>
             {posts.map(
                 (post, index) => {
                     if (post === null) {
@@ -41,7 +42,9 @@ const PostCardGrid = ( { posts, minAmount, tags, onlyFeatured, gridConfig="grid 
                                 date={ post.date }
                                 type={ post.type }
                                 key={ index }
-                                tags={ tags }
+                                tags={
+                                    [...post.tags.filter(tag => showTags?.includes(tag)), ...tags]
+                                }
                             />
                         )
                     }

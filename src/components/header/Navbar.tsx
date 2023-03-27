@@ -1,4 +1,5 @@
 import Navbutton from "@/components/header/Navbutton";
+import Pulsate from "@/components/misc/pulsate";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ContactsPopup from "../contacts/ContactsPopup";
@@ -14,16 +15,24 @@ const Navbar = () => {
                 setOpen={ setContactsPopupShown }
             />
             
-            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-4 text-center gap-3">
+            <div className="grid grid-cols-1 xs:grid-cols-3 text-center gap-3 mb-3">
                 <Navbutton>About</Navbutton>
-                    
+
                 <Navbutton onClick={() => setContactsPopupShown(true)}>
                     Contacts
                 </Navbutton>
-
+                
                 <Navbutton onClick={() => push("/resume")}>Resume</Navbutton>
+            </div>
 
-                <Navbutton onClick={() => push("/projects")}>Projects</Navbutton>
+            <div className="grid grid-cols-2 gap-3">
+                <Pulsate period={1100} transition={800}>
+                    <Navbutton onClick={() => push("/projects")}>Projects</Navbutton>
+                </Pulsate>
+
+                <Pulsate period={1100} transition={800}>
+                    <Navbutton onClick={() => push("/blogs")}>Blogs</Navbutton>
+                </Pulsate>
             </div>
         </div>
     );

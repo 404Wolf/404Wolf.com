@@ -1,7 +1,7 @@
 import PostCardGrid from '@/components/posts/PostCardGrid'
 import About from '@/components/about/About'
 import Header from '@/components/header/Header'
-import MainLayout from '@/components/layouts/MainLayout'
+import MainLayout from '@/layouts/MainLayout'
 import Greeter from '@/components/header/Greeter'
 import { list_projects as list_projects } from '@/pages/api/projects/listed'
 import Tile from '@/components/misc/Tile'
@@ -33,13 +33,15 @@ const Home = ({ posts }: HomeProps) => {
                     <Header/>
                 </Tile>
 
-                <div className="flex flex-col sm:flex-row gap-7 sm:gap-6">
+                <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                     <div className="sm:basis-[30%]">
                         <Tile title="Featured">
                             <PostCardGrid
                                 onlyFeatured
-                                posts={ posts } 
+                                posts={ posts }
+                                showTags={ ["ongoing"] }
                                 minAmount={ (screenSize[0] <= 640) ? 6 : undefined }
+                                gridConfig="grid-cols-1"
                             />
                         </Tile>
                     </div>

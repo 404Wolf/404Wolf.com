@@ -29,7 +29,7 @@ export function projectById (id: string): null | PostData {
         const projectData: PostData = JSON.parse(fs.readFileSync(path.join(projectPath, "project.json"), 'utf-8'))
         const resource = projectData.cover[Math.floor(Math.random() * projectData.cover.length)]
         projectData.cover = `/projects/${id}/resources/${resource}`
-        projectData.type = "Project"
+        projectData.type = "project"
 
         return projectData
     }

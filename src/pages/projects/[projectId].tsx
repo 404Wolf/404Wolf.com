@@ -1,4 +1,4 @@
-import MainLayout from '@/components/layouts/MainLayout';
+import MainLayout from '@/layouts/MainLayout';
 import Tile from '@/components/misc/Tile';
 import { useEffect, useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
@@ -11,7 +11,7 @@ import fs from 'fs';
 import path from 'path';
 import { worker as fetchMd } from '../api/projects/md';
 import { parseMd } from '@/utils/parseMd';
-import PostLayout from '@/components/layouts/PostLayout';
+import PostLayout from '@/layouts/PostLayout';
 
 interface ProjectParams {
     params: {

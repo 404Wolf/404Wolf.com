@@ -19,15 +19,18 @@ const Header = () => {
             fill
             src={ profileImageSrc } 
             alt="Profile"
-            className="rounded-[2.5rem] border-[6px] sm:border-[5px] border-slate-400"
+            className="rounded-[2rem] xs:rounded-[2.5rem] border-[6px] sm:border-[5px] border-slate-400"
         />
     )
         
     return (
         <div>
             <div className="flex flex-col gap-5 justify-between">
+                <div className="block xs:hidden h-28 w-28 relative mx-auto mt-2">
+                    { profileImage }
+                </div>
                 <h2 className="my-auto">
-                    <div className="h-32 w-32 md:h-30 md:w-30 relative float-right ml-1 sm:ml-2">
+                    <div className="hidden xs:block xs:h-32 xs:w-32 md:h-30 md:w-30 relative float-right ml-1 sm:ml-2">
                         { profileImage }
                     </div>
 
