@@ -18,7 +18,7 @@ const ContactsPopup = ({ open, setOpen }: ContactsPopupProps) => {
             setOpen={ setOpen }
         >
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-6 pt-8 rounded-2xl drop-shadow-5xl-c-white">
-                <Tile title="Contacts" className="sm:border-4 sm:border-slate-700" extraPadding={4}>
+                <Tile title="Contacts" className="border-4 border-slate-700" extraPadding={4}>
                     <div className="pt-1">
                         <Contacts/>
                     </div>
