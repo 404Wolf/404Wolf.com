@@ -6,11 +6,12 @@ import useSize from "@/utils/useSize";
 import { useEffect, useState } from "react";
 
 interface PostsProps {
+    header: string;
     posts: PostData[];
     children: React.ReactNode;
 }
 
-const PostsIndexLayout = ({ posts, children }: PostsProps) => {
+const PostsIndexLayout = ({ posts, header, children }: PostsProps) => {
     const screenSize = useSize();
     const [minPosts, setMinPosts] = useState(6);
 
@@ -27,14 +28,16 @@ const PostsIndexLayout = ({ posts, children }: PostsProps) => {
     const headerChildren = <div className="markdown">{children}</div>;
 
     return (
-        <MainLayout title="Projects" headerChildren={headerChildren}>
-            <Tile title="Projects">
-                <PostCardGrid
-                    posts={posts}
-                    minAmount={minPosts}
-                    gridConfig="grid grid-cols-2 sm:grid-cols-3"
-                />
-            </Tile>
+        <MainLayout title={header} headerChildren={headerChildren}>
+            <div className="-mt-3">
+                <Tile>
+                    <PostCardGrid
+                        posts={posts}
+                        minAmount={minPosts}
+                        gridConfig="grid grid-cols-2 sm:grid-cols-3"
+                    />
+                </Tile>
+            </div>
         </MainLayout>
     );
 };

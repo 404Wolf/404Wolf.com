@@ -13,7 +13,7 @@ interface BlogsProps {
 
 const Blogs = ({ blogs }: BlogsProps) => {
     return (
-        <PostsIndexLayout posts={blogs}>
+        <PostsIndexLayout header="Blogs" posts={blogs}>
             Here I'll be posting various blogs about various topics. This is still a
             very new page, so there's not much here yet. I'll be adding more content
             soon!
