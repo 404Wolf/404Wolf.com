@@ -38,7 +38,7 @@ const PostCardGrid = ( { posts, minAmount, onlyFeatured, showTags, tags=[], grid
                                 id={ post.id }
                                 name={ post.name }
                                 cover={ post.cover }
-                                page={ "/projects/"+ post.id }
+                                page={ `/posts/${post.type}/${post.id}` }
                                 date={ post.date }
                                 type={ post.type }
                                 key={ index }

@@ -35,11 +35,11 @@ const Navbar = ({ setBackgroundBlurred }: NavbarProps) => {
 
             <div className="grid grid-cols-2 gap-3">
                 <Pulsate period={ 825 } transition={ 400 }>
-                    <Navbutton onClick={() => push("/projects")}>Projects</Navbutton>
+                    <Navbutton onClick={() => push("/posts/projects")}>Projects</Navbutton>
                 </Pulsate>
 
                 <Pulsate period={ 825 } transition={ 400 }>
-                    <Navbutton onClick={() => push("/blogs")}>Blogs</Navbutton>
+                    <Navbutton onClick={() => push("/posts/blogs")}>Blogs</Navbutton>
                 </Pulsate>
             </div>
         </div>

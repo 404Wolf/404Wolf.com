@@ -6,3 +6,7 @@ export function toTitleCase(str: string) {
         }
     );
 }
+
+export function randomListItem(arr: any[]) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}

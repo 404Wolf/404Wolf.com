@@ -28,7 +28,7 @@ const PostCard = ( { id, name, cover, date, page, type, tags, isDummy=false }: P
                     }
 
                     <div className="flex flex-col">
-                        <h1 className="text-center text-[12.5px] sm:text-lg text-white font-bold sm:font-extrabold" style={ {textShadow: "0 0 15px rgba(0, 0, 0, .65)"} }>
+                        <h1 className="text-center text-[12.5px] sm:text-lg text-white font-bold sm:font-extrabold" style={ {textShadow: "0 0 22px rgba(0, 0, 0, .85)"} }>
                             { name }
                         </h1>
                     </div>

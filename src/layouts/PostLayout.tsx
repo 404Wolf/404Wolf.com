@@ -6,12 +6,13 @@ import MainLayout from "./MainLayout";
 
 interface PostLayoutProps {
     header: string;
+    type: string;
     md: string;
     summary?: string;
     icon?: string;
 }
 
-const PostLayout = ({ header, md, summary, icon }: PostLayoutProps) => {
+const PostLayout = ({ header, type, md, summary, icon }: PostLayoutProps) => {
     return (
         <MainLayout title={ header } header={ false }>
             <div className={summary && "mt-[5px]"}>
@@ -25,7 +26,7 @@ const PostLayout = ({ header, md, summary, icon }: PostLayoutProps) => {
                     </div>
                 </Tile>}
                 <div className='m-6'/>
-                <Tile className="overflow-auto" title="Project" direction="right">
+                <Tile className="overflow-auto" title={type} direction="right">
                     <ReactMarkdown className="markdown" rehypePlugins={[ rehypeRaw ]}>
                         { md }
                     </ReactMarkdown>

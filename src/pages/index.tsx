@@ -1,25 +1,25 @@
-import PostCardGrid from '@/components/posts/PostCardGrid'
-import About from '@/components/about/About'
-import Header from '@/layouts/header/Header'
-import MainLayout from '@/layouts/MainLayout'
-import Greeter from '@/layouts/header/Greeter'
-import Tile from '@/components/misc/Tile'
-import useSize from '@/utils/useSize'
-import PostData from '@/components/posts/PostData'
-import { list_posts } from './api/posts'
-import InlineButton from '@/components/misc/InlineButton'
-import useAbout from '@/components/about/useAbout'
-import Image from 'next/image'
-import { MouseEvent, useState } from 'react'
+import PostCardGrid from "@/components/posts/PostCardGrid";
+import About from "@/components/about/About";
+import Header from "@/layouts/header/Header";
+import MainLayout from "@/layouts/MainLayout";
+import Greeter from "@/layouts/header/Greeter";
+import Tile from "@/components/misc/Tile";
+import useSize from "@/utils/useSize";
+import PostData from "@/components/posts/PostData";
+import InlineButton from "@/components/misc/InlineButton";
+import useAbout from "@/components/about/useAbout";
+import Image from "next/image";
+import { MouseEvent, useState } from "react";
+import { listAllPosts } from "./api/posts/listed";
 
 export async function getStaticProps() {
-    const posts = await list_posts();
+    const posts = listAllPosts(["featured"]);
 
     return {
         props: {
-            posts
+            posts,
         },
-    }
+    };
 }
 
 interface HomeProps {
@@ -27,13 +27,13 @@ interface HomeProps {
 }
 
 const Home = ({ posts }: HomeProps) => {
-    const profileImageMe = "/resources/profileMe.webp"
-    const profileImageDog = "/resources/profileDog.webp"
+    const profileImageMe = "/resources/profileMe.webp";
+    const profileImageDog = "/resources/profileDog.webp";
 
-    const screenSize = useSize()
-    const about = useAbout()
+    const screenSize = useSize();
+    const about = useAbout();
 
-    const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe)
+    const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
     const profileImage = (
         <Image
             onMouseEnter={(e: MouseEvent) => setProfileImageSrc(profileImageDog)}
@@ -44,7 +44,7 @@ const Home = ({ posts }: HomeProps) => {
             alt="Profile"
             className="rounded-[2rem] xs:rounded-[2.5rem] border-[6px] sm:border-[5px] border-slate-400"
         />
-    )
+    );
     const headerChildren = (
         <div>
             <div className="hidden xs:block xs:h-32 xs:w-32 md:h-30 md:w-30 relative float-right ml-1 sm:ml-2">
@@ -53,14 +53,24 @@ const Home = ({ posts }: HomeProps) => {
 
             <div className="markdown">
                 <p className="mb-2">
-                    I'm a <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton> student in NYC with a passion for tinkering, coding, Ancient Latin, D&D, strategy board games, creating, designing, engineering, geeking, making, and figuring things out.
+                    I'm a{" "}
+                    <InlineButton externalTo="https://bhsec.bard.edu/queens/">
+                        BHSEC
+                    </InlineButton>{" "}
+                    student in NYC with a passion for tinkering, coding, Ancient
+                    Latin, D&D, strategy board games, creating, designing,
+                    engineering, geeking, making, and figuring things out.
                 </p>
                 <p>
-                    Information, projects, contacts, my resume, and more can be found on this website. If you have any questions, feel free to <InlineButton externalTo={`mailto:${about.email}`}>email me!</InlineButton>
+                    Information, projects, contacts, my resume, and more can be
+                    found on this website. If you have any questions, feel free to{" "}
+                    <InlineButton externalTo={`mailto:${about.email}`}>
+                        email me!
+                    </InlineButton>
                 </p>
             </div>
         </div>
-    )
+    );
 
     return (
         <MainLayout
@@ -76,7 +86,7 @@ const Home = ({ posts }: HomeProps) => {
                                 onlyFeatured
                                 posts={posts}
                                 showTags={["ongoing"]}
-                                minAmount={(screenSize[0] <= 640) ? 6 : undefined}
+                                minAmount={screenSize[0] <= 640 ? 6 : undefined}
                                 gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
                             />
                         </Tile>
@@ -87,7 +97,7 @@ const Home = ({ posts }: HomeProps) => {
                 </div>
             </div>
         </MainLayout>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
