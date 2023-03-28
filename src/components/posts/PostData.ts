@@ -10,4 +10,5 @@ export default interface PostData {
     cover: string;
     description: string;
     type: string;
+    path: string;
 }

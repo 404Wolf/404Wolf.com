@@ -27,22 +27,19 @@ export default function handler(req: Request, res: NextApiResponse) {
 export function postById(postId: string, type: string): null | PostData {
     if (postId) {
         // Construct the path to the post's data
-        const postPath = path.join(
-            process.cwd(),
-            "public",
-            "posts",
-            type,
-            postId,
-            "post.json"
-        );
+        const postPath = path.join(process.cwd(), "public", "posts", type);
 
-        const post = JSON.parse(fs.readFileSync(postPath, "utf8"));
+        // Parse the post's data json
+        const post = JSON.parse(
+            fs.readFileSync(path.join(postPath, postId, "post.json"), "utf8")
+        );
 
         // Add the type and proper path to the cover image to the post
         post.type = type;
-        post.cover = `/posts/${type}/${postId}/resources/${randomListItem(
-            post.cover
-        )}`;
+        // Build and store the path to the post
+        post.path = `/posts/${type}/${post.id}`;
+        // Choose a random cover from the possibilities alloted in post.cover
+        post.cover = `/posts/${type}/${post.id}/resources/${randomListItem(post.cover)}`;
 
         // Return the post
         return post;
