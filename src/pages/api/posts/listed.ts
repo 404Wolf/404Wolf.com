@@ -91,6 +91,11 @@ export function listTypePosts(type: string, tags?: string[]): PostData[] | null 
         );
     }
 
+    // Sort out all posts that have the hidden tag
+    sortedPosts = sortedPosts.filter(
+        post => !post.tags.includes("hidden")
+    )
+
     // Return the sorted posts
     return sortedPosts;
 }
