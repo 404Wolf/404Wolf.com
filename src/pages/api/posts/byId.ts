@@ -38,8 +38,10 @@ export function postById(postId: string, type: string): null | PostData {
         post.type = type;
         // Build and store the path to the post
         post.path = `/posts/${type}/${post.id}`;
-        // Choose a random cover from the possibilities alloted in post.cover
-        post.cover = `/posts/${type}/${post.id}/resources/${randomListItem(post.cover)}`;
+        // Convert all the post covers to their proper path
+        post.covers = post.covers.map(
+            (cover: string) => `/posts/${type}/${post.id}/resources/${cover}`
+        )
 
         // Return the post
         return post;

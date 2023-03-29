@@ -7,6 +7,7 @@ import { parseMd } from "@/utils/parseMd";
 import PostLayout from "@/layouts/PostLayout";
 import { listTypePosts } from "../../api/posts/listed";
 import Head from "next/head";
+import { randomListItem } from "@/utils/misc";
 
 interface ProjectParams {
     params: {
@@ -57,7 +58,7 @@ const Project = ({ projectId, projectData, projectMd }: ProjectProps) => {
                 type="Project"
                 md={parsedProjectMd}
                 summary={projectData.description}
-                icon={projectData.cover}
+                icon={randomListItem(projectData.covers)}
             />
         </>
     );

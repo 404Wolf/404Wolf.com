@@ -7,7 +7,7 @@ export default interface PostData {
         hidden: boolean;
     }
     date: string;
-    cover: string;
+    covers: string[];
     description: string;
     type: string;
     path: string;

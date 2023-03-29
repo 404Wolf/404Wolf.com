@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Tag from "@/components/misc/Tag";
-import { toTitleCase } from "@/utils/misc";
+import { randomListItem, toTitleCase } from "@/utils/misc";
 import PostData from "./PostData";
 
 interface BasicPostCardProps {
@@ -17,7 +17,7 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
             >
                 <div
                     className="bg-cover rounded-xl drop-shadow-md hover:brightness-90 ease-in transition-all relative h-[4.6em] md:h-32 lg:h-24 bg-cover bg-center duration-100 hover:scale-105 flex items-center justify-center bg-gray-100/[35%]"
-                    style={{ backgroundImage: `url('${post?.cover}')` }}
+                    style={{ backgroundImage: `url('${post && post.covers && randomListItem(post.covers)}')` }}
                 >
                     {post && (
                         <div

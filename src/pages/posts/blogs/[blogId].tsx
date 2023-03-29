@@ -7,6 +7,7 @@ import { postMd } from "@/pages/api/posts/md";
 import { listTypePosts } from "@/pages/api/posts/listed";
 import PostData from "@/components/posts/PostData";
 import Head from "next/head";
+import { randomListItem } from "@/utils/misc";
 
 export async function getStaticPaths() {
     const blogs = listTypePosts("blogs")?.map((blog) => blog.id);
@@ -56,7 +57,7 @@ const blog = ({ blogId, blogData, blogMd }: blogProps) => {
                 type="Blog"
                 md={parsedBlogMd}
                 summary={blogData.description}
-                icon={blogData.cover}
+                icon={randomListItem(blogData.covers)}
             />
         </>
     );
