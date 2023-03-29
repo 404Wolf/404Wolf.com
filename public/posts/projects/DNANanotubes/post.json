@@ -3,6 +3,6 @@
     "name": "DNA Nanotube Design Software",
     "tags": ["academic", "featured"],
     "date": "2022",
-    "cover": ["covidMsn.webp"],
-    "description":"How'd I get the email reimagine@msn.com? In this post you'll find out. I discuss my path to discovering and reporting a Microsoft account creation captcha bypass exploit. I'll also explain how it's still possible (in 2023!) to create a microsoft account with an @msn.com email, with a step-by-step walk through. And, through the process I'll share some of the cool account's I've collected in the process."
+    "cover": ["interface.wepb"],
+    "description":"NATuG (Nucleic Acid Tube Grapher) is a Python 3 desktop application that I've been working on over the past year to streamline the DNA nanotube design process. It lets users visualize DNA nanotube shapes, weave together strands of DNA with cross-strand exchanges, set and export sequences, and more."
 }
