@@ -11,6 +11,7 @@ import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
 import { MouseEvent, useState } from "react";
 import { listAllPosts } from "./api/posts/listed";
+import Head from "next/head";
 
 export async function getStaticProps() {
     const posts = listAllPosts(["featured"]);
@@ -73,30 +74,35 @@ const Home = ({ posts }: HomeProps) => {
     );
 
     return (
-        <MainLayout
-            title={<Greeter />}
-            titleWidth="w-[13.5rem] sm:w-[20rem]"
-            headerChildren={headerChildren}
-        >
-            <div className="flex flex-col gap-7">
-                <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
-                    <div className="sm:basis-[30%]">
-                        <Tile title="Featured">
-                            <PostCardGrid
-                                onlyFeatured
-                                posts={posts}
-                                showTags={["ongoing"]}
-                                minAmount={screenSize[0] <= 640 ? 6 : undefined}
-                                gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
-                            />
-                        </Tile>
-                    </div>
-                    <div className="basis-[75%]">
-                        <About />
+        <>
+            <Head>
+                <title>Wolf Mermelstein</title>
+            </Head>
+            <MainLayout
+                title={<Greeter />}
+                titleWidth="w-[13.5rem] sm:w-[20rem]"
+                headerChildren={headerChildren}
+            >
+                <div className="flex flex-col gap-7">
+                    <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
+                        <div className="sm:basis-[30%]">
+                            <Tile title="Featured">
+                                <PostCardGrid
+                                    onlyFeatured
+                                    posts={posts}
+                                    showTags={["ongoing"]}
+                                    minAmount={screenSize[0] <= 640 ? 6 : undefined}
+                                    gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
+                                />
+                            </Tile>
+                        </div>
+                        <div className="basis-[75%]">
+                            <About />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </MainLayout>
+            </MainLayout>
+        </>
     );
 };
 

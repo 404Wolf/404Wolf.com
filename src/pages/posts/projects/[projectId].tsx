@@ -6,6 +6,7 @@ import { postMd as fetchMd } from "../../api/posts/md";
 import { parseMd } from "@/utils/parseMd";
 import PostLayout from "@/layouts/PostLayout";
 import { listTypePosts } from "../../api/posts/listed";
+import Head from "next/head";
 
 interface ProjectParams {
     params: {
@@ -44,16 +45,21 @@ const Project = ({ projectId, projectData, projectMd }: ProjectProps) => {
     useEffect(() => {
         projectMd &&
             setParsedProjectMd(parseMd(projectMd, projectId, windowSize[0]));
-    }, [projectMd, projectId, windowSize[0]]);
+    }, [projectMd, projectId, windowSize]);
 
     return (
-        <PostLayout
-            header={projectData.name}
-            type="Project"
-            md={parsedProjectMd}
-            summary={projectData.description}
-            icon={projectData.cover}
-        />
+        <>
+            <Head>
+                <title>`Wolf Mermelstein | Projects | ${projectId}` </title>
+            </Head>
+            <PostLayout
+                header={projectData.name}
+                type="Project"
+                md={parsedProjectMd}
+                summary={projectData.description}
+                icon={projectData.cover}
+            />
+        </>
     );
 };
 

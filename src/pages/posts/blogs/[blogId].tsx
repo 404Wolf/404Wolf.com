@@ -6,6 +6,7 @@ import { postById } from "@/pages/api/posts/byId";
 import { postMd } from "@/pages/api/posts/md";
 import { listTypePosts } from "@/pages/api/posts/listed";
 import PostData from "@/components/posts/PostData";
+import Head from "next/head";
 
 export async function getStaticPaths() {
     const blogs = listTypePosts("blogs")?.map((blog) => blog.id);
@@ -46,13 +47,18 @@ const blog = ({ blogId, blogData, blogMd }: blogProps) => {
     }, [blogMd, blogId, windowSize[0]]);
 
     return (
-        <PostLayout
-            header={blogData.name}
-            type="Blog"
-            md={parsedBlogMd}
-            summary={blogData.description}
-            icon={blogData.cover}
-        />
+        <>
+            <Head>
+                <title>`Wolf Mermelstein | Blogs | ${blogId}` </title>
+            </Head>
+            <PostLayout
+                header={blogData.name}
+                type="Blog"
+                md={parsedBlogMd}
+                summary={blogData.description}
+                icon={blogData.cover}
+            />
+        </>
     );
 };
 
