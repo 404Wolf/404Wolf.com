@@ -10,12 +10,15 @@ interface Request extends NextApiRequest {
         tags: string | undefined;
         // The folder that the projects are stored in, or use all folders. (separated by commas)
         types: string | undefined;
+        // Whether posts aer sorted by type or loose
+        loose: string | undefined;
     };
 }
 
 export default async function handler(req: Request, res: NextApiResponse) {
     const types = req.query.types?.split(",") || listTypes();
     const tags = req.query.tags?.split(",");
+    const loose = req.query.loose === "true";
 
     // Create a dictionary where the key is the type of post and the value is the list of posts of that type
     const byType: { [key: string]: PostData[] | null } = {};
@@ -23,12 +26,25 @@ export default async function handler(req: Request, res: NextApiResponse) {
         byType[type] = listTypePosts(type, tags);
     }
 
+    // Convert all the types into one big list and return it if the posts are loose
+    if (loose) {
+        let loosePosts: PostData[] = [];
+        for (const type of types) {
+            if (byType[type] !== null) {
+                loosePosts = loosePosts.concat(byType[type] as PostData[]);
+            }
+        }
+        res.status(200).json({ data: loosePosts });
+    }
+
     // Return the list of posts
     res.status(200).json({ byType });
 }
 
 export function listTypes() {
-    return JSON.parse(fs.readFileSync(path.join("public", "posts", "types.json"), "utf8"));
+    return JSON.parse(
+        fs.readFileSync(path.join("public", "posts", "types.json"), "utf8")
+    );
 }
 
 export function listTypePosts(type: string, tags?: string[]): PostData[] | null {
@@ -108,7 +124,7 @@ export function listAllPosts(tags?: string[]): PostData[] {
         const typePosts = listTypePosts(type, tags);
         if (typePosts) posts.push(...typePosts);
     }
-    
+
     // Filter out any posts that do not include every tag in tags, if tags isn't undefined
     if (tags) {
         posts = posts.filter((post) => tags.every((tag) => post.tags.includes(tag)));

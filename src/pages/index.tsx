@@ -9,25 +9,18 @@ import PostData from "@/components/posts/PostData";
 import InlineButton from "@/components/misc/InlineButton";
 import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
-import { MouseEvent, useState } from "react";
-import { listAllPosts } from "./api/posts/listed";
+import { MouseEvent, useEffect, useState } from "react";
 import Head from "next/head";
 
-export async function getStaticProps() {
-    const posts = listAllPosts(["featured"]);
+const Home = () => {
+    const [posts, setPosts] = useState<PostData[]>([]);
 
-    return {
-        props: {
-            posts,
-        },
-    };
-}
+    useEffect(() => {
+        fetch("/api/posts/listed?loose=true&tags=featured")
+            .then((res) => res.json())
+            .then((data) => setPosts(data.data));
+    }, []);
 
-interface HomeProps {
-    posts: PostData[];
-}
-
-const Home = ({ posts }: HomeProps) => {
     const profileImageMe = "/resources/profileMe.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
@@ -58,13 +51,13 @@ const Home = ({ posts }: HomeProps) => {
                     <InlineButton externalTo="https://bhsec.bard.edu/queens/">
                         BHSEC
                     </InlineButton>{" "}
-                    student in NYC with a passion for tinkering, coding, Ancient
-                    Latin, D&D, strategy board games, creating, designing,
-                    engineering, geeking, making, and figuring things out.
+                    student in NYC with a passion for tinkering, coding, Ancient Latin,
+                    D&D, strategy board games, creating, designing, engineering, geeking,
+                    making, and figuring things out.
                 </p>
                 <p>
-                    Information, projects, contacts, my resume, and more can be
-                    found on this website. If you have any questions, feel free to{" "}
+                    Information, projects, contacts, my resume, and more can be found on
+                    this website. If you have any questions, feel free to{" "}
                     <InlineButton externalTo={`mailto:${about.email}`}>
                         email me!
                     </InlineButton>
