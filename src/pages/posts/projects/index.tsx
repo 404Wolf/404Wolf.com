@@ -2,17 +2,16 @@ import PostData from "@/components/posts/PostData";
 import PostsIndexLayout from "@/layouts/PostsIndexLayout";
 import { listTypePosts } from "@/pages/api/posts/listed";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
-export async function getStaticProps() {
-    const projects = await listTypePosts("projects");
-    return { props: { projects } };
-}
+const Projects = () => {
+    const [projects, setProjects] = useState<PostData[]>([]);
+    useEffect(() => {
+        fetch("/api/posts/listed?type=projects&loose=true")
+            .then((res) => res.json())
+            .then((data) => setProjects(data.data));
+    }, []);
 
-interface ProjectsProps {
-    projects: PostData[];
-}
-
-const Projects = ({ projects }: ProjectsProps) => {
     return (
         <>
             <Head>
