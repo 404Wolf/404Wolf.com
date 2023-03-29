@@ -1,9 +1,7 @@
 import PostData from "@/components/posts/PostData";
 import { NextApiRequest, NextApiResponse } from "next";
-import { listTypePosts, listTypes } from "./listed";
 import path from "path";
 import fs from "fs";
-import { randomListItem } from "@/utils/misc";
 
 interface Request extends NextApiRequest {
     query: {

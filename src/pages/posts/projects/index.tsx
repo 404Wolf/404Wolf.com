@@ -1,6 +1,5 @@
 import PostData from "@/components/posts/PostData";
 import PostsIndexLayout from "@/layouts/PostsIndexLayout";
-import { listTypePosts } from "@/pages/api/posts/listed";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
