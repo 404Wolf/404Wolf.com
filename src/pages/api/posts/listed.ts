@@ -108,8 +108,7 @@ export function listAllPosts(tags?: string[]): PostData[] {
         const typePosts = listTypePosts(type, tags);
         if (typePosts) posts.push(...typePosts);
     }
-    console.log(posts);
-
+    
     // Filter out any posts that do not include every tag in tags, if tags isn't undefined
     if (tags) {
         posts = posts.filter((post) => tags.every((tag) => post.tags.includes(tag)));
