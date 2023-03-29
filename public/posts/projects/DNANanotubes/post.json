@@ -4,5 +4,5 @@
     "tags": ["academic", "featured"],
     "date": "2022",
     "cover": ["interface.wepb"],
-    "description":"NATuG (Nucleic Acid Tube Grapher) is a Python 3 desktop application that I've been working on over the past year to streamline the DNA nanotube design process. It lets users visualize DNA nanotube shapes, weave together strands of DNA with cross-strand exchanges, set and export sequences, and more."
+    "description":"NATuG (Nucleic Acid Tube Grapher) is a Python 3 desktop application that I've been working on over the past year to streamline the DNA nanotube design process. It lets users visualize DNA nanotube shapes, weave together strands of DNA with cross-strand exchanges, set and export sequences, and more. In this post, I discuss what the program does "
 }

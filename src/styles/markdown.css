@@ -63,13 +63,13 @@
 
 .markdown ul {
   list-style-type: disc;
-  padding-left: 2em;
+  padding-left: 1em;
 }
 
 .markdown ol {
     list-style-type: decimal;
-    padding-left: 2em;
-    margin-left: 0px;
+    padding-left: 1em;
+    margin-left: em;
 }
 
 .markdown li {
