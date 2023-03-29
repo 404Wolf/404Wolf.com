@@ -28,7 +28,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
 }
 
 export function listTypes() {
-    return fs.readdirSync(path.join(process.cwd(), "public", "posts"));
+    return JSON.parse(fs.readFileSync(path.join("public", "posts", "types.json"), "utf8"));
 }
 
 export function listTypePosts(type: string, tags?: string[]): PostData[] | null {
@@ -92,9 +92,7 @@ export function listTypePosts(type: string, tags?: string[]): PostData[] | null 
     }
 
     // Sort out all posts that have the hidden tag
-    sortedPosts = sortedPosts.filter(
-        post => !post.tags.includes("hidden")
-    )
+    sortedPosts = sortedPosts.filter((post) => !post.tags.includes("hidden"));
 
     // Return the sorted posts
     return sortedPosts;
@@ -108,15 +106,13 @@ export function listAllPosts(tags?: string[]): PostData[] {
     // Add all of the posts from each type to the list
     for (const type of types) {
         const typePosts = listTypePosts(type, tags);
-        if (typePosts) posts.push(...typePosts)
+        if (typePosts) posts.push(...typePosts);
     }
-    console.log(posts)
+    console.log(posts);
 
     // Filter out any posts that do not include every tag in tags, if tags isn't undefined
     if (tags) {
-        posts = posts.filter((post) =>
-            tags.every((tag) => post.tags.includes(tag))
-        );
+        posts = posts.filter((post) => tags.every((tag) => post.tags.includes(tag)));
     }
 
     // Return the list of all posts
