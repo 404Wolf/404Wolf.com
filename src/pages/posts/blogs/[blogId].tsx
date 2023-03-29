@@ -49,7 +49,7 @@ const blog = ({ blogId, blogData, blogMd }: blogProps) => {
     return (
         <>
             <Head>
-                <title>{`Wolf Mermelstein | Blogs | ${blogId}`}</title>
+                <title>{`Blogs/${blogId}`}</title>
             </Head>
             <PostLayout
                 header={blogData.name}

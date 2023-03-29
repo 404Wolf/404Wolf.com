@@ -1,12 +1,16 @@
 # Getting started
 
-This project began when I wrote about my passion for code in an about-me paragraph for a physics class. A few weeks later, my professor, Dr. William Sherman, reached out mentioning that he could use help with an ongoing project. After a few meetings to discuss the coding facet of the project, and the biophysical background needed for the task, I was ready to dive in. We began meeting, and the project took off. This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program.
+![NATuG interface](interface.webp|width=19)
+
+This project began when I wrote about my passion for code in an about-me paragraph for a physics class. A few weeks later, my professor, Dr. William Sherman, reached out mentioning that he could use help with an ongoing project. After a few meetings to discuss the coding facet of the project, and the biophysical background needed for the task, I was ready to dive in. We began meeting, and the project took off. This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. __If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).__
 
 ## Getting NATuG
 
 If you're interested in learning more about how to actually set up and use the program, check out its **[user manual](https://github.com/NATuG3/Manual/blob/main/manual.pdf)** and **[Github repository](https://github.com/NATuG3/NATuG3)**. Also, feel free to reach out if you have any questions.
 
 # Background
+
+![Example DNA nanotube](example_nanotube.webp|width=19)
 
 Structural DNA nanotechnology takes a synthetic spin on the organic molecule of DNA, using it like hackable nanoscale clay. By taking advantage of Watson-Crick base pairing to conjoin DNA strands, bionanotechnologists create a wide array of highly customizable, self-assembling, rigid nanostructures, with precision of up around 1nm. Applications for DNA nanotech range from drug delivery and tissue wound repair to nanophotonics and much more. However, my research focuses specifically on DNA nanotube design.
 
@@ -37,14 +41,13 @@ My first step with the program, before building a complex, mult-widget UI, was t
 
 The top view plot displays a video of the nanotube from the top down, showing the overall shape of the tube. It allows the user to better visualize what they are actually constructing. As one tinkers with the inter-domain angles, the actual shape of the tube changes, and it is the responsibility of the top view plot to display the changes. I also added the ability to click on helical domains (the circles) in the top view plot to automatically pan the side view plot to location showcasing the nucleosides in that region.
 
-![Creating cross-strand exchanges](creating_junctions.webp)
+![Creating cross-strand exchanges](creating_junctions.webp|width=9)
 
 The side view provides a view as if the nanotube had been unrolled flat, and is strategically distorted as to show all the nucleosides of the nanostructure. This plot is much more complex and feature-rich than the top view plot, since it allows for user interaction with the actual nucleosides. It allows users to create nicks in strands, conjunct strands, link together the ends of strands to allow for DNA origami designs, and more. Lots of work has gone into converting the underlying strand datastructure that I created into a pyqtgraph plot widget that has signals properly hooked up as to allow the user to manipulate the strands.
 
 ### The interface
 
 ![Multi-panel UI beginnings](beginnings_of_ui.webp)
-![Current interface](interface.wepb)
 
 The primary goal of NATuG has been to make the nanotube design experience as pain-free and intuitive as possible. So, not only have I had to learn how to actually go about creating UIs, but I've also had to figure out the best way to position and size elements to make clear how to utilize the program. Ultimately, I choose to go with a three panel UI, with an undockable multi-use, tabbed configuration panel and a resizable top/side view plot area. Through the project I've come to enjoy UI design, though not quite as much as implementing innerworkings. 
 
