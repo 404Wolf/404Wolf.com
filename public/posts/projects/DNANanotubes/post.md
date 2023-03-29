@@ -10,6 +10,8 @@ The nanotubes I've focused on consist of multiple double helices running paralle
 
 # The program
 
+![Side view plot](side_view_plot.webp|width=30)
+
 ## The short description
 
 NATuG is a Python-based desktop application that streamlines the DNA nanotube design process. The program allows users to easily set the angles between double helices as to change the overall shape of the tube, while computing a top and side view plot in real time. NATuG automatically lines up the double helices as to allow for cross-strand exchanges to hold together the structure. With a single click on overlapping NEMids, NATuG automatically swerves the strands across double helices, creating a cross-strand exchange. By strategically placing junctions throughout the structure, one can transform isolated double helices into a rigid nanotube. It provides an intuitive interface, allowing one to customize and visualize the nanotube shape, weave together helices in a matter of clicks, and apply/export sequences. While designing DNA nanotubes is a multistage endeavor, I've tried to make NATuG as dynamic as possible—letting users easily traverse the nanotube design process with ease. 
@@ -33,7 +35,7 @@ My first steps with the program, before building a complex, mult-widget UI, were
 The primary goal of NATuG has been to make the nanotube design experience as pain-free and intuitive as possible. So, not only have I had to learn how to actually go about creating UIs, but I've also had to figure out the best way to position and size elements to make clear how to utilize the program. While at the beginning stages of NATuG progress was directed towards building up an overall user interface, it was not long before I got to the real meat of the endeavor: cross-strand exchanges.
 
 ![Creating cross-strand exchanges](creating_junctions.webp)
-![Possible junction types](junction_types.webp|width=21)
+![Possible junction types](junction_types.webp|width=17)
 
 One of the most important features of NATuG is the ability to create cross-strand exchanges. These exchanges implement "Holliday" junctions to allow strands to swerve across their helical domains, weaving together the nanostructure. After extensive tinkering and cogitating, I've come to the (still not definite) conclusion that there are a distinct amount of different possible cases for conjunction the strands of two arbitrary nucleoside-end midpoints, outlined in the table to the right.
 
