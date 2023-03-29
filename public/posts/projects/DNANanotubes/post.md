@@ -2,7 +2,7 @@
 
 ![NATuG interface](interface.webp|width=19)
 
-This project began when I wrote about my passion for code in an about-me paragraph for a physics class. A few weeks later, my professor, Dr. William Sherman, reached out mentioning that he could use help with an ongoing project. After a few meetings to discuss the coding facet of the project, and the biophysical background needed for the task, I was ready to dive in. We began meeting, and the project took off. This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. __If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).__
+This project began when I wrote about my passion for code in an about-me paragraph for a physics class. A few weeks later, my professor, Dr. William Sherman, reached out mentioning that he could use help with an ongoing project. After a few meetings to discuss the coding facet of the project, and the biophysical background needed for the task, I was ready to dive in. We began meeting, and the project took off. This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. **If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).** **Also, [here is a poster I created showcasing the project](/posts/projects/DNANanotubes/resources/NATuG_poster.pdf).**
 
 ## Getting NATuG
 
