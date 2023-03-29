@@ -28,7 +28,7 @@ Simply put, NATuG is a Python-based desktop application that streamlines the DNA
 
 When starting work on NATuG, I needed to start off choosing my UI and plotting framework, which would inevitably be a vital part of the program. Ultimately, I settled on a [QT-based](https://www.qt.io/) UI framework, and Python as the primary language, given my experience with the paradigms of the language, and comprehensibility of the GUI toolkit. Though the project was my first time with UI design, it was a great learning experience, and I got to learn more advanced Python, including inheritance for the first time, unfamiliar datastructures, numpy, and more. While many Python projects choose to implement [matplotlib](https://matplotlib.org/) as their plotting framework, I elected to use [pyqtgraph](https://www.pyqtgraph.org/) because of its thorough intractability with PyQt, and thus far it's worked great. It's able to track clicks on individual points, and update in real time. As I began work on NATuG, I started noticing a trend, wherein as I were to implement features I would constantly be refactoring the prior codebase to allow for future program expansion, but also to stay organized. Thankfully, as the program progressed I've gotten better at utilizing Git and pre-planning implementations, so overhauling has become less of a headache.
 
-### Features
+## Features
 
 ![NATuG's first plot](first_top_view.webp)
 
@@ -51,7 +51,7 @@ The side view provides a view as if the nanotube had been unrolled flat, and is 
 
 The primary goal of NATuG has been to make the nanotube design experience as pain-free and intuitive as possible. So, not only have I had to learn how to actually go about creating UIs, but I've also had to figure out the best way to position and size elements to make clear how to utilize the program. Ultimately, I choose to go with a three panel UI, with an undockable multi-use, tabbed configuration panel and a resizable top/side view plot area. Through the project I've come to enjoy UI design, though not quite as much as implementing innerworkings. 
 
-## Junctions!
+### Junctions!
 
 ![Possible junction types](junction_types.webp|width=17)
 
