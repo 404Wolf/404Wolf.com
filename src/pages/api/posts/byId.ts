@@ -40,7 +40,7 @@ export function postById(postId: string, type: string): null | PostData {
         post.path = `/posts/${type}/${post.id}`;
         // Convert all the post covers to their proper path
         post.covers = post.covers.map(
-            (cover: string) => `/posts/${type}/${post.id}/resources/${cover}`
+            (cover: string) => `/posts/${type}/${post.id}/resources/${cover}`.toString()
         )
 
         // Return the post

@@ -10,7 +10,7 @@ interface Request extends NextApiRequest {
 }
 
 export default function handler(req: Request, res: NextApiResponse) {
-    res.status(200).json({ data: postMd(req.query.id) });
+    res.status(200).send(postMd(req.query.id))
 }
 
 export function postMd(postId: string): string | null {

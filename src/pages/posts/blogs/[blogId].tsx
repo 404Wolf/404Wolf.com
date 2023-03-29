@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import useSize from "@/utils/useSize";
+import PostData from "../../../components/posts/PostData";
 import { parseMd } from "@/utils/parseMd";
 import PostLayout from "@/layouts/PostLayout";
-import { postById } from "@/pages/api/posts/byId";
-import { postMd } from "@/pages/api/posts/md";
-import { listTypePosts } from "@/pages/api/posts/listed";
-import PostData from "@/components/posts/PostData";
 import Head from "next/head";
 import { randomListItem } from "@/utils/misc";
 
@@ -19,40 +16,47 @@ export async function getServerSideProps({ params: { blogId } }: BlogParams) {
     return {
         props: {
             blogId: blogId,
-            blogData: postById(blogId, "blogs"),
-            blogMd: postMd(blogId),
         },
     };
 }
 
-interface blogProps {
+interface BlogProps {
     blogId: string;
-    blogData: PostData;
-    blogMd: string;
 }
 
-const blog = ({ blogId, blogData, blogMd }: blogProps) => {
-    const [parsedBlogMd, setParsedBlogMd] = useState("Loading...");
+const Blog = ({ blogId }: BlogProps) => {
     const windowSize = useSize();
+    const [blogData, setBlogData] = useState<PostData | null>(null);
+    const [blogMd, setBlogMd] = useState("Loading...");
 
     useEffect(() => {
-        setParsedBlogMd(parseMd(blogMd, blogId, windowSize[0]));
-    }, [blogMd, blogId, windowSize[0]]);
+        fetch(String(`/api/posts/byId?id=${blogId}&type=blogs`))
+            .then((res) => res.json())
+            .then((data) => setBlogData(data.data));
+    }, [blogId]);
+
+    useEffect(() => {
+        fetch(String(`/api/posts/md?id=${blogId}`))
+            .then((res) => res.text())
+            .then((data) => setBlogMd(parseMd(data, blogId, windowSize[0])));
+    }, [blogData, blogId]);
 
     return (
         <>
             <Head>
                 <title>{`Blogs/${blogId}`}</title>
             </Head>
-            <PostLayout
-                header={blogData.name}
-                type="Blog"
-                md={parsedBlogMd}
-                summary={blogData.description}
-                icon={randomListItem(blogData.covers)}
-            />
+            {blogData && (
+                <PostLayout
+                    header={blogData.name}
+                    type="Blog"
+                    md={blogMd}
+                    summary={blogData.description}
+                    icon={randomListItem(blogData.covers)}
+                />
+            )}
         </>
     );
 };
 
-export default blog;
+export default Blog;
