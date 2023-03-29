@@ -9,21 +9,13 @@ import PostData from "@/components/posts/PostData";
 import Head from "next/head";
 import { randomListItem } from "@/utils/misc";
 
-export async function getStaticPaths() {
-    const blogs = listTypePosts("blogs")?.map((blog) => blog.id);
-    return {
-        paths: blogs?.map((blog) => ({ params: { blogId: blog } })),
-        fallback: false,
-    };
-}
-
 interface BlogParams {
     params: {
         blogId: string;
     };
 }
 
-export async function getStaticProps({ params: { blogId } }: BlogParams) {
+export async function getServerSideProps({ params: { blogId } }: BlogParams) {
     return {
         props: {
             blogId: blogId,

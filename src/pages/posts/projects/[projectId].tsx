@@ -15,15 +15,7 @@ interface ProjectParams {
     };
 }
 
-export async function getStaticPaths() {
-    const projects = listTypePosts("projects")?.map((project) => project.id);
-    return {
-        paths: projects?.map((project) => ({ params: { projectId: project } })),
-        fallback: false,
-    };
-}
-
-export async function getStaticProps({ params: { projectId } }: ProjectParams) {
+export async function getServerSideProps({ params: { projectId } }: ProjectParams) {
     return {
         props: {
             projectId: projectId,
