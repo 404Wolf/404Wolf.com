@@ -107,16 +107,10 @@ export function listAllPosts(tags?: string[]): PostData[] {
 
     // Add all of the posts from each type to the list
     for (const type of types) {
-        const postsPath = path.join(process.cwd(), "public", "posts", type);
-        const postsIds = fs.readdirSync(postsPath).filter(
-            // Remove the list of all the posts from the list of posts
-            (postId) => postId !== "posts.json"
-        );
-        for (const postId of postsIds) {
-            const post = postById(postId, type);
-            if (post) posts.push(post);
-        }
+        const typePosts = listTypePosts(type, tags);
+        if (typePosts) posts.push(...typePosts)
     }
+    console.log(posts)
 
     // Filter out any posts that do not include every tag in tags, if tags isn't undefined
     if (tags) {
