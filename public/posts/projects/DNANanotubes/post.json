@@ -1,8 +1,8 @@
 {
-    "id": "msnEmails",
-    "name": "@MSN Emails",
-    "tags": ["personal", "featured"],
-    "date": "March 2022",
-    "cover": ["caffeinate_creation.webp", "covid_msn.webp", "make_email.webp"],
+    "id": "DNANanotubes",
+    "name": "DNA Nanotube Design Software",
+    "tags": ["academic", "featured"],
+    "date": "2022",
+    "cover": ["covidMsn.webp"],
     "description":"How'd I get the email reimagine@msn.com? In this post you'll find out. I discuss my path to discovering and reporting a Microsoft account creation captcha bypass exploit. I'll also explain how it's still possible (in 2023!) to create a microsoft account with an @msn.com email, with a step-by-step walk through. And, through the process I'll share some of the cool account's I've collected in the process."
 }
