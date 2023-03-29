@@ -50,7 +50,7 @@ const Project = ({ projectId, projectData, projectMd }: ProjectProps) => {
     return (
         <>
             <Head>
-                <title>`Wolf Mermelstein | Projects | ${projectId}` </title>
+                <title>{`Wolf Mermelstein | Projects | ${projectId}`}</title>
             </Head>
             <PostLayout
                 header={projectData.name}
