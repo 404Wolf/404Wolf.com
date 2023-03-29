@@ -66,10 +66,15 @@
   padding-left: 2em;
 }
 
+.markdown ol {
+    list-style-type: decimal;
+    padding-left: 2em;
+    margin-left: 0px;
+}
+
 .markdown li {
   font-size: 1em;
   padding-bottom: .15em;
-  margin: .1rem;
 }
 
 .markdown a {
