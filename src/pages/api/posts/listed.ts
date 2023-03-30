@@ -35,6 +35,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
             }
         }
         res.status(200).json({ data: loosePosts });
+        return;
     }
 
     // Return the list of posts
