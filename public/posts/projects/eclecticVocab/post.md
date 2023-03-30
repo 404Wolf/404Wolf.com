@@ -18,4 +18,4 @@ As I encounter new, unknown words, I've stored them away in a [Google Keep](http
 
 ![Mobile flashcard example](mobile_flashcards.webp)
 
-A copy of the deck can be downloaded [here](/posts/projects/eclecticVocab/eclectic_vocab_deck.apkg). I will try to frequently update the link with new cards as I add them, and Anki Flashcards should automatically merge in the new ones when you install updated decks.
+A copy of the deck can be downloaded [here](https://drive.google.com/file/d/1wysbw8pV2i1xhy1Xwt3zRoyVMkC2zH5s/view?usp=share_link). I will try to frequently update the link with new cards as I add them, and Anki Flashcards should automatically merge in the new ones when you install updated decks.

@@ -7,13 +7,20 @@ import { useEffect, useState } from "react";
 
 interface PostsProps {
     header: string;
-    posts: PostData[];
     children: React.ReactNode;
+    type: string;
 }
 
-const PostsIndexLayout = ({ posts, header, children }: PostsProps) => {
+const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
     const screenSize = useSize();
     const [minPosts, setMinPosts] = useState(6);
+    const [posts, setPosts] = useState([] as PostData[]);
+    
+    useEffect(() => {
+        fetch(`/api/posts/listed?types=${type}&loose=true`)
+            .then((res) => res.json())
+            .then((data) => setPosts(data.data));
+    }, []);
 
     useEffect(() => {
         if (screenSize[0] <= 640) {
