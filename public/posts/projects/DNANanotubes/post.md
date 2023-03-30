@@ -1,22 +1,12 @@
-# Getting started
-
-![NATuG interface](interface.webp|width=19)
-
-This project began when I wrote about my passion for code in an about-me paragraph for a physics class. A few weeks later, my professor, Dr. William Sherman, reached out mentioning that he could use help with an ongoing project. After a few meetings to discuss the coding facet of the project, and the biophysical background needed for the task, I was ready to dive in. We began meeting, and the project took off. This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. **If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).** **Also, [here is a poster I created showcasing the project](/posts/projects/DNANanotubes/resources/NATuG_poster.pdf).**
-
-## Getting NATuG
-
-If you're interested in learning more about how to actually set up and use the program, check out its **[user manual](https://github.com/NATuG3/Manual/blob/main/manual.pdf)** and **[Github repository](https://github.com/NATuG3/NATuG3)**. Also, feel free to reach out if you have any questions.
-
 # Background
 
 ![Example DNA nanotube](example_nanotube.webp|width=19)
 
-Structural DNA nanotechnology takes a synthetic spin on the organic molecule of DNA, using it like hackable nanoscale clay. By taking advantage of Watson-Crick base pairing to conjoin DNA strands, bionanotechnologists create a wide array of highly customizable, self-assembling, rigid nanostructures, with precision of up around 1nm. Applications for DNA nanotech range from drug delivery and tissue wound repair to nanophotonics and much more. However, my research focuses specifically on DNA nanotube design.
+Structural DNA nanotechnology takes a synthetic spin on the organic molecule of DNA, using it like hackable nanoscale clay. By taking advantage of Watson-Crick base pairing to conjoin DNA strands, bionanotechnologists are able to create a wide array of highly customizable, self-assembling, rigid nanostructures with precision of up around 1nm. Applications for DNA nanotech is quite extensive, and ranges from drug delivery and tissue wound repair to nanophotonics and much more. However, my project/research focuses specifically on DNA nanotube design.
 
-The nanotubes I've focused on consist of multiple double helices running parallel to each other as to form hollow, tubular shapes. The design process involves identifying a tube shape consistent with the intrinsic geometry of a DNA double helix, aligning helices, placing connections between helices as to generate minimal strain, and determining base sequences. Often these nanotubes utilize DNA origami, in which a long viral strand is folded into shape by short "staple strands." 
+The nanotubes I've focused on consist of multiple double helices running parallel to each other as to form hollow, tubular shapes. Even with these constraints, design is complex, and there are many different possible tubes. The design process involves identifying a tube shape consistent with the intrinsic geometry of a DNA double helix, aligning helices, placing connections between helices as to generate minimal strain, and determining base sequences. Often these nanotubes utilize DNA origami, in which a long viral strand is folded into shape by short "staple strands." 
 
-While the process needed for nanotube design has been known for a while, up until NATuG there's been no good computational tool specifically dedicated to their design. Previously bionanotechnologists could utilize a complex spreadsheet tool allowing users to plot the side view and top view, but it could only support a fixed number of double helices (given the nature of spreadsheets), and did not provide the necessary interactivity that NATuG offers. Additionally, NATuG offers the ability to apply and eventually export strand sequences, which allows for the critical leap from theory to test tube. 
+While the process needed for nanotube design has been known for a while, up until NATuG there's been no good computational tool specifically dedicated to their design. Previously bionanotechnologists could utilize a complex spreadsheet tool allowing users to plot the side view and top view, but it could only support a fixed number of double helices (given the nature of spreadsheets), and did not provide the necessary interactivity that NATuG offers. NATuG provides much more functionality, including the ability to create linkages, did not allow for nicks, and did not apply and eventually export strand sequences, which allows for the critical leap from theory to test tube.
 
 # The program
 
@@ -27,6 +17,13 @@ Simply put, NATuG is a Python-based desktop application that streamlines the DNA
 ## The journey
 
 When starting work on NATuG, I needed to start off choosing my UI and plotting framework, which would inevitably be a vital part of the program. Ultimately, I settled on a [QT-based](https://www.qt.io/) UI framework, and Python as the primary language, given my experience with the paradigms of the language, and comprehensibility of the GUI toolkit. Though the project was my first time with UI design, it was a great learning experience, and I got to learn more advanced Python, including inheritance for the first time, unfamiliar datastructures, numpy, and more. While many Python projects choose to implement [matplotlib](https://matplotlib.org/) as their plotting framework, I elected to use [pyqtgraph](https://www.pyqtgraph.org/) because of its thorough intractability with PyQt, and thus far it's worked great. It's able to track clicks on individual points, and update in real time. As I began work on NATuG, I started noticing a trend, wherein as I were to implement features I would constantly be refactoring the prior codebase to allow for future program expansion, but also to stay organized. Thankfully, as the program progressed I've gotten better at utilizing Git and pre-planning implementations, so overhauling has become less of a headache.
+
+
+# Getting started
+
+![NATuG interface](interface.webp|width=19)
+
+This project began when I wrote about my passion for code in an about-me paragraph for a physics class. A few weeks later, my professor, Dr. William Sherman, reached out mentioning that he could use help with an ongoing project. After a few meetings to discuss the coding facet of the project, and the biophysical background needed for the task, I was ready to dive in. We began meeting, and the project took off. I've done all the coding for the project, while working closely with Dr. Sherman to craft the software with the end user in mind, and to ensure that features implemented are physically accurate and sufficiently configurable.
 
 ## Features
 
@@ -68,3 +65,8 @@ As I complete the initial version of the program, Professor Sherman and I are be
 ## The future
 
 In the future I'll be updating this project with more nitty-gritty details about how the program works, more about what I learned/my journey, and more. Stay tuned!
+
+## Learn more
+This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. **If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).** **Also, [here is a poster I created showcasing the project](/posts/projects/DNANanotubes/resources/NATuG_poster.pdf).**
+
+If you're interested in learning more about how to actually set up and use the program, check out its **[user manual](https://github.com/NATuG3/Manual/blob/main/manual.pdf)** and **[Github repository](https://github.com/NATuG3/NATuG3)**. Also, feel free to reach out if you have any questions.
