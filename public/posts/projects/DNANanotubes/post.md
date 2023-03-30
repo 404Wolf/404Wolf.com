@@ -50,7 +50,7 @@ The primary goal of NATuG has been to make the nanotube design experience as pai
 
 ### Junctions!
 
-![Possible junction types](junction_types.webp|width=17)
+![Possible junction types](junction_types.webp|width=34)
 
 One of the most important features of NATuG is the ability to create cross-strand exchanges. These exchanges implement "Holliday" junctions to allow strands to swerve across their helical domains, weaving together the nanostructure. This was definitely the most difficult to implement part of the project, since previous works showed that junctions were possible, but relied on intuition to determine how to go about making them. This makes sense, since if you look at a side view helix plot, it is fairly obvious to a human how to conjunct the strands. This was definitely one of my favorite parts of the project, since it was both challenging and rewarding to catalog the various cases. Unrelated: this was a classic case of [Moravec's Paradox](https://en.wikipedia.org/wiki/Moravec%27s_paradox), which is definitely an interesting read.
 
