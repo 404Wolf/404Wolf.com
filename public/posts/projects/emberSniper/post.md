@@ -12,16 +12,17 @@ As usual, my adventure into the world of username sniping began with extensive r
 
 ## Getting started
 
-![Log of name-change requests](requests.webp)
+![Log of name-change requests](requests.webp|width=15)
 
 But, I wasn't ready to settle for a popular open source sniper, and was sure I could do better. After weeks of learning about network requests for the first time, utilizing async Python and multithreading, and the actual endpoints of Mojang, I was beginning to get a better grasp of what I'd need to do. Names release a few milliseconds early, so I'd need to extensively experiment. Each account was allotted 3 name-change-requests a minute, so I'd need many accounts. And, same-IP-requests led to processing gaps, so I'd need many servers. In other words, an unexpectedly complex endeavor with a healthy blend of ingenuity and strategy. Username sniping turned out to be a game of efficiency, capacity, and capability. 
 
 ## The partnership
 
-![Friend's skin art shop](friend_name_mc_art.webp)
-![Example skin art \(by me\)](my_skin_art.webp)
+![Friend's skin art shop](friend_name_mc_art.webp|width=21|float=left)
 
 It wasn't too long into my journey that I made my first friend in the community. His niche was particularly interesting: NameMc skin art. NameMc skin art, potentially the subject of a future post, takes advantage of NameMc's skin history display. NameMc displays a grid of your 27 most recent Minecraft account skins' faces (a Minecraft skin is the outward appearance of your avatar, which can be changed and set to be any low resolution pixel image). Skin art involves designing pixel art and then converting it to many skin files, and then placing each one on your account one at a time, as to build up a grid. My friend was offering to create the art and skin files as a service, which I found really fascinating. 
+
+![Example skin art \(by me\)](my_skin_art.webp|width=25)
 
 After further conferring with him, he told mem that he'd had some experience sniping usernames, and we began discussing some of his past experiences and successes. When things really took a turn was when he reached out to inform me that someone had offered him a substantial discount on bulk Minecraft accounts. He wanted me to go half in with him on 20 accounts, so that we could start a sniping organization. With such a large number of accounts, we'd have a much higher chance of winning names than the average person sniping usernames, so it seemed like a reasonable investment. And that's where it all began.
 
@@ -44,3 +45,5 @@ While co-managing our auctions and facilitating transactions, I spent significan
 After a few weeks of obsessive coding and growing our operations, we were at the point where we were sniping many names a day with upwards of 15 VPSes running at all times, causing operational costs to spike to $70+ a month. Together, we came up with an ingenious solution. If the VPSes only required 10 minutes to authenticate all our accounts and send the name-change requests, then why'd we need to pay for 15 24/7 VPSes? Theoretically, I thought, we could just have one central VPS deploy \(create\) all the other VPSes 10 minutes before droptime, and automatically 'ship' the accounts and settings to them. It was an extensive, elaborate undertaking, and I didn't have much of an idea as to where to get started, but I knew that it was the best way forward.
 
 ## The system
+
+(This post is still in progress, I'll be adding more soon!)
