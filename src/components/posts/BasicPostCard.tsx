@@ -37,7 +37,7 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                     {post && (
                         <div
                             className={
-                                post.type && "flex gap-1 absolute bottom-0 right-0"
+                                post.type && "flex gap-[.2rem] absolute bottom-0 right-0"
                             }
                         >
                             {post.type && (
