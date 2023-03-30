@@ -12,8 +12,6 @@ As usual, my adventure into the world of username sniping began with extensive r
 
 ## Getting started
 
-![Log of name-change requests](requests.webp|width=15)
-
 But, I wasn't ready to settle for a popular open source sniper, and was sure I could do better. After weeks of learning about network requests for the first time, utilizing async Python and multithreading, and the actual endpoints of Mojang, I was beginning to get a better grasp of what I'd need to do. Names release a few milliseconds early, so I'd need to extensively experiment. Each account was allotted 3 name-change-requests a minute, so I'd need many accounts. And, same-IP-requests led to processing gaps, so I'd need many servers. In other words, an unexpectedly complex endeavor with a healthy blend of ingenuity and strategy. Username sniping turned out to be a game of efficiency, capacity, and capability. 
 
 ## The partnership
@@ -42,8 +40,25 @@ While co-managing our auctions and facilitating transactions, I spent significan
 
 ## The gamechanger
 
-After a few weeks of obsessive coding and growing our operations, we were at the point where we were sniping many names a day with upwards of 15 VPSes running at all times, causing operational costs to spike to $70+ a month. Together, we came up with an ingenious solution. If the VPSes only required 10 minutes to authenticate all our accounts and send the name-change requests, then why'd we need to pay for 15 24/7 VPSes? Theoretically, I thought, we could just have one central VPS deploy \(create\) all the other VPSes 10 minutes before droptime, and automatically 'ship' the accounts and settings to them. It was an extensive, elaborate undertaking, and I didn't have much of an idea as to where to get started, but I knew that it was the best way forward.
+After a few weeks of obsessive coding and growing our operations, we were at the point where we were sniping many names a day with upwards of 15 VPSes running at all times, causing operational costs to spike to $70+ a month. Together, we came up with an ingenious solution. If the VPSes only required 10 minutes to authenticate all our accounts and send the name-change requests, then why'd we need to pay for 15 24/7 VPSes? Theoretically, I thought, we could just have one central VPS deploy \(create\) all the other VPSes 10 minutes before droptime, and automatically 'ship' the accounts and settings to them. It was an extensive, elaborate undertaking, and I didn't have much of an idea as to where to get started, but I knew that it was the best way forward. Why? Because, while our competitors were spending hundreds a month on server overhead, we could focus our spending on accounts and maximize our number of requests. The more requests, the higher the chance that a single one of them wins.
 
-## The system
+# The system
 
-(This post is still in progress, I'll be adding more soon!)
+![Queueing many names](queue_bulk_add.webp|width=14)
+
+After conjuring the plan, I got to work. I read up on [Vultr's REST API](https://www.vultr.com/api/), and created a script to automatically deploy servers. With [async ssh](https://asyncssh.readthedocs.io/en/latest/) I made it so that, as planned, one server would automatically, instantly spawn a 'sniping' child sever for every 2 accounts, and added a queueing system. We elected to make our interface Discord-based because of the ease of implementation, and because that was where we were holding our auctions. As can be seen to the right, with a simple slash command one could add many names to the queue automatically, which would then get setup prior to drop.
+
+## Operations
+
+![Deploying VPSes](setting_up1.webp)
+![Set up confirmations](setting_up3.webp)
+
+Within 10 minutes of the name becoming available, the parent server would automatically compute offsets spread out over a user defined range. This is because more competitive names generally take longer to release because of the sheer amount of requests other people are sending, and we wanted to spread requests over a range to maximize our odds. After the servers were finished loading, via SFTP the account login data would be sent in JSONs, and the child server would automatically SSH in and run a Python script, along with syncing the clock and other setup.
+
+
+![VPS set up confirmations](setting_up2.webp)
+![Log of name-change requests](requests.webp|width=12|float=left)
+
+After all the child VPSs finished setting up, they would send a confirmation request noting that they had properly authenticated their accounts, and would then await the droptime. After the snipe, as one would expect, the master server would automatically kill all of the other servers, and the account would be removed from the list of available accounts to snipe with. To get to this stage took painstaking debugging, experimenting, and wasting money on Vultr when the servers didn't get closed and I didn't notice.
+
+This post is still in progress, and will be updated shortly. Stay tuned!

@@ -22,6 +22,7 @@
 .markdown h2 {
     font-size: 1.7em;
     font-weight: 500;
+    clear: both;
 }
 .markdown h3 {
     font-size: 1.35em;
