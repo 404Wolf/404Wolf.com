@@ -43,7 +43,7 @@ const Tag = ({ children, width="fit", rotation=0, extraYTranslation=0, extraXTra
 
     return (
         <div 
-            className="text-[10px] sm:text-md bg-[#545454] text-white p-1 sm:p-1 py-px rounded-lg"
+            className="text-[10px] sm:text-md bg-[#545454] text-white px-1 sm:px-1 py-[.5px] rounded-lg"
             style={{
                 width: `${width}`,
                 transform: `translate(${translations[0]}rem, ${translations[1]}rem) rotate(${rotation}deg)`,
