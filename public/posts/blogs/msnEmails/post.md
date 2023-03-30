@@ -14,6 +14,7 @@ As it turns out, MSN stands for Microsoft network, the collection of eclectic Wi
 
 ![MSN Premium \(2023\)](msn_explorer.webp|width=32)
 ![Install wizard](install_wizard.webp)
+
 Carefully reading through the product's description, things started looking promising: they offer "computer wide security software, advanced phishing filter technology, pop-up guard" and, most importantly, "**multiple e-mail accounts**." But, what domain of email?, one may ask. So, I eagerly purchased a month subscription, fully intending to cancel right after exploration. And yes, after installing the program (with a pleasant built-in installer soundtrack), and being greeted by a friendly, informative, archaic welcome screen (they have tab based browsing now!), I found what I was looking for. In the Email section of the app, under the family section, I found what I was looking for. An ancient form to create "@msn.com" emails.
 
 # My first @msn
@@ -30,17 +31,17 @@ After more carefully inspecting the user flow, it occurred to me how truly insec
 
 This was my first time discovering a website vulnerability, so I wasn't quite sure how to proceed. I knew something had to be done, because it was evident that if anyone else with more computational and network power than I were to come along they'd be able to create hundreds of thousands of accounts automatically, which they could use for anything from spamming to scamming. So, after a quick Google, I came across the [Microsoft Security Response Center](https://msrc.microsoft.com/) vulnerability report form, and wrote up a report. Within a few months Microsoft reproduced and resolved the issue by adding a simple captcha to the form, which is still in place to this day.
 
-![covid@msn.com](covid_msn.webp)
-
 ## The names
+
+![covid@msn.com](covid_msn.webp)
 
 One thing I quickly learned through this process was how truly archaic @msn.com email addresses really are. I quickly realized that, as an inevitable result of there being no longer easily available is that there existed many unclaimed emails with modern English words/topics. I began claiming emails like "covid@msn.com," "airpod@msn.com," "JoeBiden@msn.com," "technophile@msn.com," "ethereum@msn.com," "spotify@msn.com," and more. Since I was, at the time, waiting for the captcha bypass vulnerability to get patched, I had some fun coding a script to automatically claim all untaken Pokemon @msn.com's, and a few three-character ones. I also figured out that one easy and effective way to check if an @msn.com email exists is to simply use the default account recovery form, wherein it only provides you a continue-confirmation if the account exists, and tells you that the account doesn't exist (and thus can be taken) otherwise. 
 
 # Make your own @msn email
 
-![Email creation page](make_email.webp|width=32)
-
 ## As of recently...
+
+![Email creation page](make_email.webp|width=32)
 
 As is stands now, @msn.com emails are still acquirable through the method outlined above, but because of my report to MSRC there is now a captcha in place. I imagine that as long as MSN Premium remains available, @msn emails will remain available with it. Since Microsoft has a reputation for supporting antiquated projects for long amounts of time, I anticipate that this technique will work for a long time to come.
 
