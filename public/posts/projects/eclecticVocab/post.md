@@ -1,11 +1,6 @@
-# What?
+# TLDR
 
-Conglomeration, obstreperous, mercurial, preantepenultimate, rapacious, verisimilitude.
-For some, it’s coins—for me, words. 
-
-Over the past year, I’ve fastidiously curated those with intriguing meanings, idyllic spellings, eccentric pronunciations, and compelling origins.
-
-Bolstering my lexicon and piquing my logophilia. An engrossing use of free-time tranches. A process as delightful as the product.
+My eclectic, carefully curated deck of English vocab words that are both useful and mostly advanced/not very common. Many words are taken from Webster's words of the Day page, but lots are also from my readings/experiences too. All words are words that I did not originally know and that I believe are genuinely useful. I've made a custom, styled template for the deck, and have put together images and audio for each card!
 
 # The deck
 
