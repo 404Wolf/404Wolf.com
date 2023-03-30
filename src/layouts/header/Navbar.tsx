@@ -24,7 +24,7 @@ const Navbar = ({ setBackgroundBlurred }: NavbarProps) => {
             />
             
             <div className="grid grid-cols-1 xs:grid-cols-3 text-center gap-3 mb-3">
-                <Navbutton>About</Navbutton>
+                <Navbutton onClick={() => push("/about")}>About</Navbutton>
 
                 <Navbutton onClick={() => setContactsPopupShown(true)}>
                     Contacts
