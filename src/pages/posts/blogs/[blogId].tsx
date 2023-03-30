@@ -23,11 +23,11 @@ const Blog = ({ blogId }: BlogProps) => {
     return (
         <>
             <Head>
-                <title>{`Projects/${blogId}`}</title>
+                <title>{`Blogs/${blogId}`}</title>
             </Head>
             <PostLayout
                 postId={blogId}
-                type="Project"
+                type="blogs"
             />
         </>
     );

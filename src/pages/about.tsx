@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const About = () => {
     return (
-        <MainLayout header="About" title="About me">
+        <MainLayout header title="About">
             <Tile>
                 Page under construction.
                 <br/>

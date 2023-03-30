@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import useSize from "@/utils/useSize";
 import PostData from "@/components/posts/PostData";
 import { parseMd } from "@/utils/parseMd";
-import { randomListItem } from "@/utils/misc";
+import { randomListItem, toTitleCase } from "@/utils/misc";
 
 interface PostLayoutProps {
     postId: string;
@@ -21,14 +21,13 @@ const PostLayout = ({ postId, type }: PostLayoutProps) => {
     const [postIcon, setPostIcon] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch(String(`/api/posts/byId?id=${postId}&type=projects`))
+        fetch(String(`/api/posts/byId?id=${postId}&type=${type}`))
             .then((res) => res.json())
             .then((data) => setPostData(data.data));
     }, [postId]);
 
     useEffect(() => {
-        console.log(String(`/api/posts/md?id=${postId}&type=projects`))
-        fetch(String(`/api/posts/md?id=${postId}&type=projects`))
+        fetch(String(`/api/posts/md?id=${postId}&type=${type}`))
             .then((res) => res.text())
             .then((data) => setPostMd(parseMd(data, postId, windowSize[0])))
             .then(() => console.log(postMd))
@@ -44,7 +43,7 @@ const PostLayout = ({ postId, type }: PostLayoutProps) => {
     }, [postData]);
 
     return (
-        <MainLayout title={postData ? postData.name : "Project"} header={false}>
+        <MainLayout title={postData ? postData.name : toTitleCase(type)} header={false}>
             <div className={postData ? "mt-[5px]" : ""}>
                 {postData && (
                     <Tile

@@ -1,4 +1,4 @@
-# The epitome
+# Inspiration
 
 ![Allowed email domains \(2023\)](2023_email_creation.webp|width=16)
 
