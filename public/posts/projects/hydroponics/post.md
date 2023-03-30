@@ -8,9 +8,10 @@ It was 2019, the summer before high school. Many projects were coming to a close
 
 # Moldy Strawberries
 
+## Setup
+
 ![Strawberry Grow Tower](strawberry_tower.webp)
 
-## Setup
 My research began by exploring fast growing, easily maintainable plants. Berries seemed to be an appealing choice, given their quick germination and grow time, so I settled on strawberries. When the ebay seeds and grow towers arrived, I'd finished cleaning out my closet and moving out my cloths dresser. I specifically chose [stackable grow towers](https://www.amazon.com/Amazing-Creation-Strawberries-Vegetables-Succulents/dp/B07BSX6R31) so that I could expand as needed, and match the towers to the height of my closet. Meanwhile, I set up an Arduino system to automatically disperse water from a large bucket when the soil dried up, using a soil moisture sensor, and covered the closet walls in mylar sheeting to maximize the light hitting the plants. I purchased a small relay and ran the positive wire of an extension cord across it, so I could control the lights with the Arduino too. As time progressed, it didn't water often enough, however, and when reconfigured it tended to over-water and leak water, so I pivoted to timer-based-watering. For the grow lights, I initially settled on a cheap Amazon grow light, which melted itself and set off my GFCI outlet. The replacement one I got was better, but still wasn't bright enough, and then the third choice worked well, though it heated up my closet to an ambient 85 and drew 90 watts of power.
 
 ## Success
@@ -21,11 +22,12 @@ Within a few weeks, most of the strawberries germinated, and the plants were soo
 
 # Hydroponics
 
+## The Transition
+
 ![The transition](strawberry_tubing.webp)
 ![Basil grow rack](basil_tower.webp|width=15)
 
-## The Transition
-Through the previous strawberry endeavor, I learned a lot. Keeping the environment clean is key, and consistency maximizes yield. This time around I decided that, while the Arduino was fun, a more robust system would be needed. I chose to implement hydroponics, a technique wherein the plants grow with their roots directly in nutrient water, to eliminate dirt. This time, I also opted for [preventative biofungicide](https://southernag.com/product/garden-friendly-fungicide/), which utilizes the bacterium *Bacillus amyloliquefaciens* to 'eat' fungus, which is proven effective, and is completely human-safe—in fact, it's a naturally occurring bacterium in soil. As it turned out, the hydroponic world is vast, and there are many techniques and options available. Additionally, I purchased [special basil seeds](https://extension.umn.edu/disease-management/basil-downy-mildew), which have been bred to be resistant to the most common basil illness: downy mildew.
+Through the previous strawberry endeavor, I learned a lot. Keeping the environment clean is key, and consistency maximizes yield. This time around I decided that, while the Arduino was fun, a more robust system would be needed. I chose to implement hydroponics, a technique wherein the plants grow with their roots directly in nutrient water, to eliminate dirt. This time, I also opted for [preventative biofungicide](https://southernag.com/product/garden-friendly-fungicide/), which utilizes the bacterium _Bacillus amyloliquefaciens_ to 'eat' fungus, which is proven effective, and is completely human-safe—in fact, it's a naturally occurring bacterium in soil. As it turned out, the hydroponic world is vast, and there are many techniques and options available. Additionally, I purchased [special basil seeds](https://extension.umn.edu/disease-management/basil-downy-mildew), which have been bred to be resistant to the most common basil illness: downy mildew.
 
 ## Assembled Grow Tower
 
@@ -73,8 +75,8 @@ The deep water culture system seemed to be the best route, yielding the greatest
 
 ![Current setup](new_cording.webp)
 
-* I've spraypainted the bins with a layer of opaque black, followed by two layers of white. This prevents light from seeping into the bins, and has significantly cut down on algae.
-* To make it easier to manipulate the bins and access the airline, I've lined the floor with a cut up shower curtain for padding, and put the bins on dollies so that I can reposition them.
-* Since the lights and air pumps get very hot during long hours of operation, I have installed a fan in the ceiling of the closet, along with two smaller fans on the walls, aimed at the plants and machinery. Since the fans use lots of electricity, they are set on timers to turn off an hour after the lights, and on when the lights turn on.
-* I've upgraded my air stone system to new, larger disc airstones. In the past I'd avoided them, even though they provide a much steadier and higher quality flow of air, since I've had trouble with the suction cups sticking to the bottom of the tank. However, this time around I, by carefully wrapping them with aluminum wire, fastened ceramic magnets to the bottom, and then stuck magnets onto the bottom of the reservoirs.
-* Instead of using twine, I now use para-cord and proper fasteners for my grow lights. It's much cleaner looking, and is a more durable, long-term solution.
+-   I've spraypainted the bins with a layer of opaque black, followed by two layers of white. This prevents light from seeping into the bins, and has significantly cut down on algae.
+-   To make it easier to manipulate the bins and access the airline, I've lined the floor with a cut up shower curtain for padding, and put the bins on dollies so that I can reposition them.
+-   Since the lights and air pumps get very hot during long hours of operation, I have installed a fan in the ceiling of the closet, along with two smaller fans on the walls, aimed at the plants and machinery. Since the fans use lots of electricity, they are set on timers to turn off an hour after the lights, and on when the lights turn on.
+-   I've upgraded my air stone system to new, larger disc airstones. In the past I'd avoided them, even though they provide a much steadier and higher quality flow of air, since I've had trouble with the suction cups sticking to the bottom of the tank. However, this time around I, by carefully wrapping them with aluminum wire, fastened ceramic magnets to the bottom, and then stuck magnets onto the bottom of the reservoirs.
+-   Instead of using twine, I now use para-cord and proper fasteners for my grow lights. It's much cleaner looking, and is a more durable, long-term solution.

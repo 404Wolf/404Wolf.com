@@ -28,6 +28,7 @@ const Blog = ({ blogId }: BlogProps) => {
             <PostLayout
                 postId={blogId}
                 type="blogs"
+                title="Blog"
             />
         </>
     );

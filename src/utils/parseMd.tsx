@@ -53,6 +53,6 @@ export function parseMd (projectMd: string, projectId: string, screenWidth: numb
     }
 
     projectMd = projectMd.replace(/#\s*(.*)/, "<h1 class='!mt-[-.5em]'>$1</h1>")
-    projectMd = projectMd.replaceAll(/!\[(.*)\]\((.*\.webp)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)??\|?(?:clear=([a-z]+))?\)?/g, replacer);
+    projectMd = projectMd.replaceAll(/!\[(.*)\]\((.*\.[a-z]+)\|?(?:width=(\d+))?\|?(?:height=(\d+))?\|?(?:float=([a-z]+))?\)??\|?(?:clear=([a-z]+))?\)?/g, replacer);
     return projectMd
 }

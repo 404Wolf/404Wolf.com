@@ -27,7 +27,8 @@ const Project = ({ projectId }: ProjectProps) => {
             </Head>
             <PostLayout
                 postId={projectId}
-                type="Project"
+                type="projects"
+                title="Project"
             />
         </>
     );
