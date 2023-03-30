@@ -12,9 +12,10 @@ import { randomListItem, toTitleCase } from "@/utils/misc";
 interface PostLayoutProps {
     postId: string;
     type: string;
+    title: string;
 }
 
-const PostLayout = ({ postId, type }: PostLayoutProps) => {
+const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
     const windowSize = useSize();
     const [postData, setPostData] = useState<PostData | null>(null);
     const [postMd, setPostMd] = useState("Loading...");
@@ -60,7 +61,7 @@ const PostLayout = ({ postId, type }: PostLayoutProps) => {
                     </Tile>
                 )}
                 <div className="m-6" />
-                <Tile className="overflow-auto" title={type} direction="right">
+                <Tile className="overflow-auto" title={title} direction="right">
                     <ReactMarkdown className="markdown" rehypePlugins={[rehypeRaw]}>
                         {postMd}
                     </ReactMarkdown>
