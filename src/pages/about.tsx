@@ -5,13 +5,19 @@ import MainLayout from "@/layouts/MainLayout";
 import Link from "next/link";
 
 const About = () => {
+    const headerChildren = (
+        <p>
+            Welcome to the about page, where you can find more information about who I am, why I'm interested in CS, and what I can do. Feel free to reach out if you have any questions, and thank you for spending time getting to know me better!
+        </p>
+    );
+
     return (
-        <MainLayout header title="About">
-            <div className="flex gap-5 mb-7">
+        <MainLayout header headerChildren={headerChildren} title="About">
+            <div className="flex flex-col sm:flex-row gap-5 mb-7">
                 <div className="basis-1/3">
                     <Tile title="Skills" className="mb-5">
-                        <div className="grid grid-cols-4 sm:grid-cols-1 gap-3 pt-1 sm:pt-2">
-                            <AboutSkill name="Quick/Eager Learner">
+                        <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 pt-1 sm:pt-2">
+                            <AboutSkill name="Quick & Eager Learner">
                                 Through coding, Latin, and projects, I've grown very good at picking up on content quickly, comprehending problems, and contriving solutions.
                             </AboutSkill>
 
@@ -19,7 +25,7 @@ const About = () => {
                                 I'm able to type 90-100+WPM. This is something I've been working on consistently since middle school, and I do believe is a vital skill. I'm still improving!
                             </AboutSkill>
 
-                            <AboutSkill name="Adobe Photoshop/Illustrator">
+                            <AboutSkill name="Adobe Photoshop & Illustrator">
                                 I first picked up on Illustrator all the way back in elementary school, when I was most interested in art. I played a major part in my year's yearbook design that year, and have since used Photoshop/Illustrator to contrive art, create posters, and more.
                             </AboutSkill>
 
@@ -27,11 +33,11 @@ const About = () => {
                                 Since 9th grade I've been self-teaching Python through countless projects, articles, videos, and experiments. At this point, I'm quite adept in the language, and have some experience with UI design with PyQt6. I've also worked with asyncio/aiohttp/flask in the past for backend api development.
                             </AboutSkill>
 
-                            <AboutSkill name="JavaScript/React">
+                            <AboutSkill name="JavaScript, HTML/CSS, React">
                                 I've been learning JS/React over the past few months to develop this website, and at this point have a fairly good grasp on the basics. I also have experience with Next.js, html, css, and tailwind css.
                             </AboutSkill>
 
-                            <AboutSkill name="English & Latin">
+                            <AboutSkill name="English & Latin Language">
                                 I'm a fluent English speaker, and believe that I have a very good grasp on the language. I've also been studying Latin for 4 years, and am currently taking advanced Latin at my school. Lingua Latina optima lingua est!
                             </AboutSkill>
                         </div>
@@ -53,7 +59,7 @@ const About = () => {
                         </style>
 
                         <p className="mb-2 about-bio-link">
-                            Hi! My name is Wolf Mermelstein, and I'm a student in NYC currently attending <a href="https://bhsec.bard.edu/queens/">Bard High School Early College Queens</a> student intending to major in Computer Science next year. I'm from Brooklyn, NY, and am a geeky, curious, creative, tech-loving humanoid with a passion for problem-solving, making, and exploring.
+                            Hi! My name is Wolf Mermelstein, and I'm a student currently attending <a href="https://bhsec.bard.edu/queens/">Bard High School Early College Queens</a> intending to major in Computer Science next year. I'm from Brooklyn, NY, and am a geeky, curious, creative, tech-loving humanoid with a passion for problem-solving, making, and exploring. Hopefully this page gives you more insight into my interests, skills, and personality, and abilities.
                         </p>
                             
                         <p className="mb-2">
@@ -71,23 +77,33 @@ const About = () => {
                 </div>
             </div>
 
-            <Tile title="Qualities">
+            <div className="mb-7">
+                <Tile title="Qualities">
+                    <p className="mb-2 mt-2">
+                        Though my bio should give a good sense of who I am as a person, I'd like to highlight some specific qualities that I believe set me apart.
+                    </p>
+                    <ul className="list-disc ml-8">
+                        <li>
+                        I love problem-solving, and do think I'm good at deriving creative solutions to complex problems, but believe that my real uniqueness stems from my impulsive and insatiable need to fully comprehend solutions, and my ability to learn from past problems.
+                        </li>
+
+                        <li>
+                            When it comes to code, I care as much about form as I do function. So while yes, this does sometimes lead to long deliberations over variable name is most intuitive and clear, it also fosters clarity and comprehensively, and not just blind conformity to style guides.
+                        </li>
+
+                        <li>
+                            This may go without saying, but I'm very computer-literate, and am able to intuit software very readily. I'm also good at learning from documentation and experimentation, which to a large extent is what got me to where I am today.
+                        </li>
+                    </ul>
+                </Tile>
+            </div>
+
+            <Tile title="Experiences">
                 <p className="mb-2 mt-2">
-                    Though my bio should give a good sense of who I am as a person, I'd like to highlight some specific qualities that I believe set me apart.
+                    This area is still in progress. For now, check out my <Link href="/resume" className="underline text-blue-900">resume</Link> for information on my experiences/vocational history.
                 </p>
-                <ul className="list-disc ml-8">
-                    <li>
-                       I love problem-solving, and do think I'm good at deriving creative solutions to complex problems, but believe that my real uniqueness stems from my impulsive and insatiable need to fully comprehend solutions, and my ability to learn from past problems.
-                    </li>
-
-                    <li>
-                        When it comes to code, I care as much about form as I do function. So while yes, this does sometimes lead to long deliberations over variable name is most intuitive and clear, it also fosters clarity and comprehensively, and not just blind conformity to style guides.
-                    </li>
-
-                    <li>
-                        This may go without saying, but I'm very computer-literate, and am able to intuit software very readily. I'm also good at learning from documentation and experimentation, which to a large extent is what got me to where I am today.
-                    </li>
-                </ul>
+                {/* <ul className="list-disc ml-8">
+                </ul> */}
             </Tile>
             
         </MainLayout>

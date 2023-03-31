@@ -17,7 +17,7 @@ const Navbar = ({ setBackgroundBlurred }: NavbarProps) => {
     }, [contactsPopupShown]);
 
     return (
-        <div className="pt-3">
+        <div className="pt-3  -mt-4">
             <ContactsPopup 
                 open={ contactsPopupShown }
                 setOpen={ setContactsPopupShown }
