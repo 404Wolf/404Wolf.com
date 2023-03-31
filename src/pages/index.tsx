@@ -1,5 +1,5 @@
 import PostCardGrid from "@/components/posts/PostCardGrid";
-import About from "@/components/about/About";
+import BasicAbout from "@/components/about/BasisAbout";
 import Header from "@/layouts/header/Header";
 import MainLayout from "@/layouts/MainLayout";
 import Greeter from "@/layouts/header/Greeter";
@@ -97,7 +97,7 @@ const Home = ({ posts }: HomeProps) => {
                             </Tile>
                         </div>
                         <div className="basis-[75%]">
-                            <About />
+                            <BasicAbout />
                         </div>
                     </div>
                 </div>
