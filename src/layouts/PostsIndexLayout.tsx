@@ -4,6 +4,7 @@ import PostCardGrid from "@/components/posts/PostCardGrid";
 import PostData from "@/components/posts/PostData";
 import useSize from "@/utils/useSize";
 import { useEffect, useState } from "react";
+import ExtendedPostCard from "@/components/posts/ExtendedPostCard";
 
 interface PostsProps {
     header: string;
@@ -12,8 +13,6 @@ interface PostsProps {
 }
 
 const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
-    const screenSize = useSize();
-    const [minPosts, setMinPosts] = useState(6);
     const [posts, setPosts] = useState([] as PostData[]);
     
     useEffect(() => {
@@ -22,27 +21,15 @@ const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
             .then((data) => setPosts(data.data));
     }, []);
 
-    useEffect(() => {
-        if (screenSize[0] <= 640) {
-            setMinPosts(8);
-        } else if (screenSize[0] <= 1024) {
-            setMinPosts(9);
-        } else {
-            setMinPosts(12);
-        }
-    }, [screenSize[0]]);
-
     const headerChildren = <div className="markdown">{children}</div>;
 
     return (
         <MainLayout title={header} headerChildren={headerChildren}>
             <div className="-mt-3">
                 <Tile>
-                    <PostCardGrid
-                        posts={posts}
-                        minAmount={minPosts}
-                        gridConfig="grid grid-cols-2 sm:grid-cols-3"
-                    />
+                    <div className="grid grid-cols-1 gap-4">
+                        {posts.map(post => <ExtendedPostCard post={post} />)}
+                    </div>
                 </Tile>
             </div>
         </MainLayout>
