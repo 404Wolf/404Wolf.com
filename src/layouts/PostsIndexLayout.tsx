@@ -14,7 +14,7 @@ interface PostsProps {
 
 const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
     const [posts, setPosts] = useState([] as PostData[]);
-    
+
     useEffect(() => {
         fetch(`/api/posts/listed?types=${type}&loose=true`)
             .then((res) => res.json())
@@ -27,8 +27,10 @@ const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
         <MainLayout title={header} headerChildren={headerChildren}>
             <div className="-mt-3">
                 <Tile>
-                    <div className="grid grid-cols-1 gap-4">
-                        {posts.map(post => <ExtendedPostCard post={post} />)}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2 md:pt-4">
+                        {posts.map((post) => (
+                            <ExtendedPostCard tags={post.tags} post={post} />
+                        ))}
                     </div>
                 </Tile>
             </div>
