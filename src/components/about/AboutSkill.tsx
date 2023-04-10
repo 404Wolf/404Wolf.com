@@ -5,12 +5,12 @@ interface AboutSkillProps {
 
 const AboutSkill = ({ name, children }: AboutSkillProps) => {
     return (
-        <div className="flex flex-col gap-1 bg-[#dbe2ea] border-slate-400 border-2 rounded-2xl p-2">
-            <div className="text-sm bg-[#bbc8d8] px-2 py-px rounded-lg">
+        <div className="p-2 bg-slate-200/75 rounded-2xl">
+            <div className="mb-1">
                 <h1>{name}</h1>
             </div>
 
-            <p className="text-xs">
+            <p className="text-sm indent-5">
                 {children}
             </p>
         </div>
