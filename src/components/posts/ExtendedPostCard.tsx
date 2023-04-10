@@ -30,42 +30,48 @@ const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
     }
 
     return (
-        <div className="border-slate-400 border-2 rounded-xl duration-100 hover:drop-shadow-md relative">
-            <div
-                style={{ backgroundColor: tagColor }}
-                className="text-white bottom-0 right-0 translate-y-1 translate-x-1 absolute z-50 rounded-full py-0 px-1 text-[14px]"
-            >
-                {post.date}
-            </div>
-
-            <div className="z-50 flex flex-row gap-x-1 h-4 absolute right-0 top-0 -translate-y-3">
-                {tags?.map((tag) => (
-                    <Tag key={tag} background={tagColor} absolute={false}>
-                        {tag}
-                    </Tag>
-                ))}
-            </div>
-
-            <div
-                className="rounded-xl bg-top bg-cover"
-                style={{ backgroundImage: `url('${post.covers[0]}')` }}
-            >
-                <div className="backdrop-blur-[1.5px] rounded-xl container relative p-2 py-4 relative container">
-                    <div className="flex gap-x-2 items-center justify-center">
-                        {postIcon}
-                        <h2 className="w-[75%] text-[12px] bg-slate-200 px-2 py-px rounded-full border-2 border-slate-400">
-                            {post.name}
-                        </h2>
+        <Link href={post.path}>
+            <div className="relative container">
+                <div className="border-slate-400 border-2 rounded-xl duration-100 hover:drop-shadow-md relative">
+                    <div
+                        style={{ backgroundColor: tagColor }}
+                        className="text-white bottom-0 right-0 translate-y-1 translate-x-1 absolute z-50 rounded-full py-0 px-1 text-[14px]"
+                    >
+                        {post.date}
                     </div>
 
-                    <div className="rounded-bl-xl rounded-br-xl -m-2 -mb-4 -mt-1 p-4">
-                        <p className="text-xs h-12 overflow-y-hidden bg-slate-200 -mx-4 -mb-4 rounded-bl-xl rounded-br-xl p-2 border-t-2 border-slate-400">
-                            {postDescription}
-                        </p>
+                    <div className="absolute -top-4 -left-4 z-50 p-2">{postIcon}</div>
+
+                    <div className="z-50 flex flex-row gap-x-1 h-4 absolute right-0 top-0 -translate-y-3">
+                        {tags?.map((tag) => (
+                            <Tag key={tag} background={tagColor} absolute={false}>
+                                {tag}
+                            </Tag>
+                        ))}
+                    </div>
+
+                    <div
+                        className="rounded-xl bg-top bg-cover"
+                        style={{ backgroundImage: `url('${post.covers[0]}')` }}
+                    >
+                        <div className="backdrop-blur-[1.5px] rounded-xl container relative p-2 py-4 relative container">
+                            <h2
+                                className="text-white font-bold mx-auto text-center"
+                                style={{ textShadow: "0 0 8px rgba(0, 0, 40, .8)" }}
+                            >
+                                {post.name}
+                            </h2>
+
+                            <div className="rounded-bl-xl rounded-br-xl -m-2 -mb-4 -mt-1 p-4">
+                                <p className="text-xs h-12 overflow-y-hidden bg-slate-200 -mx-4 -mb-4 rounded-bl-xl rounded-br-xl p-2 border-t-2 border-slate-400">
+                                    {postDescription}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
