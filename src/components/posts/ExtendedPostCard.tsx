@@ -3,9 +3,12 @@ import PostData from "./PostData";
 import Image from "next/image";
 import Tag from "../misc/Tag";
 import Link from "next/link";
+import { IoMdSchool } from "react-icons/io";
+import { IoPersonSharp } from "react-icons/io5";
+import { BsQuestionLg } from "react-icons/bs";
 
 const nullDescription = "Description coming soon!";
-const tagColor = "rgb(81, 95, 115)";
+const tagColor = "#6f7e96";
 
 interface ExtendedPostCardProps {
     post: PostData;
@@ -15,40 +18,54 @@ interface ExtendedPostCardProps {
 const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
     const postDescription = post.description ? post.description : nullDescription;
 
+    const postIconClass =
+        "rounded-full bg-slate-200 p-1 w-8 h-8 border-2 border-slate-400";
+    let postIcon;
+    if (post.tags.includes("academic")) {
+        postIcon = <IoMdSchool className={postIconClass} />;
+    } else if (post.tags.includes("personal")) {
+        postIcon = <IoPersonSharp className={postIconClass} />;
+    } else {
+        postIcon = <BsQuestionLg className={postIconClass} />;
+    }
+
     return (
-        <Link href={post.path}>
-            <div className="px-2 py-4 bg-slate-400/50 rounded-2xl container relative duration-100 hover:drop-shadow-xl hover:brightness-90 min-h-full">
-                <h1 className="text-white bg-slate-700 absolute mx-auto top-0 left-0 z-50 rounded-full -translate-y-3 md:-translate-y-5 -translate-x-2 px-[6px] text-sm md:text-lg">
-                    {post.name}
-                </h1>
-
-                {tags && (
-                    <div className="flex gap-1 absolute bottom-0 right-0">
-                        {tags.map((tag) => (
-                            <Tag background={tagColor} absolute={false}>
-                                {tag}
-                            </Tag>
-                        ))}
-                    </div>
-                )}
-
-                <Tag position="bl" background={tagColor}>
-                    {post.date}
-                </Tag>
-
-                <div className="relative container w-24 md:w-32 h-24 md:h-32 float-left mr-3 mb-3">
-                    <Image
-                        src={randomListItem(post.covers)}
-                        className="overflow-trim  rounded-2xl"
-                        alt={post.name}
-                        placeholder="blur"
-                        blurDataURL="/resources/white_dot.png"
-                        fill
-                    />
-                </div>
-                <p className="text-xs cursor-text">{postDescription}</p>
+        <div className="border-slate-400 border-2 rounded-xl duration-100 hover:drop-shadow-md relative">
+            <div
+                style={{ backgroundColor: tagColor }}
+                className="text-white bottom-0 right-0 translate-y-1 translate-x-1 absolute z-50 rounded-full py-0 px-1 text-[14px]"
+            >
+                {post.date}
             </div>
-        </Link>
+
+            <div className="z-50 flex flex-row gap-x-1 h-4 absolute right-0 top-0 -translate-y-3">
+                {tags?.map((tag) => (
+                    <Tag key={tag} background={tagColor} absolute={false}>
+                        {tag}
+                    </Tag>
+                ))}
+            </div>
+
+            <div
+                className="rounded-xl bg-top bg-cover"
+                style={{ backgroundImage: `url('${post.covers[0]}')` }}
+            >
+                <div className="backdrop-blur-[1.5px] rounded-xl container relative p-2 py-4 relative container">
+                    <div className="flex gap-x-2 items-center justify-center">
+                        {postIcon}
+                        <h2 className="w-[75%] text-[12px] bg-slate-200 px-2 py-px rounded-full border-2 border-slate-400">
+                            {post.name}
+                        </h2>
+                    </div>
+
+                    <div className="rounded-bl-xl rounded-br-xl -m-2 -mb-4 -mt-1 p-4">
+                        <p className="text-xs h-12 overflow-y-hidden bg-slate-200 -mx-4 -mb-4 rounded-bl-xl rounded-br-xl p-2 border-t-2 border-slate-400">
+                            {postDescription}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 
