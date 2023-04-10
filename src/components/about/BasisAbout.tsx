@@ -1,6 +1,5 @@
 import Tile from "../misc/Tile";
-import ReactMarkdown from "react-markdown";
-import { SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
 
 const BasicAbout = () => {
     const [ aboutMe, setAboutMe ] = useState("");
