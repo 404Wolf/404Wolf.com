@@ -7,9 +7,10 @@ interface TagProps {
     extraYTranslation?: number;
     extraXTranslation?: number;
     absolute?: boolean;
+    background?: string;
 }
 
-const Tag = ({ children, width="fit", rotation=0, extraYTranslation=0, extraXTranslation=0, zLevel=50, absolute=true, position=null}: TagProps) => {
+const Tag = ({ children, width="fit", rotation=0, extraYTranslation=0, extraXTranslation=0, zLevel=50, absolute=true, background="#545454", position=null}: TagProps) => {
     let positioning
     let translations
 
@@ -43,13 +44,14 @@ const Tag = ({ children, width="fit", rotation=0, extraYTranslation=0, extraXTra
 
     return (
         <div 
-            className="text-[10px] sm:text-md bg-[#545454] text-white px-1 sm:px-1 py-[.5px] rounded-lg"
+            className="text-[10px] sm:text-md text-white px-1 sm:px-1 py-[.5px] rounded-lg"
             style={{
                 width: `${width}`,
                 transform: `translate(${translations[0]}rem, ${translations[1]}rem) rotate(${rotation}deg)`,
                 rotate: `${rotation}`,
                 zIndex: `${zLevel}`,
                 position: `${absolute ? "absolute" : "relative"}`,
+                backgroundColor: background,
                 ...positioning
             }}
         >
