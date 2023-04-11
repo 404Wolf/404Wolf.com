@@ -1,4 +1,4 @@
-import { randomListItem } from "@/utils/misc";
+import { randomListItem, toTitleCase } from "@/utils/misc";
 import PostData from "./PostData";
 import Image from "next/image";
 import Tag from "../misc/Tag";
@@ -20,14 +20,12 @@ const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
     const postDescription = post.description ? post.description : nullDescription;
 
     const postIconClass = "rounded-full bg-slate-600 p-2 w-9 h-9";
-    const postIconStyle = {filter: "invert(100%)", width: "100%", height: "100%"};
+    const postIconStyle = { filter: "invert(100%)", width: "100%", height: "100%" };
     let postIcon;
     if (post.tags.includes("academic")) {
         postIcon = <IoMdSchool style={postIconStyle} />;
     } else if (post.tags.includes("personal")) {
-        postIcon = (
-            <IoPersonSharp style={postIconStyle} />
-        );
+        postIcon = <IoPersonSharp style={postIconStyle} />;
     } else {
         postIcon = <BsQuestionLg style={postIconStyle} />;
     }
@@ -53,7 +51,7 @@ const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
                     {tags?.map((tag, index) => (
                         <Tag
                             key={index}
-                            children={tag}
+                            children={toTitleCase(tag)}
                             absolute={false}
                             background="#475569"
                         />
@@ -64,11 +62,9 @@ const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
                     {post.date}
                 </h1>
 
-                <div className="absolute left-1/2 z-30 -translate-x-1/2 w-5/6 drop-shadow-xl-c scale-90">
-                    <p className="indent-4 bg-gray-200 rounded-2xl overflow-hidden h-[91px] p-2 translate-y-9 text-[10px]">
-                        {postDescription}
-                    </p>
-                </div>
+                <p className="border-t-2 border-l-2 border-slate-500 absolute right-0 bottom-0 z-30 w-5/6 md:w-2/3 indent-4 bg-gray-200 rounded-tl-3xl overflow-hidden h-[55%] md:h-[62%] p-[4px] text-[11px]">
+                    {postDescription}
+                </p>
             </div>
         </Link>
     );
