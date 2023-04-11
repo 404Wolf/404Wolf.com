@@ -53,7 +53,7 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                         direction="right"
                     >
                         {postIcon && (
-                            <div className="relative pointer-events-none w-3/5 sm:w-[17%] ml-2 float-right">
+                            <div className="relative pointer-events-none w-1/2 sm:w-[17%] ml-1 md:mb-1 float-right">
                                 <MdImage src={postIcon} />
                             </div>
                         )}
