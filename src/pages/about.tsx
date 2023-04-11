@@ -102,8 +102,6 @@ const About = () => {
                 <p className="mb-2 mt-2">
                     This area is still in progress. For now, check out my <Link href="/resume" className="underline text-blue-900">resume</Link> for information on my experiences/vocational history.
                 </p>
-                {/* <ul className="list-disc ml-8">
-                </ul> */}
             </Tile>
             
         </MainLayout>

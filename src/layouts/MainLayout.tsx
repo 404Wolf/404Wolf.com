@@ -22,11 +22,11 @@ const MainLayout = ({ children,
 
     return (
         <div>
-            <div className={`pt-6 sm:pt-8 duration-100 ${blurred ? "blur-sm contrast-75" : ""}`}>
+            <div className={`relative pt-6 sm:pt-8 duration-100 ${blurred ? "blur-sm contrast-75" : ""}`}>
                 {title &&
                     <div>
                         <Link href="/">
-                            <div className={`absolute bg-gray-700 text-white rounded-3xl sm:rounded-full py-1 md:py-2 sm:py-[6px] px-4 ${titleWidth} scale-[120%] lg:scale-[130%] translate-x-2 sm:translate-x-[1rem] -translate-y-7 sm:-translate-y-[2.5rem] lg:-translate-y-[1.6rem] text-[1rem] sm:text-[25px] font-bold z-50`}>
+                            <div className={`absolute -top-[6px] md:-top-4 left-0 bg-gray-700 text-white rounded-3xl sm:rounded-full py-1 md:py-2 sm:py-[6px] px-4 ${titleWidth} scale-[130%] text-[1rem] sm:text-[25px] font-bold z-50`}>
                                 {title}
                             </div>
                         </Link>
