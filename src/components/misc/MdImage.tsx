@@ -6,8 +6,8 @@ interface mdImageProps {
     tag?: string;
     alt?: string;
     src: string;
-    type: "projects" | "posts";
-    width: string|number;
+    postType?: string;
+    width: string | number;
     float?: "left" | "right" | "none";
     imageClasses?: string;
     styles?: object;
@@ -18,17 +18,17 @@ const MdImage = ({
     alt,
     src,
     float,
-    type,
+    postType,
     width,
     imageClasses,
     styles,
 }: mdImageProps) => {
-    console.log(styles, float)
+    console.log(styles, float);
     return (
-        <div style={{...styles, width}}>
+        <div style={{ ...styles, width }}>
             <Link href={src} target="_blank" rel="noopener noreferrer">
                 <div className="inline-block container my-2 duration-100 hover:scale-105">
-                    <div className="rounded-xl border-slate-500 bg-slate-200 border-4 relative">
+                    <div className="rounded-2xl border-slate-500 bg-slate-200 border-4 relative">
                         {tag && (
                             <Tag
                                 position={
@@ -43,10 +43,16 @@ const MdImage = ({
                             </Tag>
                         )}
                         <Image
-                            src={`/posts/${type}/${src}`}
+                            src={postType ? `/posts/${postType}/${src}` : src}
                             alt={tag || alt || ""}
                             className={imageClasses}
-                            style={{ zIndex: -1, objectFit: "cover", objectPosition: "center", width: "100%", height: "100%"}}
+                            style={{
+                                zIndex: -1,
+                                objectFit: "cover",
+                                objectPosition: "center",
+                                width: "100%",
+                                height: "100%",
+                            }}
                             width={600}
                             height={600}
                         />

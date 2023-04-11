@@ -3,8 +3,9 @@ import MdImage from "@/components/misc/MdImage";
 
 export function parseMd(
     projectMd: string,
-    projectId: string,
-    screenWidth: number
+    screenWidth: number,
+    postId?: string | undefined,
+    postType?: string | undefined
 ): string {
     const replacer = (
         match: string,
@@ -48,12 +49,12 @@ export function parseMd(
 
         const replaced = (
             <MdImage
-                src={`${projectId}/resources/${filename}`}
+                src={postId ? `${postId}/resources/${filename}` : filename}
                 styles={styles}
                 width={`${idealWidth}%`}
                 tag={alt}
                 float={float}
-                type="projects"
+                postType={postType}
             />
         );
         return ReactDOMServer.renderToString(replaced);
