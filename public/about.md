@@ -20,21 +20,20 @@ Though my bio should give a good sense of who I am as a person, I'd like to high
 
 # Skills
 
-* Quick & Eager Learner
+#### Quick & Eager Learner
 Through coding, Latin, and projects, I've grown very good at picking up on content quickly, comprehending problems, and contriving solutions.
 
-* Fast Typist
+#### Fast Typist
 I'm able to type 90-100+WPM. This is something I've been working on consistently since middle school, and I do believe is a vital skill. I'm still improving!
 
-* Adobe Photoshop & Illustrator
+#### Adobe Photoshop & Illustrator
 I first picked up on Illustrator all the way back in elementary school, when I was most interested in art. I played a major part in my year's yearbook design that year, and have since used Photoshop/Illustrator to contrive art, create posters, and more.
 
-* Python 3
+#### Python 3
 Since 9th grade I've been self-teaching Python through countless projects, articles, videos, and experiments. At this point, I'm quite adept in the language, and have some experience with UI design with PyQt6. I've also worked with asyncio/aiohttp/flask in the past for backend api development.
 
-* JavaScript, HTML/CSS, React
+#### JavaScript, HTML/CSS, React
 I've been learning JS/React over the past few months to develop this website, and at this point have a fairly good grasp on the basics. I also have experience with Next.js, html, css, and tailwind css.
 
-* English & Latin Language
+#### English & Latin Language
 I'm a fluent English speaker, and believe that I have a very good grasp on the language. I've also been studying Latin for 4 years, and am currently taking advanced Latin at my school. Lingua Latina optima lingua est!
-

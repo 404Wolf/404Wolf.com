@@ -33,7 +33,7 @@ const About = () => {
     return (
         <MainLayout header headerChildren={headerChildren} title="About">
             <Tile title="About">
-                <div className="markdown">
+                <div className="markdown pt-2 md:pt-0">
                     <ReactMarkdown rehypePlugins={[rehypeRaw]}>
                         {aboutMd}
                     </ReactMarkdown>
