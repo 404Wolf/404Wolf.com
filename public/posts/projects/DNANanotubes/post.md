@@ -75,15 +75,15 @@ After extensive tinkering and cogitating, I've come to the (still not definite) 
 
 # The present
 
-Ultimately NATuG shows the powerful potential of software to allow for more complex, larger-scale tube structures. Interestingly, we also realized that the program holds the potential for non-closed tile design, which is common in the realm of DNA origami. While there are other tools that are more sophisticated and perhaps better suited for this specific purpose, NATuG provides a uniquely user friendly and convenient experience. 
+NATuG showcases the powerful potential of software to allow for more complex, larger-scale tubular DNA nanostructures. The program allows the user to spend less time doing tedious computations, and more time focusing on the actual design of the structure. Additionally, with the ability to load and export structures into and out of NATuG, we expect collaborative design to become much more streamlined. Additionally, we also realized that the program holds the potential for non-closed tile design, which is common in the realm of DNA origami. While there are other tools that are more sophisticated and perhaps better suited for this specific purpose, NATuG provides a uniquely user friendly and convenient experience. 
 
-As I complete the initial version of the program, Professor Sherman and I are beginning to draft a paper for NATuG, which we intend to submit for publication to a peer reviewed journal. We hope to discuss some of the potential shapes of nanotubes that can be created, the way that the program tackles conjoining strands, and the like. We've also informally shared the project at NYU's Nadrian Seeman Memorial Symposium, and we are hoping to present at my school's annual symposium. 
+As I complete the initial version of the program, Professor Sherman and I are beginning to draft a paper for NATuG, which we intend to submit for publication to a peer reviewed journal within the next few months. We hope to discuss some of the potential shapes of nanotubes that can be created, the way that the program tackles conjoining strands, and the like. We've also informally shared the project at NYU's Nadrian Seeman Memorial Symposium, and we are hoping to present at my school's annual symposium. 
 
 ## The future
 
 In the future I'll be updating this project with more nitty-gritty details about how the program works, more about what I learned/my journey, and more. Stay tuned!
 
 ## Learn more
-This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. **If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).** **Also, [here is a poster I created showcasing the project](/posts/projects/DNANanotubes/resources/NATuG_poster.pdf).**
+This post discusses the needed background to understand what NATuG does and is, and talks a bit about my journey in coding the program. **If you're interested in the research underpinning behind the project, [here it is](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1471877/).** Also, [here is a poster I created showcasing the project](/posts/projects/DNANanotubes/resources/NATuG_poster.pdf).
 
-If you're interested in learning more about how to actually set up and use the program, check out its **[user manual](https://github.com/NATuG3/Manual/blob/main/manual.pdf)** and **[Github repository](https://github.com/NATuG3/NATuG3)**. Also, feel free to reach out if you have any questions.
+If you're interested in learning more about how to actually set up and use the program, check out its [user manual](https://github.com/NATuG3/Manual/blob/main/manual.pdf) and [Github repository](https://github.com/NATuG3/NATuG3). Also, feel free to reach out if you have any questions.
