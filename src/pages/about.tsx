@@ -20,15 +20,17 @@ const About = () => {
             <div className="flex flex-col sm:flex-row gap-5 mb-7">
                 <div className="basis-1/3">
                     <div>
-                        <Tile className="mb-8">
-                            <Image
-                                src="/resources/profileMe.webp"
-                                alt="Profile Picture"
-                                width={600}
-                                height={600}
-                                className="rounded-xl"
-                            />
-                        </Tile>
+                        <div className="mb-8">
+                            <Tile>
+                                <Image
+                                    src="/resources/profileMe.webp"
+                                    alt="Profile Picture"
+                                    width={600}
+                                    height={600}
+                                    className="rounded-xl"
+                                />
+                            </Tile>
+                        </div>
 
                         <Tile title="Skills" className="mb-5">
                             <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 pt-1 sm:pt-2">
