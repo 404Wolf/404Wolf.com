@@ -1,6 +1,5 @@
 import PostCardGrid from "@/components/posts/PostCardGrid";
 import BasicAbout from "@/components/about/BasisAbout";
-import Header from "@/layouts/header/Header";
 import MainLayout from "@/layouts/MainLayout";
 import Greeter from "@/layouts/header/Greeter";
 import Tile from "@/components/misc/Tile";
@@ -9,7 +8,7 @@ import PostData from "@/components/posts/PostData";
 import InlineButton from "@/components/misc/InlineButton";
 import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
 import Head from "next/head";
 import { listAllPosts } from "./api/posts/listed";
 
@@ -28,7 +27,7 @@ interface HomeProps {
 }
 
 const Home = ({ posts }: HomeProps) => {
-    const profileImageMe = "/resources/profileMe.webp";
+    const profileImageMe = "/resources/profileMeAlt.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
     const screenSize = useSize();
