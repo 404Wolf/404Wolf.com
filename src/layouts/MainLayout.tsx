@@ -26,7 +26,7 @@ const MainLayout = ({ children,
                 {title &&
                     <div>
                         <Link href="/">
-                            <div className={`absolute -top-[6px] md:-top-4 left-0 bg-gray-700 text-white rounded-3xl sm:rounded-full py-1 md:py-2 sm:py-[6px] px-4 ${titleWidth} scale-[130%] text-[1rem] sm:text-[25px] font-bold z-50`}>
+                            <div className={`absolute -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[24px] sm:text-[30px] font-bold z-50`}>
                                 {title}
                             </div>
                         </Link>
