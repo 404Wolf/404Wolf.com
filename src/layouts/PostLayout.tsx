@@ -8,6 +8,7 @@ import useSize from "@/utils/useSize";
 import PostData from "@/components/posts/PostData";
 import { parseMd } from "@/utils/parseMd";
 import { randomListItem, toTitleCase } from "@/utils/misc";
+import Image from "next/image";
 
 interface PostLayoutProps {
     postId: string;
@@ -53,8 +54,8 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                         direction="right"
                     >
                         {postIcon && (
-                            <div className="relative pointer-events-none w-1/2 sm:w-[17%] ml-1 md:mb-1 float-right">
-                                <MdImage src={postIcon} />
+                            <div className="relative pointer-events-none w-1/2 sm:w-[20%] ml-1 md:mb-1 float-right">
+                                <Image priority width={500} height={500} src={postIcon} className="border-4 border-slate-500 rounded-xl" alt={`${postData.name} cover image`} />
                             </div>
                         )}
                         <div className="markdown">{postData?.description}</div>
