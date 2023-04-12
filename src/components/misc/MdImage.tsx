@@ -23,11 +23,10 @@ const MdImage = ({
     imageClasses,
     styles,
 }: mdImageProps) => {
-    console.log(styles, float);
     return (
         <div style={{ ...styles, width }}>
             <Link href={src} target="_blank" rel="noopener noreferrer">
-                <div className="inline-block container my-2 duration-100 hover:scale-105">
+                <div className="inline-block container my-2 duration-100 hover:scale-110">
                     <div className="rounded-2xl border-slate-500 bg-slate-200 border-4 relative">
                         {tag && (
                             <Tag

@@ -31,8 +31,7 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
     useEffect(() => {
         fetch(String(`/api/posts/md?id=${postId}&type=${type}`))
             .then((res) => res.text())
-            .then((data) => setPostMd(parseMd(data, windowSize[0], postId, "projects")))
-            .then(() => console.log(postMd))
+            .then((data) => setPostMd(parseMd(data, windowSize[0], postId, type)))
     }, [postData, postId, windowSize]);
 
     useEffect(() => {
