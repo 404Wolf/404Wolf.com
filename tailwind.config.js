@@ -28,6 +28,7 @@ module.exports = {
                 '5xl-c-white': '0px 0px 30px rgba(200, 200, 220, 0.39)',
             },
             colors: {
+                "slate-100": "#F5F7FA",
                 "slate-350": "#adb9c9",
                 "gray-350": "#E5E9EF",
                 'regal-blue': '#243c5a',
@@ -42,7 +43,8 @@ module.exports = {
                 "mid-blue-800": "#222F43",
                 "mid-blue-900": "#1E2A3C",
             },
-        }
+        },
+        
     },
     plugins: [],
 }

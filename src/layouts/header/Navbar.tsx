@@ -1,5 +1,5 @@
 import Navbutton from "@/layouts/header/Navbutton";
-import Pulsate from "@/components/misc/pulsate";
+import Pulsate from "@/components/misc/Pulsate";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ContactsPopup from "../../components/contacts/ContactsPopup";

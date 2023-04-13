@@ -10,7 +10,7 @@ interface TagProps {
     background?: string;
 }
 
-const Tag = ({ children, width="fit", rotation=0, extraYTranslation=0, extraXTranslation=0, zLevel=50, absolute=true, background="#545454", position=null}: TagProps) => {
+const Tag = ({ children, width="fit", rotation=0, extraYTranslation=0, extraXTranslation=0, zLevel=50, absolute=true, background="#4B5769", position=null}: TagProps) => {
     let positioning
     let translations
 

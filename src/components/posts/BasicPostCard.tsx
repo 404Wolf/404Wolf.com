@@ -3,6 +3,7 @@ import Tag from "@/components/misc/Tag";
 import { randomListItem, toTitleCase } from "@/utils/misc";
 import PostData from "./PostData";
 import { useEffect, useState } from "react";
+import fetchPostIcon from "./fetchPostIcon";
 
 interface BasicPostCardProps {
     post?: PostData;
@@ -30,6 +31,7 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                 href={post?.path || ""}
                 className={`z-10 ${post ? "" : "pointer-events-none"}`}
             >
+                {post && <div className="absolute -bottom-1 -left-1 z-50 scale-[80%]">{fetchPostIcon(post)}</div>}
                 <div
                     className="bg-cover rounded-xl drop-shadow-md hover:brightness-90 ease-in transition-all relative h-[4.6em] md:h-32 lg:h-24 bg-cover bg-center duration-100 hover:scale-105 flex items-center justify-center bg-gray-100/[35%]"
                     style={{ backgroundImage: `url('${postCover}')` }}

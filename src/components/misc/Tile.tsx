@@ -37,7 +37,7 @@ const Tile = ({
                 </div>
             )}
             <div
-                className={`${className} mb-auto p-3 md:p-5 bg-slate-300 rounded-2xl h-full ${className}`}
+                className={`${className} mb-auto p-3 md:p-5 bg-slate-300 rounded-2xl h-full ${className} drop-shadow-sm`}
             >
                 <div style={{ padding: `${extraPadding}px` }}>{children}</div>
             </div>

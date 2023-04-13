@@ -3,9 +3,7 @@ import PostData from "./PostData";
 import Image from "next/image";
 import Tag from "../misc/Tag";
 import Link from "next/link";
-import { IoMdSchool } from "react-icons/io";
-import { IoPersonSharp } from "react-icons/io5";
-import { BsQuestionLg } from "react-icons/bs";
+import fetchPostIcon from "./fetchPostIcon";
 
 const nullDescription = "Description coming soon!";
 
@@ -19,18 +17,6 @@ const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
 
     const postDescription = post.description ? post.description : nullDescription;
 
-    const postIconClass = "rounded-full bg-slate-600 p-2 w-9 h-9";
-    const postIconStyle = { filter: "invert(100%)", width: "100%", height: "100%" };
-    let postIcon;
-    if (post.tags.includes("academic")) {
-        postIcon = <IoMdSchool style={postIconStyle} />;
-    } else if (post.tags.includes("personal")) {
-        postIcon = <IoPersonSharp style={postIconStyle} />;
-    } else {
-        postIcon = <BsQuestionLg style={postIconStyle} />;
-    }
-    postIcon = <div className={postIconClass}>{postIcon}</div>;
-
     return (
         <Link href={post.path}>
             <div className="h-[9.8rem] w-full relative container drop-shadow-md hover:drop-shadow-lg hover:scale-[102%] duration-200">
@@ -41,7 +27,7 @@ const ExtendedPostCard = ({ post, tags }: ExtendedPostCardProps) => {
                     className="object-cover rounded-xl z-0"
                 />
 
-                <div className="absolute z-50 -top-2 -right-2">{postIcon}</div>
+                <div className="absolute z-50 -top-2 -right-2">{fetchPostIcon(post)}</div>
 
                 <h1 className="z-50 px-2 py-px text-white text-[15px] absolute -top-2 -left-2 bg-slate-600 rounded-full">
                     {post.name}
