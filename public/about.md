@@ -1,4 +1,4 @@
-![Profile photo of me](/resources/profileMe.webp|width=1)
+![](/resources/profileMe.webp|width=45|float=right)
 
 Hi! My name is Wolf Mermelstein, and I'm a student currently attending Bard High School Early College Queens intending to major in Computer Science next year. I'm from Brooklyn, NY, and am a geeky, curious, creative, tech-loving humanoid with a passion for problem-solving, making, and exploring. Hopefully this page gives you more insight into my interests, skills, and personality, and abilities.
 

@@ -15,9 +15,9 @@ export function parseMd(
         float: "left" | "right" | "none",
         clear: "left" | "right" | "both" | "none"
     ) => {
-        let idealWidth;
+        let idealWidth: number;
         if (screenWidth < 640) {
-            idealWidth = width ? (1.7 * Number(width)) % 100 : 53;
+            idealWidth = width ? Math.min((1.7 * Number(width)) % 100, 55) : 53;
         } else if (screenWidth < 768) {
             idealWidth = width ? (1.2 * Number(width)) % 100 : 40;
         } else if (screenWidth < 1024) {
@@ -27,7 +27,7 @@ export function parseMd(
         } else if (screenWidth < 1536) {
             idealWidth = width ? 0.8 * Number(width) : 40;
         } else {
-            idealWidth = width || 35;
+            idealWidth = Number(width) || 35;
         }
 
         let styles;

@@ -19,7 +19,7 @@ const About = () => {
             .then((text) => {
                 setAboutMd(parseMd(text, screenSize[0]));
             });
-    }, []);
+    }, [screenSize]);
 
     const headerChildren = (
         <p>
@@ -33,7 +33,7 @@ const About = () => {
     return (
         <MainLayout header headerChildren={headerChildren} title="About">
             <Tile title="About">
-                <div className="markdown pt-2 md:pt-0">
+                <div className="markdown pt-2 md:pt-1">
                     <ReactMarkdown rehypePlugins={[rehypeRaw]}>
                         {aboutMd}
                     </ReactMarkdown>
