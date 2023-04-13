@@ -47,29 +47,28 @@ export function parseMd(
 
         const replaced = (
             <MdImage
-                src={postId ? `${postId}/resources/${filename}` : filename}
+                src={postId ? `/posts/${postType}/${postId}/resources/${filename}` : filename}
                 styles={styles}
                 width={`${idealWidth}%`}
                 tag={alt}
                 float={float || "right"}
-                postType={postType}
             />
         );
         return ReactDOMServer.renderToString(replaced);
     };
 
     const imageGroupReplacer = (match: string) => {
-        const makeMdImage = (alt: string, filename: string) => (key: number) =>
-            (
+        
+        const makeMdImage = (alt: string, filename: string) => (key: number) =>{
+            console.log(`/posts/${postType}/${postId}/resources/${filename}`); return (
                 <MdImage
                     alt={alt}
-                    src={postId ? `${postId}/resources/${filename}` : filename}
+                    src={postId ? `/posts/${postType}/${postId}/resources/${filename}` : filename}
                     width="100%"
                     float="none"
-                    postType={postType}
                     key={key}
                 />
-            );
+            );}
 
         // Create array of MdImages from match
         const images = match

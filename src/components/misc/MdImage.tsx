@@ -6,7 +6,6 @@ interface mdImageProps {
     tag?: string;
     alt?: string;
     src: string;
-    postType?: string;
     width: string | number;
     float?: "left" | "right" | "none";
     imageClasses?: string;
@@ -18,7 +17,6 @@ const MdImage = ({
     alt,
     src,
     float,
-    postType,
     width,
     imageClasses,
     styles,
@@ -42,7 +40,7 @@ const MdImage = ({
                             </Tag>
                         )}
                         <Image
-                            src={postType ? `/posts/${postType}/${src}` : src}
+                            src={src}
                             alt={tag || alt || ""}
                             className={imageClasses}
                             style={{
