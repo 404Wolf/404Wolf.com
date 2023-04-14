@@ -22,7 +22,7 @@ const MainLayout = ({ children,
 
     return (
         <div>
-            <div className={`relative pt-6 sm:pt-8 duration-100 ${blurred ? "blur-sm contrast-75" : ""}`}>
+            <div className={`relative pt-7 sm:pt-8 duration-100 ${blurred ? "blur-sm contrast-75" : ""}`}>
                 {title &&
                     <div>
                         <Link href="/">
