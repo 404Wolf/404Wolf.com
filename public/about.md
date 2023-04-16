@@ -16,7 +16,11 @@ Though my bio should give a good sense of who I am as a person, I'd like to high
 
 * When it comes to code, I care as much about form as I do function. So while yes, this does sometimes lead to long deliberations over variable name is most intuitive and clear, it also fosters clarity and comprehensively, and not just blind conformity to style guides.
 
+* I'm very articulate, and feel I am able to convey my thinking with a sufficient degree of clarity. I've nurtured this quality through my interest in Ancient Latin, my eclectic english vocab flashcard deck, a public speaking course in high school, and more.
+
 * This may go without saying, but I'm very computer-literate, and am able to intuit software very readily. I'm also good at learning from documentation and experimentation, which to a large extent is what got me to where I am today.
+
+* I'm very self-driven, and am able to work independently and efficiently. I'm also very good at time management, and can efficiently distribute my time over multiple projects at once. Moreover, I'm also quite organized, when it comes to life, but also code and projects.
 
 # Skills
 
@@ -37,3 +41,6 @@ I've been learning JS/React over the past few months to develop this website, an
 
 #### English & Latin Language
 I'm a fluent English speaker, and believe that I have a very good grasp on the language. I've also been studying Latin for 4 years, and am currently taking advanced Latin at my school. Lingua Latina optima lingua est!
+
+#### Math to Calculus
+At this point I've taken courses up to Calculus 1, and am currently in Calculus 2. I love how calculus compiles and applies all prior math knowledge, and also enjoy the discreet/explicit nature of it. I also have a firm grasp on Algebra and Trigonometry, and some experience with Geometry.
