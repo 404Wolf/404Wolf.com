@@ -67,7 +67,7 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                                     const match = /language-(\w+)/.exec(className || "");
                                     return !inline && match ? (
                                         <SyntaxHighlighter
-                                            {...props}
+                                            class="markdown"
                                             children={String(children).replace(/\n$/, "")}
                                             language={match[1]}
                                             PreTag="div"
