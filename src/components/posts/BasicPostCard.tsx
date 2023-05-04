@@ -3,6 +3,7 @@ import Tag from "@/components/misc/Tag";
 import { randomListItem, toTitleCase } from "@/utils/misc";
 import PostData from "./PostData";
 import { useEffect, useState } from "react";
+import fetchPostIcon from "./fetchPostIcon";
 
 interface BasicPostCardProps {
     post?: PostData;
@@ -35,27 +36,34 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                     style={{ backgroundImage: `url('${postCover}')` }}
                 >
                     {post && (
-                        <div
-                            className={
-                                post.type && "flex gap-[.2rem] absolute bottom-0 right-0"
-                            }
-                        >
-                            {post.type && (
-                                <Tag
-                                    children={toTitleCase(post.type)}
-                                    absolute={!post.type}
-                                />
-                            )}
-                            <Tag children={post.date} absolute={!post.type} />
-                            {tags &&
-                                tags.map((tag, index) => (
+                        <>
+                            <div className="absolute -top-[12px] -left-[12px] z-50 scale-[62%]">
+                                {fetchPostIcon(post)}
+                            </div>
+                            <div
+                                className={
+                                    post.type &&
+                                    "flex gap-[.2rem] absolute bottom-0 -left-2"
+                                }
+                            >
+                                {post.type && (
                                     <Tag
-                                        key={index}
-                                        children={toTitleCase(tag)}
+                                        children={toTitleCase(post.type)}
                                         absolute={!post.type}
                                     />
-                                ))}
-                        </div>
+                                )}
+
+                                {tags &&
+                                    tags.map((tag, index) => (
+                                        <Tag
+                                            key={index}
+                                            children={toTitleCase(tag)}
+                                            absolute={!post.type}
+                                        />
+                                    ))}
+                            </div>
+                            <Tag children={post.date} position={"tr"} />
+                        </>
                     )}
 
                     <div className="flex flex-col">

@@ -16,11 +16,11 @@ But, I wasn't ready to settle for a popular open source sniper, and was sure I c
 
 ## The partnership
 
-![Friend's skin art shop](friend_name_mc_art.webp|width=21|float=left)
+![Friend's skin art shop](friend_name_mc_art.webp|width=30|float=left)
 
 It wasn't too long into my journey that I made my first friend in the community. His niche was particularly interesting: NameMc skin art. NameMc skin art, potentially the subject of a future post, takes advantage of NameMc's skin history display. NameMc displays a grid of your 27 most recent Minecraft account skins' faces (a Minecraft skin is the outward appearance of your avatar, which can be changed and set to be any low resolution pixel image). Skin art involves designing pixel art and then converting it to many skin files, and then placing each one on your account one at a time, as to build up a grid. My friend was offering to create the art and skin files as a service, which I found really fascinating. 
 
-![Example skin art \(by me\)](my_skin_art.webp|width=25)
+![Example skin art (by me)](my_skin_art.webp|width=36|float=right)
 
 After further conferring with him, he told mem that he'd had some experience sniping usernames, and we began discussing some of his past experiences and successes. When things really took a turn was when he reached out to inform me that someone had offered him a substantial discount on bulk Minecraft accounts. He wanted me to go half in with him on 20 accounts, so that we could start a sniping organization. With such a large number of accounts, we'd have a much higher chance of winning names than the average person sniping usernames, so it seemed like a reasonable investment. And that's where it all began.
 
@@ -30,7 +30,7 @@ After further conferring with him, he told mem that he'd had some experience sni
 
 We started out our organization by sniping lower 'tier' usernames, such as random 3 character long ones, using McSniperPy on a few [Vultr VPSes](https://www.vultr.com/) \(a VPS is a server, which is basically a rent-able computer attached to the internet and constantly on\). VPSes were needed because of Mojang limiting the number of username-change requests per minute per ip address, and, as an added bonus, multiple servers allowed for maximal concurrency and the lowest possible ping to Mojang. Through the process we were able to get a better grasp of offsets \(since names don't drop at the exact second of release, sending requests ever so slightly early was most advantageous\), and began to build a reputation and grow our Discord (where we would hold auctions for our 'snipes').
 
-![First few sales](first_few_sales.webp)
+![First few sales](first_few_sales.webp|float=right)
 
 We quickly realized, however, that while McSniperPy is great for first timers and people sniping with just a single account, it was unideal for larger sniping organizations. Most of the major competitors had custom, larger codebases, and we quickly realized that we'd need one too. To get us started, my friend was able to get a proprietary socket-request based Python sniper from an old buddy in the community, and we began using that. As we continued expanding, I integrated the ability to queue names with a discord bot, wherein a simple Flask API would create threads of the sniper on the servers. We continued progressing, and continually reinvested in accounts to boost our odds.
 
@@ -44,22 +44,20 @@ After a few weeks of obsessive coding and growing our operations, we were at the
 
 # The system
 
-![Queueing many names](queue_bulk_add.webp|width=14)
+![Queueing many names](queue_bulk_add.webp|width=36|float=right)
 
 After coming up with the plan, I got to work. I read up on [Vultr's REST API](https://www.vultr.com/api/), and created a script to automatically deploy servers. With [async ssh](https://asyncssh.readthedocs.io/en/latest/) I made it so that, as planned, one server would automatically, instantly spawn a 'sniping' child sever for every 2 accounts, and added a queueing system. We elected to make our interface Discord-based because of the ease of implementation, and because that was where we were holding our auctions. As can be seen to the right, with a simple slash command one could add many names to the queue automatically, which would then get setup prior to drop.
 
 ## Operations
 
 ![Deploying VPSes](setting_up1.webp)
+![VPS set up confirmations](setting_up2.webp)
 ![Set up confirmations](setting_up3.webp)
+![Log of name-change requests](requests.webp)
 
 Within 10 minutes of the name becoming available, the parent server would automatically compute offsets spread out over a user defined range. For instance, if we knew that username was to free up at 12:09:01, we'd send many requests evenly distributed within the 12:09:01 to 12:09:02 interval. The reason for this is because more competitive names generally take longer to release due to the sheer amount of requests other people are sending. By spreading out requests, the more likely we'd send the request right at the moment the name were to become free. Then, it'd automatically deploy a server for every 8 or so accounts, so that more requests could be sent concurrently, and because of Mojang's ratelimit (only so many accounts can send username change requests from the same computer at the same time).
 
 After the servers were finished loading, via SFTP the account login data would be sent in JSONs, and the child server would automatically SSH in and run a Python script, along with syncing the clock and other setup. The child servers would ping mojang to attempt to change the username of the accounts that they were serving, and then would automatically destroy themselves (undeploy).
-
-
-![VPS set up confirmations](setting_up2.webp)
-![Log of name-change requests](requests.webp|width=12|float=left)
 
 After all the child VPSs finished setting up, they would send a confirmation request noting that they had properly authenticated their accounts, and would then await the droptime. After the snipe, as one would expect, the master server would automatically kill all of the other servers, and the account would be removed from the list of available accounts to snipe with. To get to this stage took painstaking debugging, experimenting, and wasting money on Vultr when the servers didn't get closed and I didn't notice.
 

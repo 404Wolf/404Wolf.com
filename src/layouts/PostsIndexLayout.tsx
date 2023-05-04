@@ -27,7 +27,7 @@ const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
         <MainLayout title={header} headerChildren={headerChildren}>
             <div className="-mt-3">
                 <Tile>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2 md:pt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
                         {posts.map((post) => (
                             <ExtendedPostCard tags={post.tags} post={post} />
                         ))}

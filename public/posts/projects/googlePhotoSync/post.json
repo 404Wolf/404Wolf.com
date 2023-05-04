@@ -1,7 +1,7 @@
 {
     "id": "googlePhotoSync",
     "name": "Google Photo Syncer",
-    "tags": ["personal"],
+    "tags": ["personal", "hidden"],
     "date": "2022",
     "covers": ["dalle.webp"],
     "description": ""
