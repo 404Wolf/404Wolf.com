@@ -19,7 +19,7 @@ interface PostLayoutProps {
 const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
     const windowSize = useSize();
     const [postData, setPostData] = useState<PostData | null>(null);
-    const [postMd, setPostMd] = useState("Loading...");
+    const [postMd, setPostMd] = useState<string | null>(null);
 
     useEffect(() => {
         fetch(String(`/api/posts/byId?id=${postId}&type=${type}`))
@@ -44,7 +44,6 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                         <div className="relative container">
                             <div className="relative pointer-events-none rounded-xl w-2/5 md:w-1/4 mt-2 ml-px md:ml-3 mb-px md:mb-3 float-right">
                                 <Image
-                                    priority
                                     width={400}
                                     height={400}
                                     src={postData.covers[0]}
@@ -57,7 +56,7 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                     </Tile>
                 )}
                 <div className="m-6" />
-                <Tile className="overflow-auto" title={title} direction="right">
+                {(postMd && postData) ? <Tile className="overflow-auto" title={title} direction="right">
                     <div>
                         <ReactMarkdown
                             className="markdown"
@@ -85,7 +84,7 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                             {postMd}
                         </ReactMarkdown>
                     </div>
-                </Tile>
+                </Tile> : <div className="animate-pulse"> <Tile> Loading... </Tile></div>}
             </div>
         </MainLayout>
     );
