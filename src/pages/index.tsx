@@ -77,7 +77,7 @@ const Home = ({ posts }: HomeProps) => {
             </Head>
             <MainLayout
                 title={<Greeter />}
-                titleWidth="w-[19.3rem] sm:w-[23.6rem]"
+                titleWidth="w-[19.5rem] sm:w-[23.6rem]"
                 headerChildren={headerChildren}
             >
                 <div className="flex flex-col gap-7">
