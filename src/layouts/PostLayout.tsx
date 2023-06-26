@@ -67,11 +67,12 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
                                     const match = /language-(\w+)/.exec(className || "");
                                     return !inline && match ? (
                                         <SyntaxHighlighter
-                                            class="markdown"
+                                            wrapLongLines
+                                            class="!text-[12px] overflow-x-hidden"
                                             children={String(children).replace(/\n$/, "")}
                                             language={match[1]}
                                             PreTag="div"
-                                            customStyle={{ borderRadius: "12px"}}
+                                            customStyle={{ borderRadius: "12px", fontSize: "inherit"}}
                                         />
                                     ) : (
                                         <code {...props} className={className}>

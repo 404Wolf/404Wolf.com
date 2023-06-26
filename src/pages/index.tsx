@@ -10,14 +10,12 @@ import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
 import { MouseEvent, useState } from "react";
 import Head from "next/head";
-import { listAllPosts } from "./api/posts/listed";
+import { allPosts } from "./api/posts/listed";
 
 export function getStaticProps() {
-    const posts = listAllPosts(["featured"]);
-
     return {
         props: {
-            posts: posts,
+            posts: allPosts,
         },
     };
 }
@@ -57,13 +55,13 @@ const Home = ({ posts }: HomeProps) => {
                     <InlineButton externalTo="https://bhsec.bard.edu/queens/">
                         BHSEC
                     </InlineButton>{" "}
-                    student in NYC with a passion for tinkering, coding, Ancient
-                    Latin, D&D, strategy board games, creating, designing,
-                    engineering, geeking, making, and figuring things out.
+                    student in NYC with a passion for tinkering, coding, Ancient Latin,
+                    D&D, strategy board games, creating, designing, engineering, geeking,
+                    making, and figuring things out.
                 </p>
                 <p>
-                    Information, projects, contacts, my resume, and more can be
-                    found on this website. If you have any questions, feel free to{" "}
+                    Information, projects, contacts, my resume, and more can be found on
+                    this website. If you have any questions, feel free to{" "}
                     <InlineButton externalTo={`mailto:${about.email}`}>
                         email me!
                     </InlineButton>

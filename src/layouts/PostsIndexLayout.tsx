@@ -1,10 +1,9 @@
 import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
-import PostCardGrid from "@/components/posts/PostCardGrid";
 import PostData from "@/components/posts/PostData";
-import useSize from "@/utils/useSize";
 import { useEffect, useState } from "react";
 import ExtendedPostCard from "@/components/posts/ExtendedPostCard";
+
 
 interface PostsProps {
     header: string;
@@ -16,9 +15,9 @@ const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
     const [posts, setPosts] = useState([] as PostData[]);
 
     useEffect(() => {
-        fetch(`/api/posts/listed?types=${type}&loose=true`)
+        fetch(`/api/posts/listed?types=${type}`)
             .then((res) => res.json())
-            .then((data) => setPosts(data.data));
+            .then((data) => setPosts(data));
     }, []);
 
     const headerChildren = <div className="markdown">{children}</div>;
@@ -28,7 +27,7 @@ const PostsIndexLayout = ({ type, header, children }: PostsProps) => {
             <div className="-mt-3">
                 <Tile>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
-                        {posts.map((post) => (
+                        {posts && posts.map((post) => (
                             <ExtendedPostCard tags={post.tags} post={post} />
                         ))}
                     </div>

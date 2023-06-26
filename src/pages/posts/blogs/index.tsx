@@ -5,7 +5,7 @@ const Blogs = () => {
     return (
         <>
             <Head>
-                <title>Wolf Mermelstein | Blogs </title>
+                <title>Blogs</title>
             </Head>
             <PostsIndexLayout header="Blogs" type="blogs">
                 Here I'll be posting various blogs about various topics. This is still a
