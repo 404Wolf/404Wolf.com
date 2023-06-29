@@ -85,7 +85,7 @@ export function parseMd(
                 const [alt, filename] = image
                     .replace(/\[(.*)\]\((.*)\)/, "$1;$2")
                     .split(";");
-                return makeMdImage(alt, filename.replace("\n", ""));
+                return makeMdImage(alt, filename.replaceAll("\n", "").replaceAll(" ", ""));
             });
 
         return ReactDOMServer.renderToString(
