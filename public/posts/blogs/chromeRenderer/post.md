@@ -1,6 +1,8 @@
-# Goal
+# The Task
 
 I've recently been working on a project to automatically generate English flashcards with a blend of AI and APIs to fetch data, and a template of some sort to slot it into. For the latter part, I've spent significant time researching. I've come across different Js frameworks like [Paper.js](http://paperjs.org/), but eventually settled on utilizing raw, generated `SVG` files. `SVG`s are a great type of image file to generate, since they follow a strict XML format, and thus can have text or base64 images injected into them with ease.
+
+## SVGs are Awesome
 
 `SVG`s really are great. They're a undervalued file format that can be used for so, so much more than just icons and simple graphics. They allow you to easily integrate countless different elements in `xml` form, like `<animate>` and `<path>`. You can slot in `<foreignObject>`s to add external elements like such...
 
@@ -105,8 +107,8 @@ webdriver_chrome.execute_cdp_cmd(
         "marginBottom": 0,
         "marginLeft": 0,
         "marginRight": 0,
-    }["data"]
-)
+    }
+)["data"]  # grab the b64 encoded PDF
 ```
 
 # Potential
