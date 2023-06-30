@@ -8,19 +8,10 @@ interface mdImageProps {
     src: string;
     width: string | number;
     float?: "left" | "right" | "none";
-    imageClasses?: string;
     styles?: object;
 }
 
-const MdImage = ({
-    tag,
-    alt,
-    src,
-    float,
-    width,
-    imageClasses,
-    styles,
-}: mdImageProps) => {
+const MdImage = ({ tag, alt, src, float, width, styles }: mdImageProps) => {
     return (
         <div style={{ ...styles, width }}>
             <Link href={src} target="_blank" rel="noopener noreferrer">
@@ -39,10 +30,10 @@ const MdImage = ({
                                 {tag}
                             </Tag>
                         )}
-                        <Image
+                        <img
+                            loading="lazy"
                             src={src}
                             alt={tag || alt || ""}
-                            className={imageClasses}
                             style={{
                                 zIndex: -1,
                                 objectFit: "cover",
@@ -50,8 +41,8 @@ const MdImage = ({
                                 width: "100%",
                                 height: "100%",
                             }}
-                            width={600}
-                            height={600}
+                            width={300}
+                            height={300}
                         />
                     </div>
                 </div>

@@ -13,10 +13,6 @@ const useSize = (): [number, number] => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     
-    useEffect(() => {
-        setWindowWidth(window.innerWidth);
-    }, []);
-    
     return [windowWidth, windowHeight]
 }
  

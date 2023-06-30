@@ -4,8 +4,7 @@ import MdImage from "@/components/misc/MdImage";
 export function parseMd(
     projectMd: string,
     screenWidth: number,
-    postId?: string | undefined,
-    postType?: string | undefined
+    srcTemplate: string
 ): string {
     const imageReplacer = (
         match: string,
@@ -47,11 +46,7 @@ export function parseMd(
 
         const replaced = (
             <MdImage
-                src={
-                    postId
-                        ? `/posts/${postType}/${postId}/resources/${filename}`
-                        : filename
-                }
+                src={srcTemplate.replace("{filename}", filename)}
                 styles={styles}
                 width={`${idealWidth}%`}
                 tag={alt}
@@ -66,11 +61,7 @@ export function parseMd(
             (
                 <MdImage
                     alt={alt}
-                    src={
-                        postId
-                            ? `/posts/${postType}/${postId}/resources/${filename}`
-                            : filename
-                    }
+                    src={srcTemplate.replace("{filename}", filename)}
                     width="100%"
                     float="none"
                     key={key}
@@ -85,7 +76,10 @@ export function parseMd(
                 const [alt, filename] = image
                     .replace(/\[(.*)\]\((.*)\)/, "$1;$2")
                     .split(";");
-                return makeMdImage(alt, filename.replaceAll("\n", "").replaceAll(" ", ""));
+                return makeMdImage(
+                    alt,
+                    filename.replaceAll("\n", "").replaceAll(" ", "")
+                );
             });
 
         return ReactDOMServer.renderToString(

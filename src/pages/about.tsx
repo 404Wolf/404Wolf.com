@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import InlineButton from "@/components/misc/InlineButton";
 import Tile from "@/components/misc/Tile";
 import MainLayout from "@/layouts/MainLayout";
-import Image from "next/image";
-import Link from "next/link";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { parseMd } from "@/utils/parseMd";
 import useSize from "@/utils/useSize";
@@ -17,7 +14,7 @@ const About = () => {
         fetch("/about.md")
             .then((res) => res.text())
             .then((text) => {
-                setAboutMd(parseMd(text, screenSize[0]));
+                setAboutMd(parseMd(text, screenSize[0], "{filename}"));
             });
     }, [screenSize]);
 

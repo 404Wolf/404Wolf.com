@@ -17,9 +17,9 @@ interface PostLayoutProps {
 }
 
 const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
-    const windowSize = useSize();
     const [postData, setPostData] = useState<PostData | null>(null);
     const [postMd, setPostMd] = useState<string | null>(null);
+    const [screenWidth, screenHeight] = useSize();
 
     useEffect(() => {
         fetch(String(`/api/posts/byId?id=${postId}&type=${type}`))
@@ -30,61 +30,83 @@ const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
     useEffect(() => {
         fetch(String(`/api/posts/md?id=${postId}&type=${type}`))
             .then((res) => res.text())
-            .then((data) => setPostMd(parseMd(data, windowSize[0], postId, type)));
-    }, [postData, postId, windowSize]);
+            .then((data) => {
+                const newMd = parseMd(
+                    data,
+                    screenWidth,
+                    `/posts/${type}/${postId}/resources/{filename}`
+                );
+                if (newMd != postMd) setPostMd(newMd);
+            });
+    }, []);
 
     return (
-        <MainLayout
-            title={postData ? postData.name : toTitleCase(type)}
-            header={false}
-        >
+        <MainLayout title={postData ? postData.name : toTitleCase(type)} header={false}>
             <div className={postData ? "mt-[5px]" : ""}>
                 {postData && (
                     <Tile title="Overview" className="overflow-auto" direction="right">
-                        <div className="relative container">
-                            <div className="relative pointer-events-none rounded-xl w-2/5 md:w-1/4 mt-2 ml-px md:ml-3 mb-px md:mb-3 float-right">
-                                <Image
-                                    width={400}
-                                    height={400}
-                                    src={postData.covers[0]}
-                                    className="border-4 border-slate-500 rounded-xl"
-                                    alt={`${postData.name} cover image`}
-                                />
-                            </div>
-                            <div className="markdown">{postData?.description}</div>
+                        <div className="relative pointer-events-none rounded-xl w-2/5 md:w-1/4 mt-2 ml-px md:ml-3 mb-px md:mb-3 float-right">
+                            <Image
+                                width={400}
+                                height={400}
+                                src={postData.covers[0]}
+                                className="border-4 border-slate-500 rounded-xl"
+                                alt={`${postData.name} cover image`}
+                            />
                         </div>
+                        <div className="markdown">{postData?.description}</div>
                     </Tile>
                 )}
                 <div className="m-6" />
-                {(postMd && postData) ? <Tile className="overflow-auto" title={title} direction="right">
-                    <div>
-                        <ReactMarkdown
-                            className="markdown"
-                            rehypePlugins={[rehypeRaw]}
-                            components={{
-                                code({ node, inline, className, children, ...props }) {
-                                    const match = /language-(\w+)/.exec(className || "");
-                                    return !inline && match ? (
-                                        <SyntaxHighlighter
-                                            wrapLongLines
-                                            class="!text-[12px] overflow-x-hidden"
-                                            children={String(children).replace(/\n$/, "")}
-                                            language={match[1]}
-                                            PreTag="div"
-                                            customStyle={{ borderRadius: "12px", fontSize: "inherit"}}
-                                        />
-                                    ) : (
-                                        <code {...props} className={className}>
-                                            {children}
-                                        </code>
-                                    );
-                                },
-                            }}
-                        >
-                            {postMd}
-                        </ReactMarkdown>
+                {postMd && postData ? (
+                    <Tile className="overflow-auto" title={title} direction="right">
+                        <div>
+                            <ReactMarkdown
+                                className="markdown"
+                                children={postMd}
+                                rehypePlugins={[rehypeRaw]}
+                                components={{
+                                    code({
+                                        node,
+                                        inline,
+                                        className,
+                                        children,
+                                        ...props
+                                    }) {
+                                        const match = /language-(\w+)/.exec(
+                                            className || ""
+                                        );
+                                        return !inline && match ? (
+                                            <SyntaxHighlighter
+                                                wrapLongLines
+                                                class="!text-[12px] overflow-x-hidden"
+                                                children={String(children).replace(
+                                                    /\n$/,
+                                                    ""
+                                                )}
+                                                language={match[1]}
+                                                PreTag="div"
+                                                customStyle={{
+                                                    borderRadius: "12px",
+                                                    fontSize: "inherit",
+                                                }}
+                                            />
+                                        ) : (
+                                            <code {...props} className={className}>
+                                                {children}
+                                            </code>
+                                        );
+                                    },
+                                }}
+                            />
+                        </div>
+                    </Tile>
+                ) : (
+                    <div className="animate-pulse">
+                        {" "}
+                        <Tile> Loading... </Tile>
                     </div>
-                </Tile> : <div className="animate-pulse"> <Tile> Loading... </Tile></div>}
+                )}
             </div>
         </MainLayout>
     );
