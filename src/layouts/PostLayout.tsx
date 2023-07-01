@@ -4,11 +4,12 @@ import rehypeRaw from "rehype-raw";
 import Tile from "../components/misc/Tile";
 import MainLayout from "./MainLayout";
 import { useEffect, useState } from "react";
-import useSize from "@/utils/useSize";
 import PostData from "@/components/posts/PostData";
-import { parseMd } from "@/utils/parseMd";
 import { toTitleCase } from "@/utils/misc";
 import Image from "next/image";
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 interface PostLayoutProps {
     postId: string;
@@ -19,26 +20,6 @@ interface PostLayoutProps {
 const PostLayout = ({ postId, type, title }: PostLayoutProps) => {
     const [postData, setPostData] = useState<PostData | null>(null);
     const [postMd, setPostMd] = useState<string | null>(null);
-    const [screenWidth, screenHeight] = useSize();
-
-    useEffect(() => {
-        fetch(String(`/api/posts/byId?id=${postId}&type=${type}`))
-            .then((res) => res.json())
-            .then((data) => setPostData(data.data));
-    }, [postId]);
-
-    useEffect(() => {
-        fetch(String(`/api/posts/md?id=${postId}&type=${type}`))
-            .then((res) => res.text())
-            .then((data) => {
-                const newMd = parseMd(
-                    data,
-                    screenWidth,
-                    `/posts/${type}/${postId}/resources/{filename}`
-                );
-                if (newMd != postMd) setPostMd(newMd);
-            });
-    }, []);
 
     return (
         <MainLayout title={postData ? postData.name : toTitleCase(type)} header={false}>

@@ -1,0 +1,35 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+    provider          = "postgresql"
+    url               = env("POSTGRES_PRISMA_URL")
+    directUrl         = env("POSTGRES_URL_NON_POOLING")
+    shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Post {
+    id          String     @id @default(cuid())
+    title       String
+    description String
+    markdown    String
+    covers      String[]
+    type        String
+    date        String
+    tags        String[]
+    createdAt   DateTime
+    editedAt    DateTime
+    resources   Resource[]
+}
+
+model Resource {
+    id       String  @id @default(cuid())
+    title    String
+    filename String
+    url      String
+    type     String
+    postId   String?
+    post     Post?   @relation(fields: [postId], references: [id])
+}
