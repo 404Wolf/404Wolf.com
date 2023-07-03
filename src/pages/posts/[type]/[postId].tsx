@@ -3,14 +3,12 @@ import { toTitleCase } from "@/utils/misc";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
-import { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import MainLayout from "@/layouts/MainLayout";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import rehypeRaw from "rehype-raw";
 import Tile from "@/components/misc/Tile";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
+import Markdown from "@/markdown/markdown";
 
 const prisma = new PrismaClient();
 
@@ -21,32 +19,35 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const post = await prisma.post.findUnique({
         where: {
-            id: params.postId,
+            id: params.postId as string,
         },
         include: {
             resources: true,
         },
     });
 
-    const resources = {};
-    for (const resource of post.resources) {
-        resources[resource.id] = resource.url;
+    if (post) {
+        const resources: { [key: string]: string } = {};
+        for (const resource of post.resources) {
+            resources[resource.id] = resource.url;
+        }
+
+        const markdown = await fetch(resources[post.markdown]).then((res) => res.text());
+
+        return {
+            props: {
+                type: params.type,
+                id: params.postId,
+                title: post?.title,
+                cover: resources[post.covers[0]],
+                description: post?.description,
+                markdown: markdown,
+                resources: resources,
+            },
+        };
+    } else {
+        return { props: {} };
     }
-    console.log(resources)
-
-    console.log(resources[post.markdown])
-    const markdown = await fetch(resources[post.markdown]).then((res) => res.text());
-
-    return {
-        props: {
-            type: params.type,
-            id: params.postId,
-            title: post?.title,
-            cover: resources[post.covers[0]],
-            description: post?.description,
-            markdown: markdown,
-        },
-    };
 };
 
 export const getStaticPaths = async () => {
@@ -67,7 +68,17 @@ export const getStaticPaths = async () => {
     };
 };
 
-const Post = ({ type, id, title, cover, description, markdown }) => {
+interface PostProps {
+    type: string;
+    id: string;
+    title: string;
+    cover: string;
+    description: string;
+    markdown: string;
+    resources: { [key: string]: string };
+}
+
+const Post = ({ type, id, title, cover, description, markdown, resources }: PostProps) => {
     return (
         <>
             <Head>
@@ -91,11 +102,7 @@ const Post = ({ type, id, title, cover, description, markdown }) => {
                     <div className="m-6" />
                     <Tile className="overflow-auto" title={title} direction="right">
                         <div>
-                            <ReactMarkdown
-                                className="markdown"
-                                children={markdown}
-                                rehypePlugins={[rehypeRaw]}
-                            />
+                            <Markdown markdown={markdown} resourceMap={resources} />
                         </div>
                     </Tile>
                 </div>

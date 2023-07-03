@@ -24,7 +24,7 @@ const Tile = ({
                         direction == "left"
                             ? "-translate-x-[.9rem]"
                             : "translate-x-[.9rem] right-0"
-                    } bg-gray-700 text-white text-lg p-[.15rem] rounded-full w-28 sm:w-36 z-50`}
+                    } bg-gray-700 text-white text-lg p-[.15rem] rounded-full w-28 sm:w-[13.3rem] z-50`}
                 >
                     <h2 className="text-xl sm:text-2xl text-bold">
                         <Typewriter
@@ -37,7 +37,7 @@ const Tile = ({
                 </div>
             )}
             <div
-                className={`${className} mb-auto p-3 md:p-5 pt-5 md:pt-5 bg-slate-300 rounded-2xl h-full ${className} drop-shadow-sm`}
+                className={`${className} mb-auto p-3 md:p-5 pt-5 md:pt-5 bg-slate-300 rounded-2xl h-full ${className} drop-shadow-sm overflow-clip`}
             >
                 <div style={{ padding: `${extraPadding}px` }}>{children}</div>
             </div>

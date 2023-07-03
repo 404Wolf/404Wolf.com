@@ -89,6 +89,7 @@ code {
     font-family: 'Roboto Mono', monospace !important;
     font-size: 0.9em;
     border-radius: 6px;
+    clear: both;
 }
 
 .markdown pre {
