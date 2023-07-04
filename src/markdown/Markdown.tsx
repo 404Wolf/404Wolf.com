@@ -2,6 +2,8 @@ import type { Position } from "unist";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import Image from "next/image";
+import remarkMultiimage from "@/markdown/remark-multiimage";
+import rehypeMultiimage from "@/markdown/rehype-multiimage";
 
 interface MarkdownProps {
     markdown: string;
@@ -15,16 +17,14 @@ const Markdown = ({ markdown, resourceMap = {} }: MarkdownProps) => {
             className="markdown"
             rawSourcePos={true}
             transformLinkUri={(uri) => (resourceMap[uri] ? resourceMap[uri] : uri)}
+            remarkPlugins={[remarkMultiimage]}
+            rehypePlugins={[rehypeMultiimage]}
             components={{
-                img: ({ alt, src, title, sourcePosition }) => (
-                    <Image
-                        alt={alt as string}
-                        src={src.includes("%7C") ? resourceMap[src.split("%7C")[0]]: resourceMap[src]}
-                        title={title}
-                        width={300}
-                        height={300}
-                    />
-                ),
+                "imageBlock": (stuff) => {
+                    console.log("fueiafiewagufegwyigfawefwafwfwaf")
+                    console.log(stuff);
+                    return <></>;
+                },
             }}
         />
     );
