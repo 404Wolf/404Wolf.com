@@ -26,7 +26,6 @@ export default async function handler(req: Request, res: NextApiResponse) {
     if (tags) {
         posts.push(...postsWithTags(allPosts, tags));
     }
-    console.log(posts, tags, types)
 
     res.status(200).json(posts);
 }
