@@ -6,6 +6,8 @@ import remarkImageBlock from "./remark-imageBlock";
 import ImageBlock from "@/markdown/ImageBlock";
 import MdImage from "@/markdown/Image";
 import { imgBlockHandler, imgHandler } from "./hast-handlers";
+import { useEffect } from "react";
+import CodeBlock from "./CodeBlock";
 interface MarkdownProps {
     markdown: string;
     resourceMap?: { [key: string]: string } | undefined;
@@ -16,7 +18,6 @@ const Markdown = ({ markdown, resourceMap = {} }: MarkdownProps) => {
         <ReactMarkdown
             children={markdown}
             className="markdown"
-            rawSourcePos={true}
             remarkPlugins={[remarkImageBlock]}
             remarkRehypeOptions={{
                 handlers: { imgBlock: imgBlockHandler, image: imgHandler },
@@ -36,6 +37,14 @@ const Markdown = ({ markdown, resourceMap = {} }: MarkdownProps) => {
                         titles={props.titles}
                         srcs={props.srcs}
                         resourceMap={resourceMap}
+                    />
+                ),
+                code: ({ node, inline, className, children, ...props }) => (
+                    <CodeBlock
+                        inline={inline}
+                        className={className}
+                        children={children}
+                        {...props}
                     />
                 ),
             }}

@@ -151,6 +151,11 @@ samp {
     color: #000;
     white-space: pre-wrap;
 }
+
+.codeblock * {
+    background-color: #e4e8ed !important;
+}
+
 .markdown pre {
     margin-top: 1rem;
     margin-bottom: 1rem;
