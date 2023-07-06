@@ -1,62 +1,87 @@
-import Head from "next/head";
-import typeDescriptions from "@/metadata/types.json";
 import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
-import { useEffect, useState } from "react";
 import ExtendedPostCard from "@/components/posts/ExtendedPostCard";
-import { Prisma, PrismaClient } from "@prisma/client";
-import { GetServerSideProps, GetStaticPaths, GetStaticPathsResult } from "next";
+import { PrismaClient } from "@prisma/client";
+import postMetadata from "@/metadata/posts.json";
+import { GetServerSideProps } from "next";
+import { toTitleCase } from "@/utils/misc";
 
 const prisma = new PrismaClient();
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const type: string | null = params
-        ? typeof params.type === "string"
-            ? params.type
-            : null
-        : null;
+    if (params && typeof params.type === "string") {
+        const type = params.type;
+        const posts = await prisma.post.findMany({
+            where: { type: type.slice(0, -1) },
+            include: { resources: true },
+        });
 
-    const posts = await prisma.post.findMany({
-        where: { type: type?.slice(0, -1) || "" },
-    });
-    const covers: string[] = await Promise.all(
-        posts
-            .map((post) => post.covers)
-            .flatMap((coverId) =>
-                typeof coverId === "string"
-                    ? prisma.resource.findUnique({ where: { id: coverId } })
-                    : null
-            )
-            .filter((cover) => typeof cover === "object")
-    );
-
-    return {
-        props: {
-            type: type,
-            posts: posts,
-            covers: covers,
-        },
-    };
+        return {
+            props: {
+                type: type,
+                posts: posts.map((post) => {
+                    const cover = post.resources.filter(
+                        (resource) => resource.id === post.covers[0]
+                    )[0];
+                    return {
+                        coverUrl: cover.url,
+                        coverAlt: cover.description,
+                        id: post.id,
+                        title: post.title,
+                        description: post.description,
+                        date: post.date,
+                        tags: post.tags,
+                    };
+                }),
+            },
+        };
+    } else {
+        return {
+            notFound: true,
+        };
+    }
 };
+
+interface PostData {
+    coverUrl: string;
+    coverAlt: string;
+    id: string;
+    title: string;
+    description: string;
+    date: string;
+    tags: string[];
+}
 
 interface PostsProps {
     type: string;
-    posts: Prisma.PostSelect[];
-    covers: Prisma.ResourceSelect[]
+    posts: PostData[];
 }
 
-const PostsIndexLayout = ({ type, posts, covers }: PostsProps) => {
+const PostsIndexLayout = ({ type, posts }: PostsProps) => {
+    const typeDescriptions: { [key: string]: string } = postMetadata.descriptions;
+    const typeDescription = postMetadata.descriptions.hasOwnProperty(type)
+        ? typeDescriptions[type]
+        : "Default description";
+
     return (
         <MainLayout
-            title={type}
-            headerChildren={<div className="markdown">typeDescriptions[type]</div>}
+            title={toTitleCase(type)}
+            headerChildren={<div className="markdown">{}</div>}
         >
             <div className="-mt-3">
                 <Tile>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
                         {posts &&
                             posts.map((post) => (
-                                <ExtendedPostCard tags={post.tags} post={post} />
+                                <ExtendedPostCard
+                                    coverUrl={post.coverUrl}
+                                    coverAlt={post.coverAlt}
+                                    path={`/posts/${type.slice(0, -1)}/${post.id}`}
+                                    title={post.title}
+                                    description={post.description}
+                                    date={post.date}
+                                    tags={post.tags}
+                                />
                             ))}
                     </div>
                 </Tile>
