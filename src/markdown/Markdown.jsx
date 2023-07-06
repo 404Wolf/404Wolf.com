@@ -1,19 +1,11 @@
-import type { Position } from "unist";
 import ReactMarkdown from "react-markdown";
-import { useState } from "react";
-import Image from "next/image";
 import remarkImageBlock from "./remark-imageBlock";
 import ImageBlock from "@/markdown/ImageBlock";
 import MdImage from "@/markdown/Image";
 import { imgBlockHandler, imgHandler } from "./hast-handlers";
-import { useEffect } from "react";
 import CodeBlock from "./CodeBlock";
-interface MarkdownProps {
-    markdown: string;
-    resourceMap?: { [key: string]: string } | undefined;
-}
 
-const Markdown = ({ markdown, resourceMap = {} }: MarkdownProps) => {
+const Markdown = ({ markdown, resourceMap = {} }) => {
     return (
         <ReactMarkdown
             children={markdown}
