@@ -1,6 +1,6 @@
 import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
-import ExtendedPostCard from "@/components/posts/ExtendedPostCard";
+import ExtendedPostCard, { PostData } from "@/components/posts/ExtendedPostCard";
 import { PrismaClient } from "@prisma/client";
 import postMetadata from "@/metadata/posts.json";
 import { GetServerSideProps } from "next";
@@ -42,15 +42,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
 };
 
-interface PostData {
-    coverUrl: string;
-    coverAlt: string;
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    tags: string[];
-}
 
 interface PostsProps {
     type: string;

@@ -4,7 +4,15 @@ import Tag from "../misc/Tag";
 import Link from "next/link";
 import fetchPostIcon from "./fetchPostIcon";
 
-const nullDescription = "Description coming soon!";
+export interface PostData {
+    coverUrl: string;
+    coverAlt: string;
+    id: string;
+    title: string;
+    description: string;
+    date: string;
+    tags: string[];
+}
 
 interface ExtendedPostCardProps {
     coverUrl: string;

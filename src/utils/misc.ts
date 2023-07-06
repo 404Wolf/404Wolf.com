@@ -1,12 +1,10 @@
 export function toTitleCase(str: string) {
-    return str.replace(
-        /\w\S*/g,
-        function(txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        }
-    );
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
-export function randomListItem(arr: any[]) {
-    return arr[Math.floor(Math.random() * arr.length)];
+export function randomListItem(url: string[], alt: string[]) {
+    const choice = Math.floor(Math.random() * url.length);
+    return [url[choice], alt[choice]];
 }

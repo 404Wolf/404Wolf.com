@@ -1,27 +1,54 @@
-import PostCardGrid from "@/components/posts/PostCardGrid";
+import BasicPostCardGrid from "@/components/posts/BasicPostCardGrid";
 import BasicAbout from "@/components/about/BasisAbout";
 import MainLayout from "@/layouts/MainLayout";
 import Greeter from "@/layouts/header/Greeter";
 import Tile from "@/components/misc/Tile";
 import useSize from "@/utils/useSize";
-import PostData from "@/components/posts/PostData";
 import InlineButton from "@/components/misc/InlineButton";
 import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
 import { MouseEvent, useState } from "react";
 import Head from "next/head";
-import { allPosts } from "./api/posts/listed";
+import { BasicPostData } from "@/components/posts/BasicPostCard";
+import { PrismaClient } from "@prisma/client";
 
-export function getStaticProps() {
+const prisma = new PrismaClient();
+
+export async function getServerSideProps() {
+    const featuredPosts = await prisma.post.findMany({
+        where: {
+            tags: {
+                has: "featured",
+            },
+        },
+        include: {
+            resources: true,
+        },
+    });
+
     return {
         props: {
-            posts: allPosts,
+            posts: featuredPosts.map((post) => {
+                const covers = post.resources.filter(resource =>
+                    post.covers.includes(resource.id)
+                );
+
+                return {
+                    coverUrls: covers.map(cover => cover.url),
+                    coverAlts: covers.map(cover => cover.description),
+                    path: `/posts/${post.type}/${post.id}`,
+                    type: post.type,
+                    tags: post.tags,
+                    date: post.date,
+                    title: post.title,
+                }
+            }),
         },
     };
 }
 
 interface HomeProps {
-    posts: PostData[];
+    posts: BasicPostData[];
 }
 
 const Home = ({ posts }: HomeProps) => {
@@ -84,7 +111,7 @@ const Home = ({ posts }: HomeProps) => {
                     <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                         <div className="sm:basis-[30%]">
                             <Tile title="Featured">
-                                <PostCardGrid
+                                <BasicPostCardGrid
                                     onlyFeatured
                                     posts={posts}
                                     showTags={["ongoing"]}
