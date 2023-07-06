@@ -4,14 +4,15 @@ generator client {
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_AUTHED_URL")
+    provider          = "cockroachdb"
+    url               = env("DEFAULT_DB_URL")
+    shadowDatabaseUrl = env("SHADOW_DB_URL")
 }
 
 model Post {
     id          String     @id @default(cuid())
     title       String
-    description String
+    description String?
     markdown    String
     covers      String[]
     type        String
@@ -23,11 +24,12 @@ model Post {
 }
 
 model Resource {
-    id       String  @id @default(cuid())
-    title    String
-    filename String
-    url      String
-    type     String
-    postId   String?
-    post     Post?   @relation(fields: [postId], references: [id])
+    id          String  @id @default(cuid())
+    title       String
+    description String?
+    filename    String
+    url         String
+    type        String
+    postId      String?
+    post        Post?   @relation(fields: [postId], references: [id])
 }
