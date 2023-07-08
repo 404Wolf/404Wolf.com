@@ -43,9 +43,7 @@ const ExtendedPostCard = ({
                     className="object-cover rounded-xl z-0"
                 />
 
-                <div className="absolute z-50 -top-2 -right-2">
-                    {fetchPostIcon(tags || [])}
-                </div>
+                <div className="absolute z-50 -top-2 -right-2">{fetchPostIcon(tags || [])}</div>
 
                 <h1 className="z-50 px-2 py-px text-white text-[15px] absolute -top-2 -left-2 bg-slate-600 rounded-full">
                     {title}
