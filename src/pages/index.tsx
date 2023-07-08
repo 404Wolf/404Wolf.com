@@ -110,7 +110,7 @@ const Home = ({ posts }: HomeProps) => {
                 <div className="flex flex-col gap-7">
                     <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                         <div className="sm:basis-[30%]">
-                            <Tile title="Featured">
+                            <Tile title="Featured" titleWidth="3rem">
                                 <BasicPostCardGrid
                                     onlyFeatured
                                     posts={posts}

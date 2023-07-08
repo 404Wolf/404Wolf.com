@@ -44,7 +44,7 @@ const ImageBlock = ({
     });
 
     const imageElements = images.map((image, index) => (
-        <div className="w-[35%]">
+        <div className="w-full sm:w-[35%]">
             <Image
                 alt={image.alt}
                 key={index}
@@ -60,7 +60,7 @@ const ImageBlock = ({
     return images.length == 2 ? (
         <div
             children={imageElements}
-            className="flex gap-14 w-full justify-center items-center my-4"
+            className="flex gap-3 sm:gap-14 w-full justify-between sm:justify-center items-center my-4"
         />
     ) : (
         <Carousel children={imageElements} />

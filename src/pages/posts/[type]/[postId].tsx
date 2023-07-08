@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             resources[resource.id] = resource.url;
         }
         const markdown = await fetch(resources[post.markdown]).then((res) => res.text());
-        
+
         return {
             props: {
                 type: params.type,
@@ -64,23 +64,25 @@ const Post = ({ type, id, title, cover, description, markdown, resources }: Post
                 <title>{`${type}/${id}`}</title>
             </Head>
             <MainLayout title={toTitleCase(title)} header={false}>
-                <div className="mt-[5px]">
-                    <Tile title="Overview" className="overflow-auto" direction="right">
-                        <div className="relative pointer-events-none rounded-xl w-2/5 md:w-1/4 mt-2 ml-px md:ml-3 mb-px md:mb-3 float-right">
-                            <Image
-                                width={400}
-                                height={400}
-                                src={cover}
-                                className="border-4 border-slate-500 rounded-xl"
-                                alt={`${title}'s cover image`}
-                            />
+                <div className="mt-[5px] overflow-visible">
+                    <Tile title="Overview" direction="right">
+                        <div className="h-fit overflow-auto">
+                            <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
+                                <Image
+                                    width={400}
+                                    height={400}
+                                    src={cover}
+                                    className="border-4 border-slate-500 rounded-xl"
+                                    alt={`${title}'s cover image`}
+                                />
+                            </div>
+                            <div className="-mt-1">{description}</div>
                         </div>
-                        <div className="markdown">{description}</div>
                     </Tile>
 
                     <div className="m-6" />
                     <Tile className="overflow-auto" title={title} direction="right">
-                        <div>
+                        <div className="-mt-4">
                             <Markdown markdown={markdown} resourceMap={resources} />
                         </div>
                     </Tile>
