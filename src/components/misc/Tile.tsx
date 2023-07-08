@@ -33,7 +33,7 @@ const Tile = ({
         }
 
         if (context) {
-            context.font = `bold ${fontSize+5}px 'Trebuchet MS', sans-serif`;
+            context.font = `bold ${fontSize+6}px 'Trebuchet MS', sans-serif`;
             setTitleWidth(context.measureText(title).width);
         }
     }, []);
