@@ -40,8 +40,6 @@ const Tile = ({
         }
     }, []);
 
-    console.log(fixedTitleWidth, "pOTATO");
-
     return (
         <div className="h-full relative">
             {title && (
