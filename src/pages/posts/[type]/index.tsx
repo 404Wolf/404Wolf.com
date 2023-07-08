@@ -42,7 +42,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
 };
 
-
 interface PostsProps {
     type: string;
     posts: PostData[];
@@ -55,10 +54,7 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
         : "Default description";
 
     return (
-        <MainLayout
-            title={toTitleCase(type)}
-            headerChildren={<div className="markdown">{}</div>}
-        >
+        <MainLayout title={toTitleCase(type)} headerChildren={<div className="markdown">{}</div>}>
             <div className="-mt-3">
                 <Tile>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">

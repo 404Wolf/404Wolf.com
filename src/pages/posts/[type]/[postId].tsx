@@ -1,9 +1,8 @@
-import PostLayout from "@/layouts/PostLayout";
 import { toTitleCase } from "@/utils/misc";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import MainLayout from "@/layouts/MainLayout";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import Tile from "@/components/misc/Tile";
@@ -12,7 +11,7 @@ import Markdown from "@/markdown/markdown";
 
 const prisma = new PrismaClient();
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     if (!params) {
         return { props: {} };
     }
@@ -31,9 +30,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         for (const resource of post.resources) {
             resources[resource.id] = resource.url;
         }
-
         const markdown = await fetch(resources[post.markdown]).then((res) => res.text());
-
+        
         return {
             props: {
                 type: params.type,
@@ -48,24 +46,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } else {
         return { props: {} };
     }
-};
-
-export const getStaticPaths = async () => {
-    const paths: any[] = [];
-    (await prisma.post.findMany()).forEach((post) => {
-        paths.push({
-            params: {
-                postId: post.id,
-                post: post,
-                type: post.type,
-            },
-        });
-    });
-
-    return {
-        paths,
-        fallback: false,
-    };
 };
 
 interface PostProps {

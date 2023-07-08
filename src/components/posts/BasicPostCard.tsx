@@ -61,7 +61,7 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                     {post && (
                         <>
                             <div className="absolute -top-[12px] -left-[12px] z-50 scale-[62%]">
-                                {fetchPostIcon(tagsToUse)}
+                                {fetchPostIcon(post && post.tags || [])}
                             </div>
                             <div
                                 className={
