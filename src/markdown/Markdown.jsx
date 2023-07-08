@@ -1,8 +1,8 @@
 import ReactMarkdown from "react-markdown";
-import remarkImageBlock from "./remark-imageBlock";
+import remarkImageBlock from "./remark-imageBlock.js";
 import ImageBlock from "@/markdown/ImageBlock";
 import MdImage from "@/markdown/Image";
-import { imgBlockHandler, imgHandler } from "./hast-handlers";
+import { imgBlockHandler, imgHandler } from "./hast-handlers.js";
 import CodeBlock from "@/markdown/CodeBlock";
 
 const Markdown = ({ markdown, resourceMap = {} }) => {

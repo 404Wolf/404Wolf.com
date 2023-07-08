@@ -4,10 +4,9 @@ import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import MainLayout from "@/layouts/MainLayout";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import Tile from "@/components/misc/Tile";
 import Image from "next/image";
-import Markdown from "@/markdown/markdown";
+import Markdown from "@/markdown/markdown.jsx";
 
 const prisma = new PrismaClient();
 

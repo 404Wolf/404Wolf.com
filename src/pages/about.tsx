@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Tile from "@/components/misc/Tile";
 import MainLayout from "@/layouts/MainLayout";
 import useSize from "@/utils/useSize";
-import Markdown from "@/markdown/markdown";
+import Markdown from "@/markdown/markdown.jsx";
 
 const About = () => {
     const [aboutMd, setAboutMd] = useState("Loading...");

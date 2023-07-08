@@ -1,6 +1,5 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { useState, useEffect, ReactNode} from "react";
-import codeblockStyle from "./codeblock-style";
+import codeblockStyle from "./codeblock-style.js";
 
 const CodeBlock = ({ inline, className, children, ...props }) => {
     const defaultReturn = (
