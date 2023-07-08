@@ -6,7 +6,7 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
 import Image from "next/image";
-import Markdown from "@/markdown/markdown.jsx";
+import Markdown from "@/markdown/Markdown.jsx";
 
 const prisma = new PrismaClient();
 
