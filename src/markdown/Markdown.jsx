@@ -3,7 +3,7 @@ import remarkImageBlock from "./remark-imageBlock";
 import ImageBlock from "@/markdown/ImageBlock";
 import MdImage from "@/markdown/Image";
 import { imgBlockHandler, imgHandler } from "./hast-handlers";
-import CodeBlock from "./CodeBlock";
+import CodeBlock from "@/markdown/CodeBlock";
 
 const Markdown = ({ markdown, resourceMap = {} }) => {
     return (
@@ -20,6 +20,9 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
                         alt={props.alt}
                         title={props.title}
                         src={props.src}
+                        width={props.width}
+                        float={props.float}
+                        label={props.alt}
                         resourceMap={resourceMap}
                     />
                 ),

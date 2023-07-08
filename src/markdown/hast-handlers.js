@@ -20,8 +20,11 @@ export function imgHandler(state, node, parent) {
     for (const property of node.url.matchAll(/((\w+)=(\w+))/g)) {
         properties[property[2]] = property[3]
     }
-    const url = /\w*|\w=*/.test(node.url) ? node.url.match(/([^\s^\|]*)\|/)[1] : node.url
-
+    let url = node.url
+    try {
+        url = /\w*|\w=*/.test(node.url) ? node.url.match(/([^\s^\|]*)\|/)[1] : node.url
+    } catch { }
+    
     return {
         type: "element",
         tagName: "img",

@@ -1,5 +1,5 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode} from "react";
 import codeblockStyle from "./codeblock-style";
 
 const CodeBlock = ({ inline, className, children, ...props }) => {
@@ -20,6 +20,7 @@ const CodeBlock = ({ inline, className, children, ...props }) => {
                 children={String(children).replace(/\n$/, "")}
                 style={codeblockStyle}
                 language={match[1]}
+                showLineNumbers={true}
                 PreTag="div"
             />
         </div>

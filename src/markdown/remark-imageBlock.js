@@ -6,7 +6,7 @@ export default function remarkImageBlock() {
         visit(tree, "paragraph", (node, index, parent) => {
             if (node.children) {
                 const children = node.children.filter(
-                    child => !(child.type === "text" && child.value === "\r\n")
+                    child => !(child.type === "text" && (child.value === "\r\n" || child.value === "\n"))
                 )
                 if (children.every(child => child.type === "image") && children.length > 1) {
                     parent.children[index] = {
@@ -29,6 +29,7 @@ export default function remarkImageBlock() {
                 }
             }
         });
+
         return tree;
     };
 }

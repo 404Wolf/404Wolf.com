@@ -1,4 +1,6 @@
-import Image from "./Image";
+import { ReactElement } from "react-markdown/lib/react-markdown";
+import Image from "@/markdown/Image";
+import { Carousel } from "react-responsive-carousel";
 
 export interface ImageBlockProps {
     alts: string;
@@ -41,17 +43,27 @@ const ImageBlock = ({
         };
     });
 
-    return (
-        <div className="flex gap-3">
-            {images.map((image) => (
-                <Image
-                    alt={image.alt}
-                    src={image.src}
-                    title={image.title}
-                    resourceMap={resourceMap}
-                />
-            ))}
+    const imageElements = images.map((image, index) => (
+        <div className="w-[35%]">
+            <Image
+                alt={image.alt}
+                key={index}
+                src={image.src}
+                title={image.title}
+                label={image.alt}
+                stylize={false}
+                resourceMap={resourceMap}
+            />
         </div>
+    ));
+
+    return images.length == 2 ? (
+        <div
+            children={imageElements}
+            className="flex gap-14 w-full justify-center items-center my-4"
+        />
+    ) : (
+        <Carousel children={imageElements} />
     );
 };
 
