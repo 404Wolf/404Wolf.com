@@ -57,6 +57,7 @@ const Home = ({ posts }: HomeProps) => {
 
     const screenSize = useSize();
     const about = useAbout();
+    const tileTitleWidths = "w-[7rem] sm:w-[8rem]"
 
     const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
     const profileImage = (
@@ -106,11 +107,12 @@ const Home = ({ posts }: HomeProps) => {
                 title={<Greeter />}
                 titleWidth="w-[19.5rem] sm:w-[23.6rem]"
                 headerChildren={headerChildren}
+                subtitleFixedWidth={tileTitleWidths}
             >
                 <div className="flex flex-col gap-7">
                     <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                         <div className="sm:basis-[30%]">
-                            <Tile title="Featured">
+                            <Tile title="Featured" fixedTitleWidth={tileTitleWidths}>
                                 <BasicPostCardGrid
                                     onlyFeatured
                                     posts={posts}
@@ -121,7 +123,7 @@ const Home = ({ posts }: HomeProps) => {
                             </Tile>
                         </div>
                         <div className="basis-[75%]">
-                            <BasicAbout />
+                            <BasicAbout fixedTitleWidth={tileTitleWidths} />
                         </div>
                     </div>
                 </div>

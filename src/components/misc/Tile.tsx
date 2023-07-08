@@ -3,12 +3,13 @@ import Typewriter from "typewriter-effect";
 import { useTextWidth } from "@tag0/use-text-width";
 import useSize from "@/utils/useSize";
 
-interface TileProps {
+export interface TileProps {
     title?: string;
     className?: string;
     children: React.ReactNode;
     direction?: "left" | "right";
     extraPadding?: number;
+    fixedTitleWidth?: string | null;
 }
 
 const Tile = ({
@@ -17,12 +18,13 @@ const Tile = ({
     className = "",
     direction = "left",
     extraPadding = 0,
+    fixedTitleWidth = null,
 }: TileProps) => {
     const [screenWidth, screenHeight] = useSize();
-    const [titleWidth, setTitleWidth] = useState(0);
+    const [titleWidth, setTitleWidth] = useState(fixedTitleWidth || 0);
 
     useEffect(() => {
-        if (!title) return;
+        if (!title || fixedTitleWidth) return;
 
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
@@ -33,17 +35,21 @@ const Tile = ({
         }
 
         if (context) {
-            context.font = `bold ${fontSize+7}px 'Trebuchet MS', sans-serif`;
-            setTitleWidth(context.measureText(title).width);
+            context.font = `bold ${fontSize + 7}px 'Trebuchet MS', sans-serif`;
+            setTitleWidth(context.measureText(title).width + 20);
         }
     }, []);
+
+    console.log(fixedTitleWidth, "pOTATO");
 
     return (
         <div className="h-full relative">
             {title && (
                 <div
-                    style={{ width: `${titleWidth}px` }}
-                    className={`text-center absolute -translate-y-[1.15rem] ${
+                    style={titleWidth && !fixedTitleWidth ? { width: `${titleWidth}px` } : {}}
+                    className={`${
+                        fixedTitleWidth ? fixedTitleWidth + " " : ""
+                    } text-center absolute -translate-y-[1.15rem] ${
                         direction == "left"
                             ? "-translate-x-[.9rem]"
                             : "translate-x-[.9rem] right-0"

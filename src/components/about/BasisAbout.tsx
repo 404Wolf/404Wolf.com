@@ -1,11 +1,11 @@
 import Tile from "../misc/Tile";
 import { useState } from "react";
 
-const BasicAbout = () => {
+const BasicAbout = ({ fixedTitleWidth="" }: { fixedTitleWidth?: string }) => {
     const [ aboutMe, setAboutMe ] = useState("");
 
     return (
-        <Tile title="About">
+        <Tile title="About" fixedTitleWidth={fixedTitleWidth}>
             <div className="pt-2 sm:pt-1 text-left indent-10 markdown">
                 <p className="mb-1">
                     I've always been an impulsive tinkerer. An eager explorer and fervent maker. So, naturally, I'm a highly project based person—from my 3D printed avocado journey to a massive hydroponic basic farm embarkment to a Minecraft username autoclaiming business. While I was originally interested in art, and loved dumping ideas into the endless canvas of graphic design, 3D modeling, and crafty projects, code's been my true, inevitable passion.
