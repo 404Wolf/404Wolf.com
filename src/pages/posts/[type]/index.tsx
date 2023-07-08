@@ -51,10 +51,13 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
     const typeDescriptions: { [key: string]: string } = postMetadata.descriptions;
     const typeDescription = postMetadata.descriptions.hasOwnProperty(type)
         ? typeDescriptions[type]
-        : "Default description";
+        : `List of all ${type}s...`;
 
     return (
-        <MainLayout title={toTitleCase(type)} headerChildren={<div className="markdown">{}</div>}>
+        <MainLayout
+            title={toTitleCase(type)}
+            headerChildren={<div className="markdown">{typeDescription}</div>}
+        >
             <div className="-mt-3">
                 <Tile>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
