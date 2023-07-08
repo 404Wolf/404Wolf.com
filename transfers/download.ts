@@ -1,6 +1,6 @@
 import { PrismaClient } from ".prisma/client";
 import { readdirSync, mkdirSync, writeFileSync } from "fs";
-import { downloadFile } from "./utils.ts";
+import { downloadFile } from "./utils";
 
 const prisma = new PrismaClient();
 
