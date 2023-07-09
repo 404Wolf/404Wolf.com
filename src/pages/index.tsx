@@ -62,7 +62,8 @@ const Home = ({ posts }: HomeProps) => {
     const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
 
     useEffect(() => {
-        if (!info) fetch("/home.md").then((info) => info.text().then((info) => setInfo(info)));
+        if (info === "Loading...")
+            fetch("/home.md").then((info) => info.text().then((info) => setInfo(info)));
     });
 
     const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
