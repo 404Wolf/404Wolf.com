@@ -64,7 +64,7 @@ const Home = ({ posts }: HomeProps) => {
     useEffect(() => {
         if (info === "Loading...")
             fetch("/home.md").then((info) => info.text().then((info) => setInfo(info)));
-    });
+    }, []);
 
     const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
     const profileImage = (
@@ -126,7 +126,7 @@ const Home = ({ posts }: HomeProps) => {
                             </Tile>
                         </div>
                         <div className="basis-[75%]">
-                            <Tile title="About" fixedTitleWidth={tileTitleWidths}>
+                            <Tile className={info === "loading" ? "animate-pulse" : ""} title="About" fixedTitleWidth={tileTitleWidths}>
                                 <div className="mt-2">
                                     <Markdown markdown={info} />
                                 </div>
