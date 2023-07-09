@@ -8,39 +8,50 @@ import { TileProps } from "@/components/misc/Tile";
 interface MainLayoutProps {
     children: React.ReactNode;
     title?: string | JSX.Element;
+    titleWidth?: string;
+    editableTitle?: boolean;
+    onTitleEdit?: (text: string) => void;
     header?: boolean;
     headerChildren?: JSX.Element;
-    titleWidth?: string;
     subtitleFixedWidth?: string;
+    containerClasses?: string;
 }
 
 const MainLayout = ({
     children,
     title,
     titleWidth = "w-fit",
+    editableTitle = false,
+    onTitleEdit,
     header = true,
     headerChildren,
     subtitleFixedWidth,
+    containerClasses,
 }: MainLayoutProps) => {
     let [blurred, setBlurred] = useState(false);
+    const titleElementClasses = `absolute -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-50`;
 
     return (
-        <div>
+        <div className={containerClasses}>
             <div
                 className={`relative pt-7 sm:pt-8 duration-100 ${
                     blurred ? "blur-sm contrast-75" : ""
                 }`}
             >
-                {title && (
-                    <div>
-                        <Link href="/">
-                            <div
-                                className={`absolute -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-50`}
-                            >
-                                {title}
-                            </div>
-                        </Link>
+                {title && editableTitle ? (
+                    <div
+                        className={titleElementClasses}
+                        onInput={(e) => {
+                            if (onTitleEdit) onTitleEdit(e.currentTarget.textContent || "");
+                        }}
+                        contentEditable="true"
+                    >
+                        title
                     </div>
+                ) : (
+                    <Link href="/">
+                        <div className={titleElementClasses}>{title}</div>
+                    </Link>
                 )}
 
                 <div className="hidden sm:block absolute sm:fixed sm:top-[7.7rem] -sm:right-[8rem] md:-right-[7.7rem] sm:rotate-90">

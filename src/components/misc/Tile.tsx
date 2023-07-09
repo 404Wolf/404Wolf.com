@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Typewriter from "typewriter-effect";
-import { useTextWidth } from "@tag0/use-text-width";
 import useSize from "@/utils/useSize";
+import measure from "@/utils/measure";
 
 export interface TileProps {
     title?: string;
@@ -10,6 +10,7 @@ export interface TileProps {
     direction?: "left" | "right";
     extraPadding?: number;
     fixedTitleWidth?: string | null;
+    containerClass?: string;
 }
 
 const Tile = ({
@@ -19,6 +20,7 @@ const Tile = ({
     direction = "left",
     extraPadding = 0,
     fixedTitleWidth = null,
+    containerClass = "h-full relative",
 }: TileProps) => {
     const [screenWidth, screenHeight] = useSize();
     const [titleWidth, setTitleWidth] = useState(fixedTitleWidth || 0);
@@ -26,22 +28,16 @@ const Tile = ({
     useEffect(() => {
         if (!title || fixedTitleWidth) return;
 
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-
-        let fontSize = 24;
+        let fontSize = 26;
         if (screenWidth <= 640) {
-            fontSize = 20;
+            fontSize = 22;
         }
 
-        if (context) {
-            context.font = `bold ${fontSize + 7}px 'Trebuchet MS', sans-serif`;
-            setTitleWidth(context.measureText(title).width + 20);
-        }
+        setTitleWidth(measure(title, "bold", fontSize, "Trebuchet MS", "sans-serif"));
     }, []);
 
     return (
-        <div className="h-full relative">
+        <div className={containerClass}>
             {title && (
                 <div
                     style={titleWidth && !fixedTitleWidth ? { width: `${titleWidth}px` } : {}}
