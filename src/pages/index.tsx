@@ -1,5 +1,4 @@
 import BasicPostCardGrid from "@/components/posts/BasicPostCardGrid";
-import BasicAbout from "@/components/about/BasisAbout";
 import MainLayout from "@/layouts/MainLayout";
 import Greeter from "@/layouts/header/Greeter";
 import Tile from "@/components/misc/Tile";
