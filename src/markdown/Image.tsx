@@ -3,6 +3,7 @@ import imageWidthTree from "@/markdown/imageTree";
 import Tag from "@/components/misc/Tag";
 import { createHash } from "crypto";
 import { useEffect, useState } from "react";
+import Modal from "@/components/misc/Modal";
 
 interface ImageProps {
     alt: string;
@@ -31,6 +32,7 @@ const Image = ({
     let [imageStyleWidthTree, setImageStyleWidthTree] = useState<null | string>(null);
     const [margin, setMargin] = useState({ marginLeft: "0px", marginRight: "0px" });
     const [tagPos, setTagPos] = useState("");
+    const [enlarged, setEnlarged] = useState(false);
     const requestedWidth = width ? parseInt(width) : 36;
 
     useEffect(() => {
@@ -45,33 +47,57 @@ const Image = ({
 
             switch (float) {
                 case "left":
-                    setMargin({ marginRight: "0px", marginLeft: "12px" });
+                    setMargin({ marginRight: "10px", marginLeft: "0px" });
                     setTagPos("br");
                 case "right":
-                    setMargin({ marginRight: "12px", marginLeft: "0px" });
+                    setMargin({ marginRight: "0px", marginLeft: "10px" });
                     setTagPos("br");
             }
         }
     }, []);
 
+    const imageElement = (classes?: string) => (
+        <NextImage
+            alt={alt}
+            src={resourceMap[src]}
+            title={title}
+            width={nextImgSize[0]}
+            height={nextImgSize[1]}
+            className={classes || ""}
+        />
+    );
+
     return (
-        <>
-            {stylize && <style>{imageStyleWidthTree}</style>}
-            <div
-                id={imageStyleId}
-                className="relative"
-                style={margin && { float: float as "right" | "left" | "none", ...margin }}
+        <div className="hover:drop-shadow-2xl">
+            <Modal
+                className="rounded-2xl drop-shadow-5xl-c fixed p-7"
+                open={enlarged}
+                onClose={() => setEnlarged(false)}
+                setOpen={() => setEnlarged(false)}
             >
-                {label && <Tag position={tagPos}>{label}</Tag>}
-                <NextImage
-                    alt={alt}
-                    src={resourceMap[src]}
-                    title={title}
-                    width={nextImgSize[0]}
-                    height={nextImgSize[1]}
-                />
-            </div>
-        </>
+                <div className="p-0 relative">
+                    {label && <Tag position={tagPos}>{label}</Tag>}
+                    {imageElement("rounded-xl border-slate-300 border-[2px] h-[90vh] w-auto")}
+                </div>
+            </Modal>
+
+            <a
+                onClick={() => {
+                    setEnlarged(true);
+                    console.log(enlarged);
+                }}
+            >
+                {stylize && <style>{imageStyleWidthTree}</style>}
+                <div
+                    id={imageStyleId}
+                    className="relative"
+                    style={margin && { float: float as "right" | "left" | "none", ...margin }}
+                >
+                    {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}
+                    {imageElement(enlarged ? "blur" : "")}
+                </div>
+            </a>
+        </div>
     );
 };
 

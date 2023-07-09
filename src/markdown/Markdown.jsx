@@ -42,6 +42,7 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
                         {...props}
                     />
                 ),
+                a: ({ ...props }) => <a {...props} target="_blank" rel="noreferrer noopener" />,
             }}
         />
     );

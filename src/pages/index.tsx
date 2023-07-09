@@ -11,6 +11,8 @@ import { MouseEvent, useState } from "react";
 import Head from "next/head";
 import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
+import Markdown from "@/markdown/Markdown";
+import { readFileSync } from "fs";
 
 const prisma = new PrismaClient();
 
@@ -28,20 +30,21 @@ export async function getServerSideProps() {
 
     return {
         props: {
+            info: readFileSync("public/home.md", "utf-8"),
             posts: featuredPosts.map((post) => {
-                const covers = post.resources.filter(resource =>
+                const covers = post.resources.filter((resource) =>
                     post.covers.includes(resource.id)
                 );
 
                 return {
-                    coverUrls: covers.map(cover => cover.url),
-                    coverAlts: covers.map(cover => cover.description),
+                    coverUrls: covers.map((cover) => cover.url),
+                    coverAlts: covers.map((cover) => cover.description),
                     path: `/posts/${post.type}/${post.id}`,
                     type: post.type,
                     tags: post.tags,
                     date: post.date,
                     title: post.title,
-                }
+                };
             }),
         },
     };
@@ -49,15 +52,16 @@ export async function getServerSideProps() {
 
 interface HomeProps {
     posts: BasicPostData[];
+    info: string;
 }
 
-const Home = ({ posts }: HomeProps) => {
+const Home = ({ posts, info }: HomeProps) => {
     const profileImageMe = "/resources/profileMeAlt.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
     const screenSize = useSize();
     const about = useAbout();
-    const tileTitleWidths = "w-[7rem] sm:w-[8rem]"
+    const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
 
     const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
     const profileImage = (
@@ -80,19 +84,15 @@ const Home = ({ posts }: HomeProps) => {
             <div className="markdown">
                 <p className="mb-2">
                     I'm a{" "}
-                    <InlineButton externalTo="https://bhsec.bard.edu/queens/">
-                        BHSEC
-                    </InlineButton>{" "}
-                    student in NYC with a passion for tinkering, coding, Ancient Latin,
-                    D&D, strategy board games, creating, designing, engineering, geeking,
-                    making, and figuring things out.
+                    <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton>{" "}
+                    student in NYC with a passion for tinkering, coding, Ancient Latin, D&D,
+                    strategy board games, creating, designing, engineering, geeking, making, and
+                    figuring things out.
                 </p>
                 <p>
-                    Information, projects, contacts, my resume, and more can be found on
-                    this website. If you have any questions, feel free to{" "}
-                    <InlineButton externalTo={`mailto:${about.email}`}>
-                        email me!
-                    </InlineButton>
+                    Information, projects, contacts, my resume, and more can be found on this
+                    website. If you have any questions, feel free to{" "}
+                    <InlineButton externalTo={`mailto:${about.email}`}>email me!</InlineButton>
                 </p>
             </div>
         </div>
@@ -123,7 +123,11 @@ const Home = ({ posts }: HomeProps) => {
                             </Tile>
                         </div>
                         <div className="basis-[75%]">
-                            <BasicAbout fixedTitleWidth={tileTitleWidths} />
+                            <Tile title="About" fixedTitleWidth={tileTitleWidths}>
+                                <div className="mt-2">
+                                    <Markdown markdown={info} />
+                                </div>
+                            </Tile>
                         </div>
                     </div>
                 </div>
