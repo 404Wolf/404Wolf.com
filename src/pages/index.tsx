@@ -6,7 +6,7 @@ import useSize from "@/utils/useSize";
 import InlineButton from "@/components/misc/InlineButton";
 import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Head from "next/head";
 import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
@@ -29,7 +29,6 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            info: readFileSync("public/home.md", "utf-8"),
             posts: featuredPosts.map((post) => {
                 const covers = post.resources.filter((resource) =>
                     post.covers.includes(resource.id)
@@ -51,16 +50,20 @@ export async function getServerSideProps() {
 
 interface HomeProps {
     posts: BasicPostData[];
-    info: string;
 }
 
-const Home = ({ posts, info }: HomeProps) => {
+const Home = ({ posts }: HomeProps) => {
     const profileImageMe = "/resources/profileMeAlt.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
     const screenSize = useSize();
     const about = useAbout();
+    const [info, setInfo] = useState("Loading...");
     const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
+
+    useEffect(() => {
+        if (!info) fetch("/home.md").then((info) => info.text().then((info) => setInfo(info)));
+    });
 
     const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
     const profileImage = (
