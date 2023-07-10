@@ -1,35 +1,43 @@
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["jsonProtocol"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-    provider          = "cockroachdb"
-    url               = env("DEFAULT_DB_URL")
-    shadowDatabaseUrl = env("SHADOW_DB_URL")
+  provider          = "cockroachdb"
+  url               = env("DEFAULT_DB_URL")
+  // shadowDatabaseUrl = env("SHADOW_DB_URL")
 }
 
 model Post {
-    id          String     @id @default(cuid())
-    title       String
-    description String?
-    markdown    String
-    covers      String[]
-    type        String
-    date        String
-    tags        String[]
-    createdAt   DateTime
-    editedAt    DateTime
-    resources   Resource[]
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  markdown    String
+  covers      String[]
+  type        String
+  date        String
+  tags        String[]
+  createdAt   DateTime
+  editedAt    DateTime
+  resources   Resource[]
 }
 
 model Resource {
-    id          String  @id @default(cuid())
-    title       String
-    description String?
-    filename    String
-    url         String
-    type        String
-    postId      String?
-    post        Post?   @relation(fields: [postId], references: [id])
+  id          String  @id @default(cuid())
+  title       String
+  filename    String
+  url         String
+  type        String
+  postId      String?
+  description String?
+  post        Post?   @relation(fields: [postId], references: [id])
+}
+
+model User {
+  id        String @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  image     String
 }

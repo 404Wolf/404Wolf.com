@@ -64,7 +64,7 @@ const Post = ({ type, id, title, cover, description, markdown, resources }: Post
                 <title>{`${type}/${id}`}</title>
             </Head>
             <MainLayout title={toTitleCase(title)} header={false}>
-                <div className="mt-[5px] overflow-visible">
+                <div className="mt-[12px] overflow-visible">
                     <Tile title="Overview" direction="right">
                         <div className="h-fit overflow-auto">
                             <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
@@ -81,6 +81,7 @@ const Post = ({ type, id, title, cover, description, markdown, resources }: Post
                     </Tile>
 
                     <div className="m-6" />
+
                     <Tile className="overflow-auto" title={title} direction="right">
                         <div className="-mt-4">
                             <Markdown markdown={markdown} resourceMap={resources} />
