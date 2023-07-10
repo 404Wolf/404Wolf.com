@@ -27,8 +27,6 @@ const ProfileButton = ({ size = 50 }: ProfileButtonProps) => {
         >
             <Image
                 priority
-                onMouseEnter={() => (loggedIn ? setIcon("login") : setIcon("logout"))}
-                onMouseLeave={() => (loggedIn ? setIcon("logout") : setIcon("login"))}
                 width={size}
                 height={size}
                 src={`/icons/${icon}.svg`}
