@@ -3,10 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import BasicContacts from "../components/contacts/BasicContacts";
 import Header from "./header/Header";
-import { CgProfile } from "react-icons/cg";
-import Image from "next/image";
 import ProfileButton from "@/components/auth/ProfileButton";
-import { styles } from "@/styles/styles";
 
 interface MainLayoutProps {
     children: React.ReactNode;
