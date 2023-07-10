@@ -8,17 +8,19 @@ import useSize from "@/utils/useSize";
 import TagsInput from "react-tagsinput";
 import useAutosizeTextArea from "@/utils/useAutosizeTextArea";
 import useStoredState from "@/utils/useStoredState";
+import { useSession } from "next-auth/react";
+import Unauthorized from "@/layouts/Unauthorized";
 
 const Editor = ({}) => {
     const post = {
-        type: useStoredState("type", "Type"),
-        id: useStoredState("id", "Id"),
-        title: useStoredState("title", "Title"),
-        tags: useStoredState("tags", ["hidden", "featured", "personal", "academic"]),
-        cover: useStoredState("cover", "Cover"),
-        description: useStoredState("description", "Description"),
-        markdown: useStoredState("markdown", "Markdown"),
-        resources: useStoredState("resources", {}),
+        type: useState("Type"),
+        id: useState("Id"),
+        title: useState("Title"),
+        tags: useState(["hidden", "featured", "personal", "academic"]),
+        cover: useState("Cover"),
+        description: useState("Description"),
+        markdown: useState("Markdown"),
+        resources: useState({}),
     };
 
     const postMarkdownAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -48,6 +50,9 @@ const Editor = ({}) => {
             value={post.markdown[0]}
         />
     );
+
+    const { data: session } = useSession();
+    if (!(session && session.user)) return <Unauthorized />;
 
     return (
         <>
