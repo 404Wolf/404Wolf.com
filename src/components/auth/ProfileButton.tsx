@@ -23,7 +23,7 @@ const ProfileButton = ({ size = 50 }: ProfileButtonProps) => {
                 if (session && session.user) signOut();
                 else signIn();
             }}
-            className={`rounded-full p-[8px] text-[8px] sm:text-[10px] bg-mid-blue-300 sm:bg-slate-350/[25%] backdrop-blur-xl drop-shadow-2xl-c fill-white font-bold sm:font-normal sm:stroke-slate-200/[35%] whitespace-nowrap grow text-center`}
+            className={`rounded-full p-[6px] bg-mid-blue-300 sm:bg-slate-350/[25%] backdrop-blur-xl drop-shadow-2xl-c fill-white font-bold sm:font-normal sm:stroke-slate-200/[35%] whitespace-nowrap grow text-center`}
         >
             <Image
                 priority

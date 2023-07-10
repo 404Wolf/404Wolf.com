@@ -54,8 +54,8 @@ const MainLayout = ({
                     </Link>
                 )}
 
-                <div className={"fixed bottom-2 right-2"}>
-                    <ProfileButton size={20} />
+                <div className={"hidden sm:block fixed bottom-2 right-2"}>
+                    <ProfileButton size={18} />
                 </div>
 
                 <div className="hidden sm:block absolute sm:fixed sm:top-[7.7rem] -sm:right-[8rem] md:-right-[7.7rem] sm:rotate-90">
