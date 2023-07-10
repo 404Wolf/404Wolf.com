@@ -46,7 +46,7 @@ const MainLayout = ({
                         }}
                         contentEditable="true"
                     >
-                        title
+                        {title}
                     </div>
                 ) : (
                     <Link href="/">

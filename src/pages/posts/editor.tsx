@@ -2,23 +2,52 @@ import { toTitleCase } from "@/utils/misc";
 import Head from "next/head";
 import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Markdown from "@/markdown/Markdown";
 import useSize from "@/utils/useSize";
 import TagsInput from "react-tagsinput";
+import useAutosizeTextArea from "@/utils/useAutosizeTextArea";
+import useStoredState from "@/utils/useStoredState";
 
 const Editor = ({}) => {
-    const [width, height] = useSize();
     const post = {
-        type: useState("Type"),
-        id: useState("Id"),
-        title: useState("Title"),
-        tags: useState<string[]>(["hidden", "featured", "personal", "academic"]),
-        cover: useState("Cover"),
-        description: useState("Description"),
-        markdown: useState("Markdown"),
-        resources: useState<{ [key: string]: string }>({}),
+        type: useStoredState("type", "Type"),
+        id: useStoredState("id", "Id"),
+        title: useStoredState("title", "Title"),
+        tags: useStoredState("tags", ["hidden", "featured", "personal", "academic"]),
+        cover: useStoredState("cover", "Cover"),
+        description: useStoredState("description", "Description"),
+        markdown: useStoredState("markdown", "Markdown"),
+        resources: useStoredState("resources", {}),
     };
+
+    const postMarkdownAreaRef = useRef<HTMLTextAreaElement>(null);
+    const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
+    useAutosizeTextArea(postDescriptionAreaRef.current, post.markdown[0]);
+    useAutosizeTextArea(postMarkdownAreaRef.current, post.markdown[0]);
+
+    const [baseTitle, setBaseTitle] = useState("Title");
+    useEffect(() => {
+        if (post.title[0] === "Title") setBaseTitle(post.title[0]);
+    }, [post.title]);
+
+    const descriptionEditor = (
+        <textarea
+            ref={postDescriptionAreaRef}
+            onChange={(e) => post.description[1](e.target.value)}
+            className="mt-1 h-fit w-full bg-transparent overflow-auto resize-none focus:outline-none"
+            value={post.description[0]}
+        />
+    );
+
+    const markdownEditor = (
+        <textarea
+            className="bg-transparent resize-none overflow-visible w-full focus:outline-none"
+            onChange={(e) => post.markdown[1](e.target.value)}
+            ref={postMarkdownAreaRef}
+            value={post.markdown[0]}
+        />
+    );
 
     return (
         <>
@@ -46,21 +75,14 @@ const Editor = ({}) => {
 
                 <div className="mt-[12px] overflow-visible">
                     <div className="flex mb-4 md:mb-6 gap-4">
-                        {/* <Tile
+                        <Tile
                             containerClass="relative w-1/4"
                             title="Config"
                             direction="left"
                             className="mb-6"
                         >
-                            <div className="mt-1">
-                                <div>
-                                    <TagsInput
-                                        value={post.tags[0]}
-                                        onChange={(tags: string[]) => post.tags[1](tags)}
-                                    />
-                                </div>
-                            </div>
-                        </Tile> */}
+                            (placeholder)
+                        </Tile>
 
                         <Tile
                             containerClass="relative w-3/4"
@@ -68,9 +90,7 @@ const Editor = ({}) => {
                             direction="left"
                             className="mb-6"
                         >
-                            <textarea className="mt-1 h-fit w-full bg-transparent overflow-auto resize-none focus:outline-none">
-                                Description editor will be here.
-                            </textarea>
+                            {descriptionEditor}
                         </Tile>
                     </div>
 
@@ -81,12 +101,7 @@ const Editor = ({}) => {
                             className="overflow-auto"
                             direction="left"
                         >
-                            <textarea
-                                className="bg-transparent resize-none w-full focus:outline-none"
-                                onChange={(e) => post.markdown[1](e.target.value)}
-                            >
-                                {post.markdown[0]}
-                            </textarea>
+                            {markdownEditor}
                         </Tile>
 
                         <div className="hidden md:contents">
