@@ -28,9 +28,9 @@ const Tile = ({
     useEffect(() => {
         if (!title || fixedTitleWidth) return;
 
-        let fontSize = 26;
+        let fontSize = 28;
         if (screenWidth <= 640) {
-            fontSize = 22;
+            fontSize = 24;
         }
 
         setTitleWidth(measure(title, "bold", fontSize, "Trebuchet MS", "sans-serif"));

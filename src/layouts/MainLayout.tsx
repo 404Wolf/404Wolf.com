@@ -3,7 +3,10 @@ import Link from "next/link";
 import { useState } from "react";
 import BasicContacts from "../components/contacts/BasicContacts";
 import Header from "./header/Header";
-import { TileProps } from "@/components/misc/Tile";
+import { CgProfile } from "react-icons/cg";
+import Image from "next/image";
+import ProfileButton from "@/components/auth/ProfileButton";
+import { styles } from "@/styles/styles";
 
 interface MainLayoutProps {
     children: React.ReactNode;
@@ -29,7 +32,7 @@ const MainLayout = ({
     containerClasses,
 }: MainLayoutProps) => {
     let [blurred, setBlurred] = useState(false);
-    const titleElementClasses = `absolute -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-50`;
+    const titleElementClasses = `absolute hover:brightness-90 -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-50`;
 
     return (
         <div className={containerClasses}>
@@ -53,6 +56,10 @@ const MainLayout = ({
                         <div className={titleElementClasses}>{title}</div>
                     </Link>
                 )}
+
+                <div className={"fixed bottom-2 right-2"}>
+                    <ProfileButton size={20} />
+                </div>
 
                 <div className="hidden sm:block absolute sm:fixed sm:top-[7.7rem] -sm:right-[8rem] md:-right-[7.7rem] sm:rotate-90">
                     <BasicContacts />
