@@ -17,7 +17,7 @@ const Editor = ({}) => {
         id: useState("Id"),
         title: useState("Title"),
         tags: useState(["hidden", "featured", "personal", "academic"]),
-        cover: useState("Cover"),
+        covers: useState(["Cover"]),
         description: useState("Description"),
         markdown: useState("Markdown"),
         resources: useState({}),

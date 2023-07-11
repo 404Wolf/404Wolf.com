@@ -4,23 +4,33 @@ generator client {
 }
 
 datasource db {
-  provider          = "cockroachdb"
-  url               = env("DEFAULT_DB_URL")
+  provider = "cockroachdb"
+  url      = env("DEFAULT_DB_URL")
   // shadowDatabaseUrl = env("SHADOW_DB_URL")
 }
 
 model Post {
   id          String     @id @default(cuid())
-  title       String
+  title       String?
   description String?
   markdown    String
+  notes       String?
   covers      String[]
   type        String
-  date        String
+  date        String?
   tags        String[]
   createdAt   DateTime
   editedAt    DateTime
   resources   Resource[]
+  versions    Version[]
+}
+
+model Version {
+  id     BigInt  @id @default(autoincrement())
+  name   String
+  notes  String?
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
 }
 
 model Resource {
