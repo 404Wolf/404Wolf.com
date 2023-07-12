@@ -6,35 +6,27 @@ generator client {
 datasource db {
   provider = "cockroachdb"
   url      = env("DEFAULT_DB_URL")
-  // shadowDatabaseUrl = env("SHADOW_DB_URL")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Post {
-  id          String     @id @default(cuid())
+  id          String     @id
   title       String?
   description String?
   markdown    String
-  notes       String?
   covers      String[]
   type        String
   date        String?
   tags        String[]
-  createdAt   DateTime
-  editedAt    DateTime
+  createdAt   DateTime   @default(now())
+  editedAt    DateTime   @default(now())
+  notes       String?
   resources   Resource[]
-  versions    Version[]
 }
 
-model Version {
-  id     BigInt  @id @default(autoincrement())
-  name   String
-  notes  String?
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String?
-}
-
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Resource {
-  id          String  @id @default(cuid())
+  id          String  @id
   title       String
   filename    String
   url         String
@@ -44,8 +36,9 @@ model Resource {
   post        Post?   @relation(fields: [postId], references: [id])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model User {
-  id        String @id @default(cuid())
+  id        String @id
   firstName String
   lastName  String
   email     String
