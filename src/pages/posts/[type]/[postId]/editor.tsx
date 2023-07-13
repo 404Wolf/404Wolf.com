@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import UpdatePost from "@/components/posts/editor/UpdatePost";
 import Tags from "@/components/posts/Tags";
+import GotoViewer from "@/components/posts/editor/GotoViewer";
 
 const prisma = new PrismaClient();
 
@@ -118,6 +119,9 @@ const Editor = ({ post, resources }: EditorProps) => {
     );
 
     useEffect(() => {
+        window.addEventListener("resize", forcePostDescriptionResize);
+        window.addEventListener("resize", forcePostMarkdownResize);
+
         if (postMarkdownAreaRef.current) {
             postMarkdownAreaRef.current.value = post.markdown.data;
 
@@ -131,14 +135,12 @@ const Editor = ({ post, resources }: EditorProps) => {
 
             forcePostDescriptionResize();
             forcePostMarkdownResize();
-        } else {
-            window.addEventListener("resize", forcePostDescriptionResize);
-            window.addEventListener("resize", forcePostMarkdownResize);
-            return () => {
-                window.removeEventListener("resize", forcePostDescriptionResize);
-                window.removeEventListener("resize", forcePostMarkdownResize);
-            };
         }
+
+        return () => {
+            window.removeEventListener("resize", forcePostDescriptionResize);
+            window.removeEventListener("resize", forcePostMarkdownResize);
+        };
     }, [postMarkdownAreaRef.current]);
 
     useEffect(() => {
@@ -161,12 +163,14 @@ const Editor = ({ post, resources }: EditorProps) => {
                     onTitleEdit={(newTitle) => postStates.title[1](newTitle)}
                     titleRef={postTitleAreaRef}
                     header={false}
-                    containerClasses="sm:-ml-4 lg:-mr-[10%] lg:-ml-[10%] xl:-mr-[16%] xl:-ml-[16%]"
+                    containerClasses="sm:-ml-4 lg:-mr-[7%] lg:-ml-[7%] xl:-mr-[12%] xl:-ml-[12%]"
                 >
-                    <div className="absolute -translate-y-11 -right-4 flex gap-2">
+                    <div className="absolute -top-6 right-0 flex gap-1">
                         <Tags tags={postStates.tags[0]} setTags={postStates.tags[1]} />
-                        
-                        <div className="-translate-y-9 scale-[90%]">
+                        <div className="-translate-y-6 scale-[90%] -mr-1">
+                            <GotoViewer postId={postStates.id[0]} postType={postStates.type[0]} />
+                        </div>
+                        <div className="-translate-y-6 scale-[90%]">
                             <UpdatePost postStates={postStates} />
                         </div>
                     </div>

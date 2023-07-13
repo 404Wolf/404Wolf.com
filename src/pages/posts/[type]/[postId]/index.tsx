@@ -8,6 +8,8 @@ import Tile from "@/components/misc/Tile";
 import Image from "next/image";
 import Markdown from "@/markdown/Markdown.jsx";
 import Tags from "@/components/posts/Tags";
+import GotoEditor from "@/components/posts/editor/GotoEditor";
+import { useSession } from "next-auth/react";
 
 const prisma = new PrismaClient();
 
@@ -61,6 +63,8 @@ interface PostProps {
 }
 
 const Post = ({ type, id, title, cover, description, tags, markdown, resources }: PostProps) => {
+    const session = useSession();
+
     return (
         <>
             <Head>
@@ -68,6 +72,12 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
             </Head>
             <MainLayout title={toTitleCase(title)} header={false}>
                 <div className="mt-[12px] overflow-visible">
+                    {session.status === "authenticated" && (
+                        <div className="absolute -top-12 -right-4 scale-[90%]">
+                            <GotoEditor postId={id} postType={type} />
+                        </div>
+                    )}
+
                     <Tile title="Overview" direction="right">
                         <div className="h-fit overflow-auto">
                             <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">

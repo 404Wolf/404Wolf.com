@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useEffect, useState, useTransition } from "react";
+import CircleButton from "./CircleButton";
 
 const UpdatePost = ({ postStates }) => {
-    const [isUpdating, startUpdate] = useTransition();
+    const [isUpdating, setIsUpdating] = useState(false);
     const [wheelRotation, setWheelRotation] = useState(0);
     const [rotationInterval, setRotationInterval] = useState();
 
@@ -10,7 +11,7 @@ const UpdatePost = ({ postStates }) => {
         if (isUpdating) {
             setRotationInterval(
                 setInterval(
-                    setWheelRotation((wheelRotation) => wheelRotation + 6),
+                    setWheelRotation((wheelRotation) => wheelRotation - 6),
                     2
                 )
             );
@@ -21,6 +22,8 @@ const UpdatePost = ({ postStates }) => {
     }, [isUpdating]);
 
     const processUpdate = async () => {
+        setIsUpdating(true);
+
         const url = "/api/posts/update";
 
         const requestBody = {
@@ -58,17 +61,17 @@ const UpdatePost = ({ postStates }) => {
         } catch (error) {
             console.log("An error occurred while updating the post:", error);
         }
+
+        setIsUpdating(false);
     };
 
     return (
-        <div
-            className="bg-gray-700 rounded-full"
-            style={{ rotate: `${wheelRotation}deg` }}
-            
-        >
-            <button disabled={isUpdating} onClick={() => startUpdate(processUpdate)} className="p-2">
-                <Image src="/icons/sync.svg" width={60} height={60} />
-            </button>
+        <div style={{ rotate: `${wheelRotation}deg` }}>
+            <CircleButton
+                action={processUpdate}
+                iconSrc="/icons/sync.svg"
+                iconAlt="Sync post with database button"
+            />
         </div>
     );
 };
