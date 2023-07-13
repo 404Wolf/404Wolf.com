@@ -47,7 +47,7 @@ const Tile = ({
                         direction == "left"
                             ? "-translate-x-[.9rem]"
                             : "translate-x-[.9rem] right-0"
-                    } bg-gray-700 text-white text-lg py-[.15rem] px-2 rounded-full z-50`}
+                    } bg-gray-700 text-white text-lg py-[.15rem] px-2 rounded-full z-20`}
                 >
                     <h2 className="text-xl sm:text-2xl text-bold">
                         <Typewriter

@@ -7,6 +7,7 @@ import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tile";
 import Image from "next/image";
 import Markdown from "@/markdown/Markdown.jsx";
+import Tags from "@/components/posts/Tags";
 
 const prisma = new PrismaClient();
 
@@ -35,9 +36,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             props: {
                 type: params.type,
                 id: params.postId,
-                title: post?.title,
+                title: post.title,
                 cover: resources[post.covers[0]],
-                description: post?.description,
+                description: post.description,
+                tags: post.tags,
                 markdown: markdown,
                 resources: resources,
             },
@@ -53,11 +55,12 @@ interface PostProps {
     title: string;
     cover: string;
     description: string;
+    tags: string[];
     markdown: string;
     resources: { [key: string]: string };
 }
 
-const Post = ({ type, id, title, cover, description, markdown, resources }: PostProps) => {
+const Post = ({ type, id, title, cover, description, tags, markdown, resources }: PostProps) => {
     return (
         <>
             <Head>
@@ -79,6 +82,10 @@ const Post = ({ type, id, title, cover, description, markdown, resources }: Post
                             <div className="-mt-1">{description}</div>
                         </div>
                     </Tile>
+
+                    <div className="brightness-[125%] absolute left-2 -translate-y-6 z-50">
+                        <Tags tags={tags} readOnly={true} />
+                    </div>
 
                     <div className="m-6" />
 

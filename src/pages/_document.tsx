@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
     return (
-        <Html lang="en" className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[92rem] mx-auto">
+        <Html lang="en" className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[100rem] mx-auto">
             <Head>
                 <meta name="title" content="Wolf Mermelstein Personal Website"/>
                 <meta name="description" content="Enter the world of a creative student who loves tinkering, coding, Latin, tabletop, and more. Discover a portfolio of projects and blogs, and get their contacts."/>

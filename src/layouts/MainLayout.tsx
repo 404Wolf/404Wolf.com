@@ -1,6 +1,6 @@
 import Tile from "@/components/misc/Tile";
 import Link from "next/link";
-import { useState } from "react";
+import { RefObject, useState } from "react";
 import BasicContacts from "../components/contacts/BasicContacts";
 import Header from "./header/Header";
 import ProfileButton from "@/components/auth/ProfileButton";
@@ -11,6 +11,7 @@ interface MainLayoutProps {
     titleWidth?: string;
     editableTitle?: boolean;
     onTitleEdit?: (text: string) => void;
+    titleRef?: RefObject<HTMLDivElement>,
     header?: boolean;
     headerChildren?: JSX.Element;
     subtitleFixedWidth?: string;
@@ -23,13 +24,14 @@ const MainLayout = ({
     titleWidth = "w-fit",
     editableTitle = false,
     onTitleEdit,
+    titleRef,
     header = true,
     headerChildren,
     subtitleFixedWidth,
     containerClasses,
 }: MainLayoutProps) => {
     let [blurred, setBlurred] = useState(false);
-    const titleElementClasses = `absolute hover:brightness-90 -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-50`;
+    const titleElementClasses = `absolute hover:brightness-90 -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-30`;
 
     return (
         <div className={containerClasses}>
@@ -45,6 +47,7 @@ const MainLayout = ({
                             if (onTitleEdit) onTitleEdit(e.currentTarget.textContent || "");
                         }}
                         contentEditable="true"
+                        ref={titleRef}
                     >
                         {title}
                     </div>

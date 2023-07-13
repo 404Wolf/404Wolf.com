@@ -10,16 +10,19 @@ export function resourceUrl(key: string) {
     return `https://${s3.bucket}.s3.${s3.region}.amazonaws.com/${key}`;
 }
 
-export async function addResource(filename: string, data: string | File) {
-    // Add the resource to the S3 bucket
+export async function addResource(filename: string, data: string, type: "b64" | "str") {
+    // Create a request to upload the file to S3
     const request = new PutObjectCommand({
-        Body: data,
-        Bucket: s3.bucket,
+        Bucket: "wolf-mermelstein-personal-website",
         Key: filename,
+        Body: type === "b64" ? Buffer.from(data, "base64") : data,
+        ContentType: "image/jpeg", // Update this according to your file type
     });
 
-    // Return successful-ness
-    return (await s3.client.send(request)).$metadata.httpStatusCode === 200;
+    // Send the request and return whether it was successful
+    const response = await s3.client.send(request);
+
+    return response.$metadata.httpStatusCode === 200;
 }
 
 export async function checkResource(filename: string) {
