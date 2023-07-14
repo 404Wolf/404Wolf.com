@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { DependencyList, useEffect } from "react";
 
 // Updates the height of a <textarea> when the value changes.
-const useAutosizeTextArea = (textAreaRef: HTMLTextAreaElement | null, value: string) => {
+const useAutosizeTextArea = (
+    textAreaRef: HTMLTextAreaElement | null,
+    dependencies: DependencyList = []
+) => {
+    // Define function that performs the resizing
     const resize = () => {
         if (textAreaRef) {
             // We need to reset the height momentarily to get the correct scrollHeight for the textarea
@@ -14,7 +18,14 @@ const useAutosizeTextArea = (textAreaRef: HTMLTextAreaElement | null, value: str
         }
     };
 
-    useEffect(() => resize, [textAreaRef, value]);
+    // Resize text area on text area content update
+    useEffect(resize, [textAreaRef, ...dependencies]);
+
+    // Resize text area on window resize
+    useEffect(() => {
+        addEventListener("resize", resize);
+        return () => removeEventListener("resize", resize);
+    }, []);
 
     return resize;
 };
