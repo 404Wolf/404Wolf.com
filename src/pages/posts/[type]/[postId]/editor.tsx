@@ -1,8 +1,6 @@
-import { toTitleCase } from "@/utils/misc";
 import Head from "next/head";
 import MainLayout from "@/layouts/MainLayout";
-import Tile from "@/components/misc/Tile";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Markdown from "@/markdown/Markdown";
 import TagsInput from "react-tagsinput";
 import useAutosizeTextArea from "@/utils/useAutosizeTextArea";
@@ -14,6 +12,9 @@ import { GetServerSideProps } from "next";
 import UpdatePost from "@/components/posts/editor/UpdatePost";
 import Tags from "@/components/posts/Tags";
 import GotoViewer from "@/components/posts/editor/GotoViewer";
+import Tile from "@/components/misc/Tiles/Tile";
+import TabTile from "@/components/misc/Tiles/Tabs";
+import Resource from "@/components/posts/editor/resources/Resource";
 
 const prisma = new PrismaClient();
 
@@ -60,34 +61,39 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     } else return { props: {} };
 };
 
-interface EditorProps {
-    post: {
+export interface EditorResource {
+    ref: string;
+    title: string;
+    filename: string;
+    type: string;
+    description: string;
+    url: string;
+}
+
+export interface EditorPost {
+    id: string;
+    title: string;
+    type: string;
+    tags: string[];
+    description: string;
+    markdown: {
         id: string;
-        title: string;
-        type: string;
-        tags: string[];
-        description: string;
-        markdown: {
-            id: string;
-            data: string;
-        };
-        covers: string[];
-        date: string;
-        notes: string;
+        data: string;
     };
-    resources: {
-        ref: string;
-        title: string;
-        filename: string;
-        type: string;
-        description: string;
-        url: string;
-    }[];
+    covers: string[];
+    date: string;
+    notes: string;
+}
+
+interface EditorProps {
+    post: EditorPost;
+    resources: EditorResource[];
 }
 
 const Editor = ({ post, resources }: EditorProps) => {
     const session = useSession();
     const router = useRouter();
+    const [ready, setReady] = useState(false);
     if (session.status === "unauthenticated") router.push(`/posts/${post.type}/${post.id}`);
 
     const [resourceMap, setResourceMap] = useState({});
@@ -109,39 +115,8 @@ const Editor = ({ post, resources }: EditorProps) => {
     const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
     const postTitleAreaRef = useRef<HTMLDivElement>(null);
 
-    const forcePostDescriptionResize = useAutosizeTextArea(
-        postDescriptionAreaRef.current,
-        postStates.description[0]
-    );
-    const forcePostMarkdownResize = useAutosizeTextArea(
-        postMarkdownAreaRef.current,
-        postStates.markdownData[0]
-    );
-
-    useEffect(() => {
-        window.addEventListener("resize", forcePostDescriptionResize);
-        window.addEventListener("resize", forcePostMarkdownResize);
-
-        if (postMarkdownAreaRef.current) {
-            postMarkdownAreaRef.current.value = post.markdown.data;
-
-            if (postDescriptionAreaRef.current) {
-                postDescriptionAreaRef.current.value = post.description;
-            }
-
-            if (postTitleAreaRef.current) {
-                postTitleAreaRef.current.innerText = post.title;
-            }
-
-            forcePostDescriptionResize();
-            forcePostMarkdownResize();
-        }
-
-        return () => {
-            window.removeEventListener("resize", forcePostDescriptionResize);
-            window.removeEventListener("resize", forcePostMarkdownResize);
-        };
-    }, [postMarkdownAreaRef.current]);
+    useAutosizeTextArea(postDescriptionAreaRef.current, [postStates.description[0], ready]);
+    useAutosizeTextArea(postMarkdownAreaRef.current, [postStates.markdownData[0], ready]);
 
     useEffect(() => {
         const newResourceMap: { [key: string]: string } = {};
@@ -150,6 +125,22 @@ const Editor = ({ post, resources }: EditorProps) => {
         }
         setResourceMap(newResourceMap);
     }, [resources]);
+    useEffect(() => {
+        setReady(true);
+    }, []);
+
+    const markdownArea = (
+        <div className="-mt-4">
+            <Markdown markdown={postStates.markdownData[0]} resourceMap={resourceMap} />
+        </div>
+    );
+    const resourceArea = (
+        <div className="grid grid-cols-2 gap-3 mt-4">
+            {resources.map((resource, index) => (
+                <Resource resource={resource} key={index} />
+            ))}
+        </div>
+    );
 
     return (
         <Restricted>
@@ -158,7 +149,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                     <title>Post Editor</title>
                 </Head>
                 <MainLayout
-                    title={"Title"}
+                    title={post.title}
                     editableTitle={true}
                     onTitleEdit={(newTitle) => postStates.title[1](newTitle)}
                     titleRef={postTitleAreaRef}
@@ -182,6 +173,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 title="Config"
                                 direction="left"
                                 className="mb-6"
+                                type={false}
                             >
                                 (placeholder)
                             </Tile>
@@ -191,10 +183,12 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 title="Overview"
                                 direction="left"
                                 className="mb-6"
+                                type={false}
                             >
                                 <textarea
                                     ref={postDescriptionAreaRef}
                                     onChange={(e) => postStates.description[1](e.target.value)}
+                                    defaultValue={postStates.description[0]}
                                     className="mt-1 h-fit w-full bg-transparent overflow-auto resize-none focus:outline-none"
                                 />
                             </Tile>
@@ -202,32 +196,27 @@ const Editor = ({ post, resources }: EditorProps) => {
 
                         <div className="md:flex md:gap-4 relative">
                             <Tile
-                                containerClass="relative w-full md:w-1/2"
+                                containerClass="relative w-1/2"
                                 title="Markdown"
                                 className="overflow-auto"
                                 direction="left"
+                                type={false}
                             >
                                 <textarea
                                     className="bg-transparent resize-none overflow-visible w-full focus:outline-none"
                                     onChange={(e) => postStates.markdownData[1](e.target.value)}
+                                    defaultValue={postStates.markdownData[0]}
                                     ref={postMarkdownAreaRef}
                                 />
                             </Tile>
 
-                            <div className="hidden md:contents">
-                                <Tile
-                                    containerClass="relative w-1/2"
-                                    className="overflow-auto"
-                                    title="Preview"
-                                    direction="left"
-                                >
-                                    <div className="-mt-4">
-                                        <Markdown
-                                            markdown={postStates.markdownData[0]}
-                                            resourceMap={resourceMap}
-                                        />
-                                    </div>
-                                </Tile>
+                            <div className="w-1/2">
+                                <TabTile
+                                    tabs={[
+                                        { key: 0, name: "Preview", element: markdownArea },
+                                        { key: 0, name: "Resources", element: resourceArea },
+                                    ]}
+                                />
                             </div>
                         </div>
                     </div>

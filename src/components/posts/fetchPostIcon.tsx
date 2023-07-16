@@ -2,7 +2,7 @@ import { IoMdSchool } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import { BsQuestionLg } from "react-icons/bs";
 
-const fetchPostIcon = (tags: string[]) => {
+const FetchPostIcon = (tags: string[]) => {
     const postIconClass = "rounded-full bg-slate-600 p-2 w-9 h-9";
     const postIconStyle = { filter: "invert(100%)", width: "100%", height: "100%" };
 
@@ -18,4 +18,4 @@ const fetchPostIcon = (tags: string[]) => {
     return <div className={postIconClass}>{postIcon}</div>;
 };
 
-export default fetchPostIcon;
+export default FetchPostIcon;

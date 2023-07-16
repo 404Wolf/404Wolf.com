@@ -33,7 +33,7 @@ const TileTitle = ({
                     ? showActivity
                         ? "bg-gray-700 text-white"
                         : "bg-gray-700 text-white"
-                    : "bg-gray-600 text-gray-400 hover:brightness-[80%]"
+                    : "bg-gray-600 text-gray-400 hover:brightness-90 duration-100"
             }  text-lg py-[.15rem] px-2 rounded-full z-20`}
         >
             <h2 className="text-xl sm:text-2xl text-bold">

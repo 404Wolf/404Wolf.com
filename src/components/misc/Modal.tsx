@@ -8,6 +8,7 @@ interface ModalProps {
     onClose?: () => void;
     children: React.ReactNode;
     className?: string;
+    positioning?: string;
 }
 
 const Modal = ({
@@ -17,6 +18,7 @@ const Modal = ({
     onClose,
     children,
     className,
+    positioning,
 }: ModalProps) => {
     return (
         <Popup
@@ -30,7 +32,8 @@ const Modal = ({
         >
             <div className={`${className ? className : ""} relative`}>
                 <a
-                    className="absolute w-7 h-7 right-7 top-7 cursor-pointer"
+                    className={`absolute w-7 h-7 ${positioning || "right-7 top-7"} cursor-pointer`}
+                    style={{ zIndex: 99 }}
                     onClick={() => setOpen(false)}
                 >
                     <Image

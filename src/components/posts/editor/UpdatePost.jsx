@@ -3,26 +3,27 @@ import { useEffect, useState, useTransition } from "react";
 import CircleButton from "./CircleButton";
 
 const UpdatePost = ({ postStates }) => {
-    const [isUpdating, setIsUpdating] = useState(false);
+    const [updating, setUpdating] = useState();
     const [wheelRotation, setWheelRotation] = useState(0);
-    const [rotationInterval, setRotationInterval] = useState();
+    const [rotationInterval, setRotationInterval] = useState(null);
 
     useEffect(() => {
-        if (isUpdating) {
-            setRotationInterval(
-                setInterval(
-                    setWheelRotation((wheelRotation) => wheelRotation - 6),
-                    2
-                )
+        if (updating && rotationInterval === null) {
+            const interval = setInterval(
+                () => setWheelRotation((wheelRotation) => wheelRotation - 2),
+                4
             );
+            setRotationInterval(interval);
         } else {
-            clearInterval(rotationInterval);
-            setRotationInterval(null);
+            if ((wheelRotation % 360) === 0) {
+                clearInterval(rotationInterval);
+                setRotationInterval(null);
+            }
         }
-    }, [isUpdating]);
+    }, [updating, wheelRotation]);
 
     const processUpdate = async () => {
-        setIsUpdating(true);
+        setUpdating(true);
 
         const url = "/api/posts/update";
 
@@ -62,7 +63,7 @@ const UpdatePost = ({ postStates }) => {
             console.log("An error occurred while updating the post:", error);
         }
 
-        setIsUpdating(false);
+        setUpdating(false);
     };
 
     return (

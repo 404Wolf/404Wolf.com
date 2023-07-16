@@ -1,5 +1,5 @@
 import MainLayout from "@/layouts/MainLayout";
-import Tile from "@/components/misc/Tile";
+import Tile from "@/components/misc/Tiles/Tile";
 import ExtendedPostCard, { PostData } from "@/components/posts/ExtendedPostCard";
 import { PrismaClient } from "@prisma/client";
 import postMetadata from "@/metadata/posts.json";

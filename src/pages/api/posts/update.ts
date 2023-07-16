@@ -41,7 +41,12 @@ export default async function handler(req: Request, res: NextApiResponse) {
             }
 
             if (req.body.markdown) {
-                await addResource(`${req.body.markdown.id}.md`, req.body.markdown.data, "str");
+                await addResource(
+                    `${req.body.markdown.id}.md`,
+                    req.body.markdown.data,
+                    "str",
+                    "text/plain"
+                );
             }
 
             await prisma.post.update({

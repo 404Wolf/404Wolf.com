@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Tile from "@/components/misc/Tile";
+import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
 import useSize from "@/utils/useSize";
 import Markdown from "@/markdown/Markdown.jsx";

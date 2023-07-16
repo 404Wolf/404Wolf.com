@@ -1,9 +1,17 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { SessionProvider, getProviders, signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface ProfileButtonProps {
     size?: number;
+}
+
+interface Provider {
+    id: string;
+    name: string;
+    type: string;
+    signinUrl: string;
+    callbackUrl: string;
 }
 
 const ProfileButton = ({ size = 50 }: ProfileButtonProps) => {
@@ -21,17 +29,11 @@ const ProfileButton = ({ size = 50 }: ProfileButtonProps) => {
         <button
             onClick={() => {
                 if (session && session.user) signOut();
-                else signIn();
+                else signIn("google");
             }}
             className={`rounded-full p-[6px] bg-mid-blue-300 sm:bg-slate-350/[25%] backdrop-blur-xl drop-shadow-2xl-c fill-white font-bold sm:font-normal sm:stroke-slate-200/[35%] whitespace-nowrap grow text-center`}
         >
-            <Image
-                priority
-                width={size}
-                height={size}
-                src={`/icons/${icon}.svg`}
-                alt="Login"
-            />
+            <Image priority width={size} height={size} src={`/icons/${icon}.svg`} alt="Login" />
         </button>
     );
 };

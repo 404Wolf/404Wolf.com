@@ -50,7 +50,12 @@ export default async function handler(req: Request, res: NextApiResponse) {
                     },
                 },
             });
-            await addResource(`${req.body.id}_00001.md`, req.body.markdown.data, "str");
+            await addResource(
+                `${req.body.id}_00001.md`,
+                req.body.markdown.data,
+                "str",
+                "text/plain"
+            );
 
             res.status(200).json({
                 status: "Success",

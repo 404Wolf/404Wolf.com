@@ -1,4 +1,4 @@
-import Tile from "@/components/misc/Tile";
+import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "./MainLayout";
 
 interface StatusLayoutProps {

@@ -5,14 +5,17 @@ import { PrismaClient } from "prisma/prisma-client";
 const prisma = new PrismaClient();
 
 interface Request extends NextApiRequest {
-    body: {
+    headers: {
         id: string;
+    };
+    body: {
         title: string;
         filename: string;
         data: string;
         type: "image" | "markdown";
         postId: string;
         description?: string;
+        mimetype: string;
     };
 }
 
@@ -22,11 +25,12 @@ export default async function handler(req: Request, res: NextApiResponse) {
             await addResource(
                 req.body.filename,
                 req.body.data,
-                req.body.type === "image" ? "b64" : "str"
+                req.body.type === "image" ? "b64" : "str",
+                req.body.mimetype
             );
             await prisma.resource.create({
                 data: {
-                    id: req.body.id,
+                    id: req.headers.id,
                     title: req.body.title,
                     filename: req.body.filename,
                     url: resourceUrl(req.body.filename),

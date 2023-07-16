@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import MainLayout from "@/layouts/MainLayout";
-import Tile from "@/components/misc/Tile";
+import Tile from "@/components/misc/Tiles/Tile";
 import Image from "next/image";
 import Markdown from "@/markdown/Markdown.jsx";
 import Tags from "@/components/posts/Tags";

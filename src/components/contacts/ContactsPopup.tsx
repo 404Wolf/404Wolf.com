@@ -2,7 +2,7 @@ import Contacts from "@/components/contacts/Contacts";
 import useAbout from "@/components/about/useAbout";
 import { useEffect } from "react";
 import Modal from "../misc/Modal";
-import Tile from "../misc/Tile";
+import Tile from "../misc/Tiles/Tile";
 
 interface ContactsPopupProps {
     open: boolean
