@@ -90,7 +90,7 @@ const Image = ({
                 {stylize && <style>{imageStyleWidthTree}</style>}
                 <div
                     id={imageStyleId}
-                    className="relative"
+                    className="relative cursor-pointer"
                     style={margin && { float: float as "right" | "left" | "none", ...margin }}
                 >
                     {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}

@@ -1,4 +1,9 @@
-import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+    S3Client,
+    PutObjectCommand,
+    DeleteObjectCommand,
+    GetObjectCommand,
+} from "@aws-sdk/client-s3";
 
 const s3 = {
     client: new S3Client({ region: "us-east-2" }),
@@ -22,8 +27,9 @@ export async function addResource(
         Key: filename,
         Body: type === "b64" ? Buffer.from(data, "base64") : data,
         ContentType: mimetype,
+        ContentEncoding: type === "b64" ? "base64" : undefined,
     });
-
+    console.log(request);
     // Send the request and return whether it was successful
     const response = await s3.client.send(request);
 
@@ -51,8 +57,8 @@ export async function getResource(filename: string, encoding: string) {
     // Create a request to fetch the resource
     const request = new GetObjectCommand({
         Bucket: s3.bucket,
-        Key: filename
-    })
-    const data = await s3.client.send(request)
-    return data.Body?.transformToString(encoding)
+        Key: filename,
+    });
+    const data = await s3.client.send(request);
+    return data.Body?.transformToString(encoding);
 }

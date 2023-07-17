@@ -20,8 +20,8 @@ interface Request extends NextApiRequest {
 }
 
 export default async function handler(req: Request, res: NextApiResponse) {
-    req.body = JSON.parse(req.body as unknown as string) as Request["body"]
-    if (req.method === "PATCH") {
+    req.body = JSON.parse(req.body as unknown as string)
+    if (req.method === "PUT") {
         try {            
             const resource = await prisma.resource.findUnique({
                 where: {

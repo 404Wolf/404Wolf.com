@@ -15,6 +15,8 @@ import GotoViewer from "@/components/posts/editor/GotoViewer";
 import Tile from "@/components/misc/Tiles/Tile";
 import TabTile from "@/components/misc/Tiles/Tabs";
 import Resource from "@/components/posts/editor/resources/Resource";
+import Resources from "@/components/posts/editor/resources/Resources";
+import usePushPostUpdates from "@/components/logic/posts/editor/usePushPostUpdates";
 
 const prisma = new PrismaClient();
 
@@ -97,6 +99,7 @@ const Editor = ({ post, resources }: EditorProps) => {
     if (session.status === "unauthenticated") router.push(`/posts/${post.type}/${post.id}`);
 
     const [resourceMap, setResourceMap] = useState({});
+    const [allResources, setAllResources] = useState(resources);
 
     const postStates = {
         id: useState(post.id),
@@ -110,6 +113,8 @@ const Editor = ({ post, resources }: EditorProps) => {
         date: useState(post.date),
         notes: useState(post.notes),
     };
+    const [currentPostId, setCurrentPostId] = useState(post.id);
+    const postUpdatePusher = usePushPostUpdates(postStates);
 
     const postMarkdownAreaRef = useRef<HTMLTextAreaElement>(null);
     const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -135,11 +140,11 @@ const Editor = ({ post, resources }: EditorProps) => {
         </div>
     );
     const resourceArea = (
-        <div className="grid grid-cols-2 gap-3 mt-4">
-            {resources.map((resource, index) => (
-                <Resource resource={resource} key={index} />
-            ))}
-        </div>
+        <Resources
+            resources={allResources}
+            setResources={setAllResources}
+            postId={currentPostId}
+        />
     );
 
     return (
@@ -162,7 +167,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                             <GotoViewer postId={postStates.id[0]} postType={postStates.type[0]} />
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
-                            <UpdatePost postStates={postStates} />
+                            <UpdatePost pushUpdates={postUpdatePusher.pushUpdates} />
                         </div>
                     </div>
 

@@ -7,10 +7,13 @@ import { EditorResource } from "@/pages/posts/[type]/[postId]/editor";
 
 interface ResourceProps {
     resource: EditorResource;
+    remove: () => void;
 }
 
-const Resource = ({ resource }: ResourceProps) => {
-    const [ready, setReady] = useState(false);
+const Resource = ({ resource, remove }: ResourceProps) => {
+    if (!resource) return <></>;
+
+    const [removed, setRemoved] = useState(false);
     const [preview, setPreview] = useState<null | React.ReactNode>(null);
     const [configOpen, setConfigOpen] = useState(false);
 
@@ -23,7 +26,7 @@ const Resource = ({ resource }: ResourceProps) => {
         type: useState(resource.type),
         description: useState(resource.description),
     };
-    const resourceStateDependencies = Object.values(resourceStates).map((value) => value[0])
+    const resourceStateDependencies = Object.values(resourceStates).map((value) => value[0]);
 
     const resourceIdRef = useRef<HTMLDivElement>(null);
 
@@ -35,15 +38,16 @@ const Resource = ({ resource }: ResourceProps) => {
             type: resourceStates.type[0],
             description: resourceStates.description[0],
         };
-        fetch(`/api/posts/resources/update`, {
-            method: "PATCH",
+        fetch("/api/posts/resources/update", {
+            method: "PUT",
             headers: { id: currentId },
             body: JSON.stringify(requestBody),
-        }).then(async (resp) => {
+        }).then((resp) => {
             setCurrentId(requestBody.id);
-            setCurrentUrl(resourceUrl(resourceStates.filename[0]));
+            setCurrentUrl(resourceUrl(requestBody.filename));
+            if (resourceIdRef.current) resourceIdRef.current.innerText = requestBody.id;
         });
-    }, resourceStateDependencies);
+    }, [resourceStateDependencies, currentId, currentUrl]);
 
     const updateGraphics = useCallback(() => {
         if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.reference[0];
@@ -74,33 +78,41 @@ const Resource = ({ resource }: ResourceProps) => {
             );
     }, []);
 
-    const updateId = useCallback((newId: string) => {
-        setCurrentId(newId);
-        if (resourceIdRef.current) resourceIdRef.current.innerText = newId;
-        resourceStates.reference[1](newId);
-    }, []);
-
-    useEffect(updateGraphics, [currentUrl]);
-
     useEffect(() => {
-        if (!ready) {
-            setReady(true);
-            return;
-        }
-        processUpdates();
-    }, resourceStateDependencies);
+        if (!removed) updateGraphics();
+    }, [currentUrl]);
 
     return (
         <div className="relative">
+            <button
+                onClick={() => {
+                    setRemoved(true);
+                    remove();
+                }}
+            >
+                <Image
+                    src="/icons/close.svg"
+                    className="z-50 bg-slate-400 rounded-full drop-shadow-xl hover:brightness-90 hover:scale-105 transition-all duration-200 ease-in-out absolute -bottom-1 -right-1"
+                    alt="close"
+                    width={24}
+                    height={24}
+                />
+            </button>
+
             <button onClick={() => setConfigOpen(true)}>
-                <div className="bg-gray-500 text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-2 focus:outline-none">
+                <div className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90">
                     <div className="inline-block">#</div>
                     <div contentEditable={true} ref={resourceIdRef} />
                 </div>
                 <div className="bg-gray-400 rounded-xl h-36 overflow-clip">{preview}</div>
             </button>
 
-            <Modal open={configOpen} setOpen={setConfigOpen} positioning="-top-1 -right-[3px]">
+            <Modal
+                open={configOpen}
+                setOpen={setConfigOpen}
+                onClose={processUpdates}
+                positioning="-top-1 -right-[3px]"
+            >
                 <div>
                     <h1 className="bg-gray-700 text-2xl text-white rounded-2xl w-fit px-2 py-px absolute -top-3 -left-3 z-50">
                         Resource Editor
@@ -119,7 +131,7 @@ const Resource = ({ resource }: ResourceProps) => {
                                     key={1000}
                                     name="Id"
                                     startValue={resourceStates.reference[0]}
-                                    setValue={updateId}
+                                    setValue={resourceStates.reference[1]}
                                 />
                                 <ResourceField
                                     key={1001}
