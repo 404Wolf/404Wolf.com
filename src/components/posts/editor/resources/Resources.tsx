@@ -12,9 +12,10 @@ interface ResourcesProps {
     resources: EditorResource[];
     setResources: (resources: EditorResource[]) => void;
     postId: string;
+    setMarkdown: (markdownData: string, markdownId: string) => void;
 }
 
-const Resources = ({ resources, setResources, postId }: ResourcesProps) => {
+const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesProps) => {
     const addResource = useCallback(
         async (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
             let newResources = [];
@@ -94,12 +95,14 @@ const Resources = ({ resources, setResources, postId }: ResourcesProps) => {
                         <Resource
                             remove={() => removeResource(index)}
                             resource={resource}
+                            setMarkdown={setMarkdown}
+                            postId={postId}
                             key={index}
                         />
                     );
                 })}
                 <div {...getRootProps()} className="relative cursor-pointer">
-                    <FakeResource placeholderId="upload" />
+                    <FakeResource placeholderId={null}></FakeResource>
                 </div>
             </div>
         </div>

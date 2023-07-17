@@ -4,6 +4,7 @@ import {
     DeleteObjectCommand,
     GetObjectCommand,
 } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const s3 = {
     client: new S3Client({ region: "us-east-2" }),
@@ -29,7 +30,7 @@ export async function addResource(
         ContentType: mimetype,
         ContentEncoding: type === "b64" ? "base64" : undefined,
     });
-    console.log(request);
+
     // Send the request and return whether it was successful
     const response = await s3.client.send(request);
 
@@ -61,4 +62,15 @@ export async function getResource(filename: string, encoding: string) {
     });
     const data = await s3.client.send(request);
     return data.Body?.transformToString(encoding);
+}
+
+export async function getLink(filename: string) {
+    const command = new GetObjectCommand({
+        Bucket: s3.bucket,
+        Key: filename,
+        ResponseContentType: "application/octet-stream",
+        ResponseContentDisposition: "attachment",
+    });
+    const url = await getSignedUrl(s3.client, command, { expiresIn: 3600 })
+    return url;
 }

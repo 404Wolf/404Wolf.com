@@ -3,15 +3,22 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import ResourceField from "./Field";
 import { resourceUrl } from "@/utils/aws";
 import Modal from "@/components/misc/Modal";
-import { EditorResource } from "@/pages/posts/[type]/[postId]/editor";
+import { EditorPost, EditorResource } from "@/pages/posts/[type]/[postId]/editor";
+import ResourceIcon from "./Icon";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface ResourceProps {
     resource: EditorResource;
+    postId: string;
     remove: () => void;
+    setMarkdown: (markdownData: string, markdownId: string) => void;
 }
 
-const Resource = ({ resource, remove }: ResourceProps) => {
+const Resource = ({ resource, postId, remove, setMarkdown }: ResourceProps) => {
     if (!resource) return <></>;
+
+    const router = useRouter();
 
     const [removed, setRemoved] = useState(false);
     const [preview, setPreview] = useState<null | React.ReactNode>(null);
@@ -25,33 +32,49 @@ const Resource = ({ resource, remove }: ResourceProps) => {
         filename: useState(resource.filename),
         type: useState(resource.type),
         description: useState(resource.description),
+        cover: useState(false),
     };
     const resourceStateDependencies = Object.values(resourceStates).map((value) => value[0]);
 
     const resourceIdRef = useRef<HTMLDivElement>(null);
 
     const processUpdates = useCallback(() => {
-        const requestBody = {
-            id: resourceStates.reference[0],
-            title: resourceStates.title[0],
-            filename: resourceStates.filename[0],
-            type: resourceStates.type[0],
-            description: resourceStates.description[0],
-        };
-        fetch("/api/posts/resources/update", {
-            method: "PUT",
-            headers: { id: currentId },
-            body: JSON.stringify(requestBody),
-        }).then((resp) => {
-            setCurrentId(requestBody.id);
-            setCurrentUrl(resourceUrl(requestBody.filename));
-            if (resourceIdRef.current) resourceIdRef.current.innerText = requestBody.id;
-        });
+        if (resourceStates.reference[0] !== currentId)
+            fetch("/api/posts/update", {
+                method: "PUT",
+                headers: { id: postId },
+                body: `{ markdown: ${currentId} }`,
+            }).then(() => {
+                const requestBody = {
+                    id: resourceStates.reference[0],
+                    title: resourceStates.title[0],
+                    filename: resourceStates.filename[0],
+                    type: resourceStates.type[0],
+                    description: resourceStates.description[0],
+                };
+                fetch("/api/posts/resources/update", {
+                    method: "PUT",
+                    headers: { id: currentId },
+                    body: JSON.stringify(requestBody),
+                }).then((resp) => {
+                    setCurrentId(requestBody.id);
+                    setCurrentUrl(resourceUrl(requestBody.filename));
+                    if (resourceIdRef.current) resourceIdRef.current.innerText = requestBody.id;
+                });
+            });
     }, [resourceStateDependencies, currentId, currentUrl]);
 
-    const updateGraphics = useCallback(() => {
+    useEffect(() => {
         if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.reference[0];
         if (resourceStates.type[0] === "markdown") {
+            console.log("Test");
+            if (preview === null)
+                setPreview(
+                    <div
+                        style={{ width: "240px !important" }}
+                        className="bg-slate-400 animate-pulse"
+                    />
+                );
             fetch(`/api/posts/resources/fetch`, { headers: { id: currentId, data: "true" } })
                 .then((resp) => resp.json())
                 .then((resp) =>
@@ -59,7 +82,7 @@ const Resource = ({ resource, remove }: ResourceProps) => {
                         <div
                             style={{ width: "240px !important" }}
                             className="text-xs p-1 text-justify"
-                            children={resp.resource.data.slice(0, 400)}
+                            children={resp.resource.data.slice(0, 700)}
                         />
                     )
                 );
@@ -71,33 +94,55 @@ const Resource = ({ resource, remove }: ResourceProps) => {
                         resourceStates.description[0] ||
                         `Image with id ${resourceStates.reference[0]}`
                     }
-                    width={240}
+                    width={340}
                     height={240}
                     priority
                 />
             );
-    }, []);
-
-    useEffect(() => {
-        if (!removed) updateGraphics();
     }, [currentUrl]);
+
+    const loadMarkdown = useCallback(() => {
+        const reqBody = { markdown: currentId };
+        fetch("/api/posts/resources/update", {
+            headers: { id: currentId },
+            method: "PUT",
+            body: JSON.stringify(reqBody),
+        }).then((resp) => {
+            if (resp.ok) {
+                fetch(`/api/posts/resources/fetch`, { headers: { id: currentId, data: "true" } })
+                    .then((resp) => resp.json())
+                    .then((resp) => resp.resource.data)
+                    .then((markdown) => setMarkdown(markdown, currentId));
+            }
+        });
+    }, [currentId]);
+
+    const downloadResource = useCallback(() => {
+        fetch("/api/posts/resources/link", { headers: { id: currentId } })
+            .then((resp) => resp.json())
+            .then((resp) => router.push(resp.url));
+    }, [currentId]);
 
     return (
         <div className="relative">
-            <button
-                onClick={() => {
-                    setRemoved(true);
-                    remove();
-                }}
-            >
-                <Image
-                    src="/icons/close.svg"
-                    className="z-50 bg-slate-400 rounded-full drop-shadow-xl hover:brightness-90 hover:scale-105 transition-all duration-200 ease-in-out absolute -bottom-1 -right-1"
-                    alt="close"
-                    width={24}
-                    height={24}
-                />
-            </button>
+            <div className="flex gap-1 absolute -bottom-1 -right-1">
+                {resourceStates.type[0] === "markdown" && (
+                    <button onClick={loadMarkdown}>
+                        <ResourceIcon icon="load" alt="Load markdown" />
+                    </button>
+                )}
+                <button onClick={downloadResource}>
+                    <ResourceIcon icon="download" alt="Download resource" />
+                </button>
+                <button
+                    onClick={() => {
+                        setRemoved(true);
+                        remove();
+                    }}
+                >
+                    <ResourceIcon icon="trash" alt="Delete resource" />
+                </button>
+            </div>
 
             <button onClick={() => setConfigOpen(true)}>
                 <div className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90">

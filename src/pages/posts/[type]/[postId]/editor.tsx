@@ -114,7 +114,9 @@ const Editor = ({ post, resources }: EditorProps) => {
         notes: useState(post.notes),
     };
     const [currentPostId, setCurrentPostId] = useState(post.id);
-    const postUpdatePusher = usePushPostUpdates(postStates);
+    const postUpdatePusher = usePushPostUpdates(postStates, () =>
+        setCurrentPostId(postStates.id[0])
+    );
 
     const postMarkdownAreaRef = useRef<HTMLTextAreaElement>(null);
     const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -144,6 +146,12 @@ const Editor = ({ post, resources }: EditorProps) => {
             resources={allResources}
             setResources={setAllResources}
             postId={currentPostId}
+            setMarkdown={(newMarkdownData: string, newMarkdownId: string) => {
+                if (postMarkdownAreaRef.current) {
+                    postMarkdownAreaRef.current.value = newMarkdownData;
+                }
+                postStates.markdownId[1](newMarkdownId)
+            }}
         />
     );
 
@@ -167,7 +175,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                             <GotoViewer postId={postStates.id[0]} postType={postStates.type[0]} />
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
-                            <UpdatePost pushUpdates={postUpdatePusher.pushUpdates} />
+                            <UpdatePost postUpdateHook={postUpdatePusher} />
                         </div>
                     </div>
 
@@ -200,6 +208,9 @@ const Editor = ({ post, resources }: EditorProps) => {
                         </div>
 
                         <div className="md:flex md:gap-4 relative">
+                            <div className="absolute left-[127px] -top-3 z-50 text-sm px-[3px] bg-gray-500 rounded-xl text-white">
+                                #{postStates.markdownId[0]}
+                            </div>
                             <Tile
                                 containerClass="relative w-1/2"
                                 title="Markdown"

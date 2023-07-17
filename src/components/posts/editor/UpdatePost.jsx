@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState, useTransition } from "react";
 import CircleButton from "./CircleButton";
 
-const UpdatePost = ({ pushUpdates }) => {
+const UpdatePost = ({ postUpdateHook }) => {
     const [updating, setUpdating] = useState();
     const [wheelRotation, setWheelRotation] = useState(0);
     const [rotationInterval, setRotationInterval] = useState(null);
@@ -11,7 +11,7 @@ const UpdatePost = ({ pushUpdates }) => {
         if (updating && rotationInterval === null) {
             const interval = setInterval(
                 () => setWheelRotation((wheelRotation) => wheelRotation - 2),
-                4
+                2
             );
             setRotationInterval(interval);
         } else {
@@ -24,8 +24,8 @@ const UpdatePost = ({ pushUpdates }) => {
 
     const processUpdate = async () => {
         setUpdating(true);
-        pushUpdates();
-        setUpdating(false);
+        postUpdateHook.pushToQueue(() => setUpdating(false));
+        postUpdateHook.pushUpdates();
     };
 
     return (
