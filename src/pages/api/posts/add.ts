@@ -9,10 +9,9 @@ interface Request extends NextApiRequest {
         id: string;
     };
     body: {
-        id: string;
         title: string;
         description: string;
-        markdown: {
+        markdown?: {
             id: string;
             data: string;
         };
@@ -25,49 +24,50 @@ interface Request extends NextApiRequest {
 }
 
 export default async function handler(req: Request, res: NextApiResponse) {
-    if (req.method === "PUT") {
-        try {
-            await prisma.post.create({
-                data: {
-                    id: req.headers.id,
-                    title: req.body.title,
-                    description: req.body.description,
-                    markdown: `${req.body.id}_00001`,
-                    covers: req.body.covers,
-                    type: req.body.type,
-                    editedAt: new Date(Date.now()),
-                    notes: req.body.notes,
-                    resources: {
-                        create: [
-                            {
-                                id: `${req.body.id}_00001`,
-                                title: "Post Markdown",
-                                filename: `${req.body.id}_0001.md`,
-                                url: resourceUrl(`${req.body.id}_0001.md`),
-                                type: "markdown",
-                            },
-                        ],
-                    },
-                },
-            });
-            await addResource(
-                `${req.body.id}_00001.md`,
-                req.body.markdown.data,
-                "str",
-                "text/plain"
-            );
+    if (req.method === "POST") {
+        req.body = JSON.parse(req.body as unknown as string);
+        console.log(req.headers.id);
+        const markdownFilename = req.body.markdown?.id || `${req.headers.id}_00001`;
 
-            res.status(200).json({
-                status: "Success",
-                message: "Post successfully added",
-            });
-        } catch (error) {
-            res.status(500).json({
-                status: "Error",
-                message: "An error occurred while adding the post",
-            });
-        }
-    } else {
-        res.status(405).json({ status: "Error", message: "Method not allowed" });
+        await prisma.post.create({
+            data: {
+                id: req.headers.id,
+                title: req.body.title,
+                description: req.body.description,
+                markdown: req.body.markdown?.id || `${req.headers.id}_00001`,
+                covers: req.body.covers,
+                type: req.body.type,
+                editedAt: new Date(Date.now()),
+                notes: req.body.notes,
+                resources: {
+                    create: [
+                        {
+                            id: markdownFilename,
+                            title: "Post Markdown",
+                            filename: markdownFilename + ".md",
+                            url: resourceUrl(markdownFilename + ".md"),
+                            type: "markdown",
+                        },
+                    ],
+                },
+            },
+        });
+        console.log(
+            await prisma.post.findUnique({
+                where: { id: req.headers.id },
+                include: { resources: true },
+            })
+        );
+        await addResource(
+            markdownFilename + ".md",
+            req.body.markdown?.data || "",
+            "str",
+            "text/plain"
+        );
+
+        res.status(200).json({
+            status: "Success",
+            message: "Post successfully added",
+        });
     }
 }

@@ -24,8 +24,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
                         (resource) => resource.id === post.covers[0]
                     )[0];
                     return {
-                        coverUrl: cover.url,
-                        coverAlt: cover.description,
+                        coverUrl: cover?.url || null,
+                        coverAlt: cover?.description || null,
                         id: post.id,
                         title: post.title,
                         description: post.description,
@@ -64,8 +64,8 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
                         {posts &&
                             posts.map((post) => (
                                 <ExtendedPostCard
-                                    coverUrl={post.coverUrl}
-                                    coverAlt={post.coverAlt}
+                                    coverUrl={post.coverUrl || null}
+                                    coverAlt={post.coverAlt || null}
                                     path={`/posts/${type.slice(0, -1)}/${post.id}`}
                                     title={post.title}
                                     description={post.description}

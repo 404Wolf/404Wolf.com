@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
-import ResourceField from "./Field";
+import Field from "../Field";
 import { resourceUrl } from "@/utils/aws";
 import Modal from "@/components/misc/Modal";
 import { EditorPost, EditorResource } from "@/pages/posts/[type]/[postId]/editor";
@@ -13,9 +13,10 @@ interface ResourceProps {
     postId: string;
     remove: () => void;
     setMarkdown: (markdownData: string, markdownId: string) => void;
+    pushUpdate: () => void;
 }
 
-const Resource = ({ resource, postId, remove, setMarkdown }: ResourceProps) => {
+const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: ResourceProps) => {
     if (!resource) return <></>;
 
     const router = useRouter();
@@ -44,61 +45,65 @@ const Resource = ({ resource, postId, remove, setMarkdown }: ResourceProps) => {
                 method: "PUT",
                 headers: { id: postId },
                 body: `{ markdown: ${currentId} }`,
-            }).then(() => {
-                const requestBody = {
-                    id: resourceStates.reference[0],
-                    title: resourceStates.title[0],
-                    filename: resourceStates.filename[0],
-                    type: resourceStates.type[0],
-                    description: resourceStates.description[0],
-                };
-                fetch("/api/posts/resources/update", {
-                    method: "PUT",
-                    headers: { id: currentId },
-                    body: JSON.stringify(requestBody),
-                }).then((resp) => {
-                    setCurrentId(requestBody.id);
-                    setCurrentUrl(resourceUrl(requestBody.filename));
-                    if (resourceIdRef.current) resourceIdRef.current.innerText = requestBody.id;
-                });
+            }).then((resp) => {
+                if (resp.ok) {
+                    const requestBody = {
+                        id: resourceStates.reference[0],
+                        title: resourceStates.title[0],
+                        filename: resourceStates.filename[0],
+                        type: resourceStates.type[0],
+                        description: resourceStates.description[0],
+                    };
+                    fetch("/api/posts/resources/update", {
+                        method: "PUT",
+                        headers: { id: currentId },
+                        body: JSON.stringify(requestBody),
+                    }).then((resp) => {
+                        if (resp.ok) {
+                            setCurrentId(requestBody.id);
+                            setCurrentUrl(resourceUrl(requestBody.filename));
+                            if (resourceIdRef.current)
+                                resourceIdRef.current.innerText = requestBody.id;
+                            pushUpdate();
+                        }
+                    });
+                }
             });
     }, [resourceStateDependencies, currentId, currentUrl]);
 
     useEffect(() => {
         if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.reference[0];
-        if (resourceStates.type[0] === "markdown") {
-            console.log("Test");
-            if (preview === null)
+        switch (resourceStates.type[0]) {
+            case "image":
                 setPreview(
-                    <div
-                        style={{ width: "240px !important" }}
-                        className="bg-slate-400 animate-pulse"
+                    <Image
+                        src={currentUrl}
+                        alt={
+                            resourceStates.description[0] ||
+                            `Image with id ${resourceStates.reference[0]}`
+                        }
+                        width={340}
+                        height={240}
+                        priority
                     />
                 );
-            fetch(`/api/posts/resources/fetch`, { headers: { id: currentId, data: "true" } })
-                .then((resp) => resp.json())
-                .then((resp) =>
-                    setPreview(
-                        <div
-                            style={{ width: "240px !important" }}
-                            className="text-xs p-1 text-justify"
-                            children={resp.resource.data.slice(0, 700)}
-                        />
-                    )
+                return;
+            case "markdown":
+                setPreview(
+                    <Image
+                        src="/icons/edit.svg"
+                        alt={
+                            resourceStates.description[0] ||
+                            `Image with id ${resourceStates.reference[0]}`
+                        }
+                        width={340}
+                        height={240}
+                        className="mx-auto my-auto translate-x-1 lg:-translate-y-7  scale-[60%]"
+                        priority
+                    />
                 );
-        } else if (resourceStates.type[0] === "image")
-            setPreview(
-                <Image
-                    src={currentUrl}
-                    alt={
-                        resourceStates.description[0] ||
-                        `Image with id ${resourceStates.reference[0]}`
-                    }
-                    width={340}
-                    height={240}
-                    priority
-                />
-            );
+                return;
+        }
     }, [currentUrl]);
 
     const loadMarkdown = useCallback(() => {
@@ -115,6 +120,7 @@ const Resource = ({ resource, postId, remove, setMarkdown }: ResourceProps) => {
                     .then((markdown) => setMarkdown(markdown, currentId));
             }
         });
+        pushUpdate();
     }, [currentId]);
 
     const downloadResource = useCallback(() => {
@@ -172,25 +178,25 @@ const Resource = ({ resource, postId, remove, setMarkdown }: ResourceProps) => {
                             </div>
 
                             <div className="flex flex-col gap-5">
-                                <ResourceField
+                                <Field
                                     key={1000}
                                     name="Id"
                                     startValue={resourceStates.reference[0]}
                                     setValue={resourceStates.reference[1]}
                                 />
-                                <ResourceField
+                                <Field
                                     key={1001}
                                     name="Title"
                                     startValue={resourceStates.title[0]}
                                     setValue={resourceStates.title[1]}
                                 />
-                                <ResourceField
+                                <Field
                                     key={1002}
                                     name="Filename"
                                     startValue={resourceStates.filename[0]}
                                     setValue={resourceStates.filename[1]}
                                 />
-                                <ResourceField
+                                <Field
                                     key={1003}
                                     name="Type"
                                     startValue={resourceStates.type[0]}
@@ -199,7 +205,7 @@ const Resource = ({ resource, postId, remove, setMarkdown }: ResourceProps) => {
                             </div>
                         </div>
                         <div className="mt-3">
-                            <ResourceField
+                            <Field
                                 name="Description"
                                 key={1004}
                                 startValue={resourceStates.description[0]}

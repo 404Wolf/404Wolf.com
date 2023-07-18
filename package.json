@@ -40,6 +40,7 @@
     "superjson": "^1.12.4",
     "typewriter-effect": "^2.20.1",
     "unist-util-visit": "^5.0.0",
+    "uuid": "^9.0.0",
     "vfile": "^6.0.1",
     "webpack": "^5.88.1",
     "webpack-dev-server": "^4.15.1"

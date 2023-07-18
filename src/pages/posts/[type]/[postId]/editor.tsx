@@ -17,6 +17,7 @@ import TabTile from "@/components/misc/Tiles/Tabs";
 import Resource from "@/components/posts/editor/resources/Resource";
 import Resources from "@/components/posts/editor/resources/Resources";
 import usePushPostUpdates from "@/components/logic/posts/editor/usePushPostUpdates";
+import Field from "@/components/posts/editor/Field";
 
 const prisma = new PrismaClient();
 
@@ -127,11 +128,11 @@ const Editor = ({ post, resources }: EditorProps) => {
 
     useEffect(() => {
         const newResourceMap: { [key: string]: string } = {};
-        for (const resource of resources) {
-            newResourceMap[resource.ref] = resource.url;
+        for (const resource of allResources) {
+            if (resource) newResourceMap[resource.ref] = resource.url;
         }
         setResourceMap(newResourceMap);
-    }, [resources]);
+    }, [allResources]);
     useEffect(() => {
         setReady(true);
     }, []);
@@ -150,7 +151,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                 if (postMarkdownAreaRef.current) {
                     postMarkdownAreaRef.current.value = newMarkdownData;
                 }
-                postStates.markdownId[1](newMarkdownId)
+                postStates.markdownId[1](newMarkdownId);
             }}
         />
     );
@@ -188,7 +189,23 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 className="mb-6"
                                 type={false}
                             >
-                                (placeholder)
+                                <div className="flex-col pt-2">
+                                    <Field
+                                        name="Type"
+                                        nontallWidth="w-full"
+                                        border={false}
+                                        startValue={post.type}
+                                        setValue={postStates.type[1]}
+                                    />
+                                    <div className="mt-4" />
+                                    <Field
+                                        name="Notes"
+                                        tall={true}
+                                        border={false}
+                                        startValue={post.notes}
+                                        setValue={postStates.notes[1]}
+                                    />
+                                </div>
                             </Tile>
 
                             <Tile

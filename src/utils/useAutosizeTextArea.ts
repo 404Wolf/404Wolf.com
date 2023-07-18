@@ -26,6 +26,7 @@ const useAutosizeTextArea = (
     // Resize text area on window resize
     useEffect(() => {
         addEventListener("resize", resize);
+        addEventListener("deviceorientation", resize)
     }, []);
 
     return resize;

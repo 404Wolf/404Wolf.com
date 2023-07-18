@@ -5,8 +5,8 @@ import Link from "next/link";
 import FetchPostIcon from "./FetchPostIcon";
 
 export interface PostData {
-    coverUrl: string;
-    coverAlt: string;
+    coverUrl: string | null;
+    coverAlt: string | null;
     id: string;
     title: string;
     description: string;
@@ -15,8 +15,8 @@ export interface PostData {
 }
 
 interface ExtendedPostCardProps {
-    coverUrl: string;
-    coverAlt?: string;
+    coverUrl?: string | null;
+    coverAlt?: string | null;
     path: string;
     title: string;
     description: string;
@@ -39,7 +39,7 @@ const ExtendedPostCard = ({
                 <Image
                     fill
                     alt={coverAlt || `${title}'s cover image`}
-                    src={coverUrl}
+                    src={coverUrl || "/icons/load.svg"}
                     className="object-cover rounded-xl z-0"
                 />
 

@@ -21,7 +21,7 @@ const usePushPostUpdates = (postStates, callback) => {
         };
 
         const requestOptions = {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 id: postStates.id[0],

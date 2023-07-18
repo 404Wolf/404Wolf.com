@@ -61,7 +61,11 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                 newResources.push(newResource);
             }
 
-            setResources([...resources, ...newResources]);
+            setResources(
+                [...resources, ...newResources].filter(
+                    (resource) => resource !== null && resource !== undefined
+                )
+            );
         },
         []
     );
@@ -87,6 +91,16 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
         [resources]
     );
 
+    const pushUpdate = useCallback(() => {
+        fetch("/api/posts/resources", { headers: { id: postId } })
+            .then((resp) => resp.json())
+            .then((resp) => {
+                console.log(resp.resources);
+                return resp.resources;
+            })
+            .then(setResources);
+    }, []);
+
     return (
         <div className={`h-full ${isDragActive ? "brightness-90" : "brightness-100"}`}>
             <div className="grid grid-cols-2 gap-3 mt-4 relative">
@@ -95,6 +109,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                         <Resource
                             remove={() => removeResource(index)}
                             resource={resource}
+                            pushUpdate={pushUpdate}
                             setMarkdown={setMarkdown}
                             postId={postId}
                             key={index}

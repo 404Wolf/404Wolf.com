@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
                 type: params.type,
                 id: params.postId,
                 title: post.title,
-                cover: resources[post.covers[0]],
+                cover: resources[post.covers[0]] || null,
                 description: post.description,
                 tags: post.tags,
                 markdown: markdown,
@@ -80,15 +80,17 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
 
                     <Tile title="Overview" direction="right">
                         <div className="h-fit overflow-auto">
-                            <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
-                                <Image
-                                    width={400}
-                                    height={400}
-                                    src={cover}
-                                    className="border-4 border-slate-500 rounded-xl"
-                                    alt={`${title}'s cover image`}
-                                />
-                            </div>
+                            {cover && (
+                                <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
+                                    <Image
+                                        width={400}
+                                        height={400}
+                                        src={cover}
+                                        className="border-4 border-slate-500 rounded-xl"
+                                        alt={`${title}'s cover image`}
+                                    />
+                                </div>
+                            )}
                             <div className="-mt-1">{description}</div>
                         </div>
                     </Tile>
