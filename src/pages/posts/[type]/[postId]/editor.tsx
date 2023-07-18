@@ -18,6 +18,7 @@ import Resource from "@/components/posts/editor/resources/Resource";
 import Resources from "@/components/posts/editor/resources/Resources";
 import usePushPostUpdates from "@/components/logic/posts/editor/usePushPostUpdates";
 import Field from "@/components/posts/editor/Field";
+import DeletePost from "@/components/posts/editor/DeletePost";
 
 const prisma = new PrismaClient();
 
@@ -115,9 +116,11 @@ const Editor = ({ post, resources }: EditorProps) => {
         notes: useState(post.notes),
     };
     const [currentPostId, setCurrentPostId] = useState(post.id);
-    const postUpdatePusher = usePushPostUpdates(postStates, () =>
-        setCurrentPostId(postStates.id[0])
-    );
+    const [currentPostType, setCurrentPostType] = useState(post.type);
+    const postUpdatePusher = usePushPostUpdates(postStates, () => {
+        setCurrentPostId(postStates.id[0]);
+        setCurrentPostType(postStates.type[0]);
+    });
 
     const postMarkdownAreaRef = useRef<HTMLTextAreaElement>(null);
     const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -174,6 +177,9 @@ const Editor = ({ post, resources }: EditorProps) => {
                         <Tags tags={postStates.tags[0]} setTags={postStates.tags[1]} />
                         <div className="-translate-y-6 scale-[90%] -mr-1">
                             <GotoViewer postId={postStates.id[0]} postType={postStates.type[0]} />
+                        </div>
+                        <div className="-translate-y-6 scale-[90%]">
+                            <DeletePost postId={currentPostId} postType={currentPostType} />
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
                             <UpdatePost postUpdateHook={postUpdatePusher} />
@@ -247,7 +253,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 <TabTile
                                     tabs={[
                                         { key: 0, name: "Preview", element: markdownArea },
-                                        { key: 0, name: "Resources", element: resourceArea },
+                                        { key: 1, name: "Resources", element: resourceArea },
                                     ]}
                                 />
                             </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Tag from "@/components/misc/Tag";
 import { randomListItem, toTitleCase } from "@/utils/misc";
 import { useEffect, useState } from "react";
-import FetchPostIcon from "./FetchPostIcon";
+import fetchPostIcon from "./FetchPostIcon";
 
 export interface BasicPostData {
     coverUrls: string[];
@@ -61,7 +61,7 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                     {post && (
                         <>
                             <div className="absolute -top-[12px] -left-[12px] z-50 scale-[62%]">
-                                {FetchPostIcon(post && post.tags || [])}
+                                {fetchPostIcon(post && post.tags || [])}
                             </div>
                             <div
                                 className={

@@ -82,7 +82,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                 method: "DELETE",
             });
 
-            if (resp.ok) {
+            if (resp.ok || resp.status === 404) {
                 const slicedResources = [...resources];
                 delete slicedResources[index];
                 setResources(slicedResources);

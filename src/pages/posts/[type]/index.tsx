@@ -5,6 +5,8 @@ import { PrismaClient } from "@prisma/client";
 import postMetadata from "@/metadata/posts.json";
 import { GetServerSideProps } from "next";
 import { toTitleCase } from "@/utils/misc";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 const prisma = new PrismaClient();
 
@@ -48,10 +50,14 @@ interface PostsProps {
 }
 
 const PostsIndexLayout = ({ type, posts }: PostsProps) => {
+    const session = useSession();
+
     const typeDescriptions: { [key: string]: string } = postMetadata.descriptions;
     const typeDescription = postMetadata.descriptions.hasOwnProperty(type)
         ? typeDescriptions[type]
         : `List of all ${type}s...`;
+
+    const [newPostId, setNewPostId] = useState("");
 
     return (
         <MainLayout
@@ -61,8 +67,23 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
             <div className="-mt-3">
                 <Tile>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
+                        {session.status === "authenticated" && (
+                            <ExtendedPostCard
+                                editableId={true}
+                                setNewPostId={setNewPostId}
+                                path={`/posts/${type.slice(0, -1)}/${newPostId}/new`}
+                                title={`Create a new ${type.slice(0, -1)} post!`}
+                                description={`Click "Create a new ${type.slice(
+                                    0,
+                                    -1
+                                )} post!" to set an ID for a new post. Then click in the main area of this box to automatically create the post and open up the post editor. New posts are hidden and featured by default, but you can remove the "hidden" tag and click the refresh button to publish.`}
+                                date={new Date().getFullYear().toString()}
+                                tags={["hidden", "featured"]}
+                                key={999999}
+                            />
+                        )}
                         {posts &&
-                            posts.map((post) => (
+                            posts.map((post, key) => (
                                 <ExtendedPostCard
                                     coverUrl={post.coverUrl || null}
                                     coverAlt={post.coverAlt || null}
@@ -71,6 +92,7 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
                                     description={post.description}
                                     date={post.date}
                                     tags={post.tags}
+                                    key={key}
                                 />
                             ))}
                     </div>
