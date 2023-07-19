@@ -16,7 +16,7 @@ import Tile from "@/components/misc/Tiles/Tile";
 import TabTile from "@/components/misc/Tiles/Tabs";
 import Resource from "@/components/posts/editor/resources/Resource";
 import Resources from "@/components/posts/editor/resources/Resources";
-import usePushPostUpdates from "@/components/logic/posts/editor/usePushPostUpdates";
+import usePushPostUpdates from "@/utils/usePushPostUpdates";
 import Field from "@/components/posts/editor/Field";
 import DeletePost from "@/components/posts/editor/DeletePost";
 
