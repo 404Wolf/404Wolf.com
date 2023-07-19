@@ -5,21 +5,20 @@ import StatusLayout from "@/layouts/StatusLayout";
 import { GetServerSidePropsContext } from "next";
 
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
-    console.log(params);
-    if (!params || !params.postId || !params.type)
+    if (params && params.postId && params.type)
+        return {
+            props: {
+                newPostId: params.postId,
+                newPostType: params.type,
+            },
+        };
+    else
         return {
             redirect: {
                 destination: "/",
                 permanent: false,
             },
         };
-
-    return {
-        props: {
-            newPostId: params.postId,
-            newPostType: params.type,
-        },
-    };
 }
 
 interface NewPostProps {
@@ -29,16 +28,11 @@ interface NewPostProps {
 
 const NewPost = ({ newPostId, newPostType }: NewPostProps) => {
     const router = useRouter();
-    const [ready, setReady] = useState(false);
     const date = new Date().getFullYear().toString();
-
     useEffect(() => {
-        if (ready) return;
-
-        fetch("/api/posts/", {
+        fetch(`/api/posts/${newPostId}`, {
             method: "POST",
             headers: {
-                id: newPostId,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -51,19 +45,20 @@ const NewPost = ({ newPostId, newPostType }: NewPostProps) => {
                 notes: "",
             }),
         }).then((resp) => {
-            if (resp.ok) {
-                setReady(true);
+            resp.json().then(json => console.log(json))
+            if (resp.ok || resp.status === 403) {
                 router.push(`/posts/${newPostType}/${newPostId}/editor`);
+            } else {
+                router.push("/");
             }
         });
     }, []);
 
-    if (!ready)
-        return (
-            <Restricted>
-                <StatusLayout name="Loading">Creating post...</StatusLayout>
-            </Restricted>
-        );
+    return (
+        <Restricted>
+            <StatusLayout name="Loading">Creating post...</StatusLayout>
+        </Restricted>
+    );
 };
 
 export default NewPost;

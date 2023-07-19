@@ -21,7 +21,7 @@ const Field = ({
 }: FieldProps) => {
     return (
         <div className="relative">
-            <div className="-top-2 -right-2 px-1 rounded-tl-xl rounded-bl-xl text-xs absolute bg-gray-700 rounded-xl text-white">
+            <div className="-top-2 -right-2 px-1 rounded-tl-xl rounded-bl-xl text-xs absolute bg-gray-500 rounded-xl text-white">
                 {name}
             </div>
             {tall ? (

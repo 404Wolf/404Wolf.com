@@ -31,6 +31,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         where: { id: params.postId },
         include: { resources: true },
     });
+    if (!post)
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
+        };
 
     if (post) {
         const markdown = {
@@ -117,7 +124,7 @@ const Editor = ({ post, resources }: EditorProps) => {
     };
     const [currentPostId, setCurrentPostId] = useState(post.id);
     const [currentPostType, setCurrentPostType] = useState(post.type);
-    const postUpdatePusher = usePushPostUpdates(postStates, () => {
+    const postUpdatePusher = usePushPostUpdates(postStates, currentPostId, () => {
         setCurrentPostId(postStates.id[0]);
         setCurrentPostType(postStates.type[0]);
     });
@@ -126,8 +133,14 @@ const Editor = ({ post, resources }: EditorProps) => {
     const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
     const postTitleAreaRef = useRef<HTMLDivElement>(null);
 
-    useAutosizeTextArea(postDescriptionAreaRef.current, [postStates.description[0], ready]);
-    useAutosizeTextArea(postMarkdownAreaRef.current, [postStates.markdownData[0], ready]);
+    const forceDescriptionAreaHeightUpdate = useAutosizeTextArea(postDescriptionAreaRef.current, [
+        postStates.description[0],
+        ready,
+    ]);
+    const forceMarkdownAreaHeightUpdate = useAutosizeTextArea(postMarkdownAreaRef.current, [
+        postStates.markdownData[0],
+        ready,
+    ]);
 
     useEffect(() => {
         const newResourceMap: { [key: string]: string } = {};
@@ -155,6 +168,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                     postMarkdownAreaRef.current.value = newMarkdownData;
                 }
                 postStates.markdownId[1](newMarkdownId);
+                forceMarkdownAreaHeightUpdate();
             }}
         />
     );
@@ -196,6 +210,14 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 type={false}
                             >
                                 <div className="flex-col pt-2">
+                                    <Field
+                                        name="Date"
+                                        nontallWidth="w-full"
+                                        border={false}
+                                        startValue={post.date}
+                                        setValue={postStates.date[1]}
+                                    />
+                                    <div className="mt-4" />
                                     <Field
                                         name="Type"
                                         nontallWidth="w-full"
@@ -252,8 +274,8 @@ const Editor = ({ post, resources }: EditorProps) => {
                             <div className="w-1/2">
                                 <TabTile
                                     tabs={[
-                                        { key: 0, name: "Preview", element: markdownArea },
-                                        { key: 1, name: "Resources", element: resourceArea },
+                                        { key: 111, name: "Preview", element: markdownArea },
+                                        { key: 112, name: "Resources", element: resourceArea },
                                     ]}
                                 />
                             </div>

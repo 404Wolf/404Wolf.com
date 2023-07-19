@@ -11,16 +11,12 @@ const DeletePost = ({ postId, postType }: DeletePostProps) => {
     const router = useRouter();
 
     const deletePost = useCallback(() => {
-        fetch("/api/posts/", {
-            headers: {
-                id: postId,
-                "Content-Type": "application/json",
-            },
+        fetch(`/api/posts/${postId}`, {
             method: "DELETE",
         }).then((resp) => {
             if (resp.ok) {
                 router.push(`/posts/${postType}s`);
-            }
+            };
         });
     }, [postId]);
 

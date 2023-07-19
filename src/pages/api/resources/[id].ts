@@ -5,13 +5,14 @@ import { PrismaClient } from "prisma/prisma-client";
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (typeof req.query.id !== "string")
+    if (typeof req.query.id !== "string") {
         res.status(400).json({
             status: "Error",
             message: "ID is required to create, delete, or fetch a post.",
         });
-    const id = req.query.id as string;
-    const { searchParams: params } = new URL(req.url as string)
+        return;
+    }
+    const id = req.query.id;
 
     switch (req.method) {
         case "GET": {
@@ -42,6 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     encoding: encoding,
                 },
             });
+            return;
         }
 
         case "POST": {
@@ -68,6 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 status: "Success",
                 message: "Resource successfully added",
             });
+            return;
         }
 
         case "DELETE": {
@@ -94,6 +97,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 status: "Success",
                 message: "Resource successfully deleted",
             });
+            return;
         }
 
         case "PUT": {
@@ -117,6 +121,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     "b64",
                     req.body.mimetype
                 );
+            else
+            await addResource(
+                req.body.filename || resource.filename,
+                req.body.string,
+                "str",
+                req.body.mimetype
+            );
             await prisma.resource.update({
                 where: {
                     id: id,
@@ -130,6 +141,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     description: req.body.description,
                 },
             });
+        }
+
+        default: {
+            res.status(405).json({
+                status: "Error",
+                message: "Invalid request method."
+            })
         }
     }
 }

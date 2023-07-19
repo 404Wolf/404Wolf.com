@@ -41,12 +41,9 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
 
     const processUpdates = useCallback(() => {
         if (resourceStates.reference[0] !== currentId)
-            fetch("/api/posts/", {
+            fetch(`/api/posts/${postId}`, {
                 method: "PUT",
-                headers: {
-                    id: postId,
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ markdown: currentId }),
             }).then((resp) => {
                 if (resp.ok) {
@@ -57,12 +54,9 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                         type: resourceStates.type[0],
                         description: resourceStates.description[0],
                     };
-                    fetch("/api/posts/resources/", {
+                    fetch(`/api/resources/${currentId}`, {
                         method: "PUT",
-                        headers: {
-                            id: currentId,
-                            "Content-Type": "application/json",
-                        },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(reqBody),
                     }).then((resp) => {
                         if (resp.ok) {
@@ -113,21 +107,16 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     }, [currentUrl]);
 
     const loadMarkdown = useCallback(() => {
-        const reqBody = { markdown: currentId };
-        fetch("/api/posts/resources/", {
-            headers: {
-                "Content-Type": "application/json",
-                id: currentId,
-            },
+        fetch(`/api/posts/${postId}`, {
+            headers: { "Content-Type": "application/json" },
             method: "PUT",
-            body: JSON.stringify(reqBody),
+            body: JSON.stringify({
+                markdown: currentId,
+            }),
         }).then((resp) => {
             if (resp.ok) {
-                fetch("/api/posts/resources", {
-                    headers: {
-                        id: currentId,
-                        data: "true",
-                    },
+                fetch(`/api/resources/${currentId}`, {
+                    headers: { data: "true" },
                     method: "GET",
                 })
                     .then((resp) => resp.json())
@@ -139,7 +128,7 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     }, [currentId]);
 
     const downloadResource = useCallback(() => {
-        fetch("/api/posts/resources/link", {
+        fetch("/api/resources/link", {
             headers: { id: currentId },
             method: "GET",
         })

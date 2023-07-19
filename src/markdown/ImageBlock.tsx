@@ -1,4 +1,3 @@
-import { ReactElement } from "react-markdown/lib/react-markdown";
 import Image from "@/markdown/Image";
 import { Carousel } from "react-responsive-carousel";
 
@@ -44,26 +43,37 @@ const ImageBlock = ({
     });
 
     const imageElements = images.map((image, index) => (
-        <div className="w-full sm:w-[35%]">
-            <Image
-                alt={image.alt}
-                key={index}
-                src={image.src}
-                title={image.title}
-                label={image.alt}
-                stylize={false}
-                resourceMap={resourceMap}
-            />
-        </div>
+        <Image
+            alt={image.alt}
+            key={index}
+            src={image.src}
+            title={image.title}
+            label={image.alt}
+            stylize={false}
+            resourceMap={resourceMap}
+        />
     ));
 
     return images.length == 2 ? (
         <div
-            children={imageElements}
+            children={imageElements.map((element) => (
+                <div className="w-full sm:w-[35%]">{element}</div>
+            ))}
             className="flex gap-3 sm:gap-14 w-full justify-between sm:justify-center items-center my-4"
         />
     ) : (
-        <Carousel children={imageElements} />
+        <Carousel
+            children={imageElements.map(element => <div className="p-2">{element}</div>)}
+            centerMode={true}
+            centerSlidePercentage={32}
+            swipeable={true}
+            emulateTouch={true}
+            useKeyboardArrows={true}
+            showThumbs={false}
+            showStatus={false}
+            stopOnHover={true}
+            showArrows={false}
+        />
     );
 };
 

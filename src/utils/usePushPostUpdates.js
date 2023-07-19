@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-const usePushPostUpdates = (postStates, callback) => {
+const usePushPostUpdates = (postStates, currentId, callback) => {
     const [resourceUpdateQueue, setResourceUpdateQueue] = useState([])
 
     const updatePost = useCallback(async () => {
@@ -19,20 +19,16 @@ const usePushPostUpdates = (postStates, callback) => {
             notes: postStates.notes[0], // Update with the desired value
         };
 
-        const requestOptions = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                id: postStates.id[0],
-            },
-            body: JSON.stringify(requestBody),
-        };
-
         try {
-            const response = await fetch("/api/posts/", requestOptions);
+            const response = await fetch(`/api/posts/${currentId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            });
             if (response.ok) {
                 const data = await response.json();
-                console.log(data); // Post successfully added
             } else {
                 console.log("Error:", response.statusText);
             }

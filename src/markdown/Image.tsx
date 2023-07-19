@@ -84,7 +84,6 @@ const Image = ({
             <a
                 onClick={() => {
                     setEnlarged(true);
-                    console.log(enlarged);
                 }}
             >
                 {stylize && <style>{imageStyleWidthTree}</style>}

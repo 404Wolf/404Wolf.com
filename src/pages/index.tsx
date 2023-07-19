@@ -87,8 +87,8 @@ const Home = ({ posts }: HomeProps) => {
             <div className="markdown">
                 <p className="mb-2">
                     I'm a{" "}
-                    <InlineButton externalTo="https://bhsec.bard.edu/queens/">BHSEC</InlineButton>{" "}
-                    student in NYC with a passion for tinkering, coding, Ancient Latin, D&D,
+                    <InlineButton externalTo="https://case.edu">CWRU</InlineButton>{" "}
+                    student with a passion for tinkering, coding, Ancient Latin, D&D,
                     strategy board games, creating, designing, engineering, geeking, making, and
                     figuring things out.
                 </p>

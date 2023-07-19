@@ -51,10 +51,9 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                     mimetype: file.type,
                     postId: postId,
                 };
-                fetch("/api/posts/resources/", {
+                fetch(`/api/posts/resources/${resourceId}`, {
                     method: "POST",
                     headers: {
-                        id: resourceId,
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(newResource),
@@ -79,8 +78,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
     const removeResource = useCallback(
         async (index: number) => {
             const resource = resources[index];
-            const resp = await fetch("/api/posts/resources/", {
-                headers: { id: resource.ref },
+            const resp = await fetch(`/api/posts/resources/${resource.ref}`, {
                 method: "DELETE",
             });
 
@@ -94,12 +92,10 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
     );
 
     const pushUpdate = useCallback(() => {
-        fetch("/api/posts/resources/", {
-            headers: { id: postId },
-        })
+        fetch(`/api/posts/${postId}/resources`)
             .then((resp) => resp.json())
             .then((resp) => {
-                return resp.resources;
+                return resp.resources || [];
             })
             .then(setResources);
     }, []);

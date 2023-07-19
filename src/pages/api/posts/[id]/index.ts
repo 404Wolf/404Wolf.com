@@ -1,16 +1,25 @@
-import { addResource, removeResource, resourceUrl } from "@/utils/aws";
+import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "prisma/prisma-client";
+import type { Post } from "prisma/prisma-client";
 
 const prisma = new PrismaClient();
 
+type PostGetterResp = NextApiResponse & {
+    body: {
+        post: Post;
+    };
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (typeof req.query.id !== "string")
+    if (typeof req.query.id !== "string") {
         res.status(400).json({
             status: "Error",
             message: "ID is required to create, delete, or fetch a post.",
         });
-    const id = req.query.id as string;
+        return;
+    }
+    const id = req.query.id;
 
     switch (req.method) {
         case "GET": {
@@ -40,50 +49,89 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         case "POST": {
-            req.body = JSON.parse(req.body as unknown as string);
-            console.log(req.headers.id);
-            const markdownFilename = req.body.markdown?.id || `${req.headers.id}_00001`;
+            const markdownId = req.body.markdown?.id || `${id}_00001`;
+
+            if (
+                await prisma.post.findUnique({
+                    where: { id: id },
+                })
+            ) {
+                res.status(403).json({
+                    status: "Error",
+                    message: `Post "${id}" already exists.`,
+                });
+                return;
+            }
+
+            let resourceData = null;
+            try {
+                resourceData = await getResource(`${markdownId}.md`, "utf-8");
+            } catch {}
+
+            const resourceEntry = await prisma.resource.findUnique({
+                where: { id: markdownId },
+            });
+
+            if (resourceEntry && resourceData !== "" && resourceData !== null) {
+                res.status(400).json({
+                    status: "Error",
+                    message: `Markdown file "${markdownId}.md" already exists with text content.`,
+                });
+                return;
+            }
 
             await prisma.post.create({
                 data: {
                     id: id,
-                    title: req.body.title,
-                    description: req.body.description,
-                    markdown: req.body.markdown?.id || `${req.headers.id}_00001`,
+                    title: req.body.title || id,
+                    description: req.body.description || "",
+                    markdown: req.body.markdown?.id || `${id}_00001`,
                     covers: req.body.covers,
                     type: req.body.type,
-                    editedAt: new Date(Date.now()),
                     notes: req.body.notes,
-                    resources: {
-                        create: [
-                            {
-                                id: markdownFilename,
-                                title: "Post Markdown",
-                                filename: markdownFilename + ".md",
-                                url: resourceUrl(markdownFilename + ".md"),
-                                type: "markdown",
-                            },
-                        ],
-                    },
+                    resources: resourceEntry
+                        ? {
+                              connect: [{ id: markdownId }],
+                          }
+                        : {
+                              create: [
+                                  {
+                                      id: markdownId,
+                                      title: "Post Markdown",
+                                      filename: markdownId + ".md",
+                                      url: resourceUrl(markdownId + ".md"),
+                                      type: "markdown",
+                                  },
+                              ],
+                          },
                 },
             });
-            console.log(
-                await prisma.post.findUnique({
-                    where: { id: id },
-                    include: { resources: true },
-                })
-            );
-            await addResource(
-                markdownFilename + ".md",
-                req.body.markdown?.data || "",
-                "str",
-                "text/plain"
-            );
+
+            // If we detected that the markdown file exists and is empty and
+            // they have passed data, update its contents. If it didn't exist create
+            // it with an empty string.
+            if ((req.body.markdown && req.body.markdown.data) || !resourceEntry || !resourceData)
+                if (
+                    !(await addResource(
+                        markdownId + ".md",
+                        req.body.markdown?.data || "",
+                        "str",
+                        "text/plain"
+                    ))
+                ) {
+                    await prisma.post.delete({ where: { id: id } });
+                    res.status(400).json({
+                        status: "Error",
+                        message: "Failed to add post to database.",
+                    });
+                    return;
+                }
 
             res.status(200).json({
                 status: "Success",
                 message: "Post successfully added",
             });
+            return;
         }
 
         case "DELETE": {
@@ -114,9 +162,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 status: "Success",
                 message: "Post successfully deleted",
             });
+            return;
         }
 
-        case "UPDATE": {
+        case "PUT": {
             const post = await prisma.post.findUnique({
                 where: {
                     id: id,
@@ -159,6 +208,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             res.status(200).json({
                 status: "Success",
                 message: "Post successfully updated",
+            });
+            return;
+        }
+
+        default: {
+            res.status(405).json({
+                status: "Error",
+                message: "Invalid request method.",
             });
         }
     }

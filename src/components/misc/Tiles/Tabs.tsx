@@ -5,7 +5,7 @@ import useTitleWidth from "./useTitleWidth";
 
 interface TabTileProps {
     tabs: {
-        key: number;
+        key?: number;
         name: string;
         element: JSX.Element;
     }[];
@@ -22,7 +22,7 @@ const TabTile = ({ tabs, type = false }: TabTileProps) => {
                 {tabs.map((tab, index) => (
                     <button onClick={() => setCurrentTab(index)}>
                         <TileTitle
-                            key={tab.key}
+                            key={tab.key || index}
                             title={tab.name}
                             titleWidth={measure(
                                 tab.name,
