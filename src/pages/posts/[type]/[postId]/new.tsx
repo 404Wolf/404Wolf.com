@@ -45,7 +45,6 @@ const NewPost = ({ newPostId, newPostType }: NewPostProps) => {
                 notes: "",
             }),
         }).then((resp) => {
-            resp.json().then(json => console.log(json))
             if (resp.ok || resp.status === 403) {
                 router.push(`/posts/${newPostType}/${newPostId}/editor`);
             } else {

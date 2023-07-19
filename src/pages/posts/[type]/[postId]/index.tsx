@@ -10,6 +10,7 @@ import Markdown from "@/markdown/Markdown.jsx";
 import Tags from "@/components/posts/Tags";
 import GotoEditor from "@/components/posts/editor/GotoEditor";
 import { useSession } from "next-auth/react";
+import DeletePost from "@/components/posts/editor/DeletePost";
 
 const prisma = new PrismaClient();
 
@@ -73,7 +74,8 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
             <MainLayout title={toTitleCase(title)} header={false}>
                 <div className="mt-[12px] overflow-visible">
                     {session.status === "authenticated" && (
-                        <div className="absolute -top-12 -right-4 scale-[90%]">
+                        <div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">
+                            <DeletePost postId={id} postType={type} />
                             <GotoEditor postId={id} postType={type} />
                         </div>
                     )}

@@ -83,18 +83,24 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
                             />
                         )}
                         {posts &&
-                            posts.map((post, key) => (
-                                <ExtendedPostCard
-                                    coverUrl={post.coverUrl || null}
-                                    coverAlt={post.coverAlt || null}
-                                    path={`/posts/${type.slice(0, -1)}/${post.id}`}
-                                    title={post.title}
-                                    description={post.description}
-                                    date={post.date}
-                                    tags={post.tags}
-                                    key={key}
-                                />
-                            ))}
+                            posts
+                                .filter(
+                                    (post) =>
+                                        session.status === "authenticated" ||
+                                        !post.tags.includes("hidden")
+                                )
+                                .map((post, key) => (
+                                    <ExtendedPostCard
+                                        coverUrl={post.coverUrl || null}
+                                        coverAlt={post.coverAlt || null}
+                                        path={`/posts/${type.slice(0, -1)}/${post.id}`}
+                                        title={post.title}
+                                        description={post.description}
+                                        date={post.date}
+                                        tags={post.tags}
+                                        key={key}
+                                    />
+                                ))}
                     </div>
                 </Tile>
             </div>

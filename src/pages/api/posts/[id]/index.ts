@@ -80,32 +80,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return;
             }
 
-            await prisma.post.create({
-                data: {
-                    id: id,
-                    title: req.body.title || id,
-                    description: req.body.description || "",
-                    markdown: req.body.markdown?.id || `${id}_00001`,
-                    covers: req.body.covers,
-                    type: req.body.type,
-                    notes: req.body.notes,
-                    resources: resourceEntry
-                        ? {
-                              connect: [{ id: markdownId }],
-                          }
-                        : {
-                              create: [
-                                  {
-                                      id: markdownId,
-                                      title: "Post Markdown",
-                                      filename: markdownId + ".md",
-                                      url: resourceUrl(markdownId + ".md"),
-                                      type: "markdown",
-                                  },
-                              ],
-                          },
-                },
-            });
+            try {
+                await prisma.post.create({
+                    data: {
+                        id: id,
+                        title: req.body.title || id,
+                        description: req.body.description || "",
+                        markdown: req.body.markdown?.id || `${id}_00001`,
+                        covers: req.body.covers,
+                        type: req.body.type,
+                        date: req.body.date,
+                        tags: req.body.tags,
+                        notes: req.body.notes,
+                        resources: resourceEntry
+                            ? {
+                                  connect: [{ id: markdownId }],
+                              }
+                            : {
+                                  create: [
+                                      {
+                                          id: markdownId,
+                                          title: "Post Markdown",
+                                          filename: markdownId + ".md",
+                                          url: resourceUrl(markdownId + ".md"),
+                                          type: "markdown",
+                                      },
+                                  ],
+                              },
+                    },
+                });
+            } catch {
+                res.status(400).json({
+                    status: "Error",
+                    message: "Failed to create post. Invalid request body.",
+                });
+            }
 
             // If we detected that the markdown file exists and is empty and
             // they have passed data, update its contents. If it didn't exist create
