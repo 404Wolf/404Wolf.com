@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import CircleButton from "./CircleButton";
 
 const UpdatePost = ({ postUpdateHook }) => {

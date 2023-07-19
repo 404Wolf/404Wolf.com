@@ -30,24 +30,26 @@ interface NewPostProps {
 const NewPost = ({ newPostId, newPostType }: NewPostProps) => {
     const router = useRouter();
     const [ready, setReady] = useState(false);
-    const date = new Date().getFullYear().toString()
+    const date = new Date().getFullYear().toString();
 
     useEffect(() => {
         if (ready) return;
 
-        const newPostBody = {
-            title: newPostId,
-            description: "",
-            covers: [],
-            type: newPostType,
-            date: date,
-            tags: ["hidden"],
-            notes: "",
-        };
-        fetch("/api/posts/add", {
+        fetch("/api/posts/", {
             method: "POST",
-            headers: { id: newPostId },
-            body: JSON.stringify(newPostBody),
+            headers: {
+                id: newPostId,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: newPostId,
+                description: "",
+                covers: [],
+                type: newPostType,
+                date: date,
+                tags: ["hidden"],
+                notes: "",
+            }),
         }).then((resp) => {
             if (resp.ok) {
                 setReady(true);

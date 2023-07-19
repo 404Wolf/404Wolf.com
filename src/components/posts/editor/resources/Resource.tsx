@@ -41,29 +41,35 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
 
     const processUpdates = useCallback(() => {
         if (resourceStates.reference[0] !== currentId)
-            fetch("/api/posts/update", {
+            fetch("/api/posts/", {
                 method: "PUT",
-                headers: { id: postId },
-                body: `{ markdown: ${currentId} }`,
+                headers: {
+                    id: postId,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ markdown: currentId }),
             }).then((resp) => {
                 if (resp.ok) {
-                    const requestBody = {
+                    const reqBody = {
                         id: resourceStates.reference[0],
                         title: resourceStates.title[0],
                         filename: resourceStates.filename[0],
                         type: resourceStates.type[0],
                         description: resourceStates.description[0],
                     };
-                    fetch("/api/posts/resources/update", {
+                    fetch("/api/posts/resources/", {
                         method: "PUT",
-                        headers: { id: currentId },
-                        body: JSON.stringify(requestBody),
+                        headers: {
+                            id: currentId,
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(reqBody),
                     }).then((resp) => {
                         if (resp.ok) {
-                            setCurrentId(requestBody.id);
-                            setCurrentUrl(resourceUrl(requestBody.filename));
+                            setCurrentId(reqBody.id);
+                            setCurrentUrl(resourceUrl(reqBody.filename));
                             if (resourceIdRef.current)
-                                resourceIdRef.current.innerText = requestBody.id;
+                                resourceIdRef.current.innerText = reqBody.id;
                             pushUpdate();
                         }
                     });
@@ -108,13 +114,22 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
 
     const loadMarkdown = useCallback(() => {
         const reqBody = { markdown: currentId };
-        fetch("/api/posts/resources/update", {
-            headers: { id: currentId },
+        fetch("/api/posts/resources/", {
+            headers: {
+                "Content-Type": "application/json",
+                id: currentId,
+            },
             method: "PUT",
             body: JSON.stringify(reqBody),
         }).then((resp) => {
             if (resp.ok) {
-                fetch(`/api/posts/resources/fetch`, { headers: { id: currentId, data: "true" } })
+                fetch("/api/posts/resources", {
+                    headers: {
+                        id: currentId,
+                        data: "true",
+                    },
+                    method: "GET",
+                })
                     .then((resp) => resp.json())
                     .then((resp) => resp.resource.data)
                     .then((markdown) => setMarkdown(markdown, currentId));
@@ -124,7 +139,10 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     }, [currentId]);
 
     const downloadResource = useCallback(() => {
-        fetch("/api/posts/resources/link", { headers: { id: currentId } })
+        fetch("/api/posts/resources/link", {
+            headers: { id: currentId },
+            method: "GET",
+        })
             .then((resp) => resp.json())
             .then((resp) => router.push(resp.url));
     }, [currentId]);

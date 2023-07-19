@@ -4,7 +4,6 @@ const usePushPostUpdates = (postStates, callback) => {
     const [resourceUpdateQueue, setResourceUpdateQueue] = useState([])
 
     const updatePost = useCallback(async () => {
-        const url = "/api/posts/update";
         const requestBody = {
             id: postStates.id[0],
             title: postStates.title[0],
@@ -30,7 +29,7 @@ const usePushPostUpdates = (postStates, callback) => {
         };
 
         try {
-            const response = await fetch(url, requestOptions);
+            const response = await fetch("/api/posts/", requestOptions);
             if (response.ok) {
                 const data = await response.json();
                 console.log(data); // Post successfully added
