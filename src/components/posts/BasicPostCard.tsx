@@ -2,7 +2,7 @@ import Link from "next/link";
 import Tag from "@/components/misc/Tag";
 import { randomListItem, toTitleCase } from "@/utils/misc";
 import { useEffect, useState } from "react";
-import fetchPostIcon from "./FetchPostIcon";
+import fetchPostIcon from "./fetchPostIcon";
 
 export interface BasicPostData {
     coverUrls: string[];

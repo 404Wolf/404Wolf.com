@@ -2,7 +2,7 @@ import { toTitleCase } from "@/utils/misc";
 import Image from "next/image";
 import Tag from "../misc/Tag";
 import Link from "next/link";
-import fetchPostIcon from "./FetchPostIcon";
+import fetchPostIcon from "./fetchPostIcon";
 import { KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export interface PostData {
