@@ -22,7 +22,8 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     const router = useRouter();
 
     const [removed, setRemoved] = useState(false);
-    const [preview, setPreview] = useState<null | React.ReactNode>(null);
+    const [previewElement, setPreviewElement] = useState<null | React.ReactNode>(null);
+    const [previewBackgroundImage, setPreviewBackgroundImage] = useState("");
     const [configOpen, setConfigOpen] = useState(false);
 
     const [currentUrl, setCurrentUrl] = useState(resource.url);
@@ -75,7 +76,8 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
         if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.reference[0];
         switch (resourceStates.type[0]) {
             case "image":
-                setPreview(
+                setPreviewBackgroundImage(`url('${currentUrl}')`);
+                setPreviewElement(
                     <Image
                         src={currentUrl}
                         alt={
@@ -84,23 +86,25 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                         }
                         width={340}
                         height={240}
-                        priority
+                        className=""
                     />
                 );
                 return;
             case "markdown":
-                setPreview(
-                    <Image
-                        src="/icons/edit.svg"
-                        alt={
-                            resourceStates.description[0] ||
-                            `Image with id ${resourceStates.reference[0]}`
-                        }
-                        width={340}
-                        height={240}
-                        className="px-max w-40 scale-[60%]"
-                        priority
-                    />
+                setPreviewBackgroundImage("url('/icons/edit.svg')");
+                setPreviewElement(
+                    <div className="w-max text-center mx-auto">
+                        <Image
+                            src="/icons/edit.svg"
+                            alt={
+                                resourceStates.description[0] ||
+                                `Markdown with id ${resourceStates.reference[0]}`
+                            }
+                            width={340}
+                            height={240}
+                            className="w-40 scale-[80%]"
+                        />
+                    </div>
                 );
                 return;
         }
@@ -137,8 +141,14 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     }, [currentId]);
 
     return (
-        <div className="relative bg-gray-400 rounded-xl text-center">
-            <div className="flex gap-1 absolute -bottom-1 -right-1">
+        <div
+            style={{
+                backgroundImage:
+                    resourceStates.type[0] !== "markdown" ? previewBackgroundImage : "",
+            }}
+            className="relative bg-gray-400 text-center h-40 rounded-xl bg-center bg-cover bg-no-repeat"
+        >
+            <div className="flex gap-1 absolute -bottom-1 -right-1 z-50">
                 {resourceStates.type[0] === "markdown" && (
                     <button onClick={loadMarkdown}>
                         <ResourceIcon icon="load" alt="Load markdown" />
@@ -157,13 +167,18 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                 </button>
             </div>
 
-            <button onClick={() => setConfigOpen(true)} className="mx-auto">
-                <div className="h-28 z-20 -translate-y-1 mx-auto">{preview}</div>
-                <div className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90 z-40">
+            <div
+                onClick={() => setConfigOpen(true)}
+                className="cursor-pointer mx-auto overflow-clip h-40"
+            >
+                {resourceStates.type[0] === "markdown" && (
+                    <div className="mx-auto">{previewElement}</div>
+                )}
+                <div className="bg-gray-500 text-sm text-white flex px-2 w-fit mx-auto rounded-full absolute -top-2 -left-3 focus:outline-none scale-90 z-40">
                     <div className="inline-block">#</div>
                     <div contentEditable={true} ref={resourceIdRef} />
                 </div>
-            </button>
+            </div>
 
             <Modal
                 open={configOpen}
@@ -180,8 +195,8 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                         className="p-4 bg-slate-300 pt-8 flex-row rounded-2xl drop-shadow-5xl-c"
                     >
                         <div className="flex gap-3">
-                            <div className="bg-gray-400 h-44 w-60 overflow-hidden rounded-xl">
-                                {preview}
+                            <div className="bg-gray-400 h-44 w-60 overflow-clip rounded-xl border-white border-2">
+                                {previewElement}
                             </div>
 
                             <div className="flex flex-col gap-5">

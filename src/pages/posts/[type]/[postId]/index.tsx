@@ -66,7 +66,6 @@ interface PostProps {
 
 const Post = ({ type, id, title, cover, description, tags, markdown, resources }: PostProps) => {
     const session = useSession();
-    const [screenWidth, screenHeight] = useSize()
 
     return (
         <>
@@ -78,7 +77,9 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
                     {session.status === "authenticated" && (
                         <div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">
                             <DeletePost postId={id} postType={type} />
-                            {screenWidth > 700 && <GotoEditor postId={id} postType={type} />}
+                            <div className="hidden sm:block">
+                                <GotoEditor postId={id} postType={type} />
+                            </div>
                         </div>
                     )}
 
@@ -95,7 +96,9 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
                                     />
                                 </div>
                             )}
-                            <div className="-mt-1 mb-2 sm:mb-1 text-[0.77em] sm:text-[1em]">{description}</div>
+                            <div className="-mt-1 mb-2 sm:mb-1 text-[0.77em] sm:text-[1em]">
+                                {description}
+                            </div>
                         </div>
                     </Tile>
 
