@@ -67,7 +67,7 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
             <div className="-mt-3">
                 <Tile>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
-                        {session.status === "authenticated" && (
+                        <div className="hidden">{session.status === "authenticated" && (
                             <ExtendedPostCard
                                 editableId={true}
                                 setNewPostId={setNewPostId}
@@ -81,7 +81,7 @@ const PostsIndexLayout = ({ type, posts }: PostsProps) => {
                                 tags={["hidden", "featured"]}
                                 key={999999}
                             />
-                        )}
+                        )}</div>
                         {posts &&
                             posts
                                 .filter(
