@@ -1,5 +1,6 @@
 import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 import { PrismaClient } from "prisma/prisma-client";
 
 const prisma = new PrismaClient();
@@ -13,6 +14,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     const id = req.query.id;
+    const session = await getSession({ req });
+    if (session === null && req.method !== "GET") {
+        res.status(401).json({
+            status: "Error",
+            message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
+        });
+    }
 
     switch (req.method) {
         case "GET": {
@@ -122,12 +130,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     req.body.mimetype
                 );
             else
-            await addResource(
-                req.body.filename || resource.filename,
-                req.body.string,
-                "str",
-                req.body.mimetype
-            );
+                await addResource(
+                    req.body.filename || resource.filename,
+                    req.body.string,
+                    "str",
+                    req.body.mimetype
+                );
             await prisma.resource.update({
                 where: {
                     id: id,
@@ -146,8 +154,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         default: {
             res.status(405).json({
                 status: "Error",
-                message: "Invalid request method."
-            })
+                message: "Invalid request method.",
+            });
         }
     }
 }
