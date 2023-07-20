@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
