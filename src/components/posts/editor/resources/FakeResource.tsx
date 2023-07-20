@@ -11,7 +11,7 @@ const FakeResource = ({ placeholderId = null, children }: FakeResourceProps) => 
                     #{placeholderId}
                 </div>
             )}
-            <div className="bg-gray-400 rounded-xl h-36 overflow-clip">{children}</div>
+            <div className="bg-gray-400 rounded-xl h-40 overflow-clip">{children}</div>
         </div>
     );
 };
