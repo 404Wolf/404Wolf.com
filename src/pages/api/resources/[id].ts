@@ -1,5 +1,7 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 import { PrismaClient } from "prisma/prisma-client";
 
@@ -14,12 +16,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     const id = req.query.id;
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res, authOptions);
     if (session === null && req.method !== "GET") {
         res.status(401).json({
             status: "Error",
             message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
         });
+        return;
     }
 
     switch (req.method) {
@@ -100,7 +103,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     id: resource.id,
                 },
             });
-            await removeResource(resource.filename);
+            try {
+                await removeResource(resource.filename);
+            } catch {
+                res.status(404).json({
+                    status: "Error",
+                    message: "Resource was not in S3 bucket even though it was in database.",
+                });
+            }
             res.status(200).json({
                 status: "Success",
                 message: "Resource successfully deleted",

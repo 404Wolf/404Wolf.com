@@ -1,17 +1,11 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 import { PrismaClient } from "prisma/prisma-client";
-import type { Post } from "prisma/prisma-client";
 
 const prisma = new PrismaClient();
-
-type PostGetterResp = NextApiResponse & {
-    body: {
-        post: Post;
-    };
-};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (typeof req.query.id !== "string") {
@@ -22,12 +16,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     const id = req.query.id;
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res, authOptions);
     if (session === null && req.method !== "GET") {
         res.status(401).json({
             status: "Error",
             message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
         });
+        return;
     }
 
     switch (req.method) {
@@ -123,6 +118,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     status: "Error",
                     message: "Failed to create post. Invalid request body.",
                 });
+                return;
             }
 
             // If we detected that the markdown file exists and is empty and
@@ -174,7 +170,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             });
             await Promise.all(
-                post.resources.map((resource) => removeResource(resource.filename))
+                post.resources.map((resource) => {
+                    try {
+                        removeResource(resource.filename);
+                    } catch {}
+                })
             );
             res.status(200).json({
                 status: "Success",
