@@ -108,7 +108,7 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                 );
                 return;
         }
-    }, [currentUrl]);
+    }, [currentUrl, resource]);
 
     const loadMarkdown = useCallback(() => {
         fetch(`/api/posts/${postId}`, {

@@ -28,7 +28,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
 
                 let resourceNumber = 1;
                 while (
-                    (await fetch("/api/posts/resources/exists", {
+                    (await fetch("/api/resources/exists", {
                         headers: { id: makeId(resourceNumber) },
                     })
                         .then((resp) => resp.json())
@@ -51,7 +51,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                     mimetype: file.type,
                     postId: postId,
                 };
-                fetch(`/api/posts/resources/${resourceId}`, {
+                fetch(`/api/resources/${resourceId}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
     const removeResource = useCallback(
         async (index: number) => {
             const resource = resources[index];
-            const resp = await fetch(`/api/posts/resources/${resource.ref}`, {
+            const resp = await fetch(`/api/resources/${resource.ref}`, {
                 method: "DELETE",
             });
 
