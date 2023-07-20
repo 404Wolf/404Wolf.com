@@ -1,4 +1,5 @@
 import Image from "@/markdown/Image";
+import useSize from "@/utils/useSize";
 import { Carousel } from "react-responsive-carousel";
 
 export interface ImageBlockProps {
@@ -23,6 +24,8 @@ const ImageBlock = ({
     properties = "",
     resourceMap = {},
 }: ImageBlockProps) => {
+    const [screenWidth, screenHeight]= useSize()
+    
     const images: Image[] = alts.split(";").map((alt, index) => {
         const formattedProperties: { [key: string]: string | number } = {};
         if (properties)
@@ -65,7 +68,7 @@ const ImageBlock = ({
         <Carousel
             children={imageElements.map(element => <div className="p-2">{element}</div>)}
             centerMode={true}
-            centerSlidePercentage={32}
+            centerSlidePercentage={screenWidth < 600 ? 47 : 30}
             swipeable={true}
             emulateTouch={true}
             useKeyboardArrows={true}

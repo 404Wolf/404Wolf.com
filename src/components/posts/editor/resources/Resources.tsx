@@ -102,7 +102,7 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
 
     return (
         <div className={`h-full ${isDragActive ? "brightness-90" : "brightness-100"}`}>
-            <div className="grid grid-cols-2 gap-3 mt-4 relative">
+            <div className="grid grid-cols-2 gap-3 mt-4 justify-stretch relative">
                 {resources.map((resource, index) => {
                     return (
                         <Resource

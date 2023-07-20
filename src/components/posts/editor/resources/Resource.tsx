@@ -98,7 +98,7 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                         }
                         width={340}
                         height={240}
-                        className="mx-auto my-auto translate-x-1 lg:-translate-y-7  scale-[60%]"
+                        className="px-max w-40 scale-[60%]"
                         priority
                     />
                 );
@@ -137,7 +137,7 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     }, [currentId]);
 
     return (
-        <div className="relative">
+        <div className="relative bg-gray-400 rounded-xl text-center">
             <div className="flex gap-1 absolute -bottom-1 -right-1">
                 {resourceStates.type[0] === "markdown" && (
                     <button onClick={loadMarkdown}>
@@ -157,12 +157,12 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                 </button>
             </div>
 
-            <button onClick={() => setConfigOpen(true)}>
-                <div className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90">
+            <button onClick={() => setConfigOpen(true)} className="mx-auto">
+                <div className="h-28 z-20 -translate-y-1 mx-auto">{preview}</div>
+                <div className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90 z-40">
                     <div className="inline-block">#</div>
                     <div contentEditable={true} ref={resourceIdRef} />
                 </div>
-                <div className="bg-gray-400 rounded-xl h-36 overflow-clip">{preview}</div>
             </button>
 
             <Modal

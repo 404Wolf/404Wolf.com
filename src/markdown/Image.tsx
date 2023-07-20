@@ -15,6 +15,7 @@ interface ImageProps {
     label?: string;
     nextImgSize?: [number, number];
     resourceMap?: { [key: string]: string };
+    imgClasses?: string;
 }
 
 const Image = ({
@@ -27,6 +28,7 @@ const Image = ({
     label,
     nextImgSize = [500, 500],
     resourceMap = {},
+    imgClasses = "",
 }: ImageProps) => {
     let [imageStyleId, setImageStyleId] = useState("");
     let [imageStyleWidthTree, setImageStyleWidthTree] = useState<null | string>(null);
@@ -63,7 +65,7 @@ const Image = ({
             title={title}
             width={nextImgSize[0]}
             height={nextImgSize[1]}
-            className={classes || ""}
+            className={(classes || "") + imgClasses}
         />
     );
 
