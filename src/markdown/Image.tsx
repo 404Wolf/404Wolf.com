@@ -39,6 +39,7 @@ const Image = ({
 
     useEffect(() => {
         if (stylize) {
+            console.log(float);
             const generatedImageStyleId =
                 "_a" +
                 createHash("sha256")
@@ -51,9 +52,11 @@ const Image = ({
                 case "left":
                     setMargin({ marginRight: "10px", marginLeft: "0px" });
                     setTagPos("br");
+                    return;
                 case "right":
                     setMargin({ marginRight: "0px", marginLeft: "10px" });
                     setTagPos("br");
+                    return;
             }
         }
     }, []);
@@ -65,7 +68,7 @@ const Image = ({
             title={title}
             width={nextImgSize[0]}
             height={nextImgSize[1]}
-            className={(classes || "") + imgClasses}
+            className={(classes || "") + imgClasses + " w-full h-full"}
         />
     );
 
@@ -83,21 +86,15 @@ const Image = ({
                 </div>
             </Modal>
 
-            <a
-                onClick={() => {
-                    setEnlarged(true);
-                }}
+            {stylize && <style>{imageStyleWidthTree}</style>}
+            <div
+                id={imageStyleId}
+                className="relative cursor-pointer"
+                style={margin && { float: float as "right" | "left" | "none", ...margin }}
             >
-                {stylize && <style>{imageStyleWidthTree}</style>}
-                <div
-                    id={imageStyleId}
-                    className="relative cursor-pointer"
-                    style={margin && { float: float as "right" | "left" | "none", ...margin }}
-                >
-                    {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}
-                    {imageElement(enlarged ? "blur" : "")}
-                </div>
-            </a>
+                {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}
+                <a onClick={() => setEnlarged(true)}>{imageElement(enlarged ? "blur" : "")}</a>
+            </div>
         </div>
     );
 };
