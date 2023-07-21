@@ -3,6 +3,7 @@ import {
     PutObjectCommand,
     DeleteObjectCommand,
     GetObjectCommand,
+    CopyObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
@@ -64,6 +65,17 @@ export async function getResource(filename: string, encoding: string) {
     return data.Body?.transformToString(encoding);
 }
 
+export async function renameResource(oldName: string, newName: string) {
+    // Create a request to fetch the resource
+    const request = new CopyObjectCommand({
+        Bucket: s3.bucket,
+        CopySource: oldName,
+        Key: newName,
+    });
+    await s3.client.send(request);
+    await removeResource(oldName);
+}
+
 export async function getLink(filename: string) {
     const command = new GetObjectCommand({
         Bucket: s3.bucket,
@@ -71,6 +83,6 @@ export async function getLink(filename: string) {
         ResponseContentType: "application/octet-stream",
         ResponseContentDisposition: "attachment",
     });
-    const url = await getSignedUrl(s3.client, command, { expiresIn: 3600 })
+    const url = await getSignedUrl(s3.client, command, { expiresIn: 3600 });
     return url;
 }

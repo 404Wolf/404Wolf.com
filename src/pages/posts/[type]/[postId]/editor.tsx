@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
                     notes: post.notes,
                 },
                 resources: post.resources.map((resource) => ({
-                    ref: resource.id,
+                    id: resource.id,
                     title: resource.title,
                     filename: resource.filename,
                     type: resource.type,
@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 };
 
 export interface EditorResource {
-    ref: string;
+    id: string;
     title: string;
     filename: string;
     type: string;
@@ -145,7 +145,7 @@ const Editor = ({ post, resources }: EditorProps) => {
     useEffect(() => {
         const newResourceMap: { [key: string]: string } = {};
         for (const resource of allResources) {
-            if (resource) newResourceMap[resource.ref] = resource.url;
+            if (resource) newResourceMap[resource.id] = resource.url;
         }
         setResourceMap(newResourceMap);
     }, [allResources]);

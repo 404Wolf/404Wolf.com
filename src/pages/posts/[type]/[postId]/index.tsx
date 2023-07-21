@@ -49,7 +49,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             },
         };
     } else {
-        return { props: {} };
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
+        };
     }
 };
 

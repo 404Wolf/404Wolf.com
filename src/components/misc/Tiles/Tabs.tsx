@@ -20,9 +20,8 @@ const TabTile = ({ tabs, type = false }: TabTileProps) => {
         <>
             <div className="flex gap-2 absolute z-50">
                 {tabs.map((tab, index) => (
-                    <button onClick={() => setCurrentTab(index)}>
+                    <button key={tab.key || index} onClick={() => setCurrentTab(index)}>
                         <TileTitle
-                            key={tab.key || index}
                             title={tab.name}
                             titleWidth={measure(
                                 tab.name,

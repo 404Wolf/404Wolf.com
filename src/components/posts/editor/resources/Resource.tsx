@@ -7,19 +7,40 @@ import { EditorPost, EditorResource } from "@/pages/posts/[type]/[postId]/editor
 import ResourceIcon from "./Icon";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
+import { toB64 } from "@/utils/toB64";
+import { Tooltip } from "react-tooltip";
 
 interface ResourceProps {
     resource: EditorResource;
     postId: string;
     remove: () => void;
     setMarkdown: (markdownData: string, markdownId: string) => void;
-    pushUpdate: () => void;
+    updateResource: (index: number, resource: EditorResource) => Promise<EditorResource>;
+    index: number;
 }
 
-const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: ResourceProps) => {
+export interface ResourceStates {
+    id: string;
+    title: string;
+    filename: string;
+    type: string;
+    description: string;
+    cover: boolean;
+}
+
+const Resource = ({
+    resource,
+    postId,
+    remove,
+    setMarkdown,
+    updateResource,
+    index,
+}: ResourceProps) => {
     if (!resource) return <></>;
 
     const router = useRouter();
+    const [copiedIdTooltipShown, setCopiedIdTooltipShown] = useState(false);
 
     const [removed, setRemoved] = useState(false);
     const [previewElement, setPreviewElement] = useState<null | React.ReactNode>(null);
@@ -27,9 +48,9 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
     const [configOpen, setConfigOpen] = useState(false);
 
     const [currentUrl, setCurrentUrl] = useState(resource.url);
-    const [currentId, setCurrentId] = useState(resource.ref);
+    const [currentId, setCurrentId] = useState(resource.id);
     const resourceStates = {
-        reference: useState(resource.ref),
+        id: useState(resource.id),
         title: useState(resource.title),
         filename: useState(resource.filename),
         type: useState(resource.type),
@@ -40,40 +61,22 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
 
     const resourceIdRef = useRef<HTMLDivElement>(null);
 
-    const processUpdates = useCallback(() => {
-        if (resourceStates.reference[0] !== currentId)
-            fetch(`/api/posts/${postId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ markdown: currentId }),
-            }).then((resp) => {
-                if (resp.ok) {
-                    const reqBody = {
-                        id: resourceStates.reference[0],
-                        title: resourceStates.title[0],
-                        filename: resourceStates.filename[0],
-                        type: resourceStates.type[0],
-                        description: resourceStates.description[0],
-                    };
-                    fetch(`/api/resources/${currentId}`, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(reqBody),
-                    }).then((resp) => {
-                        if (resp.ok) {
-                            setCurrentId(reqBody.id);
-                            setCurrentUrl(resourceUrl(reqBody.filename));
-                            if (resourceIdRef.current)
-                                resourceIdRef.current.innerText = reqBody.id;
-                            pushUpdate();
-                        }
-                    });
-                }
-            });
-    }, [resourceStateDependencies, currentId, currentUrl]);
+    const pushUpdates = useCallback(async () => {
+        const newResource = {
+            id: resourceStates.id[0],
+            title: resourceStates.title[0],
+            filename: resourceStates.filename[0],
+            type: resourceStates.type[0],
+            description: resourceStates.description[0],
+            url: currentUrl,
+        };
+        const oldResource = await updateResource(index, newResource);
+        setCurrentId(newResource.id);
+        setCurrentUrl(resourceUrl(newResource.filename));
+    }, [resourceStateDependencies, index]);
 
     useEffect(() => {
-        if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.reference[0];
+        if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.id[0];
         switch (resourceStates.type[0]) {
             case "image":
                 setPreviewBackgroundImage(`url('${currentUrl}')`);
@@ -82,7 +85,7 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                         src={currentUrl}
                         alt={
                             resourceStates.description[0] ||
-                            `Image with id ${resourceStates.reference[0]}`
+                            `Image with id ${resourceStates.id[0]}`
                         }
                         width={340}
                         height={240}
@@ -98,7 +101,7 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                             src="/icons/edit.svg"
                             alt={
                                 resourceStates.description[0] ||
-                                `Markdown with id ${resourceStates.reference[0]}`
+                                `Markdown with id ${resourceStates.id[0]}`
                             }
                             width={340}
                             height={240}
@@ -128,7 +131,6 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                     .then((markdown) => setMarkdown(markdown, currentId));
             }
         });
-        pushUpdate();
     }, [currentId]);
 
     const downloadResource = useCallback(() => {
@@ -140,15 +142,36 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
             .then((resp) => router.push(resp.url));
     }, [currentId]);
 
+    const updateResourceData = useCallback(() => {
+        async (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
+            fetch(`/api/resources/${currentId}`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    type: "b64",
+                    body: ((await toB64(acceptedFiles[0])) as string).replace(
+                        /^data:image\/\w+;base64,/,
+                        ""
+                    ),
+                }),
+            });
+        };
+    }, [resourceStates.filename[0]]);
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop: updateResourceData,
+    });
+
     return (
         <div
             style={{
                 backgroundImage:
                     resourceStates.type[0] !== "markdown" ? previewBackgroundImage : "",
             }}
-            className="relative bg-gray-400 text-center h-40 rounded-xl bg-center bg-cover bg-no-repeat"
+            className={`relative bg-gray-400 text-center h-40 rounded-xl bg-center bg-cover bg-no-repeat ${
+                isDragActive ? "brightness-50" : ""
+            }`}
         >
-            <div className="flex gap-1 absolute -bottom-1 -right-1 z-50">
+            <div className="flex gap-1 absolute -bottom-1 -right-1 z-50" {...getRootProps}>
                 {resourceStates.type[0] === "markdown" && (
                     <button onClick={loadMarkdown}>
                         <ResourceIcon icon="load" alt="Load markdown" />
@@ -174,16 +197,28 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                 {resourceStates.type[0] === "markdown" && (
                     <div className="mx-auto">{previewElement}</div>
                 )}
-                <div className="bg-gray-500 text-sm text-white flex px-2 w-fit mx-auto rounded-full absolute -top-2 -left-3 focus:outline-none scale-90 z-40">
-                    <div className="inline-block">#</div>
-                    <div contentEditable={true} ref={resourceIdRef} />
-                </div>
+            </div>
+            <div className="bg-gray-500 text-sm text-white flex px-2 w-fit mx-auto rounded-full absolute -top-2 -left-3 focus:outline-none scale-90 z-40">
+                <div className="inline-block">#</div>
+                <Tooltip id="copied-tooltip" />
+                <div
+                    data-tooltip-id="copied-tooltip"
+                    data-tooltip-content="Copied!"
+                    data-tooltip-hidden={!copiedIdTooltipShown}
+                    className="select-all"
+                    onClick={() => {
+                        navigator.clipboard.writeText(currentId);
+                        setCopiedIdTooltipShown(true);
+                    }}
+                    onMouseLeave={() => setCopiedIdTooltipShown(false)}
+                    ref={resourceIdRef}
+                />
             </div>
 
             <Modal
                 open={configOpen}
                 setOpen={setConfigOpen}
-                onClose={processUpdates}
+                onClose={pushUpdates}
                 positioning="-top-1 -right-[3px]"
             >
                 <div>
@@ -203,8 +238,8 @@ const Resource = ({ resource, postId, remove, setMarkdown, pushUpdate }: Resourc
                                 <Field
                                     key={1000}
                                     name="Id"
-                                    startValue={resourceStates.reference[0]}
-                                    setValue={resourceStates.reference[1]}
+                                    startValue={resourceStates.id[0]}
+                                    setValue={resourceStates.id[1]}
                                 />
                                 <Field
                                     key={1001}

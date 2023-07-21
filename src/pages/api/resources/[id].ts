@@ -58,12 +58,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         case "POST": {
-            await addResource(
-                req.body.filename,
-                req.body.data,
-                req.body.type === "image" ? "b64" : "str",
-                req.body.mimetype
-            );
+            if (
+                !(await addResource(
+                    req.body.filename,
+                    req.body.data,
+                    req.body.type === "image" ? "b64" : "str",
+                    req.body.mimetype
+                ))
+            ) {
+                res.status(400).json({
+                    status: "Error",
+                    message: "Failed to add resource to database.",
+                });
+                return;
+            }
             await prisma.resource.create({
                 data: {
                     id: id,
@@ -110,6 +118,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     status: "Error",
                     message: "Resource was not in S3 bucket even though it was in database.",
                 });
+                return;
             }
             res.status(200).json({
                 status: "Success",
@@ -132,20 +141,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return;
             }
 
-            if (req.body.base64Data)
+            if (req.body.data)
                 await addResource(
                     req.body.filename || resource.filename,
-                    req.body.base64Data,
-                    "b64",
+                    req.body.data,
+                    req.body.type || resource.type === "image" ? "b64" : "str",
                     req.body.mimetype
                 );
-            else
-                await addResource(
-                    req.body.filename || resource.filename,
-                    req.body.string,
-                    "str",
-                    req.body.mimetype
-                );
+
             await prisma.resource.update({
                 where: {
                     id: id,
@@ -159,6 +162,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     description: req.body.description,
                 },
             });
+
+            res.status(200).json({
+                status: "Success",
+                message: "Successfully updated resource.",
+            });
+            return;
         }
 
         default: {
@@ -166,6 +175,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 status: "Error",
                 message: "Invalid request method.",
             });
+            return;
         }
     }
 }
