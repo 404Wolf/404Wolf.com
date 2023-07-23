@@ -21,7 +21,7 @@ interface BasicPostCardProps {
 
 const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
     const [postCoverSrc, setPostCoverSrc] = useState("");
-    const tagsToUse = tags || post && post.tags || []
+    const tagsToUse = tags || (post && post.tags) || [];
 
     const potentialLinkWrapper = (children: JSX.Element) =>
         post ? (
@@ -38,7 +38,7 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
     useEffect(() => {
         if (post) {
             const changeImage = () => {
-                setPostCoverSrc(randomListItem(post.coverUrls, post.coverAlts)[0]);
+                setPostCoverSrc(randomListItem(post.coverUrls));
             };
 
             changeImage();
@@ -61,12 +61,11 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                     {post && (
                         <>
                             <div className="absolute -top-[12px] -left-[12px] z-50 scale-[62%]">
-                                {fetchPostIcon(post && post.tags || [])}
+                                {fetchPostIcon((post && post.tags) || [])}
                             </div>
                             <div
                                 className={
-                                    post.type &&
-                                    "flex gap-[.2rem] absolute bottom-0 -left-2"
+                                    post.type && "flex gap-[.2rem] absolute bottom-0 -left-2"
                                 }
                             >
                                 {tagsToUse && <Tag children={toTitleCase(post.type)} />}
