@@ -122,6 +122,7 @@ const Editor = ({ post, resources }: EditorProps) => {
         date: useState(post.date),
         notes: useState(post.notes),
     };
+    const [currentCovers, setCurrentCovers] = useState(post.covers);
     const [currentPostId, setCurrentPostId] = useState(post.id);
     const [currentPostType, setCurrentPostType] = useState(post.type);
     const postUpdatePusher = usePushPostUpdates(postStates, currentPostId, () => {
@@ -161,7 +162,9 @@ const Editor = ({ post, resources }: EditorProps) => {
     const resourceArea = (
         <Resources
             resources={allResources}
+            covers={currentCovers}
             setResources={setAllResources}
+            setCovers={setCurrentCovers}
             postId={currentPostId}
             setMarkdown={(newMarkdownData: string, newMarkdownId: string) => {
                 if (postMarkdownAreaRef.current) {

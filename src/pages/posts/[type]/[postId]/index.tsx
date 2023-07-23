@@ -1,4 +1,4 @@
-import { toTitleCase } from "@/utils/misc";
+import { randomListItem, toTitleCase } from "@/utils/misc";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
                 type: params.type,
                 id: params.postId,
                 title: post.title,
-                cover: resources[post.covers[0]] || null,
+                cover: resources[randomListItem(post.covers)] || null,
                 description: post.description,
                 tags: post.tags,
                 markdown: markdown,

@@ -10,21 +10,23 @@ import sanitize from "sanitize-filename";
 
 interface ResourcesProps {
     resources: EditorResource[];
+    covers: string[];
     setResources: (resources: EditorResource[]) => void;
+    setCovers: (covers: string[]) => void;
     postId: string;
     setMarkdown: (markdownData: string, markdownId: string) => void;
 }
 
-const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesProps) => {
-    const [mutatingResources, mutateResourcesTransition] = useTransition();
-    const mutateResources = useCallback((resources: EditorResource[]) => {
-        mutateResourcesTransition(() => setResources(resources));
-    }, []);
-
+const Resources = ({
+    resources,
+    covers,
+    setResources,
+    setCovers,
+    postId,
+    setMarkdown,
+}: ResourcesProps) => {
     const addResource = useCallback(
         async (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
-            if (mutatingResources) return;
-
             const newResources: EditorResource[] = [];
             for (const file of acceptedFiles) {
                 let [filename, filetype] = file.name.split(".");
@@ -75,13 +77,13 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                     .catch((e) => console.log(e));
             }
 
-            mutateResources(
+            setResources(
                 [...resources, ...newResources].filter(
                     (resource) => resource !== null && resource !== undefined
                 )
             );
         },
-        [resources]
+        [resources, postId]
     );
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -90,26 +92,23 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
 
     const removeResource = useCallback(
         (index: number) => {
-            if (mutatingResources) return;
-
             fetch(`/api/resources/${resources[index].id}`, {
                 method: "DELETE",
             }).then((resp) => {
                 if (resp.ok || resp.status === 404) {
                     const slicedResources = [...resources];
                     delete slicedResources[index];
-                    mutateResources(slicedResources);
+                    setResources(slicedResources);
                 }
             });
         },
-        [resources]
+        [resources, postId]
     );
 
     const updateResource = useCallback(
         async (index: number, newResource: EditorResource) => {
             const oldResource = resources[index];
             console.log(oldResource, newResource, resources, index);
-            if (mutatingResources) return oldResource;
 
             await fetch(`/api/resources/${oldResource.id}`, {
                 method: "PUT",
@@ -122,14 +121,47 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                     const newResources = [...resources];
                     newResources[index] = newResource;
 
-                    mutateResources(newResources);
+                    setResources(newResources);
                 }
             });
             return oldResource;
         },
-        [resources]
+        [resources, postId]
     );
 
+    const setIsCover = useCallback(
+        (coverId: string, newIsCover: boolean) => {
+            let newCovers: string[] | undefined;
+
+            if (newIsCover) {
+                if (covers.includes(coverId)) return;
+                else {
+                    newCovers = [...covers, coverId];
+                }
+            } else {
+                if (!covers.includes(coverId)) return;
+                else {
+                    newCovers = covers.filter((cover) => cover !== coverId);
+                }
+            }
+
+            if (newCovers) {
+                fetch(`/api/posts/${postId}/`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        covers: newCovers,
+                    }),
+                }).then((resp) => {
+                    if (resp.ok) setCovers(newCovers as string[]);
+                });
+            }
+        },
+        [covers, postId]
+    );
+        console.log(covers)
     return (
         <div className="h-full">
             <div className="grid grid-cols-2 gap-3 mt-4 justify-stretch relative">
@@ -139,6 +171,8 @@ const Resources = ({ resources, setResources, postId, setMarkdown }: ResourcesPr
                             index={index}
                             remove={() => removeResource(index)}
                             resource={resource}
+                            isCover={(resourceId) => covers.includes(resourceId)}
+                            setIsCover={setIsCover}
                             updateResource={updateResource}
                             setMarkdown={setMarkdown}
                             postId={postId}

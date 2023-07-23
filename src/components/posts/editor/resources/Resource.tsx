@@ -14,6 +14,8 @@ import { Tooltip } from "react-tooltip";
 interface ResourceProps {
     resource: EditorResource;
     postId: string;
+    isCover: (resourceId: string) => boolean;
+    setIsCover: (coverId: string, newIsCover: boolean) => void;
     remove: () => void;
     setMarkdown: (markdownData: string, markdownId: string) => void;
     updateResource: (index: number, resource: EditorResource) => Promise<EditorResource>;
@@ -32,6 +34,8 @@ export interface ResourceStates {
 const Resource = ({
     resource,
     postId,
+    isCover,
+    setIsCover,
     remove,
     setMarkdown,
     updateResource,
@@ -177,6 +181,13 @@ const Resource = ({
                         <ResourceIcon icon="load" alt="Load markdown" />
                     </button>
                 )}
+                <button onClick={() => setIsCover(currentId, !isCover(currentId))}>
+                    <ResourceIcon
+                        icon="pin"
+                        alt={isCover(currentId) ? "Unmake cover" : "Make cover"}
+                        enabled={isCover(currentId)}
+                    />
+                </button>
                 <button onClick={downloadResource}>
                     <ResourceIcon icon="download" alt="Download resource" />
                 </button>

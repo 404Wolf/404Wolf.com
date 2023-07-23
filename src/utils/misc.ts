@@ -4,7 +4,7 @@ export function toTitleCase(str: string) {
     });
 }
 
-export function randomListItem(url: string[], alt: string[]) {
-    const choice = Math.floor(Math.random() * url.length);
-    return [url[choice], alt[choice]];
+export function randomListItem(items: any[]) {
+    const choice = Math.floor(Math.random() * items.length);
+    return items[choice];
 }
