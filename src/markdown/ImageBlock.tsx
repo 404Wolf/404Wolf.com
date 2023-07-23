@@ -66,7 +66,7 @@ const ImageBlock = ({
         />
     ) : (
         <Carousel
-            children={imageElements.map(element => <div className="p-2">{element}</div>)}
+            children={imageElements.map((element, index) => <div key={index} className="p-2">{element}</div>)}
             centerMode={true}
             centerSlidePercentage={screenWidth < 600 ? 47 : 30}
             swipeable={true}
