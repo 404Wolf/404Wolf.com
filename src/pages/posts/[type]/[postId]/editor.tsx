@@ -125,7 +125,7 @@ const Editor = ({ post, resources }: EditorProps) => {
     const [currentCovers, setCurrentCovers] = useState(post.covers);
     const [currentPostId, setCurrentPostId] = useState(post.id);
     const [currentPostType, setCurrentPostType] = useState(post.type);
-    const postUpdatePusher = usePushPostUpdates(postStates, currentPostId, () => {
+    const pushPostUpdates = usePushPostUpdates(postStates, currentPostId, () => {
         setCurrentPostId(postStates.id[0]);
         setCurrentPostType(postStates.type[0]);
     });
@@ -199,7 +199,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                             <DeletePost postId={currentPostId} postType={currentPostType} />
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
-                            <UpdatePost postUpdateHook={postUpdatePusher} />
+                            <UpdatePost pushPostUpdates={pushPostUpdates} />
                         </div>
                     </div>
 

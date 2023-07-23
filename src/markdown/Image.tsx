@@ -39,7 +39,6 @@ const Image = ({
 
     useEffect(() => {
         if (stylize) {
-            console.log(float);
             const generatedImageStyleId =
                 "_a" +
                 createHash("sha256")

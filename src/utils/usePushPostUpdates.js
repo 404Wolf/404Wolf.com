@@ -37,15 +37,12 @@ const usePushPostUpdates = (postStates, currentId, callback) => {
         }
     }, Object.values(postStates).map(postState => postState[0]))
 
-    return {
-        pushUpdates: () => {
-            updatePost();
-            resourceUpdateQueue.forEach(func => func());
-            setResourceUpdateQueue([]);
-            callback();
-        },
-        pushToQueue: (func) => setResourceUpdateQueue([...resourceUpdateQueue, func])
-    }
+    return async () => (await updatePost().then(() => {
+        resourceUpdateQueue.forEach(func => func());
+        setResourceUpdateQueue([]);
+        callback();
+    })
+    )
 }
 
 export default usePushPostUpdates;
