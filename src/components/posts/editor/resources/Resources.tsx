@@ -108,7 +108,6 @@ const Resources = ({
     const updateResource = useCallback(
         async (index: number, newResource: EditorResource) => {
             const oldResource = resources[index];
-            console.log(oldResource, newResource, resources, index);
 
             await fetch(`/api/resources/${oldResource.id}`, {
                 method: "PUT",
@@ -161,7 +160,6 @@ const Resources = ({
         },
         [covers, postId]
     );
-        console.log(covers)
     return (
         <div className="h-full">
             <div className="grid grid-cols-2 gap-3 mt-4 justify-stretch relative">
