@@ -105,7 +105,6 @@ interface EditorProps {
 const Editor = ({ post, resources }: EditorProps) => {
     const session = useSession();
     const router = useRouter();
-    const [ready, setReady] = useState(false);
     if (session.status === "unauthenticated") router.push(`/posts/${post.type}/${post.id}`);
 
     const [resourceMap, setResourceMap] = useState({});
@@ -144,17 +143,13 @@ const Editor = ({ post, resources }: EditorProps) => {
         setResourceMap(newResourceMap);
     }, [allResources]);
 
-    useEffect(() => {
-        setReady(true);
-    }, []);
-
     const markdownArea = (
-        <div className="-mt-4 overflow-y-auto overflow-x-clip">
+        <div className="-mt-4 overflow-y-auto overflow-x-clip px-5 pb-5">
             <Markdown markdown={postStates.markdownData[0]} resourceMap={resourceMap} />
         </div>
     );
     const resourceArea = (
-        <div className="overflow-y-auto overflow-x-clip">
+        <div className="overflow-y-auto overflow-x-visible px-5 pb-5">
             <Resources
                 resources={allResources}
                 covers={currentCovers}

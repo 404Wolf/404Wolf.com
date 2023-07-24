@@ -57,7 +57,7 @@ const TabTile = ({ tabs, children, type = false, shown, setShown }: TabTileProps
 
             <div
                 hidden={shown !== undefined ? !shown : false}
-                className="h-full relative mb-auto p-3 md:p-5 pt-5 md:pt-5 bg-slate-300 rounded-2xl drop-shadow-sm overflow-clip z-20"
+                className="h-full relative mb-auto pt-5 md:pt-5 bg-slate-300 rounded-2xl drop-shadow-sm overflow-clip z-20"
             >
                 {tabs[currentTab].element}
             </div>

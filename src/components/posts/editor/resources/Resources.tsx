@@ -161,31 +161,29 @@ const Resources = ({
         [covers, postId]
     );
     return (
-        <div className="h-full">
-            <div className="grid grid-cols-2 gap-3 mt-4 justify-stretch relative">
-                {resources.map((resource, index) => {
-                    return (
-                        <Resource
-                            index={index}
-                            remove={() => removeResource(index)}
-                            resource={resource}
-                            isCover={(resourceId) => covers.includes(resourceId)}
-                            setIsCover={setIsCover}
-                            updateResource={updateResource}
-                            setMarkdown={setMarkdown}
-                            postId={postId}
-                            key={index}
-                        />
-                    );
-                })}
-                <div
-                    {...getRootProps()}
-                    className={`relative cursor-pointer ${
-                        isDragActive ? "brightness-90" : "brightness-100"
-                    }`}
-                >
-                    <FakeResource placeholderId={null}></FakeResource>
-                </div>
+        <div className="grid grid-cols-2 gap-3 mt-4 justify-stretch relative">
+            {resources.map((resource, index) => {
+                return (
+                    <Resource
+                        index={index}
+                        remove={() => removeResource(index)}
+                        resource={resource}
+                        isCover={(resourceId) => covers.includes(resourceId)}
+                        setIsCover={setIsCover}
+                        updateResource={updateResource}
+                        setMarkdown={setMarkdown}
+                        postId={postId}
+                        key={index}
+                    />
+                );
+            })}
+            <div
+                {...getRootProps()}
+                className={`relative cursor-pointer ${
+                    isDragActive ? "brightness-90" : "brightness-100"
+                }`}
+            >
+                <FakeResource placeholderId={null}></FakeResource>
             </div>
         </div>
     );

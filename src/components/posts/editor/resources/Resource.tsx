@@ -181,13 +181,15 @@ const Resource = ({
                         <ResourceIcon icon="load" alt="Load markdown" />
                     </button>
                 )}
-                <button onClick={() => setIsCover(currentId, !isCover(currentId))}>
-                    <ResourceIcon
-                        icon="pin"
-                        alt={isCover(currentId) ? "Unmake cover" : "Make cover"}
-                        enabled={isCover(currentId)}
-                    />
-                </button>
+                {resourceStates.type[0] === "image" && (
+                    <button onClick={() => setIsCover(currentId, !isCover(currentId))}>
+                        <ResourceIcon
+                            icon="pin"
+                            alt={isCover(currentId) ? "Unmake cover" : "Make cover"}
+                            enabled={isCover(currentId)}
+                        />
+                    </button>
+                )}
                 <button onClick={downloadResource}>
                     <ResourceIcon icon="download" alt="Download resource" />
                 </button>
