@@ -3,7 +3,6 @@ import MainLayout from "@/layouts/MainLayout";
 import { useEffect, useRef, useState } from "react";
 import Markdown from "@/markdown/Markdown";
 import TagsInput from "react-tagsinput";
-import useAutosizeTextArea from "@/utils/useAutosizeTextArea";
 import { useSession } from "next-auth/react";
 import Restricted from "@/layouts/Restricted";
 import { PrismaClient } from "@prisma/client";
@@ -19,6 +18,8 @@ import Resources from "@/components/posts/editor/resources/Resources";
 import usePushPostUpdates from "@/utils/usePushPostUpdates";
 import Field from "@/components/posts/editor/Field";
 import DeletePost from "@/components/posts/editor/DeletePost";
+import { ShowTabTile } from "@/components/misc/Tiles/Tabs";
+import TextareaAutosize from "react-textarea-autosize";
 
 const prisma = new PrismaClient();
 
@@ -109,6 +110,7 @@ const Editor = ({ post, resources }: EditorProps) => {
 
     const [resourceMap, setResourceMap] = useState({});
     const [allResources, setAllResources] = useState(resources);
+    const [showTabTile, setShowTabTile] = useState(true);
 
     const postStates = {
         id: useState(post.id),
@@ -134,15 +136,6 @@ const Editor = ({ post, resources }: EditorProps) => {
     const postDescriptionAreaRef = useRef<HTMLTextAreaElement>(null);
     const postTitleAreaRef = useRef<HTMLDivElement>(null);
 
-    const forceDescriptionAreaHeightUpdate = useAutosizeTextArea(postDescriptionAreaRef.current, [
-        postStates.description[0],
-        ready,
-    ]);
-    const forceMarkdownAreaHeightUpdate = useAutosizeTextArea(postMarkdownAreaRef.current, [
-        postStates.markdownData[0],
-        ready,
-    ]);
-
     useEffect(() => {
         const newResourceMap: { [key: string]: string } = {};
         for (const resource of allResources) {
@@ -150,30 +143,32 @@ const Editor = ({ post, resources }: EditorProps) => {
         }
         setResourceMap(newResourceMap);
     }, [allResources]);
+
     useEffect(() => {
         setReady(true);
     }, []);
 
     const markdownArea = (
-        <div className="-mt-4">
+        <div className="-mt-4 overflow-y-auto overflow-x-clip">
             <Markdown markdown={postStates.markdownData[0]} resourceMap={resourceMap} />
         </div>
     );
     const resourceArea = (
-        <Resources
-            resources={allResources}
-            covers={currentCovers}
-            setResources={setAllResources}
-            setCovers={setCurrentCovers}
-            postId={currentPostId}
-            setMarkdown={(newMarkdownData: string, newMarkdownId: string) => {
-                if (postMarkdownAreaRef.current) {
-                    postMarkdownAreaRef.current.value = newMarkdownData;
-                }
-                postStates.markdownId[1](newMarkdownId);
-                forceMarkdownAreaHeightUpdate();
-            }}
-        />
+        <div className="overflow-y-auto overflow-x-clip">
+            <Resources
+                resources={allResources}
+                covers={currentCovers}
+                setResources={setAllResources}
+                setCovers={setCurrentCovers}
+                postId={currentPostId}
+                setMarkdown={(newMarkdownData: string, newMarkdownId: string) => {
+                    if (postMarkdownAreaRef.current) {
+                        postMarkdownAreaRef.current.value = newMarkdownData;
+                    }
+                    postStates.markdownId[1](newMarkdownId);
+                }}
+            />
+        </div>
     );
 
     return (
@@ -243,43 +238,55 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 containerClass="relative w-3/4"
                                 title="Overview"
                                 direction="left"
-                                className="mb-6"
+                                className="mb-6 pt-1"
                                 type={false}
                             >
-                                <textarea
+                                <TextareaAutosize
+                                    onResize={(e) => {}}
                                     ref={postDescriptionAreaRef}
                                     onChange={(e) => postStates.description[1](e.target.value)}
                                     defaultValue={postStates.description[0]}
-                                    className="mt-1 h-fit w-full bg-transparent overflow-auto resize-none focus:outline-none"
+                                    className="h-fit w-full bg-transparent overflow-hidden resize-none focus:outline-none"
                                 />
                             </Tile>
                         </div>
 
                         <div className="md:flex md:gap-4 relative">
+                            <div
+                                hidden={showTabTile}
+                                className="absolute -right-5 -top-5 scale-75 z-50"
+                            >
+                                <ShowTabTile shown={showTabTile} setShown={setShowTabTile} />
+                            </div>
+
                             <div className="absolute left-[127px] -top-3 z-50 text-sm px-[3px] bg-gray-500 rounded-xl text-white">
                                 #{postStates.markdownId[0]}
                             </div>
+
                             <Tile
-                                containerClass="relative w-1/2"
+                                containerClass={`relative ${showTabTile ? "w-1/2" : "w-full"}`}
                                 title="Markdown"
-                                className="overflow-auto"
                                 direction="left"
                                 type={false}
                             >
-                                <textarea
-                                    className="bg-transparent resize-none overflow-visible w-full focus:outline-none"
+                                <TextareaAutosize
+                                onResize={(e) => {}}
+                                    className="resize-none overflow-hidden
+                                     bg-transparent w-full focus:outline-none"
                                     onChange={(e) => postStates.markdownData[1](e.target.value)}
                                     defaultValue={postStates.markdownData[0]}
                                     ref={postMarkdownAreaRef}
                                 />
                             </Tile>
 
-                            <div className="w-1/2">
+                            <div className="w-1/2 relative" hidden={!showTabTile}>
                                 <TabTile
                                     tabs={[
                                         { key: 111, name: "Preview", element: markdownArea },
                                         { key: 112, name: "Resources", element: resourceArea },
                                     ]}
+                                    shown={showTabTile}
+                                    setShown={setShowTabTile}
                                 />
                             </div>
                         </div>
