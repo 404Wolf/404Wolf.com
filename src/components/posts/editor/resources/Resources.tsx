@@ -57,12 +57,9 @@ const Resources = ({
                     filename: filename,
                     type: file.type.split("/")[0],
                     description: "",
-
-                    data: ((await toB64(file)) as string).replace(/^data:image\/\w+;base64,/, ""),
                     mimetype: file.type,
                     postId: postId,
                 };
-
                 await fetch(`/api/resources/${resourceId}`, {
                     method: "POST",
                     headers: {
@@ -70,9 +67,26 @@ const Resources = ({
                     },
                     body: JSON.stringify(newResource),
                 })
-                    .then((resp) => {
-                        if (resp.ok)
-                            newResources.push({ ...newResource, url: resourceUrl(filename) });
+                    .then(async (addResp) => {
+                        const addRespJson = await addResp.json();
+                        console.log(addRespJson);
+                        const uploadResp = await fetch(addRespJson.uploadUrl, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": file.type,
+                                "Content-Length": file.size.toString(),
+                            },
+                            body: await file.arrayBuffer(),
+                        });
+                        if (uploadResp.ok) {
+                            console.log(resourceUrl(filename));
+                            newResources.push({
+                                ...newResource,
+                                url: resourceUrl(filename),
+                            });
+                        } else {
+                            console.log(await uploadResp.json());
+                        }
                     })
                     .catch((e) => console.log(e));
             }

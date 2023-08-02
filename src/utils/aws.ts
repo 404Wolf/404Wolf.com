@@ -25,7 +25,7 @@ export async function addResource(
 ) {
     // Create a request to upload the file to S3
     const request = new PutObjectCommand({
-        Bucket: "wolf-mermelstein-personal-website",
+        Bucket: s3.bucket,
         Key: filename,
         Body: type === "b64" ? Buffer.from(data, "base64") : data,
         ContentType: mimetype,
@@ -76,7 +76,7 @@ export async function renameResource(oldName: string, newName: string) {
     await removeResource(oldName);
 }
 
-export async function getLink(filename: string) {
+export async function getResourceDownloadLink(filename: string) {
     const command = new GetObjectCommand({
         Bucket: s3.bucket,
         Key: filename,
@@ -85,4 +85,13 @@ export async function getLink(filename: string) {
     });
     const url = await getSignedUrl(s3.client, command, { expiresIn: 3600 });
     return url;
+}
+
+export async function uploadFileLink(filename: string) {
+    const command = new PutObjectCommand({
+        Bucket: s3.bucket,
+        Key: filename,
+    });
+    const url = await getSignedUrl(s3.client, command, { expiresIn: 60 });
+    return url
 }

@@ -76,7 +76,7 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
         <>
             <Head>
                 <title>{`${type}/${id}`}</title>
-                <meta name="keywords" content={tags.join(",")}/>
+                <meta name="keywords" content={tags.join(",")} />
             </Head>
             <MainLayout title={toTitleCase(title)} header={false}>
                 <div className="mt-[12px] overflow-visible">
@@ -93,13 +93,15 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
                         <div className="h-fit overflow-auto">
                             {cover && (
                                 <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
-                                    <Image
-                                        width={400}
-                                        height={400}
-                                        src={cover}
-                                        className="border-4 border-slate-500 rounded-xl"
-                                        alt={`${title}'s cover image`}
-                                    />
+                                    <div className="max-h-[15rem] overflow-clip border-4 border-slate-500 rounded-xl">
+                                        <Image
+                                            width={400}
+                                            height={400}
+                                            src={cover}
+                                            className="rounded-xl scale-[103%]"
+                                            alt={`${title}'s cover image`}
+                                        />
+                                    </div>
                                 </div>
                             )}
                             <div className="-mt-1 mb-2 sm:mb-1 text-[0.77em] sm:text-[1em]">
