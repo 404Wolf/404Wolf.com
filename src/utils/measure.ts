@@ -8,7 +8,7 @@ export default function measure(
 ) {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
-    const offset = 50;
+    const offset = 60;
 
     let modifier = 1;
     if (screenWidth !== 0) {
