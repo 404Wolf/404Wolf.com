@@ -76,6 +76,7 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
         <>
             <Head>
                 <title>{`${type}/${id}`}</title>
+                <meta name="keywords" content={tags.join(",")}/>
             </Head>
             <MainLayout title={toTitleCase(title)} header={false}>
                 <div className="mt-[12px] overflow-visible">
