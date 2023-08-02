@@ -8,14 +8,14 @@ export default function measure(
 ) {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
-    const offset = 60;
+    const offset = 66;
 
     let modifier = 1;
     if (screenWidth !== 0) {
-        if (screenWidth < 470) modifier = 0.7;
-        else if (screenWidth < 600) modifier = 0.84;
-        else if (screenWidth < 750) modifier = 0.89;
-        else if (screenWidth < 1200) modifier = 0.9;
+        if (screenWidth < 470) modifier = 0.71;
+        else if (screenWidth < 600) modifier = 0.85;
+        else if (screenWidth < 750) modifier = 0.895;
+        else if (screenWidth < 1200) modifier = 0.95;
     }
 
     if (context) {
