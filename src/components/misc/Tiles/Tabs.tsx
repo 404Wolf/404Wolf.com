@@ -3,6 +3,7 @@ import TileTitle from "./Title";
 import measure from "@/utils/measure";
 import useTitleWidth from "./useTitleWidth";
 import CircleButton from "@/components/posts/editor/CircleButton";
+import { useWindowWidth } from "@react-hook/window-size";
 
 interface TabTileProps {
     tabs: {
@@ -17,6 +18,7 @@ interface TabTileProps {
 }
 
 const TabTile = ({ tabs, children, type = false, shown, setShown }: TabTileProps) => {
+    const windowWidth = useWindowWidth()
     const [currentTab, setCurrentTab] = useState(0);
     const titleWidths = tabs.map((tab) => useTitleWidth(tab.name));
     const showButton =
@@ -38,7 +40,8 @@ const TabTile = ({ tabs, children, type = false, shown, setShown }: TabTileProps
                                 "bold",
                                 16,
                                 "Trebuchet MS",
-                                "sans-serif"
+                                "sans-serif",
+                                windowWidth
                             )}
                             fixedTitleWidth={titleWidths[index]}
                             direction="left"
