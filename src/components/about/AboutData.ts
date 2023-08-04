@@ -5,11 +5,4 @@ export default interface AboutData {
     phone: string;
     location: string;
     booking: string;
-    contacts: {
-        name: string;
-        username: string;
-        link: string;
-        id: number;
-        at: boolean | undefined;
-    }[];
 }

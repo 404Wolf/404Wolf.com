@@ -44,3 +44,10 @@ model User {
   email     String
   image     String
 }
+
+model Contact {
+  name     String  @id
+  username String
+  link     String
+  at       Boolean @default(true)
+}

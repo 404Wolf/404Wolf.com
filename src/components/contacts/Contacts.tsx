@@ -1,29 +1,27 @@
 import Contact from "@/components/contacts/Contact";
-import useAbout from "@/components/about/useAbout";
-//flex sm:flex-col items-center gap-3 pt-2
+import useContacts from "../about/useContacts";
+
 const Contacts = () => {
-    const about = useAbout()
+    const contacts = useContacts()
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {about.contacts.map(
-                (contact, index) => {
-                    return (
-                        <div>
-                            <Contact
-                                name={ contact.name }
-                                username={ contact.username }
-                                url={ contact.link }
-                                icon={ contact.name }
-                                at={ contact.at ? contact.at : false }
-                                key={ index }
-                            />
-                        </div>
-                    )
-                }
-            )}
+            {contacts.map((contact, index) => {
+                return (
+                    <div>
+                        <Contact
+                            name={contact.name}
+                            username={contact.username}
+                            url={contact.link}
+                            icon={contact.name}
+                            at={contact.at ? contact.at : false}
+                            key={index}
+                        />
+                    </div>
+                );
+            })}
         </div>
     );
-}
- 
+};
+
 export default Contacts;

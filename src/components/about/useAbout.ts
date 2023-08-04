@@ -8,7 +8,6 @@ const blankAbout = {
     "phone": "",
     "location": "",
     "booking": "",
-    "contacts": [],   
 }
 
 const useAbout = (): AboutData => {

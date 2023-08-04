@@ -8,22 +8,6 @@ While over the past years I've undertaken smaller projects, I've moved on in rec
 
 Beyond tech, I, of course, have other interests too. Since I was little I've loved D&D, though I haven't played too much in recent years. I also really like strategy board games, which I've been collecting the past decade, with my favorites being larger scale social deduction games like `Dead of Winter`. Additionally, I tend to spend some of my free time when not coding studying spaced repetition Latin and English vocab flashcards, running, overthinking solutions to subjective problems, re-watching Shark Tank and The Office, and maintaining my hydroponic closet garden.
 
-# Qualities
-
-I hope that the bio above provided a good sense of who I am as a person, but I'd also like to formally highlight some more tangible, specific qualities.
-
-* I love problem-solving, and do think I'm good at deriving creative solutions to complex problems, but believe that my real uniqueness stems from my desire to fully comprehend solutions, and my ability to learn from past problems.
-
-* When it comes to code, I care as much about form as I do function. So while yes, this does sometimes lead to long deliberations over variable naming, it also fosters clarity and comprehensively, and not just blind conformity to style guides.
-
-* I am very detail-oriented. I wouldn't say I'm a perfectionist, but, when I have the time and opportunity, I'll go out of my way to spend time figuring out how to do things the right way, even if it's convoluted and tedious. 
-
-* I'm articulate, and can convey thinking with a sufficient degree of clarity. I've nurtured this quality through my interest in Ancient Latin, my eclectic english vocab flashcard deck, and a public speaking course in high school.
-
-* This may go without saying, but I'm very computer-literate, and am able to intuit software very readily. I've been tinkering with computers ever since I was extremely little, and am good at learning from documentation and experimentation.
-
-* I am good at managing time, though I prefer working on one thing at a time rather than trying to spread myself too thin multitasking. Moreover, I'm also quite organized, when it comes to life, but also code and projects digitally.
-
 # Skills
 
 #### Fast Typist
@@ -43,3 +27,17 @@ I'm a fluent English speaker, and believe that I have a very good grasp on the l
 
 #### Math to Calculus (2)
 At this point I've taken math courses up to Calculus 2. We didn't make it past geometric series unfortunately, but I'm planning on self teaching them this summer. I love how calculus compiles and applies all prior math knowledge, and also enjoy the discreet/explicit nature of it. In addition to calc, I have a firm grasp on Algebra and Trigonometry, along with some Geometry experience.
+
+# Qualities
+
+* I love problem-solving, and do think I'm good at deriving creative solutions to complex problems, but believe that my real uniqueness stems from my desire to fully comprehend solutions, and my ability to learn from past problems.
+
+* When it comes to code, I care as much about form as I do function. So while yes, this does sometimes lead to long deliberations over variable naming, it also fosters clarity and comprehensively, and not just blind conformity to style guides.
+
+* I am very detail-oriented. Though I wouldn't call myself a perfectionist, but, when I have the time and opportunity, I'll go out of my way to spend time figuring out how to do things the right way, even if it's convoluted and tedious. 
+
+* Through Ancient Latin experience, along with my eclectic english vocab flashcard deck project and a public speaking course in high school, I've come to be quite good at conveying ideas and information.
+
+* I'm very computer-literate, and am able to intuit software very readily. I've been tinkering with computers since I was little and am good at learning from documentation and experimentation.
+
+* I am good at managing time, though I prefer working on one thing at a time rather than trying to spread myself too thin multitasking. I'm also quite organized, when it comes to life, but also code and projects digitally.
