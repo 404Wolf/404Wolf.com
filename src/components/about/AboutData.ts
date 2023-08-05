@@ -4,11 +4,5 @@ export default interface AboutData {
     email: string;
     phone: string;
     location: string;
-    contacts: {
-        name: string;
-        username: string;
-        link: string;
-        id: number;
-        at: boolean | undefined;
-    }[];
+    booking: string;
 }

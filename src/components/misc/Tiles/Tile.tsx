@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import useSize from "@/utils/useSize";
-import measure from "@/utils/measure";
+import useMeasure from "@/utils/measure";
 import TileTitle from "./Title";
 import useTitleWidth from "./useTitleWidth";
 
@@ -25,7 +27,6 @@ const Tile = ({
     fixedTitleWidth = null,
     containerClass = "h-full relative",
 }: TileProps) => {
-    const [screenWidth, screenHeight] = useSize();
     const titleWidth = title ? useTitleWidth(title, fixedTitleWidth) : 0
 
     return (

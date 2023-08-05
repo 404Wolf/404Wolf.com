@@ -12,6 +12,7 @@ import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
 import Markdown from "@/markdown/Markdown";
 import { readFileSync } from "fs";
+import MakeApmt from "@/components/misc/MakeApmt";
 
 const prisma = new PrismaClient();
 
@@ -59,6 +60,7 @@ const Home = ({ posts }: HomeProps) => {
     const screenSize = useSize();
     const about = useAbout();
     const [info, setInfo] = useState("Loading...");
+    const [makeApmtOpen, setMakeApmtOpen] = useState(false);
     const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
 
     useEffect(() => {
@@ -86,16 +88,18 @@ const Home = ({ posts }: HomeProps) => {
 
             <div className="markdown">
                 <p className="mb-2">
-                    I'm a{" "}
-                    <InlineButton externalTo="https://case.edu">CWRU</InlineButton>{" "}
-                    student with a passion for tinkering, coding, Ancient Latin, D&D,
-                    strategy board games, creating, designing, engineering, geeking, making, and
-                    figuring things out.
+                    I'm a <InlineButton externalTo="https://case.edu">CWRU</InlineButton> student
+                    with a passion for tinkering, tech, coding, Ancient Latin, D&D, strategy board
+                    games, creating, designing, engineering, geeking, making, and figuring things
+                    out.
                 </p>
                 <p>
                     Information, projects, contacts, my resume, and more can be found on this
                     website. If you have any questions, feel free to{" "}
-                    <InlineButton externalTo={`mailto:${about.email}`}>email me!</InlineButton>
+                    <InlineButton externalTo={`mailto:${about.email}`}>email me</InlineButton> or{" "}
+                    <InlineButton onClick={() => setMakeApmtOpen(true)}>
+                        meet with me
+                    </InlineButton>.
                 </p>
             </div>
         </div>
@@ -112,6 +116,7 @@ const Home = ({ posts }: HomeProps) => {
                 headerChildren={headerChildren}
                 subtitleFixedWidth={tileTitleWidths}
             >
+                <MakeApmt open={makeApmtOpen} setOpen={setMakeApmtOpen} />
                 <div className="flex flex-col gap-7">
                     <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                         <div className="sm:basis-[30%]">
@@ -126,7 +131,11 @@ const Home = ({ posts }: HomeProps) => {
                             </Tile>
                         </div>
                         <div className="basis-[75%]">
-                            <Tile className={info === "loading" ? "animate-pulse" : ""} title="About" fixedTitleWidth={tileTitleWidths}>
+                            <Tile
+                                className={info === "loading" ? "animate-pulse" : ""}
+                                title="About"
+                                fixedTitleWidth={tileTitleWidths}
+                            >
                                 <div className="mt-2">
                                     <Markdown markdown={info} />
                                 </div>

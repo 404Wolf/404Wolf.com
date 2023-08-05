@@ -1,4 +1,4 @@
-import { addResource, getLink, removeResource } from "@/utils/aws";
+import { addResource, getResourceDownloadLink, removeResource } from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "prisma/prisma-client";
 
@@ -26,7 +26,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
         } else {
             res.status(200).json({
                 status: "Success",
-                url: await getLink(resource.filename),
+                url: await getResourceDownloadLink(resource.filename),
             });
         }
     }

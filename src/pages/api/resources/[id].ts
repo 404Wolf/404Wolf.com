@@ -1,5 +1,11 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
+import {
+    addResource,
+    getResource,
+    removeResource,
+    resourceUrl,
+    uploadFileLink,
+} from "@/utils/aws";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
@@ -58,20 +64,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         case "POST": {
-            if (
-                !(await addResource(
-                    req.body.filename,
-                    req.body.data,
-                    req.body.type === "image" ? "b64" : "str",
-                    req.body.mimetype
-                ))
-            ) {
-                res.status(400).json({
-                    status: "Error",
-                    message: "Failed to add resource to database.",
-                });
-                return;
-            }
             await prisma.resource.create({
                 data: {
                     id: id,
@@ -87,7 +79,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
             res.status(200).json({
                 status: "Success",
-                message: "Resource successfully added",
+                message: `Resource successfully added to database. 
+                    Upload the image using the presigned upload URL attached to this body.`,
+                uploadUrl: await uploadFileLink(req.body.filename),
             });
             return;
         }
