@@ -34,7 +34,7 @@ const Contact = ({
                     <div className="bg-slate-400 p-[.35rem] rounded-3xl z-20">
                         {name && (
                             <ContactIcon
-                                src={`/icons/${name}.svg`}
+                                src={`/icons/${name.toLowerCase()}.svg`}
                                 alt={`${username} - ${name}`}
                             />
                         )}
