@@ -12,6 +12,7 @@ import GotoEditor from "@/components/posts/editor/GotoEditor";
 import { useSession } from "next-auth/react";
 import DeletePost from "@/components/posts/editor/DeletePost";
 import useSize from "@/utils/useSize";
+import { useWindowWidth } from "@react-hook/window-size";
 
 const prisma = new PrismaClient();
 
@@ -71,6 +72,7 @@ interface PostProps {
 
 const Post = ({ type, id, title, cover, description, tags, markdown, resources }: PostProps) => {
     const session = useSession();
+    const windowWidth = useWindowWidth();
 
     return (
         <>
@@ -116,7 +118,11 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
 
                     <div className="m-6" />
 
-                    <Tile className="overflow-auto" title={title} direction="right">
+                    <Tile
+                        className="overflow-auto"
+                        title={windowWidth > 500 ? title : undefined}
+                        direction="right"
+                    >
                         <div className="-mt-4">
                             <Markdown markdown={markdown} resourceMap={resources} />
                         </div>
