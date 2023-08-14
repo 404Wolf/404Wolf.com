@@ -56,6 +56,9 @@ const Image = ({
                     setMargin({ marginRight: "0px", marginLeft: "10px" });
                     setTagPos("br");
                     return;
+                case "none":
+                    setMargin({marginRight: "auto", marginLeft: "auto"});
+                    setTagPos("br");
             }
         }
     }, []);
@@ -88,7 +91,7 @@ const Image = ({
             {stylize && <style>{imageStyleWidthTree}</style>}
             <div
                 id={imageStyleId}
-                className="relative cursor-pointer"
+                className="relative cursor-pointer my-4"
                 style={margin && { float: float as "right" | "left" | "none", ...margin }}
             >
                 {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}
