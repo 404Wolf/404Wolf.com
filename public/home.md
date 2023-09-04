@@ -1,4 +1,4 @@
-Salutations! I'm Wolf, a brooklynite who'll start as a CS major at [Case Western](https://case.edu/) next fall. I recently graduated from [Bard HS Early College](https://bhsec.bard.edu/queens/), and currently I'm spending the summer at [Recurse Center](https://www.recurse.com/), a self-driven programming retreat.
+Salutations! I'm Wolf, a CS major at [Case Western](https://case.edu/). I recently graduated from [Bard HS Early College](https://bhsec.bard.edu/queens/), and just finished [Recurse Center](https://www.recurse.com/) self-driven programming retreat.
 
 In general, I'd consider myself to be a geeky, curious, tech-loving humanoid with a passion for problem-solving and figuring things out. Since middle school I've been self-teaching code, and have tackled various personal projects which I seek to document here. At the moment I'm most interested in fullstack, and have had a lot of fun learning React/Next.js, but I'd like to branch out. Over my next few years at CWRU, I look forward to further exploring the vast realm of CS, and want to more interdisiplinarily apply my passion.
 
