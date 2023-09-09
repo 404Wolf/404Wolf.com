@@ -14,8 +14,8 @@ const BasicContacts = () => {
                 {about.email}
             </BasicContact>
 
-            <BasicContact url={ `tel:+${about.phone.display}` }>
-                {about.phone.link}
+            <BasicContact url={ `tel:+${about.phone.link}` }>
+                {about.phone.display}
             </BasicContact>
         </div>
     );
