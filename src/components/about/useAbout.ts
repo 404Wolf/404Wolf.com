@@ -5,7 +5,10 @@ const blankAbout = {
     "url": "",
     "name": "",
     "email": "",
-    "phone": "",
+    "phone": {
+        "display": "",
+        "link": ""
+    },
     "location": "",
     "booking": "",
 }
