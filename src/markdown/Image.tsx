@@ -71,6 +71,8 @@ const Image = ({
             width={nextImgSize[0]}
             height={nextImgSize[1]}
             className={(classes || "") + imgClasses + " w-full h-full"}
+            placeholder="blur"
+            blurDataURL={resourceMap[src]}
         />
     );
 
