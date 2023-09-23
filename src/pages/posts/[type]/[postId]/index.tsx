@@ -72,7 +72,7 @@ interface PostProps {
 
 const Post = ({ type, id, title, cover, description, tags, markdown, resources }: PostProps) => {
     const session = useSession();
-    const windowWidth = useWindowWidth();
+    const windowWidth = useWindowWidth({ wait: 100, leading: true });
 
     return (
         <>

@@ -12,6 +12,11 @@ module.exports = {
                 source: "/posts",
                 destination: "/",
                 permanent: false,
+            },
+            {
+                source: "/bio",
+                destination: "/about",
+                permanent: false,
             }
         ]
     }

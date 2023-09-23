@@ -2,8 +2,10 @@ import NextImage from "next/image";
 import imageWidthTree from "@/markdown/imageTree";
 import Tag from "@/components/misc/Tag";
 import { createHash } from "crypto";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Modal from "@/components/misc/Modal";
+
+const videoExtensions = ["avi", "mp4", "webm", "ogg"];
 
 interface ImageProps {
     alt: string;
@@ -13,6 +15,7 @@ interface ImageProps {
     width?: string;
     float?: string;
     label?: string;
+    autoplay?: boolean;
     nextImgSize?: [number, number];
     resourceMap?: { [key: string]: string };
     imgClasses?: string;
@@ -26,16 +29,24 @@ const Image = ({
     width,
     float = "right",
     label,
+    autoplay = false,
     nextImgSize = [500, 500],
     resourceMap = {},
     imgClasses = "",
 }: ImageProps) => {
     let [imageStyleId, setImageStyleId] = useState("");
     let [imageStyleWidthTree, setImageStyleWidthTree] = useState<null | string>(null);
+    const extension = resourceMap[src].split(".").pop();
     const [margin, setMargin] = useState({ marginLeft: "0px", marginRight: "0px" });
     const [tagPos, setTagPos] = useState("");
     const [enlarged, setEnlarged] = useState(false);
     const requestedWidth = width ? parseInt(width) : 36;
+
+    const makeEnlarged = useCallback(() => {
+        if (!videoExtensions.includes(extension || "")) {
+            setEnlarged(true);
+        }
+    }, [extension]);
 
     useEffect(() => {
         if (stylize) {
@@ -57,24 +68,35 @@ const Image = ({
                     setTagPos("br");
                     return;
                 case "none":
-                    setMargin({marginRight: "auto", marginLeft: "auto"});
+                    setMargin({ marginRight: "auto", marginLeft: "auto" });
                     setTagPos("br");
             }
         }
     }, []);
 
-    const imageElement = (classes?: string) => (
-        <NextImage
-            alt={alt}
-            src={resourceMap[src]}
-            title={title}
-            width={nextImgSize[0]}
-            height={nextImgSize[1]}
-            className={(classes || "") + imgClasses + " w-full h-full"}
-            placeholder="blur"
-            blurDataURL={resourceMap[src]}
-        />
-    );
+    const imgProps = {
+        alt: alt,
+        src: resourceMap[src],
+        title: title,
+        width: nextImgSize[0],
+        height: nextImgSize[1],
+    };
+
+    let mediaItem: JSX.Element;
+    if (videoExtensions.includes(extension || "")) {
+        mediaItem = (
+            <video
+                className={`rounded-xl border-slate-300 border-[2px] w-full h-full ${imgClasses}`}
+                controls
+                autoPlay={autoplay}
+            >
+                <source src={resourceMap[src]} type={`video/${extension}`} />
+            </video>
+        );
+    } else {
+        mediaItem = <NextImage {...imgProps} className={`rounded-xl w-full h-full border-slate-300 border-[2px] ${imgClasses}`} />;
+    }
+    
 
     return (
         <div className="hover:drop-shadow-2xl">
@@ -82,11 +104,11 @@ const Image = ({
                 className="rounded-2xl drop-shadow-5xl-c fixed p-7"
                 open={enlarged}
                 onClose={() => setEnlarged(false)}
-                setOpen={() => setEnlarged(false)}
+                setOpen={makeEnlarged}
             >
                 <div className="p-0 relative">
                     {label && <Tag position={tagPos}>{label}</Tag>}
-                    {imageElement("rounded-xl border-slate-300 border-[2px] h-[90vh] w-auto")}
+                    {mediaItem}
                 </div>
             </Modal>
 
@@ -97,7 +119,7 @@ const Image = ({
                 style={margin && { float: float as "right" | "left" | "none", ...margin }}
             >
                 {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}
-                <a onClick={() => setEnlarged(true)}>{imageElement(enlarged ? "blur" : "")}</a>
+                <a onClick={makeEnlarged}>{mediaItem}</a>
             </div>
         </div>
     );

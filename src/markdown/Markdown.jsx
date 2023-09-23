@@ -15,7 +15,7 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
                 handlers: { imgBlock: imgBlockHandler, image: imgHandler },
             }}
             components={{
-                img: ({ node, ...props }) => (
+                img: ({ node, ...props }) => {console.log(props); return (
                     <MdImage
                         alt={props.alt}
                         title={props.title}
@@ -23,9 +23,10 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
                         width={props.width}
                         float={props.float}
                         label={props.alt}
+                        autoplay={props.autoPlay && props.autoPlay == "true"}
                         resourceMap={resourceMap}
                     />
-                ),
+                )},
                 imgBlock: ({ node, ...props }) => (
                     <ImageBlock
                         alts={props.alts}
