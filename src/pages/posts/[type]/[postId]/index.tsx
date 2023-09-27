@@ -83,6 +83,7 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
                     name="description"
                     content={description}
                 />
+                <link rel="og:image" href={cover} />
             </Head>
             <MainLayout title={toTitleCase(title)} header={false} defaultMetadata={false}>
                 <div className="mt-[12px] overflow-visible">
