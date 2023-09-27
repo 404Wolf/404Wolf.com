@@ -84,7 +84,7 @@ const Post = ({ type, id, title, cover, description, tags, markdown, resources }
                     content={description}
                 />
             </Head>
-            <MainLayout title={toTitleCase(title)} header={false}>
+            <MainLayout title={toTitleCase(title)} header={false} defaultMetadata={false}>
                 <div className="mt-[12px] overflow-visible">
                     {session.status === "authenticated" && (
                         <div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">

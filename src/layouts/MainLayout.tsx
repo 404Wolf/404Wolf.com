@@ -4,6 +4,7 @@ import { RefObject, useEffect, useState } from "react";
 import BasicContacts from "../components/contacts/BasicContacts";
 import Header from "./header/Header";
 import ProfileButton from "@/components/auth/ProfileButton";
+import Head from "next/head";
 
 interface MainLayoutProps {
     children: React.ReactNode;
@@ -13,6 +14,7 @@ interface MainLayoutProps {
     onTitleEdit?: (text: string) => void;
     titleRef?: RefObject<HTMLDivElement>;
     header?: boolean;
+    defaultMetadata?: boolean;
     headerChildren?: JSX.Element;
     subtitleFixedWidth?: string;
     containerClasses?: string;
@@ -25,6 +27,7 @@ const MainLayout = ({
     editableTitle = false,
     onTitleEdit,
     titleRef,
+    defaultMetadata = true,
     header = true,
     headerChildren,
     subtitleFixedWidth,
@@ -40,51 +43,60 @@ const MainLayout = ({
     }, []);
 
     return (
-        <div className={containerClasses}>
-            <div
-                className={`relative pt-7 sm:pt-8 duration-100 ${
-                    blurred ? "blur-sm contrast-75" : ""
-                }`}
-            >
-                {title && editableTitle ? (
-                    <div
-                        className={titleElementClasses}
-                        onInput={(e) => {
-                            if (onTitleEdit) onTitleEdit(e.currentTarget.textContent || "");
-                        }}
-                        contentEditable="true"
-                        ref={titleRef}
-                    />
-                ) : (
-                    <Link href="/">
-                        <div className={titleElementClasses}>{title}</div>
-                    </Link>
-                )}
-
-                <div className={"hidden sm:block fixed bottom-2 right-2"}>
-                    <ProfileButton size={18} />
-                </div>
-
-                <div className="hidden sm:block absolute sm:fixed sm:top-[7.7rem] -sm:right-[8rem] md:-right-[7.7rem] sm:rotate-90">
-                    <BasicContacts />
-                </div>
-
-                <div className="bg-slate-500 p-6 rounded-3xl drop-shadow-4xl-c">
-                    {header && (
-                        <div className="pb-9">
-                            <Tile fixedTitleWidth={subtitleFixedWidth}>
-                                <Header
-                                    setBackgroundBlurred={setBlurred}
-                                    children={headerChildren}
-                                />
-                            </Tile>
-                        </div>
+        <>
+            {defaultMetadata && <Head>
+                <meta name="title" content="Wolf Mermelstein Personal Website" />
+                <meta
+                    name="description"
+                    content="Enter the world of a creative student who loves tinkering, coding, Latin, tabletop, and more. Discover a portfolio of projects and blogs, and get their contacts."
+                />
+            </Head>}
+            <div className={containerClasses}>
+                <div
+                    className={`relative pt-7 sm:pt-8 duration-100 ${
+                        blurred ? "blur-sm contrast-75" : ""
+                    }`}
+                >
+                    {title && editableTitle ? (
+                        <div
+                            className={titleElementClasses}
+                            onInput={(e) => {
+                                if (onTitleEdit) onTitleEdit(e.currentTarget.textContent || "");
+                            }}
+                            contentEditable="true"
+                            ref={titleRef}
+                        />
+                    ) : (
+                        <Link href="/">
+                            <div className={titleElementClasses}>{title}</div>
+                        </Link>
                     )}
 
-                    {children}
+                    <div className={"hidden sm:block fixed bottom-2 right-2"}>
+                        <ProfileButton size={18} />
+                    </div>
+
+                    <div className="hidden sm:block absolute sm:fixed sm:top-[7.7rem] -sm:right-[8rem] md:-right-[7.7rem] sm:rotate-90">
+                        <BasicContacts />
+                    </div>
+
+                    <div className="bg-slate-500 p-6 rounded-3xl drop-shadow-4xl-c">
+                        {header && (
+                            <div className="pb-9">
+                                <Tile fixedTitleWidth={subtitleFixedWidth}>
+                                    <Header
+                                        setBackgroundBlurred={setBlurred}
+                                        children={headerChildren}
+                                    />
+                                </Tile>
+                            </div>
+                        )}
+
+                        {children}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

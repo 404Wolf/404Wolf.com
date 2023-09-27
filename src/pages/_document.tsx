@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
 
 export default function Document() {
     return (
@@ -8,11 +7,6 @@ export default function Document() {
             className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[100rem] mx-auto"
         >
             <Head>
-                <meta name="title" content="Wolf Mermelstein Personal Website" />
-                <meta
-                    name="description"
-                    content="Enter the world of a creative student who loves tinkering, coding, Latin, tabletop, and more. Discover a portfolio of projects and blogs, and get their contacts."
-                />
                 <meta
                     name="keywords"
                     content="portfolio, personal, creative, curious, expansive, projects, blogs, Wolf Mermelstein, Mermelstein, New York, Brooklyn, engineering, design, tinkering, exploration, STEM, interdisciplinary, maker, explorer, contrive, create, empassion"
@@ -23,8 +17,6 @@ export default function Document() {
                 <meta name="author" content="Wolf Mermelstein" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            
 
             <body>
                 <Main />
