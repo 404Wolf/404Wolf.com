@@ -1,0 +1,69 @@
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import {
+    addResource,
+    getResource,
+    removeResource,
+    resourceUrl,
+    uploadFileLink,
+} from "@/utils/aws";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const session = await getServerSession(req, res, authOptions);
+    if (session === null && req.method !== "GET") {
+        res.status(401).json({
+            status: "Error",
+            message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
+        });
+        return;
+    }
+    req.body = JSON.parse(req.body);
+
+    const objectName = req.headers.objectName as string;
+
+    if (!objectName) {
+        res.status(400).json({
+            status: "Error",
+            message: "Missing objectName.",
+        });
+        return;
+    }
+
+    switch (req.method) {
+        case "GET": {
+            const encoding = req.headers.encoding as "b64" | "str";
+
+            const resource = await getResource(objectName, encoding || "str");
+            if (!resource) {
+                res.status(404).json({
+                    status: "Error",
+                    message: "Resource not found.",
+                });
+                return;
+            }
+
+            res.status(200).json({
+                status: "Success",
+                data: resource,
+            });
+            return;
+        }
+        case "POST": {
+            const dataType = req.body.dataType as "b64" | "str";
+            const data = req.body.data;
+            const mimeType = (req.body.mimeType || "application/octet-stream") as string;
+
+            if (!dataType || !data) {
+                res.status(400).json({
+                    status: "Error",
+                    message: "Missing required field.",
+                });
+                return;
+            }
+
+            if (dataType === "str") addResource(objectName, data, "str", "text/plain");
+            else addResource(objectName, data, "b64", mimeType);
+        }
+    }
+}
