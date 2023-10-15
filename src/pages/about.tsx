@@ -3,6 +3,7 @@ import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
 import useSize from "@/utils/useSize";
 import Markdown from "@/markdown/Markdown.jsx";
+import EditorArea from "@/components/editor/Editor";
 
 const About = () => {
     const [aboutMd, setAboutMd] = useState("Loading...");
@@ -16,7 +17,9 @@ const About = () => {
 
     const headerChildren = (
         <p>
-            Welcome to the about page, where you can find more information about who I am, why I'm interested in CS, and what I can do. Feel free to reach out if you have any questions, and thank you for spending time getting to know me better!
+            Welcome to the about page, where you can find more information about who I am, why I'm
+            interested in CS, and what I can do. Feel free to reach out if you have any questions,
+            and thank you for spending time getting to know me better!
         </p>
     );
 
@@ -24,8 +27,8 @@ const About = () => {
         <MainLayout header headerChildren={headerChildren} title="About">
             <Tile title="About">
                 <div className="markdown pt-2 md:pt-1">
-                    <Markdown
-                        markdown={aboutMd}
+                    <EditorArea
+                        objectName="about-extended.md"
                         resourceMap={{ profileMe: "/resources/profileMe.webp" }}
                     />
                 </div>

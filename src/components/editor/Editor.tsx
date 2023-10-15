@@ -8,9 +8,15 @@ interface EditorAreaProps {
     prefetch?: boolean;
     requireAuth?: boolean;
     objectName: string;
+    resourceMap?: { [key: string]: string };
 }
 
-const EditorArea = ({ prefetch = true, requireAuth = true, objectName }: EditorAreaProps) => {
+const EditorArea = ({
+    prefetch = true,
+    requireAuth = true,
+    objectName,
+    resourceMap = {},
+}: EditorAreaProps) => {
     const editorArea = useRef<HTMLDivElement>(null);
     const [inEditMode, setInEditMode] = useState(false);
     const session = useSession();
@@ -106,7 +112,7 @@ const EditorArea = ({ prefetch = true, requireAuth = true, objectName }: EditorA
             )}
             {!inEditMode && (
                 <div className="mt-2">
-                    <Markdown markdown={editorContentCurrentText} />
+                    <Markdown markdown={editorContentCurrentText} resourceMap={resourceMap} />
                 </div>
             )}
         </div>
