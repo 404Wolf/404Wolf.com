@@ -18,23 +18,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
         return;
     }
-    req.body = JSON.parse(req.body);
+    if (req.body) req.body = JSON.parse(req.body);
 
-    const objectName = req.headers.objectName as string;
+    const objectName = req.headers.object as string;
 
     if (!objectName) {
         res.status(400).json({
             status: "Error",
-            message: "Missing objectName.",
+            message: "Missing object name.",
         });
         return;
     }
 
     switch (req.method) {
         case "GET": {
-            const encoding = req.headers.encoding as "b64" | "str";
+            const encoding = req.headers.encoding as string;
 
-            const resource = await getResource(objectName, encoding || "str");
+            const resource = await getResource(objectName, encoding || "utf-8");
             if (!resource) {
                 res.status(404).json({
                     status: "Error",
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return;
         }
         case "POST": {
-            const dataType = req.body.dataType as "b64" | "str";
+            const dataType = req.body["dataType"] as "b64" | "str";
             const data = req.body.data;
             const mimeType = (req.body.mimeType || "application/octet-stream") as string;
 
@@ -64,6 +64,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             if (dataType === "str") addResource(objectName, data, "str", "text/plain");
             else addResource(objectName, data, "b64", mimeType);
+
+            res.status(200).json({
+                status: "Success",
+            });
         }
     }
 }

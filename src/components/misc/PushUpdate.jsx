@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import CircleButton from "./CircleButton";
+import CircleButton from "../posts/editor/CircleButton";
 
-const UpdatePost = ({ pushPostUpdates }) => {
+const PushUpdate = ({ pushPostUpdates }) => {
     const [updating, setUpdating] = useState();
     const [wheelRotation, setWheelRotation] = useState(0);
     const [rotationInterval, setRotationInterval] = useState(null);
@@ -29,10 +29,10 @@ const UpdatePost = ({ pushPostUpdates }) => {
             <CircleButton
                 action={processUpdate}
                 iconSrc="/icons/sync.svg"
-                iconAlt="Sync post with database button"
+                iconAlt="Update"
             />
         </div>
     );
 };
 
-export default UpdatePost;
+export default PushUpdate;

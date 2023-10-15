@@ -8,7 +8,7 @@ import Restricted from "@/layouts/Restricted";
 import { PrismaClient } from "@prisma/client";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import UpdatePost from "@/components/posts/editor/UpdatePost";
+import PushUpdate from "@/components/misc/PushUpdate";
 import Tags from "@/components/posts/Tags";
 import GotoViewer from "@/components/posts/editor/GotoViewer";
 import Tile from "@/components/misc/Tiles/Tile";
@@ -189,7 +189,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                             <DeletePost postId={currentPostId} postType={currentPostType} />
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
-                            <UpdatePost pushPostUpdates={pushPostUpdates} />
+                            <PushUpdate pushPostUpdates={pushPostUpdates} />
                         </div>
                     </div>
 

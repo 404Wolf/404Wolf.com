@@ -15,7 +15,6 @@ import { readFileSync } from "fs";
 import MakeApmt from "@/components/misc/MakeApmt";
 import { useSession } from "next-auth/react";
 import EditorArea from "@/components/editor/Editor";
-import ToggleEdit from "@/components/misc/ToggleEdit";
 
 const prisma = new PrismaClient();
 
@@ -65,38 +64,7 @@ const Home = ({ posts }: HomeProps) => {
     const about = useAbout();
     const [basicAbout, setBasicAbout] = useState("Loading...");
     const [makeApmtOpen, setMakeApmtOpen] = useState(false);
-    const [isEditingAbout, setIsEditingAbout] = useState(false);
     const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
-
-    useEffect(() => {
-        if (isEditingAbout) {
-            fetch(`/api/objects`, {
-                method: "GET",
-                headers: {
-                    objectName: "basic-about.md",
-                },
-            })
-                .then((res) => res.json())
-                .then((res) => {
-                    if (res.status === "Success") setBasicAbout(res.data);
-                });
-        } else {
-            if (basicAbout === "Loading...") return;
-
-            const body = {
-                dataType: "str",
-                data: basicAbout,
-            };
-
-            fetch(`/api/objects`, {
-                method: "POST",
-                body: JSON.stringify(body),
-                headers: {
-                    objectName: "basic-about.md",
-                },
-            });
-        }
-    }, [isEditingAbout]);
 
     useEffect(() => {
         if (basicAbout === "Loading...")
@@ -169,32 +137,12 @@ const Home = ({ posts }: HomeProps) => {
 
                         <div className="basis-[75%]">
                             <Tile
-                                className={
-                                    (basicAbout === "loading" ? "animate-pulse" : "") +
-                                    (isEditingAbout ? " border-8 border-slate-400" : "")
-                                }
                                 title="About"
                                 fixedTitleWidth={tileTitleWidths}
                             >
-                                {session.status === "authenticated" && (
-                                    <div className="absolute z-50 -top-3 -right-3">
-                                        <ToggleEdit
-                                            isEditing={isEditingAbout}
-                                            setIsEditing={setIsEditingAbout}
-                                        />
-                                    </div>
-                                )}
-                                {session.status === "authenticated" && isEditingAbout ? (
-                                    <EditorArea
-                                        objectName="basicAbout"
-                                        currentText={basicAbout}
-                                        setCurrentText={setBasicAbout}
-                                    />
-                                ) : (
-                                    <div className="mt-2">
-                                        <Markdown markdown={basicAbout} />
-                                    </div>
-                                )}
+                                <EditorArea
+                                    objectName="basic-about.md"
+                                />
                             </Tile>
                         </div>
                     </div>
