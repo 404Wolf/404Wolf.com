@@ -15,6 +15,7 @@ import { readFileSync } from "fs";
 import MakeApmt from "@/components/misc/MakeApmt";
 import { useSession } from "next-auth/react";
 import EditorArea from "@/components/editor/Editor";
+import { getResource } from "@/utils/aws";
 
 const prisma = new PrismaClient();
 
@@ -32,6 +33,7 @@ export async function getServerSideProps() {
 
     return {
         props: {
+            basicAbout: await getResource("basic-about.md", "utf-8"),
             posts: featuredPosts.map((post) => {
                 const covers = post.resources.filter((resource) =>
                     post.covers.includes(resource.id)
@@ -53,23 +55,18 @@ export async function getServerSideProps() {
 
 interface HomeProps {
     posts: BasicPostData[];
+    basicAbout: string;
 }
 
-const Home = ({ posts }: HomeProps) => {
+const Home = ({ posts, basicAbout }: HomeProps) => {
     const profileImageMe = "/resources/profileMeAlt.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
     const session = useSession();
     const screenSize = useSize();
     const about = useAbout();
-    const [basicAbout, setBasicAbout] = useState("Loading...");
     const [makeApmtOpen, setMakeApmtOpen] = useState(false);
     const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
-
-    useEffect(() => {
-        if (basicAbout === "Loading...")
-            fetch("/home.md").then((info) => info.text().then((info) => setBasicAbout(info)));
-    }, []);
 
     const [profileImageSrc, setProfileImageSrc] = useState(profileImageMe);
     const profileImage = (
@@ -136,11 +133,9 @@ const Home = ({ posts }: HomeProps) => {
                         </div>
 
                         <div className="basis-[75%]">
-                            <Tile
-                                title="About"
-                                fixedTitleWidth={tileTitleWidths}
-                            >
+                            <Tile title="About" fixedTitleWidth={tileTitleWidths}>
                                 <EditorArea
+                                    startingText={basicAbout}
                                     objectName="basic-about.md"
                                 />
                             </Tile>

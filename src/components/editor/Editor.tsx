@@ -5,23 +5,23 @@ import Markdown from "@/markdown/Markdown";
 import { useSession } from "next-auth/react";
 
 interface EditorAreaProps {
-    prefetch?: boolean;
+    startingText?: string;
     requireAuth?: boolean;
     objectName: string;
     resourceMap?: { [key: string]: string };
 }
 
 const EditorArea = ({
-    prefetch = true,
     requireAuth = true,
     objectName,
+    startingText,
     resourceMap = {},
 }: EditorAreaProps) => {
     const editorArea = useRef<HTMLDivElement>(null);
     const [inEditMode, setInEditMode] = useState(false);
     const session = useSession();
 
-    const [editorContentCurrentText, setEditorContentCurrentText] = useState("Loading...");
+    const [editorContentCurrentText, setEditorContentCurrentText] = useState(startingText);
     const editorContent = {
         get: () => {
             return editorContentCurrentText;
@@ -58,7 +58,7 @@ const EditorArea = ({
                 })
                 .then(() => {
                     setTimeout(() => {
-                        if (editorArea.current)
+                        if (editorArea.current && editorContentCurrentText)
                             editorArea.current.innerText = editorContentCurrentText;
                     }, 0);
                 });
@@ -66,7 +66,7 @@ const EditorArea = ({
     };
 
     useEffect(() => {
-        if (prefetch) editorContent.fetch();
+        if (!startingText) editorContent.fetch();
     }, []);
 
     return (

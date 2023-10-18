@@ -4,16 +4,22 @@ import MainLayout from "@/layouts/MainLayout";
 import useSize from "@/utils/useSize";
 import Markdown from "@/markdown/Markdown.jsx";
 import EditorArea from "@/components/editor/Editor";
+import { getResource } from "@/utils/aws";
 
-const About = () => {
-    const [aboutMd, setAboutMd] = useState("Loading...");
+export const getServerSideProps = async () => {
+    const defaultAbout = getResource("about-extended.md", "utf-8");
+
+    return {
+        props: { defaultAbout: await defaultAbout },
+    };
+};
+
+interface AboutProps {
+    defaultAbout: string;
+}
+
+const About = ({ defaultAbout }: AboutProps) => {
     const screenSize = useSize();
-
-    useEffect(() => {
-        fetch("/about.md")
-            .then((res) => res.text())
-            .then((text) => setAboutMd(text));
-    }, [screenSize]);
 
     const headerChildren = (
         <p>
@@ -28,6 +34,7 @@ const About = () => {
             <Tile title="About">
                 <div className="markdown pt-2 md:pt-1">
                     <EditorArea
+                        startingText={defaultAbout}
                         objectName="about-extended.md"
                         resourceMap={{ profileMe: "/resources/profileMe.webp" }}
                     />
