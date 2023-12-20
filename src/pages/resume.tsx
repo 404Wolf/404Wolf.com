@@ -30,7 +30,7 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
     const [pdfKey, setPdfKey] = useState(0);
 
     const reloadPdf = useCallback(() => {
-        // Change the key to force re-render. 
+        // Change the key to force re-render.
         // Do this twice since we don't know how long AWS will take to update.
         setTimeout(() => setPdfKey((prevKey) => prevKey + 1), 1000);
         setTimeout(() => setPdfKey((prevKey) => prevKey + 1), 3000);
@@ -74,7 +74,9 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
         onDrop: uploadResumeDrop,
     });
 
-    if (session.status !== "unauthenticated") {
+    if (session.status === "loading") {
+        return <StatusLayout name="loading">Loading...</StatusLayout>;
+    } else if (session.status === "authenticated") {
         return (
             <MainLayout title="Resume" header={false}>
                 <div className="mt-3 pl-[10%] pr-[10%]">
@@ -84,7 +86,7 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
                                 <Document
                                     file={pdfPath}
                                     key={pdfKey}
-                                    className="relative cursor-copy	"
+                                    className="relative cursor-copy"
                                 >
                                     <Tag position="tl">Preview</Tag>
                                     <Page
@@ -104,12 +106,8 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
             </MainLayout>
         );
     } else {
-        useEffect(() => {
-            // Redirect the user to the PDF file URL
-            router.push(pdfPath);
-        }, [router, pdfPath]);
-
-        return <StatusLayout children={"Loading resume..."} name={"Loading..."} />;
+        // Redirect the user to the PDF file URL
+        router.push(pdfPath);
     }
 };
 
