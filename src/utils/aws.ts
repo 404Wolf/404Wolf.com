@@ -9,7 +9,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const s3 = {
     client: new S3Client({ region: "us-east-2" }),
-    bucket: "wolf-mermelstein-personal-website",
+    bucket: process.env.AWS_BUCKET_NAME,
     region: "us-east-2",
 };
 
@@ -92,6 +92,5 @@ export async function uploadFileLink(filename: string) {
         Bucket: s3.bucket,
         Key: filename,
     });
-    const url = await getSignedUrl(s3.client, command, { expiresIn: 60 });
-    return url
+    return await getSignedUrl(s3.client, command, { expiresIn: 60 });
 }

@@ -2,7 +2,6 @@ import Head from "next/head";
 import MainLayout from "@/layouts/MainLayout";
 import { useEffect, useRef, useState } from "react";
 import Markdown from "@/markdown/Markdown";
-import TagsInput from "react-tagsinput";
 import { useSession } from "next-auth/react";
 import Restricted from "@/layouts/Restricted";
 import { PrismaClient } from "@prisma/client";
@@ -105,7 +104,7 @@ interface EditorProps {
 const Editor = ({ post, resources }: EditorProps) => {
     const session = useSession();
     const router = useRouter();
-    if (session.status === "unauthenticated") router.push(`/posts/${post.type}/${post.id}`);
+    if (session.status !== "authenticated") router.push(`/posts/${post.type}/${post.id}`);
 
     const [resourceMap, setResourceMap] = useState({});
     const [allResources, setAllResources] = useState(resources);
