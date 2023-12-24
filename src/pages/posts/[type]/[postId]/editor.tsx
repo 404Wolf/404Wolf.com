@@ -19,6 +19,7 @@ import Field from "@/components/posts/editor/Field";
 import DeletePost from "@/components/posts/editor/DeletePost";
 import { ShowTabTile } from "@/components/misc/Tiles/Tabs";
 import TextareaAutosize from "react-textarea-autosize";
+import StatusLayout from "@/layouts/StatusLayout";
 
 const prisma = new PrismaClient();
 
@@ -104,7 +105,12 @@ interface EditorProps {
 const Editor = ({ post, resources }: EditorProps) => {
     const session = useSession();
     const router = useRouter();
-    if (session.status !== "authenticated") router.push(`/posts/${post.type}/${post.id}`);
+    const [ready, setReady] = useState(false);
+
+    useEffect(() => {
+        if (session.status === "unauthenticated") router.push(`/posts/${post.type}/${post.id}`);
+        else setReady(true);
+        }, []);
 
     const [resourceMap, setResourceMap] = useState({});
     const [allResources, setAllResources] = useState(resources);
@@ -164,6 +170,8 @@ const Editor = ({ post, resources }: EditorProps) => {
             />
         </div>
     );
+
+    if (!ready) return <StatusLayout name={"Loading..."}>Loading...</StatusLayout>
 
     return (
         <Restricted>
