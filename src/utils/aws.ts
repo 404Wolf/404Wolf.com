@@ -9,9 +9,12 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const s3 = {
     client: new S3Client({ region: "us-east-2" }),
-    bucket: process.env.AWS_BUCKET_NAME,
+    bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME as string,
     region: "us-east-2",
 };
+
+if (s3.bucket === undefined || s3.client === undefined)
+    throw Error("S3 client was not set up correctly")
 
 export function resourceUrl(key: string) {
     return `https://${s3.bucket}.s3.${s3.region}.amazonaws.com/${key}`;

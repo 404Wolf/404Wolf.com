@@ -21,6 +21,7 @@
     "@types/unist": "^3.0.0",
     "create-next-app": "^13.4.9",
     "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
     "next": "^13.4.10",
     "next-auth": "^4.22.1",
     "next-superjson-plugin": "^0.5.9",

@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
 import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
 import useSize from "@/utils/useSize";
-import Markdown from "@/markdown/Markdown.jsx";
 import EditorArea from "@/components/editor/Editor";
 import { getResource } from "@/utils/aws";
 
 export const getServerSideProps = async () => {
-    const defaultAbout = getResource("about-extended.md", "utf-8");
+    const defaultAbout = getResource(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string, "utf-8");
 
     return {
         props: { defaultAbout: await defaultAbout },
@@ -35,7 +33,7 @@ const About = ({ defaultAbout }: AboutProps) => {
                 <div className="markdown pt-2 md:pt-1">
                     <EditorArea
                         startingText={defaultAbout}
-                        objectName="about-extended.md"
+                        objectName={process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string}
                         resourceMap={{ profileMe: "/resources/profileMe.webp" }}
                     />
                 </div>

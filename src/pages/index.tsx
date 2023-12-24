@@ -33,7 +33,7 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            basicAbout: await getResource("basic-about.md", "utf-8"),
+            basicAbout: await getResource(process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME as string, "utf-8"),
             posts: featuredPosts.map((post) => {
                 const covers = post.resources.filter((resource) =>
                     post.covers.includes(resource.id)
@@ -136,7 +136,7 @@ const Home = ({ posts, basicAbout }: HomeProps) => {
                             <Tile title="About" fixedTitleWidth={tileTitleWidths}>
                                 <EditorArea
                                     startingText={basicAbout}
-                                    objectName="basic-about.md"
+                                    objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME as string}
                                 />
                             </Tile>
                         </div>
