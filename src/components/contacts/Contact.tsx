@@ -1,14 +1,15 @@
 import Tag from "../misc/Tag";
 import ContactIcon from "@/components/contacts/ContactIcon";
 
-interface ContactProps {
+export interface ContactProps {
     name: string;
     username: string;
-    url: string;
+    url?: string;
     icon: string | null;
     at?: boolean;
     textSize?: string;
     key: number;
+    link?: string;
 }
 
 const Contact = ({

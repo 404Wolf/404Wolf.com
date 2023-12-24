@@ -36,6 +36,8 @@ const Image = ({
 }: ImageProps) => {
     let [imageStyleId, setImageStyleId] = useState("");
     let [imageStyleWidthTree, setImageStyleWidthTree] = useState<null | string>(null);
+    if (!Object.keys(resourceMap).includes(src))
+        resourceMap[src] = "";
     const extension = resourceMap[src].split(".").pop();
     const [margin, setMargin] = useState({ marginLeft: "0px", marginRight: "0px" });
     const [tagPos, setTagPos] = useState("");

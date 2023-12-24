@@ -1,16 +1,13 @@
-import { Contact } from "@prisma/client";
 import { useEffect, useState } from "react";
+import type { Prisma } from '@prisma/client'; // Import type for Prisma Client
 
-const useContacts = (): Contact[] => {
-    const [contacts, setContacts] = useState<Contact[]>([]);
+const useContacts = () => {
+    const [contacts, setContacts] = useState([]);
 
     useEffect(() => {
-        const fetchAbout = async () => {
-            const response = await fetch('/api/contacts');
-            const contacts = await response.json();
-            setContacts(contacts);
-        }
-        fetchAbout();
+        fetch('/api/contacts')
+            .then(resp => resp.json())
+            .then(data => setContacts(data));
     }, []);
 
     return contacts;

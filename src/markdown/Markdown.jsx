@@ -6,7 +6,6 @@ import { imgBlockHandler, imgHandler } from "./hast-handlers.js";
 import CodeBlock from "@/markdown/CodeBlock";
 
 const Markdown = ({ markdown, resourceMap = {} }) => {
-    console.log(markdown)
     return (
         <ReactMarkdown
             children={markdown}

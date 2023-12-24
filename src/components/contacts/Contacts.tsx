@@ -1,6 +1,6 @@
 "use client";
 
-import Contact from "@/components/contacts/Contact";
+import Contact, { ContactProps as ContactType } from "@/components/contacts/Contact";
 import useContacts from "../about/useContacts";
 import useAbout from "../about/useAbout";
 
@@ -30,7 +30,7 @@ const Contacts = () => {
                     />
                 </>
             )}
-            {contacts.map((contact, index) => {
+            {contacts.map((contact: ContactType, index) => {
                 return (
                     <>
                         <Contact
