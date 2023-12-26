@@ -1,10 +1,9 @@
-import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import {addResource, getResource,} from "@/utils/aws";
 import type {NextApiRequest, NextApiResponse} from "next";
-import {getServerSession} from "next-auth";
+import {auth} from "@/auth/auth";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const session = await getServerSession(req, res, authOptions);
+    const session = await auth();
     if (session === null && req.method !== "GET") {
         res.status(401).json({
             status: "Error",

@@ -3,6 +3,7 @@ import {addResource, getResource, removeResource, resourceUrl} from "@/utils/aws
 import type {NextApiRequest, NextApiResponse} from "next";
 import {getServerSession} from "next-auth";
 import {PrismaClient} from "prisma/prisma-client";
+import {auth} from "@/auth/auth";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     const id = req.query.id;
-    const session = await getServerSession(req, res, authOptions);
+    const session = await auth();
     if (session === null && req.method !== "GET") {
         res.status(401).json({
             status: "Error",
