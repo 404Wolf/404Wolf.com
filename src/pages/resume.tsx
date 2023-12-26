@@ -1,17 +1,16 @@
 import { GetServerSideProps } from "next";
-import React, { useCallback, useEffect, useState } from "react";
-import fs from "fs";
-import path from "path";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import StatusLayout from "@/layouts/StatusLayout";
 import { resourceUrl } from "@/utils/aws";
 import { useSession } from "next-auth/react";
 import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
-import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
 import Tag from "@/components/misc/Tag";
+import CircleButton from "@/components/posts/editor/CircleButton";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -19,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         // Resume is the object with env RESUME_OBJECT_NAME
         props: {
             pdfPath:
-                process.env.RESUME_OBJECT_NAME && resourceUrl(process.env.RESUME_OBJECT_NAME),
+                resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string),
         },
     };
 };
@@ -37,7 +36,7 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
     }, []);
 
     const uploadResumeDrop = useCallback(
-        (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
+        (acceptedFiles: File[]) => {
             // Only possible for one file to be accepted, so choose the first one
             const file = acceptedFiles[0];
             console.log(file);
@@ -70,7 +69,7 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
         []
     );
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const { getRootProps } = useDropzone({
         onDrop: uploadResumeDrop,
     });
 
@@ -80,6 +79,14 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
         return (
             <MainLayout title="Resume" header={false}>
                 <div className="mt-3 pl-[10%] pr-[10%]">
+                    <div className="-right-6 -top-6 absolute">
+                        <CircleButton
+                            externalSrc={pdfPath}
+                            iconSrc="/icons/view.svg"
+                            iconAlt="Go to current resume PDF"
+                        />
+                    </div>
+
                     <Tile>
                         <div className="pt-5">
                             <div {...getRootProps()} className="flex justify-center">
@@ -97,7 +104,8 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
                                     />
                                 </Document>
                             </div>
-                            <div className="border-2 border-slate-300 p-1 absolute bottom-5 right-5 bg-white drop-shadow-md rounded-xl">
+                            <div
+                                className="border-2 border-slate-300 p-1 absolute bottom-5 right-5 bg-white drop-shadow-md rounded-xl">
                                 Drag new resume on top to replace
                             </div>
                         </div>
