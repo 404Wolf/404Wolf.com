@@ -5,7 +5,7 @@ interface GotoViewerProps {
     postType: string;
 }
 
-const GotoViewer = ({ postId, postType }: GotoViewerProps) => {
+const GoToViewer = ({ postId, postType }: GotoViewerProps) => {
     return (
         <CircleButton
             internalSrc={`/posts/${postType}/${postId}`}
@@ -15,4 +15,4 @@ const GotoViewer = ({ postId, postType }: GotoViewerProps) => {
     );
 };
 
-export default GotoViewer;
+export default GoToViewer;

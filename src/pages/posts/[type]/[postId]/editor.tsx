@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import PushUpdate from "@/components/misc/PushUpdate";
 import Tags from "@/components/posts/Tags";
-import GotoViewer from "@/components/posts/editor/GotoViewer";
+import GoToViewer from "@/components/posts/editor/GoToViewer";
 import Tile from "@/components/misc/Tiles/Tile";
 import TabTile from "@/components/misc/Tiles/Tabs";
 import Resource from "@/components/posts/editor/resources/Resource";
@@ -190,7 +190,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                     <div className="absolute -top-6 right-0 flex gap-1">
                         <Tags tags={postStates.tags[0]} setTags={postStates.tags[1]} />
                         <div className="-translate-y-6 scale-[90%] -mr-1">
-                            <GotoViewer postId={postStates.id[0]} postType={postStates.type[0]} />
+                            <GoToViewer postId={postStates.id[0]} postType={postStates.type[0]} />
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
                             <DeletePost postId={currentPostId} postType={currentPostType} />

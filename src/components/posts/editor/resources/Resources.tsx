@@ -168,7 +168,11 @@ const Resources = ({
                         covers: newCovers,
                     }),
                 }).then((resp) => {
-                    if (resp.ok) setCovers(newCovers as string[]);
+                    if (resp.ok) {
+                        setCovers(newCovers as string[]);
+                        console.log("Made image a cover image")
+                    }
+                    else console.log("Failed to change cover")
                 });
             }
         },

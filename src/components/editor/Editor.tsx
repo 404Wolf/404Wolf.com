@@ -29,9 +29,6 @@ const EditorArea = ({
         set: (text: string) => {
             if (editorArea.current) editorArea.current.innerText = text;
         },
-        refresh: () => {
-            if (editorArea.current) editorContent.set(editorArea.current.innerText);
-        },
         push: async () => {
             const body = {
                 dataType: "str",
