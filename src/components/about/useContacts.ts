@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import type { Prisma } from '@prisma/client'; // Import type for Prisma Client
+import {useEffect, useState} from "react";
 
 const useContacts = () => {
     const [contacts, setContacts] = useState([]);
@@ -12,5 +11,5 @@ const useContacts = () => {
 
     return contacts;
 }
- 
+
 export default useContacts;

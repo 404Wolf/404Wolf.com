@@ -1,8 +1,8 @@
 import NextImage from "next/image";
 import imageWidthTree from "@/markdown/imageTree";
 import Tag from "@/components/misc/Tag";
-import { createHash } from "crypto";
-import { useCallback, useEffect, useState } from "react";
+import {createHash} from "crypto";
+import {useCallback, useEffect, useState} from "react";
 import Modal from "@/components/misc/Modal";
 
 const videoExtensions = ["avi", "mp4", "webm", "ogg"];
@@ -22,24 +22,24 @@ interface ImageProps {
 }
 
 const Image = ({
-    alt,
-    src,
-    title,
-    stylize = true,
-    width,
-    float = "right",
-    label,
-    autoplay = false,
-    nextImgSize = [500, 500],
-    resourceMap = {},
-    imgClasses = "",
-}: ImageProps) => {
+                   alt,
+                   src,
+                   title,
+                   stylize = true,
+                   width,
+                   float = "right",
+                   label,
+                   autoplay = false,
+                   nextImgSize = [500, 500],
+                   resourceMap = {},
+                   imgClasses = "",
+               }: ImageProps) => {
     let [imageStyleId, setImageStyleId] = useState("");
     let [imageStyleWidthTree, setImageStyleWidthTree] = useState<null | string>(null);
     if (!Object.keys(resourceMap).includes(src))
         resourceMap[src] = "";
     const extension = resourceMap[src].split(".").pop();
-    const [margin, setMargin] = useState({ marginLeft: "0px", marginRight: "0px" });
+    const [margin, setMargin] = useState({marginLeft: "0px", marginRight: "0px"});
     const [tagPos, setTagPos] = useState("");
     const [enlarged, setEnlarged] = useState(false);
     const requestedWidth = width ? parseInt(width) : 36;
@@ -62,15 +62,15 @@ const Image = ({
 
             switch (float) {
                 case "left":
-                    setMargin({ marginRight: "10px", marginLeft: "0px" });
+                    setMargin({marginRight: "10px", marginLeft: "0px"});
                     setTagPos("br");
                     return;
                 case "right":
-                    setMargin({ marginRight: "0px", marginLeft: "10px" });
+                    setMargin({marginRight: "0px", marginLeft: "10px"});
                     setTagPos("br");
                     return;
                 case "none":
-                    setMargin({ marginRight: "auto", marginLeft: "auto" });
+                    setMargin({marginRight: "auto", marginLeft: "auto"});
                     setTagPos("br");
             }
         }
@@ -92,13 +92,14 @@ const Image = ({
                 controls
                 autoPlay={autoplay}
             >
-                <source src={resourceMap[src]} type={`video/${extension}`} />
+                <source src={resourceMap[src]} type={`video/${extension}`}/>
             </video>
         );
     } else {
-        mediaItem = <NextImage {...imgProps} className={`rounded-xl w-full h-full border-slate-300 border-[2px] ${imgClasses}`} />;
+        mediaItem = <NextImage {...imgProps}
+                               className={`rounded-xl w-full h-full border-slate-300 border-[2px] ${imgClasses}`}/>;
     }
-    
+
 
     return (
         <div className="hover:drop-shadow-2xl">
@@ -118,7 +119,7 @@ const Image = ({
             <div
                 id={imageStyleId}
                 className="relative cursor-pointer my-4"
-                style={margin && { float: float as "right" | "left" | "none", ...margin }}
+                style={margin && {float: float as "right" | "left" | "none", ...margin}}
             >
                 {label && !enlarged && <Tag position={tagPos}>{label}</Tag>}
                 <a onClick={makeEnlarged}>{mediaItem}</a>

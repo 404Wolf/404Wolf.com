@@ -1,9 +1,9 @@
-import { ReactNode, useEffect, useState } from "react";
+import {ReactNode, useState} from "react";
 import TileTitle from "./Title";
 import measure from "@/utils/measure";
 import useTitleWidth from "./useTitleWidth";
 import CircleButton from "@/components/posts/editor/CircleButton";
-import { useWindowWidth } from "@react-hook/window-size";
+import {useWindowWidth} from "@react-hook/window-size";
 
 interface TabTileProps {
     tabs: {
@@ -17,13 +17,13 @@ interface TabTileProps {
     setShown?: (show: boolean) => void;
 }
 
-const TabTile = ({ tabs, children, type = false, shown, setShown }: TabTileProps) => {
+const TabTile = ({tabs, children, type = false, shown, setShown}: TabTileProps) => {
     const windowWidth = useWindowWidth()
     const [currentTab, setCurrentTab] = useState(0);
     const titleWidths = tabs.map((tab) => useTitleWidth(tab.name));
     const showButton =
         shown !== undefined && setShown !== undefined ? (
-            <ShowTabTile shown={shown} setShown={setShown} />
+            <ShowTabTile shown={shown} setShown={setShown}/>
         ) : (
             <></>
         );
@@ -69,9 +69,9 @@ const TabTile = ({ tabs, children, type = false, shown, setShown }: TabTileProps
 };
 
 export function ShowTabTile({
-    shown,
-    setShown,
-}: {
+                                shown,
+                                setShown,
+                            }: {
     shown: boolean;
     setShown: (shown: boolean) => void;
 }) {
@@ -81,7 +81,8 @@ export function ShowTabTile({
                 action={
                     shown !== undefined && setShown !== undefined
                         ? () => setShown(!shown)
-                        : () => {}
+                        : () => {
+                        }
                 }
                 iconSrc="/icons/expand.svg"
                 iconAlt="Show additional post config area"
@@ -89,4 +90,5 @@ export function ShowTabTile({
         </div>
     );
 }
+
 export default TabTile;

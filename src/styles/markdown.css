@@ -25,13 +25,16 @@
     font-weight: 500;
     clear: both;
 }
+
 .markdown h3 {
     font-size: 1.35em;
     clear: both;
 }
+
 .markdown h4 {
     font-size: 1.2em;
 }
+
 .markdown h5,
 h6 {
     font-size: 1em;
@@ -70,6 +73,7 @@ p:not(li > p) {
     text-decoration-thickness: 1.4px;
     transition: color 0.15s;
 }
+
 .markdown a:hover {
     color: rgb(100 116 139);
 }
@@ -114,12 +118,14 @@ code {
     transition: color 0.2s;
     /* Animate the change in colour effect on hover */
 }
+
 .markdown a:hover,
 .link:hover,
 summary:hover {
     text-decoration: underline;
     color: #6491ff;
 }
+
 .markdown a:hover code {
     color: #6491ff;
     /* Also change colour of code on hover. */
@@ -133,11 +139,13 @@ summary:hover {
     text-align: center;
     margin: 1rem 0;
 }
+
 .markdown figure.border:not(.full) {
     border: 1px solid var(--color-border);
     padding: 5px;
     margin: -5px;
 }
+
 .markdown figure.full {
     margin-left: var(--full-margin-left);
     width: var(--full-width);
@@ -165,11 +173,13 @@ samp {
     overflow-y: auto;
     max-height: 400px;
 }
+
 .markdown code,
 kbd,
 samp {
     padding: 1px 2px;
 }
+
 .markdown pre > code {
     padding: 0;
     box-shadow: none;
@@ -198,34 +208,41 @@ samp {
     /* No space between borders. */
     width: 100%;
 }
+
 .markdown table + table {
     margin-top: 2em;
     /* Add margin for subsequent tables. */
 }
+
 .markdown table.full {
     /* Not quite full width so text isn't flush against border. */
     margin-left: calc(var(--full-margin-left) + 0.5rem);
     width: calc(var(--full-width) - 1em);
 }
+
 .markdown caption {
     font-weight: bold;
     /* Make caption stand out more. */
 }
+
 .markdown tr {
     border-bottom: 1px solid #ddd;
     /* Divide rows with a border. */
 }
+
 .markdown table > tr:last-child,
 tbody tr:last-child,
 tfoot tr:last-child {
     border-bottom: none;
     /* No border on the last row. */
 }
+
 .markdown tfoot tr:first-child {
     border-top: 1px solid #ddd;
     /* Continue border on first tfoot row;
     removed with tbody tr:last-child. */
 }
+
 .markdown td,
 th {
     padding: 0.2em 0.5em;
@@ -234,16 +251,19 @@ th {
     hyphens: none;
     /* Disable hyphenation by default, as it tends to wreak havoc with cell width calculations. */
 }
+
 .markdown td.left,
 th.left {
     /* Left aligned table cells (mainly for <th>). */
     text-align: left;
 }
+
 .markdown td.right,
 th.right {
     /* Right aligned table cells. */
     text-align: right;
 }
+
 .markdown table td.right {
     font-feature-settings: "tnum" on;
     /* Use tabular numbers for alignment. */
@@ -251,6 +271,7 @@ th.right {
     font-family: sans-serif;
     /* Libre Baskerville has no aligned numbers :-( */
 }
+
 /* SUPER- AND SUBSCRIPT */
 .markdown sup,
 sub {
@@ -260,9 +281,11 @@ sub {
     vertical-align: baseline;
     position: relative;
 }
+
 .markdown sup {
     bottom: 1ex;
 }
+
 .markdown sub {
     top: 0.5ex;
 }

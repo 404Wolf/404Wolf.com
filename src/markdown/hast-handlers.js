@@ -1,4 +1,4 @@
-import { normalizeUri } from 'micromark-util-sanitize-uri'
+import {normalizeUri} from 'micromark-util-sanitize-uri'
 
 
 export function imgBlockHandler(state, node, parent) {
@@ -23,8 +23,9 @@ export function imgHandler(state, node, parent) {
     let url = node.url
     try {
         url = /\w*|\w=*/.test(node.url) ? node.url.match(/([^\s^\|]*)\|/)[1] : node.url
-    } catch { }
-    
+    } catch {
+    }
+
     return {
         type: "element",
         tagName: "img",

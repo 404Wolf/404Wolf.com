@@ -11,39 +11,39 @@ interface TagProps {
 }
 
 const Tag = ({
-    children,
-    width = "fit",
-    rotation = 0,
-    extraYTranslation = 0,
-    extraXTranslation = 0,
-    zLevel = 50,
-    absolute = true,
-    background = "#4B5769",
-    position = "bl",
-}: TagProps) => {
+                 children,
+                 width = "fit",
+                 rotation = 0,
+                 extraYTranslation = 0,
+                 extraXTranslation = 0,
+                 zLevel = 50,
+                 absolute = true,
+                 background = "#4B5769",
+                 position = "bl",
+             }: TagProps) => {
     let positioning;
     let translations;
 
     // case tree for position
     switch (position) {
         case "br":
-            positioning = { bottom: 0, right: 0 };
+            positioning = {bottom: 0, right: 0};
             translations = [0.25, 0.25];
             break;
         case "bl":
-            positioning = { bottom: 0, left: 0 };
+            positioning = {bottom: 0, left: 0};
             translations = [-0.25, 0.25];
             break;
         case "tr":
-            positioning = { top: 0, right: 0 };
+            positioning = {top: 0, right: 0};
             translations = [0.25, -0.25];
             break;
         case "tl":
-            positioning = { top: 0, left: 0 };
+            positioning = {top: 0, left: 0};
             translations = [-0.25, -0.25];
             break;
         default:
-            positioning = { bottom: 0, right: 0 };
+            positioning = {bottom: 0, right: 0};
             translations = [0.25, 0.25];
             break;
     }

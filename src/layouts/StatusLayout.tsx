@@ -6,7 +6,7 @@ interface StatusLayoutProps {
     children: React.ReactNode;
 }
 
-const StatusLayout = ({ name, children }: StatusLayoutProps) => {
+const StatusLayout = ({name, children}: StatusLayoutProps) => {
     return (
         <MainLayout title={name} header={false}>
             <Tile>

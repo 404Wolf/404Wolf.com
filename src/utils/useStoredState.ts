@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 const useStoredState = (key: string, value: any) => {
     const [state, setState] = useState<any>(value);

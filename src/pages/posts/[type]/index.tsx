@@ -1,21 +1,21 @@
 import MainLayout from "@/layouts/MainLayout";
 import Tile from "@/components/misc/Tiles/Tile";
-import ExtendedPostCard, { PostData } from "@/components/posts/ExtendedPostCard";
-import { PrismaClient } from "@prisma/client";
+import ExtendedPostCard, {PostData} from "@/components/posts/ExtendedPostCard";
+import {PrismaClient} from "@prisma/client";
 import postMetadata from "@/metadata/posts.json";
-import { GetServerSideProps } from "next";
-import { toTitleCase } from "@/utils/misc";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
+import {GetServerSideProps} from "next";
+import {toTitleCase} from "@/utils/misc";
+import {useSession} from "next-auth/react";
+import {useState} from "react";
 
 const prisma = new PrismaClient();
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
     if (params && typeof params.type === "string") {
         const type = params.type;
         const posts = await prisma.post.findMany({
-            where: { type: type.slice(0, -1) },
-            include: { resources: true },
+            where: {type: type.slice(0, -1)},
+            include: {resources: true},
         });
 
         return {
@@ -49,7 +49,7 @@ interface PostsProps {
     posts: PostData[];
 }
 
-const PostsIndexLayout = ({ type, posts }: PostsProps) => {
+const PostsIndexLayout = ({type, posts}: PostsProps) => {
     const session = useSession();
 
     const typeDescriptions: { [key: string]: string } = postMetadata.descriptions;

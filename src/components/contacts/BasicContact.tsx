@@ -3,7 +3,7 @@ interface BasicContactProps {
     url: string;
 }
 
-const BasicContact = ({ children, url }: BasicContactProps) => {
+const BasicContact = ({children, url}: BasicContactProps) => {
     return (
         <a
             href={url}

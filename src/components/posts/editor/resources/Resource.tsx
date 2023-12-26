@@ -1,14 +1,14 @@
 import Image from "next/image";
-import { useEffect, useRef, useState, useCallback } from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import Field from "../Field";
-import { resourceUrl } from "@/utils/aws";
+import {resourceUrl} from "@/utils/aws";
 import Modal from "@/components/misc/Modal";
-import { EditorResource } from "@/pages/posts/[type]/[postId]/editor";
+import {EditorResource} from "@/pages/posts/[type]/[postId]/editor";
 import ResourceIcon from "./Icon";
-import { useRouter } from "next/router";
-import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
-import { toB64 } from "@/utils/toB64";
-import { Tooltip } from "react-tooltip";
+import {useRouter} from "next/router";
+import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
+import {toB64} from "@/utils/toB64";
+import {Tooltip} from "react-tooltip";
 
 interface ResourceProps {
     resource: EditorResource;
@@ -31,15 +31,15 @@ export interface ResourceStates {
 }
 
 const Resource = ({
-    resource,
-    postId,
-    isCover,
-    setIsCover,
-    remove,
-    setMarkdown,
-    updateResource,
-    index,
-}: ResourceProps) => {
+                      resource,
+                      postId,
+                      isCover,
+                      setIsCover,
+                      remove,
+                      setMarkdown,
+                      updateResource,
+                      index,
+                  }: ResourceProps) => {
     if (!resource) return <></>;
 
     const router = useRouter();
@@ -118,7 +118,7 @@ const Resource = ({
 
     const loadMarkdown = useCallback(() => {
         fetch(`/api/posts/${postId}`, {
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             method: "PUT",
             body: JSON.stringify({
                 markdown: currentId,
@@ -126,7 +126,7 @@ const Resource = ({
         }).then((resp) => {
             if (resp.ok) {
                 fetch(`/api/resources/${currentId}`, {
-                    headers: { data: "true" },
+                    headers: {data: "true"},
                     method: "GET",
                 })
                     .then((resp) => resp.json())
@@ -138,7 +138,7 @@ const Resource = ({
 
     const downloadResource = useCallback(() => {
         fetch("/api/resources/link", {
-            headers: { id: currentId },
+            headers: {id: currentId},
             method: "GET",
         })
             .then((resp) => resp.json())
@@ -160,7 +160,7 @@ const Resource = ({
         };
     }, [resourceStates.filename[0]]);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({
         onDrop: updateResourceData,
     });
 
@@ -177,7 +177,7 @@ const Resource = ({
             <div className="flex gap-1 absolute -bottom-1 -right-1 z-50" {...getRootProps}>
                 {resourceStates.type[0] === "markdown" && (
                     <button onClick={loadMarkdown}>
-                        <ResourceIcon icon="load" alt="Load markdown" />
+                        <ResourceIcon icon="load" alt="Load markdown"/>
                     </button>
                 )}
                 {resourceStates.type[0] === "image" && (
@@ -190,7 +190,7 @@ const Resource = ({
                     </button>
                 )}
                 <button onClick={downloadResource}>
-                    <ResourceIcon icon="download" alt="Download resource" />
+                    <ResourceIcon icon="download" alt="Download resource"/>
                 </button>
                 <button
                     onClick={() => {
@@ -198,7 +198,7 @@ const Resource = ({
                         remove();
                     }}
                 >
-                    <ResourceIcon icon="trash" alt="Delete resource" />
+                    <ResourceIcon icon="trash" alt="Delete resource"/>
                 </button>
             </div>
 
@@ -210,9 +210,10 @@ const Resource = ({
                     <div className="mx-auto">{previewElement}</div>
                 )}
             </div>
-            <div className="bg-gray-500 text-sm text-white flex px-2 w-fit mx-auto rounded-full absolute -top-2 -left-3 focus:outline-none scale-90 z-40">
+            <div
+                className="bg-gray-500 text-sm text-white flex px-2 w-fit mx-auto rounded-full absolute -top-2 -left-3 focus:outline-none scale-90 z-40">
                 <div className="inline-block">#</div>
-                <Tooltip id="copied-tooltip" />
+                <Tooltip id="copied-tooltip"/>
                 <div
                     data-tooltip-id="copied-tooltip"
                     data-tooltip-content="Copied!"
@@ -238,7 +239,7 @@ const Resource = ({
                         Resource Editor
                     </h1>
                     <div
-                        style={{ zIndex: -20 }}
+                        style={{zIndex: -20}}
                         className="p-4 bg-slate-300 pt-8 flex-row rounded-2xl drop-shadow-5xl-c"
                     >
                         <div className="flex gap-3">

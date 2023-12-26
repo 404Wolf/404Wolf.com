@@ -1,6 +1,6 @@
-import { addResource, getResourceDownloadLink, removeResource } from "@/utils/aws";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "prisma/prisma-client";
+import {getResourceDownloadLink} from "@/utils/aws";
+import type {NextApiRequest, NextApiResponse} from "next";
+import {PrismaClient} from "prisma/prisma-client";
 
 const prisma = new PrismaClient();
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Contact, { ContactProps as ContactType } from "@/components/contacts/Contact";
+import Contact, {ContactProps as ContactType} from "@/components/contacts/Contact";
 import useContacts from "../about/useContacts";
 import useAbout from "../about/useAbout";
 

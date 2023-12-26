@@ -9,12 +9,12 @@ interface InlineButtonProps {
 }
 
 const InlineButton = ({
-    internalTo,
-    externalTo,
-    onClick,
-    className: background,
-    children,
-}: InlineButtonProps) => {
+                          internalTo,
+                          externalTo,
+                          onClick,
+                          className: background,
+                          children,
+                      }: InlineButtonProps) => {
     return (
         <span
             className={`${

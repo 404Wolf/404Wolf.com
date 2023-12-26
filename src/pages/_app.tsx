@@ -4,11 +4,11 @@ import "@/styles/tagInputs.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import 'react-tooltip/dist/react-tooltip.css'
 
-import { SessionProvider } from "next-auth/react";
-import { AppProps } from "next/app";
+import {SessionProvider} from "next-auth/react";
+import {AppProps} from "next/app";
 import Script from "next/script";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({Component, pageProps: {session, ...pageProps}}: AppProps) {
     return (
         <SessionProvider session={session}>
             <Script

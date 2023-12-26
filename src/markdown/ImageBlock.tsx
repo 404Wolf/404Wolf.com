@@ -1,7 +1,6 @@
 import Image from "@/markdown/Image";
-import useSize from "@/utils/useSize";
-import { useWindowWidth } from "@react-hook/window-size";
-import { Carousel } from "react-responsive-carousel";
+import {useWindowWidth} from "@react-hook/window-size";
+import {Carousel} from "react-responsive-carousel";
 
 export interface ImageBlockProps {
     alts: string;
@@ -19,14 +18,14 @@ interface Image {
 }
 
 const ImageBlock = ({
-    alts,
-    srcs,
-    titles,
-    properties = "",
-    resourceMap = {},
-}: ImageBlockProps) => {
+                        alts,
+                        srcs,
+                        titles,
+                        properties = "",
+                        resourceMap = {},
+                    }: ImageBlockProps) => {
     const screenWidth = useWindowWidth();
-    
+
     const images: Image[] = alts.split(";").map((alt, index) => {
         const formattedProperties: { [key: string]: string | number } = {};
         if (properties)

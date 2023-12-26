@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {useCallback, useState} from "react";
 
 const usePushPostUpdates = (postStates, currentId, callback) => {
     const [resourceUpdateQueue, setResourceUpdateQueue] = useState([])
@@ -38,10 +38,10 @@ const usePushPostUpdates = (postStates, currentId, callback) => {
     }, Object.values(postStates).map(postState => postState[0]))
 
     return async () => (await updatePost().then(() => {
-        resourceUpdateQueue.forEach(func => func());
-        setResourceUpdateQueue([]);
-        callback();
-    })
+            resourceUpdateQueue.forEach(func => func());
+            setResourceUpdateQueue([]);
+            callback();
+        })
     )
 }
 

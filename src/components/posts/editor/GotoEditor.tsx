@@ -5,7 +5,7 @@ interface GotoEditorProps {
     postType: string;
 }
 
-const GotoEditor = ({ postId, postType }: GotoEditorProps) => {
+const GotoEditor = ({postId, postType}: GotoEditorProps) => {
     return (
         <CircleButton
             internalSrc={`/posts/${postType}/${postId}/editor`}

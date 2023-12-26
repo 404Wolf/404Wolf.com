@@ -1,13 +1,13 @@
-import { useCallback } from "react";
+import {useCallback} from "react";
 import CircleButton from "./CircleButton";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 
 interface DeletePostProps {
     postId: string;
     postType: string;
 }
 
-const DeletePost = ({ postId, postType }: DeletePostProps) => {
+const DeletePost = ({postId, postType}: DeletePostProps) => {
     const router = useRouter();
 
     const deletePost = useCallback(() => {
@@ -16,11 +16,12 @@ const DeletePost = ({ postId, postType }: DeletePostProps) => {
         }).then((resp) => {
             if (resp.ok) {
                 router.push(`/posts/${postType}s`);
-            };
+            }
+            ;
         });
     }, [postId]);
 
-    return <CircleButton action={deletePost} iconSrc="/icons/trash.svg" iconAlt="Delete post" />;
+    return <CircleButton action={deletePost} iconSrc="/icons/trash.svg" iconAlt="Delete post"/>;
 };
 
 export default DeletePost;

@@ -1,5 +1,5 @@
 import AboutData from "@/components/about/AboutData";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 const blankAbout = {
     "url": "",
@@ -27,5 +27,5 @@ const useAbout = (): AboutData => {
 
     return about;
 }
- 
+
 export default useAbout;

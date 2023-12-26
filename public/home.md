@@ -1,7 +1,20 @@
-Salutations! I'm Wolf, a CS major at [Case Western](https://case.edu/). I recently graduated from [Bard HS Early College](https://bhsec.bard.edu/queens/), and just finished [Recurse Center](https://www.recurse.com/) self-driven programming retreat.
+Salutations! I'm Wolf, a CS major at [Case Western](https://case.edu/). I recently graduated
+from [Bard HS Early College](https://bhsec.bard.edu/queens/), and just
+finished [Recurse Center](https://www.recurse.com/) self-driven programming retreat.
 
-In general, I'd consider myself to be a geeky, curious, tech-loving humanoid with a passion for problem-solving and figuring things out. Since middle school I've been self-teaching code, and have tackled various personal projects which I seek to document here. At the moment I'm most interested in fullstack, and have had a lot of fun learning React/Next.js, but I'd like to branch out. Over my next few years at CWRU, I look forward to further exploring the vast realm of CS, and want to more interdisiplinarily apply my passion.
+In general, I'd consider myself to be a geeky, curious, tech-loving humanoid with a passion for problem-solving and
+figuring things out. Since middle school I've been self-teaching code, and have tackled various personal projects which
+I seek to document here. At the moment I'm most interested in fullstack, and have had a lot of fun learning
+React/Next.js, but I'd like to branch out. Over my next few years at CWRU, I look forward to further exploring the vast
+realm of CS, and want to more interdisiplinarily apply my passion.
 
-This site was born from my desire to document and showcase my various eclectic journeys. There's pages presenting some of my favorite [projects](/posts/projects) with detailed descriptions, but also various [blogs](/posts/blogs) to document various esoteric adventures. For many pages, they will continue to be updated as the projects and discoveries themselves evolve. Please also feel free to check out my [about page](/about) to learn more about me, and also see my [resume](/resume).
+This site was born from my desire to document and showcase my various eclectic journeys. There's pages presenting some
+of my favorite [projects](/posts/projects) with detailed descriptions, but also various [blogs](/posts/blogs) to
+document various esoteric adventures. For many pages, they will continue to be updated as the projects and discoveries
+themselves evolve. Please also feel free to check out my [about page](/about) to learn more about me, and also see
+my [resume](/resume).
 
-I know that there's a lot of content here, and the collection is only going to keep on growing, so I hope that through your scouring of my life questions arise. Technical questions, personal questions, or random questions. I love chatting tech, so if you're interested in any of my work, or have any questions at all, please feel free to reach out to any of the above contacts, and I'll try to get back as soon as possible!
+I know that there's a lot of content here, and the collection is only going to keep on growing, so I hope that through
+your scouring of my life questions arise. Technical questions, personal questions, or random questions. I love chatting
+tech, so if you're interested in any of my work, or have any questions at all, please feel free to reach out to any of
+the above contacts, and I'll try to get back as soon as possible!

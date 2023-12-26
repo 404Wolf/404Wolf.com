@@ -5,12 +5,12 @@ interface HeaderProps {
     children?: React.ReactNode;
 }
 
-const Header = ({ setBackgroundBlurred, children }: HeaderProps) => {
+const Header = ({setBackgroundBlurred, children}: HeaderProps) => {
     return (
         <div>
             <div className="flex flex-col gap-5 justify-between">
                 <div className="indent-4 md:indent-6 lg:indent-8">{children}</div>
-                <Navbar setBackgroundBlurred={setBackgroundBlurred} />
+                <Navbar setBackgroundBlurred={setBackgroundBlurred}/>
             </div>
         </div>
     );

@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import PushUpdate from "../misc/PushUpdate";
 import CircleButton from "../posts/editor/CircleButton";
 import Markdown from "@/markdown/Markdown";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
 
 interface EditorAreaProps {
     startingText?: string;
@@ -12,11 +12,11 @@ interface EditorAreaProps {
 }
 
 const EditorArea = ({
-    requireAuth = true,
-    objectName,
-    startingText,
-    resourceMap = {},
-}: EditorAreaProps) => {
+                        requireAuth = true,
+                        objectName,
+                        startingText,
+                        resourceMap = {},
+                    }: EditorAreaProps) => {
     const editorArea = useRef<HTMLDivElement>(null);
     const [inEditMode, setInEditMode] = useState(false);
     const session = useSession();
@@ -109,7 +109,7 @@ const EditorArea = ({
             )}
             {!inEditMode && (
                 <div className="mt-2">
-                    <Markdown markdown={editorContentCurrentText} resourceMap={resourceMap} />
+                    <Markdown markdown={editorContentCurrentText} resourceMap={resourceMap}/>
                 </div>
             )}
         </div>

@@ -1,14 +1,14 @@
 import {
-    S3Client,
-    PutObjectCommand,
+    CopyObjectCommand,
     DeleteObjectCommand,
     GetObjectCommand,
-    CopyObjectCommand,
+    PutObjectCommand,
+    S3Client,
 } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import {getSignedUrl} from "@aws-sdk/s3-request-presigner";
 
 const s3 = {
-    client: new S3Client({ region: "us-east-2" }),
+    client: new S3Client({region: "us-east-2"}),
     bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME as string,
     region: "us-east-2",
 };
@@ -86,7 +86,7 @@ export async function getResourceDownloadLink(filename: string) {
         ResponseContentType: "application/octet-stream",
         ResponseContentDisposition: "attachment",
     });
-    const url = await getSignedUrl(s3.client, command, { expiresIn: 3600 });
+    const url = await getSignedUrl(s3.client, command, {expiresIn: 3600});
     return url;
 }
 
@@ -95,5 +95,5 @@ export async function uploadFileLink(filename: string) {
         Bucket: s3.bucket,
         Key: filename,
     });
-    return await getSignedUrl(s3.client, command, { expiresIn: 60 });
+    return await getSignedUrl(s3.client, command, {expiresIn: 60});
 }

@@ -3,11 +3,12 @@ interface FakeResourceProps {
     children?: React.ReactNode;
 }
 
-const FakeResource = ({ placeholderId = null, children }: FakeResourceProps) => {
+const FakeResource = ({placeholderId = null, children}: FakeResourceProps) => {
     return (
         <div className="relative">
             {placeholderId && (
-                <div className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90">
+                <div
+                    className="bg-gray-500 text-sm text-white flex my-2 py-px px-2 w-fit mx-auto rounded-full absolute -top-4 -left-4 focus:outline-none scale-90">
                     #{placeholderId}
                 </div>
             )}

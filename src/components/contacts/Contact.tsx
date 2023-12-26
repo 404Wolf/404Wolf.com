@@ -13,14 +13,14 @@ export interface ContactProps {
 }
 
 const Contact = ({
-    name,
-    username,
-    url,
-    icon,
-    at = true,
-    textSize = "md",
-    key,
-}: ContactProps) => {
+                     name,
+                     username,
+                     url,
+                     icon,
+                     at = true,
+                     textSize = "md",
+                     key,
+                 }: ContactProps) => {
     return (
         <a
             href={url}

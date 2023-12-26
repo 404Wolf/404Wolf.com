@@ -2,7 +2,7 @@ import Typewriter from "typewriter-effect";
 
 const Greeter = () => {
     return (
-        <Typewriter 
+        <Typewriter
             onInit={
                 (typewriter) => {
                     typewriter
@@ -16,5 +16,5 @@ const Greeter = () => {
         />
     );
 }
- 
+
 export default Greeter;

@@ -1,11 +1,11 @@
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
 import StatusLayout from "./StatusLayout";
 
 interface RestrictedProps {
     children: JSX.Element;
 }
 
-const Restricted = ({ children }: RestrictedProps): JSX.Element => {
+const Restricted = ({children}: RestrictedProps): JSX.Element => {
     const session = useSession();
 
     switch (session.status) {

@@ -1,6 +1,4 @@
 import Contacts from "@/components/contacts/Contacts";
-import useAbout from "@/components/about/useAbout";
-import { useEffect } from "react";
 import Modal from "../misc/Modal";
 import Tile from "../misc/Tiles/Tile";
 
@@ -9,12 +7,12 @@ interface ContactsPopupProps {
     setOpen: (open: boolean) => void
 }
 
-const ContactsPopup = ({ open, setOpen }: ContactsPopupProps) => {
+const ContactsPopup = ({open, setOpen}: ContactsPopupProps) => {
     return (
         <Modal
-            open={ open }
-            setOpen={ setOpen }
-            onClose={ () => setOpen(false) }
+            open={open}
+            setOpen={setOpen}
+            onClose={() => setOpen(false)}
         >
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-6 pt-8 rounded-2xl drop-shadow-5xl-c-white">
                 <Tile title="Contacts" className="border-4 border-slate-700" extraPadding={4}>
@@ -26,5 +24,5 @@ const ContactsPopup = ({ open, setOpen }: ContactsPopupProps) => {
         </Modal>
     )
 }
- 
+
 export default ContactsPopup;

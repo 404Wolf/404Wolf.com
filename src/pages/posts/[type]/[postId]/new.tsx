@@ -1,10 +1,10 @@
 import Restricted from "@/layouts/Restricted";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {useRouter} from "next/router";
+import {useEffect} from "react";
 import StatusLayout from "@/layouts/StatusLayout";
-import { GetServerSidePropsContext } from "next";
+import {GetServerSidePropsContext} from "next";
 
-export async function getServerSideProps({ params }: GetServerSidePropsContext) {
+export async function getServerSideProps({params}: GetServerSidePropsContext) {
     if (params && params.postId && params.type)
         return {
             props: {
@@ -26,7 +26,7 @@ interface NewPostProps {
     newPostType: string;
 }
 
-const NewPost = ({ newPostId, newPostType }: NewPostProps) => {
+const NewPost = ({newPostId, newPostType}: NewPostProps) => {
     const router = useRouter();
     const date = new Date().getFullYear().toString();
     useEffect(() => {

@@ -1,36 +1,34 @@
 import Head from "next/head";
 import MainLayout from "@/layouts/MainLayout";
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import Markdown from "@/markdown/Markdown";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
 import Restricted from "@/layouts/Restricted";
-import { PrismaClient } from "@prisma/client";
-import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
+import {PrismaClient} from "@prisma/client";
+import {useRouter} from "next/router";
+import {GetServerSideProps} from "next";
 import PushUpdate from "@/components/misc/PushUpdate";
 import Tags from "@/components/posts/Tags";
 import GoToViewer from "@/components/posts/editor/GoToViewer";
 import Tile from "@/components/misc/Tiles/Tile";
-import TabTile from "@/components/misc/Tiles/Tabs";
-import Resource from "@/components/posts/editor/resources/Resource";
+import TabTile, {ShowTabTile} from "@/components/misc/Tiles/Tabs";
 import Resources from "@/components/posts/editor/resources/Resources";
 import usePushPostUpdates from "@/utils/usePushPostUpdates";
 import Field from "@/components/posts/editor/Field";
 import DeletePost from "@/components/posts/editor/DeletePost";
-import { ShowTabTile } from "@/components/misc/Tiles/Tabs";
 import TextareaAutosize from "react-textarea-autosize";
 import StatusLayout from "@/layouts/StatusLayout";
 
 const prisma = new PrismaClient();
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
     if (!params || typeof params.postId !== "string") {
-        return { props: {} };
+        return {props: {}};
     }
 
     const post = await prisma.post.findUnique({
-        where: { id: params.postId },
-        include: { resources: true },
+        where: {id: params.postId},
+        include: {resources: true},
     });
     if (!post)
         return {
@@ -70,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
                 })),
             },
         };
-    } else return { props: {} };
+    } else return {props: {}};
 };
 
 export interface EditorResource {
@@ -102,7 +100,7 @@ interface EditorProps {
     resources: EditorResource[];
 }
 
-const Editor = ({ post, resources }: EditorProps) => {
+const Editor = ({post, resources}: EditorProps) => {
     const session = useSession();
     const router = useRouter();
     const [ready, setReady] = useState(false);
@@ -110,7 +108,7 @@ const Editor = ({ post, resources }: EditorProps) => {
     useEffect(() => {
         if (session.status === "unauthenticated") router.push(`/posts/${post.type}/${post.id}`);
         else setReady(true);
-        }, []);
+    }, []);
 
     const [resourceMap, setResourceMap] = useState({});
     const [allResources, setAllResources] = useState(resources);
@@ -150,7 +148,7 @@ const Editor = ({ post, resources }: EditorProps) => {
 
     const markdownArea = (
         <div className="-mt-4 overflow-y-auto overflow-x-clip px-5 pb-5">
-            <Markdown markdown={postStates.markdownData[0]} resourceMap={resourceMap} />
+            <Markdown markdown={postStates.markdownData[0]} resourceMap={resourceMap}/>
         </div>
     );
     const resourceArea = (
@@ -188,15 +186,15 @@ const Editor = ({ post, resources }: EditorProps) => {
                     containerClasses="sm:-ml-4 lg:-mr-[7%] lg:-ml-[7%] xl:-mr-[12%] xl:-ml-[12%]"
                 >
                     <div className="absolute -top-6 right-0 flex gap-1">
-                        <Tags tags={postStates.tags[0]} setTags={postStates.tags[1]} />
+                        <Tags tags={postStates.tags[0]} setTags={postStates.tags[1]}/>
                         <div className="-translate-y-6 scale-[90%] -mr-1">
-                            <GoToViewer postId={postStates.id[0]} postType={postStates.type[0]} />
+                            <GoToViewer postId={postStates.id[0]} postType={postStates.type[0]}/>
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
-                            <DeletePost postId={currentPostId} postType={currentPostType} />
+                            <DeletePost postId={currentPostId} postType={currentPostType}/>
                         </div>
                         <div className="-translate-y-6 scale-[90%]">
-                            <PushUpdate pushPostUpdates={pushPostUpdates} />
+                            <PushUpdate pushPostUpdates={pushPostUpdates}/>
                         </div>
                     </div>
 
@@ -217,7 +215,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                                         startValue={post.date}
                                         setValue={postStates.date[1]}
                                     />
-                                    <div className="mt-4" />
+                                    <div className="mt-4"/>
                                     <Field
                                         name="Type"
                                         nontallWidth="w-full"
@@ -225,7 +223,7 @@ const Editor = ({ post, resources }: EditorProps) => {
                                         startValue={post.type}
                                         setValue={postStates.type[1]}
                                     />
-                                    <div className="mt-4" />
+                                    <div className="mt-4"/>
                                     <Field
                                         name="Notes"
                                         tall={true}
@@ -244,7 +242,8 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 type={false}
                             >
                                 <TextareaAutosize
-                                    onResize={(e) => {}}
+                                    onResize={(e) => {
+                                    }}
                                     ref={postDescriptionAreaRef}
                                     onChange={(e) => postStates.description[1](e.target.value)}
                                     defaultValue={postStates.description[0]}
@@ -258,10 +257,11 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 hidden={showTabTile}
                                 className="absolute -right-5 -top-5 scale-75 z-50"
                             >
-                                <ShowTabTile shown={showTabTile} setShown={setShowTabTile} />
+                                <ShowTabTile shown={showTabTile} setShown={setShowTabTile}/>
                             </div>
 
-                            <div className="absolute left-[127px] -top-3 z-50 text-sm px-[3px] bg-gray-500 rounded-xl text-white">
+                            <div
+                                className="absolute left-[127px] -top-3 z-50 text-sm px-[3px] bg-gray-500 rounded-xl text-white">
                                 #{postStates.markdownId[0]}
                             </div>
 
@@ -272,7 +272,8 @@ const Editor = ({ post, resources }: EditorProps) => {
                                 type={false}
                             >
                                 <TextareaAutosize
-                                onResize={(e) => {}}
+                                    onResize={(e) => {
+                                    }}
                                     className="resize-none overflow-hidden
                                      bg-transparent w-full focus:outline-none"
                                     onChange={(e) => postStates.markdownData[1](e.target.value)}
@@ -284,8 +285,8 @@ const Editor = ({ post, resources }: EditorProps) => {
                             <div className="w-1/2 relative" hidden={!showTabTile}>
                                 <TabTile
                                     tabs={[
-                                        { key: 111, name: "Preview", element: markdownArea },
-                                        { key: 112, name: "Resources", element: resourceArea },
+                                        {key: 111, name: "Preview", element: markdownArea},
+                                        {key: 112, name: "Resources", element: resourceArea},
                                     ]}
                                     shown={showTabTile}
                                     setShown={setShowTabTile}

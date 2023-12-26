@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import {writeFileSync} from "fs";
 
 export function unCamelCase(string: string): string {
     // Split the input string into words based on camel case

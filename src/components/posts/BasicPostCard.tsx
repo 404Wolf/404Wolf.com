@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Tag from "@/components/misc/Tag";
-import { randomListItem, toTitleCase } from "@/utils/misc";
-import { useEffect, useState } from "react";
+import {randomListItem, toTitleCase} from "@/utils/misc";
+import {useEffect, useState} from "react";
 import fetchPostIcon from "./fetchPostIcon";
 
 export interface BasicPostData {
@@ -19,7 +19,7 @@ interface BasicPostCardProps {
     tags?: string[];
 }
 
-const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
+const BasicPostCard = ({post, tags}: BasicPostCardProps) => {
     const [postCoverSrc, setPostCoverSrc] = useState("");
     const tagsToUse = tags || (post && post.tags) || [];
 
@@ -54,8 +54,8 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                     className="bg-cover rounded-xl drop-shadow-md hover:brightness-90 ease-in transition-all relative h-[4.6em] md:h-32 lg:h-24 bg-cover bg-center duration-100 hover:scale-105 flex items-center justify-center bg-gray-100/[35%]"
                     style={
                         post
-                            ? { backgroundImage: `url('${postCoverSrc}')` }
-                            : { backgroundColor: "rgb(90, 90, 90)" }
+                            ? {backgroundImage: `url('${postCoverSrc}')`}
+                            : {backgroundColor: "rgb(90, 90, 90)"}
                     }
                 >
                     {post && (
@@ -68,20 +68,20 @@ const BasicPostCard = ({ post, tags }: BasicPostCardProps) => {
                                     post.type && "flex gap-[.2rem] absolute bottom-0 -left-2"
                                 }
                             >
-                                {tagsToUse && <Tag children={toTitleCase(post.type)} />}
+                                {tagsToUse && <Tag children={toTitleCase(post.type)}/>}
 
                                 {tagsToUse.map((tag: string, index: number) => (
-                                    <Tag key={index} children={toTitleCase(tag)} />
+                                    <Tag key={index} children={toTitleCase(tag)}/>
                                 ))}
                             </div>
-                            <Tag children={post.date} position={"tr"} />
+                            <Tag children={post.date} position={"tr"}/>
                         </>
                     )}
 
                     <div className="flex flex-col">
                         <h1
                             className="text-center text-[12.5px] sm:text-lg text-white font-bold sm:font-extrabold"
-                            style={{ textShadow: "0 0 14px rgba(0, 0, 0, 1)" }}
+                            style={{textShadow: "0 0 14px rgba(0, 0, 0, 1)"}}
                         >
                             {post ? post.title : ""}
                         </h1>

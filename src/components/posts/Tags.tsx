@@ -6,7 +6,10 @@ interface TagsProps {
     setTags?: (newTags: string[]) => void;
 }
 
-const Tags = ({ tags, readOnly = false, setTags = () => {} }: TagsProps) => {
+const Tags = ({
+                  tags, readOnly = false, setTags = () => {
+    }
+              }: TagsProps) => {
     return (
         <TagsInput
             value={tags || []}
@@ -15,11 +18,11 @@ const Tags = ({ tags, readOnly = false, setTags = () => {} }: TagsProps) => {
             maxTags={8}
             inputProps={
                 readOnly
-                    ? { className: "hidden", placeholder: "" }
+                    ? {className: "hidden", placeholder: ""}
                     : {
-                          className: "react-tagsinput-input",
-                          placeholder: "Add tag",
-                      }
+                        className: "react-tagsinput-input",
+                        placeholder: "Add tag",
+                    }
             }
         />
     );

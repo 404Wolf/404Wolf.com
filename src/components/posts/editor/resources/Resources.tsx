@@ -1,11 +1,10 @@
-import { EditorResource } from "@/pages/posts/[type]/[postId]/editor";
-import Resource, { ResourceStates } from "@/components/posts/editor/resources/Resource";
-import { useCallback, useState, useTransition } from "react";
-import { useDropzone, DropEvent, FileRejection } from "react-dropzone";
+import {EditorResource} from "@/pages/posts/[type]/[postId]/editor";
+import Resource from "@/components/posts/editor/resources/Resource";
+import {useCallback} from "react";
+import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
 import FakeResource from "./FakeResource";
 import ensureLength from "@/utils/ensureLength";
-import { toB64 } from "@/utils/toB64";
-import { resourceUrl } from "@/utils/aws";
+import {resourceUrl} from "@/utils/aws";
 import sanitize from "sanitize-filename";
 
 interface ResourcesProps {
@@ -18,13 +17,13 @@ interface ResourcesProps {
 }
 
 const Resources = ({
-    resources,
-    covers,
-    setResources,
-    setCovers,
-    postId,
-    setMarkdown,
-}: ResourcesProps) => {
+                       resources,
+                       covers,
+                       setResources,
+                       setCovers,
+                       postId,
+                       setMarkdown,
+                   }: ResourcesProps) => {
     const addResource = useCallback(
         async (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
             const newResources: EditorResource[] = [];
@@ -40,11 +39,11 @@ const Resources = ({
                 let resourceNumber = 1;
                 while (
                     (await fetch("/api/resources/exists", {
-                        headers: { id: makeId(resourceNumber) },
+                        headers: {id: makeId(resourceNumber)},
                     })
                         .then((resp) => resp.json())
                         .then((exists) => exists.exists)) === "true"
-                ) {
+                    ) {
                     resourceNumber++;
                 }
                 const resourceId = makeId(resourceNumber);
@@ -100,7 +99,7 @@ const Resources = ({
         [resources, postId]
     );
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({
         onDrop: addResource,
     });
 
@@ -171,8 +170,7 @@ const Resources = ({
                     if (resp.ok) {
                         setCovers(newCovers as string[]);
                         console.log("Made image a cover image")
-                    }
-                    else console.log("Failed to change cover")
+                    } else console.log("Failed to change cover")
                 });
             }
         },

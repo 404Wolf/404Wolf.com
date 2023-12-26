@@ -1,15 +1,8 @@
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import {
-    addResource,
-    getResource,
-    removeResource,
-    resourceUrl,
-    uploadFileLink,
-} from "@/utils/aws";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
-import { PrismaClient } from "prisma/prisma-client";
+import {authOptions} from "@/pages/api/auth/[...nextauth]";
+import {addResource, getResource, removeResource, resourceUrl, uploadFileLink,} from "@/utils/aws";
+import type {NextApiRequest, NextApiResponse} from "next";
+import {getServerSession} from "next-auth";
+import {PrismaClient} from "prisma/prisma-client";
 
 const prisma = new PrismaClient();
 
@@ -73,7 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     type: req.body.type,
                     description: req.body.description,
                     post: {
-                        connect: { id: req.body.postId },
+                        connect: {id: req.body.postId},
                     },
                 },
             });

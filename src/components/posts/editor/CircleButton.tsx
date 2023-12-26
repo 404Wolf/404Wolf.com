@@ -11,14 +11,14 @@ interface CircleButtonProps {
 }
 
 const CircleButton = ({
-    action,
-    internalSrc,
-    externalSrc,
-    iconSrc,
-    iconAlt,
-    iconSize=90,
-}: CircleButtonProps) => {
-    const icon = <Image priority src={iconSrc} alt={iconAlt} width={iconSize} height={iconSize} />;
+                          action,
+                          internalSrc,
+                          externalSrc,
+                          iconSrc,
+                          iconAlt,
+                          iconSize = 90,
+                      }: CircleButtonProps) => {
+    const icon = <Image priority src={iconSrc} alt={iconAlt} width={iconSize} height={iconSize}/>;
 
     return (
         <div className="bg-gray-700 hover:brightness-90 rounded-full p-2 w-[60px] h-[60px]">

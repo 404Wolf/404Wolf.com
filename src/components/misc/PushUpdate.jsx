@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import CircleButton from "../posts/editor/CircleButton";
 
-const PushUpdate = ({ pushPostUpdates }) => {
+const PushUpdate = ({pushPostUpdates}) => {
     const [updating, setUpdating] = useState();
     const [wheelRotation, setWheelRotation] = useState(0);
     const [rotationInterval, setRotationInterval] = useState(null);
@@ -25,7 +25,7 @@ const PushUpdate = ({ pushPostUpdates }) => {
     };
 
     return (
-        <div style={{ rotate: `${wheelRotation}deg` }}>
+        <div style={{rotate: `${wheelRotation}deg`}}>
             <CircleButton
                 action={processUpdate}
                 iconSrc="/icons/sync.svg"

@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 
 const useSize = (): [number, number] => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(0);    
+    const [windowHeight, setWindowHeight] = useState(0);
 
     useEffect(() => {
         const handleResize = () => {
@@ -14,8 +14,8 @@ const useSize = (): [number, number] => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-    
+
     return [windowWidth, windowHeight]
 }
- 
+
 export default useSize;

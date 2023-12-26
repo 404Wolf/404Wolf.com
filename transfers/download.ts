@@ -1,13 +1,13 @@
-import { PrismaClient } from ".prisma/client";
-import { readdirSync, mkdirSync, writeFileSync } from "fs";
-import { downloadFile } from "./utils";
+import {PrismaClient} from ".prisma/client";
+import {mkdirSync, readdirSync, writeFileSync} from "fs";
+import {downloadFile} from "./utils";
 
 const prisma = new PrismaClient();
 
 if (!readdirSync("./").includes("output")) mkdirSync("output");
 
 (async () => {
-    const posts = await prisma.post.findMany({ include: { resources: true } });
+    const posts = await prisma.post.findMany({include: {resources: true}});
     const types = new Set(posts.map((post) => post.type));
 
     // Create listing of all types in directory.

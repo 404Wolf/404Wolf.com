@@ -1,16 +1,16 @@
-import { GetServerSideProps } from "next";
-import React, { useCallback, useState } from "react";
-import { useRouter } from "next/router";
+import {GetServerSideProps} from "next";
+import React, {useCallback, useState} from "react";
+import {useRouter} from "next/router";
 import StatusLayout from "@/layouts/StatusLayout";
-import { resourceUrl } from "@/utils/aws";
-import { useSession } from "next-auth/react";
+import {resourceUrl} from "@/utils/aws";
+import {useSession} from "next-auth/react";
 import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
-import { useDropzone } from "react-dropzone";
-import { Document, Page } from "react-pdf";
-import { pdfjs } from "react-pdf";
+import {useDropzone} from "react-dropzone";
+import {Document, Page, pdfjs} from "react-pdf";
 import Tag from "@/components/misc/Tag";
 import CircleButton from "@/components/posts/editor/CircleButton";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
 };
 
-const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
+const PDFPage = ({pdfPath}: { pdfPath: string }) => {
     const router = useRouter();
     const session = useSession();
     const [pdfKey, setPdfKey] = useState(0);
@@ -69,7 +69,7 @@ const PDFPage = ({ pdfPath }: { pdfPath: string }) => {
         []
     );
 
-    const { getRootProps } = useDropzone({
+    const {getRootProps} = useDropzone({
         onDrop: uploadResumeDrop,
     });
 

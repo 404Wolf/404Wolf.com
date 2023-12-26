@@ -6,16 +6,14 @@ import useSize from "@/utils/useSize";
 import InlineButton from "@/components/misc/InlineButton";
 import useAbout from "@/components/about/useAbout";
 import Image from "next/image";
-import { MouseEvent, useEffect, useState } from "react";
+import {MouseEvent, useState} from "react";
 import Head from "next/head";
-import { BasicPostData } from "@/components/posts/BasicPostCard";
-import { PrismaClient } from "@prisma/client";
-import Markdown from "@/markdown/Markdown";
-import { readFileSync } from "fs";
+import {BasicPostData} from "@/components/posts/BasicPostCard";
+import {PrismaClient} from "@prisma/client";
 import MakeApmt from "@/components/misc/MakeApmt";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
 import EditorArea from "@/components/editor/Editor";
-import { getResource } from "@/utils/aws";
+import {getResource} from "@/utils/aws";
 
 const prisma = new PrismaClient();
 
@@ -58,7 +56,7 @@ interface HomeProps {
     basicAbout: string;
 }
 
-const Home = ({ posts, basicAbout }: HomeProps) => {
+const Home = ({posts, basicAbout}: HomeProps) => {
     const profileImageMe = "/resources/profileMeAlt.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
@@ -112,12 +110,12 @@ const Home = ({ posts, basicAbout }: HomeProps) => {
                 <title>Wolf Mermelstein</title>
             </Head>
             <MainLayout
-                title={<Greeter />}
+                title={<Greeter/>}
                 titleWidth="w-[19.5rem] sm:w-[23.6rem]"
                 headerChildren={headerChildren}
                 subtitleFixedWidth={tileTitleWidths}
             >
-                <MakeApmt open={makeApmtOpen} setOpen={setMakeApmtOpen} />
+                <MakeApmt open={makeApmtOpen} setOpen={setMakeApmtOpen}/>
                 <div className="flex flex-col gap-7">
                     <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                         <div className="sm:basis-[30%]">

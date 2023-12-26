@@ -12,18 +12,18 @@ interface TileTitleProps {
 }
 
 const TileTitle = ({
-    title,
-    titleWidth,
-    fixedTitleWidth,
-    direction,
-    type,
-    absolute = true,
-    active = true,
-    showActivity = false,
-}: TileTitleProps) => {
+                       title,
+                       titleWidth,
+                       fixedTitleWidth,
+                       direction,
+                       type,
+                       absolute = true,
+                       active = true,
+                       showActivity = false,
+                   }: TileTitleProps) => {
     return (
         <div
-            style={titleWidth && !fixedTitleWidth ? { width: `${titleWidth}px` } : {}}
+            style={titleWidth && !fixedTitleWidth ? {width: `${titleWidth}px`} : {}}
             className={`${fixedTitleWidth ? fixedTitleWidth + " " : ""} text-center ${
                 absolute && "absolute"
             } -translate-y-[1.15rem] ${
@@ -42,7 +42,7 @@ const TileTitle = ({
                         onInit={(typewriter) => {
                             typewriter.typeString(title).start();
                         }}
-                        options={{ delay: 100, cursor: " " }}
+                        options={{delay: 100, cursor: " "}}
                     />
                 ) : (
                     title

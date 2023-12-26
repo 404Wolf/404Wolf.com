@@ -1,9 +1,8 @@
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { addResource, getResource, removeResource, resourceUrl } from "@/utils/aws";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
-import { PrismaClient } from "prisma/prisma-client";
+import {authOptions} from "@/pages/api/auth/[...nextauth]";
+import {addResource, getResource, removeResource, resourceUrl} from "@/utils/aws";
+import type {NextApiRequest, NextApiResponse} from "next";
+import {getServerSession} from "next-auth";
+import {PrismaClient} from "prisma/prisma-client";
 
 const prisma = new PrismaClient();
 
@@ -57,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             if (
                 await prisma.post.findUnique({
-                    where: { id: id },
+                    where: {id: id},
                 })
             ) {
                 res.status(403).json({
@@ -70,10 +69,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             let resourceData = null;
             try {
                 resourceData = await getResource(`${markdownId}.md`, "utf-8");
-            } catch {}
+            } catch {
+            }
 
             const resourceEntry = await prisma.resource.findUnique({
-                where: { id: markdownId },
+                where: {id: markdownId},
             });
 
             if (resourceEntry && resourceData !== "" && resourceData !== null) {
@@ -98,19 +98,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         notes: req.body.notes,
                         resources: resourceEntry
                             ? {
-                                  connect: [{ id: markdownId }],
-                              }
+                                connect: [{id: markdownId}],
+                            }
                             : {
-                                  create: [
-                                      {
-                                          id: markdownId,
-                                          title: "Post Markdown",
-                                          filename: markdownId + ".md",
-                                          url: resourceUrl(markdownId + ".md"),
-                                          type: "markdown",
-                                      },
-                                  ],
-                              },
+                                create: [
+                                    {
+                                        id: markdownId,
+                                        title: "Post Markdown",
+                                        filename: markdownId + ".md",
+                                        url: resourceUrl(markdownId + ".md"),
+                                        type: "markdown",
+                                    },
+                                ],
+                            },
                     },
                 });
             } catch {
@@ -133,7 +133,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         "text/plain"
                     ))
                 ) {
-                    await prisma.post.delete({ where: { id: id } });
+                    await prisma.post.delete({where: {id: id}});
                     res.status(400).json({
                         status: "Error",
                         message: "Failed to add post to database.",
@@ -173,7 +173,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 post.resources.map((resource) => {
                     try {
                         removeResource(resource.filename);
-                    } catch {}
+                    } catch {
+                    }
                 })
             );
             res.status(200).json({

@@ -2,13 +2,13 @@ import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
 import useSize from "@/utils/useSize";
 import EditorArea from "@/components/editor/Editor";
-import { getResource } from "@/utils/aws";
+import {getResource} from "@/utils/aws";
 
 export const getServerSideProps = async () => {
     const defaultAbout = getResource(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string, "utf-8");
 
     return {
-        props: { defaultAbout: await defaultAbout },
+        props: {defaultAbout: await defaultAbout},
     };
 };
 
@@ -16,7 +16,7 @@ interface AboutProps {
     defaultAbout: string;
 }
 
-const About = ({ defaultAbout }: AboutProps) => {
+const About = ({defaultAbout}: AboutProps) => {
     const screenSize = useSize();
 
     const headerChildren = (
@@ -34,7 +34,7 @@ const About = ({ defaultAbout }: AboutProps) => {
                     <EditorArea
                         startingText={defaultAbout}
                         objectName={process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string}
-                        resourceMap={{ profileMe: "/resources/profileMe.webp" }}
+                        resourceMap={{profileMe: "/resources/profileMe.webp"}}
                     />
                 </div>
             </Tile>

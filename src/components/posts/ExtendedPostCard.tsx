@@ -1,9 +1,9 @@
-import { toTitleCase } from "@/utils/misc";
+import {toTitleCase} from "@/utils/misc";
 import Image from "next/image";
 import Tag from "../misc/Tag";
 import Link from "next/link";
 import fetchPostIcon from "./fetchPostIcon";
-import { KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 
 export interface PostData {
     coverUrl: string | null;
@@ -28,16 +28,16 @@ interface ExtendedPostCardProps {
 }
 
 const ExtendedPostCard = ({
-    editableId = false,
-    setNewPostId,
-    coverUrl,
-    coverAlt,
-    path,
-    title,
-    description,
-    date,
-    tags,
-}: ExtendedPostCardProps) => {
+                              editableId = false,
+                              setNewPostId,
+                              coverUrl,
+                              coverAlt,
+                              path,
+                              title,
+                              description,
+                              date,
+                              tags,
+                          }: ExtendedPostCardProps) => {
     const [disabled, setDisabled] = useState(false);
     const editablePostIdRef = useRef<HTMLDivElement>(null);
 
@@ -71,7 +71,8 @@ const ExtendedPostCard = ({
     );
 
     return (
-        <div className="h-[9.8rem] w-full relative container drop-shadow-md hover:drop-shadow-lg hover:scale-[102%] duration-200">
+        <div
+            className="h-[9.8rem] w-full relative container drop-shadow-md hover:drop-shadow-lg hover:scale-[102%] duration-200">
             <Link className={linkString} href={path}>
                 {coverUrl ? (
                     <Image
@@ -81,7 +82,7 @@ const ExtendedPostCard = ({
                         className="object-cover rounded-xl z-0"
                     />
                 ) : (
-                    <div className="bg-gray-400 w-full h-full" />
+                    <div className="bg-gray-400 w-full h-full"/>
                 )}
 
                 <div className="absolute z-50 -top-2 -right-2 rounded-xl">{fetchPostIcon(tags || [])}</div>

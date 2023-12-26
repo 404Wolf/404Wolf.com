@@ -1,6 +1,5 @@
-import { uploadFileLink } from "@/utils/aws";
-import { NextApiRequest, NextApiResponse } from "next";
-import path from "path";
+import {uploadFileLink} from "@/utils/aws";
+import {NextApiRequest, NextApiResponse} from "next";
 
 interface Request extends NextApiRequest {
     body: {
@@ -17,7 +16,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
             res.json({link: await uploadFileLink(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string)});
         } else {
             res.status(500);
-            res.json({ error: "Resume object name not set in env." });
+            res.json({error: "Resume object name not set in env."});
         }
     }
 }

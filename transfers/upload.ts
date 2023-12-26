@@ -1,17 +1,16 @@
-import { PrismaClient, Prisma } from "@prisma/client";
-import { readFileSync, readdirSync } from "fs";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { unCamelCase } from "./utils";
+import {Prisma, PrismaClient} from "@prisma/client";
+import {readFileSync} from "fs";
+import {PutObjectCommand, S3Client} from "@aws-sdk/client-s3";
+import {PrismaClientKnownRequestError} from "@prisma/client/runtime/library";
 
 const postsWithResources = Prisma.validator<Prisma.PostArgs>()({
-    include: { resources: true },
+    include: {resources: true},
 });
 type PostsWithResources = Prisma.PostGetPayload<typeof postsWithResources>;
 
 const prisma = new PrismaClient();
 const s3 = {
-    client: new S3Client({ region: "us-east-2" }),
+    client: new S3Client({region: "us-east-2"}),
     bucket: "wolf-mermelstein-personal-website",
     region: "us-east-2",
 };
@@ -46,8 +45,8 @@ function getPosts(type: string) {
                     resource.type === "markdown"
                         ? readFileSync(`./posts/${post.type}s/${post.id}/post.md`, "utf-8")
                         : readFileSync(
-                              `./posts/${post.type}s/${post.id}/resources/${resource.filename}`
-                          );
+                            `./posts/${post.type}s/${post.id}/resources/${resource.filename}`
+                        );
                 const mimetype = resource.type === "markdown" ? "text/plain" : undefined;
 
                 // Add the resource to the S3 bucket
@@ -71,7 +70,7 @@ function getPosts(type: string) {
 
             // Add the resource to the database.
             try {
-                await prisma.resource.create({ data: resource });
+                await prisma.resource.create({data: resource});
                 console.log("Added resource to database.");
             } catch (error) {
                 if (error instanceof PrismaClientKnownRequestError)
@@ -82,7 +81,7 @@ function getPosts(type: string) {
         try {
             const postData = post;
             delete postData.resources;
-            await prisma.post.create({ data: post });
+            await prisma.post.create({data: post});
             console.log("Added post to database.");
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError)
