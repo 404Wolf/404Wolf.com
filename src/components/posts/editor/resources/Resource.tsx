@@ -45,6 +45,7 @@ const Resource = ({
     const router = useRouter();
     const [copiedIdTooltipShown, setCopiedIdTooltipShown] = useState(false);
 
+    // noinspection JSUnusedLocalSymbols
     const [removed, setRemoved] = useState(false);
     const [previewElement, setPreviewElement] = useState<null | React.ReactNode>(null);
     const [previewBackgroundImage, setPreviewBackgroundImage] = useState("");
@@ -73,6 +74,7 @@ const Resource = ({
             description: resourceStates.description[0],
             url: currentUrl,
         };
+        // noinspection JSUnusedLocalSymbols
         const oldResource = await updateResource(index, newResource);
         setCurrentId(newResource.id);
         setCurrentUrl(resourceUrl(newResource.filename));
@@ -146,8 +148,9 @@ const Resource = ({
     }, [currentId]);
 
     const updateResourceData = useCallback(() => {
-        async (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
-            fetch(`/api/resources/${currentId}`, {
+        // noinspection BadExpressionStatementJS
+        async (acceptedFiles: File[]) => {
+            await fetch(`/api/resources/${currentId}`, {
                 method: "PUT",
                 body: JSON.stringify({
                     type: "b64",
@@ -160,7 +163,7 @@ const Resource = ({
         };
     }, [resourceStates.filename[0]]);
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    const {getRootProps, isDragActive} = useDropzone({
         onDrop: updateResourceData,
     });
 

@@ -63,14 +63,14 @@ p:not(li > p) {
 .markdown ol {
     list-style-type: decimal;
     padding-left: 1em;
-    margin-left: em;
+    margin-left: 1em;
 }
 
 .markdown a {
     color: rgb(46, 62, 102);
     text-decoration: underline;
     text-decoration-color: rgb(118, 141, 172);
-    text-decoration-thickness: 1.4px;
+    text-decoration-thickness: 1px;
     transition: color 0.15s;
 }
 
@@ -169,7 +169,7 @@ samp {
     margin-bottom: 1rem;
     padding: 0.8em 1em;
     border-radius: 12px;
-    overflow-x: none;
+    overflow-x: clip;
     overflow-y: auto;
     max-height: 400px;
 }

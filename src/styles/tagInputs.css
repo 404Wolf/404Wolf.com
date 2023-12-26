@@ -19,10 +19,7 @@
     font-weight: 400;
     margin-bottom: 5px;
     margin-right: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 1px;
-    padding-bottom: 1px;
+    padding: 1px 5px;
 }
 
 .react-tagsinput-remove {
@@ -45,9 +42,6 @@
     font-weight: 400;
     margin-bottom: 5px;
     margin-right: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px;
     width: 90px;
 }
