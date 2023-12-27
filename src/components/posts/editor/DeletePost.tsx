@@ -17,7 +17,7 @@ const DeletePost = ({postId, postType}: DeletePostProps) => {
             if (resp.ok) {
                 router.push(`/posts/${postType}s`);
             }
-            ;
+
         });
     }, [postId]);
 
