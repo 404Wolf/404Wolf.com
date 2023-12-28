@@ -89,4 +89,27 @@ function getPosts(type: string) {
             else throw error;
         }
     }
+
+    const uploadFile = async (filename: string) => {
+        const file = readFileSync(`./extended-about.md`, "utf-8");
+        const fileUploadRequest = new PutObjectCommand({
+            Body: file,
+            Bucket: s3.bucket,
+            Key: process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string,
+            ContentType: "text/plain",
+        });
+
+        if ((await s3.client.send(fileUploadRequest)).$metadata.httpStatusCode !== 200)
+            throw new Error("File was unable to be uploaded.");
+        else console.log("Successfully uploaded file.");
+    }
+
+    // Upload the basic about markdown.
+    await uploadFile(process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME as string);
+
+    // Upload the extended about markdown.
+    await uploadFile(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string);
+
+    // Upload the resume.
+    await uploadFile(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string);
 })();
