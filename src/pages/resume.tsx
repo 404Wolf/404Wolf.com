@@ -2,7 +2,7 @@ import {GetServerSideProps} from "next";
 import React, {useCallback, useState} from "react";
 import {useRouter} from "next/router";
 import StatusLayout from "@/layouts/StatusLayout";
-import {resourceUrl} from "@/utils/aws";
+import s3 from "@/utils/aws";
 import {useSession} from "next-auth/react";
 import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         // Resume is the object with env RESUME_OBJECT_NAME
         props: {
             pdfPath:
-                resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string),
+                s3.resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string),
         },
     };
 };

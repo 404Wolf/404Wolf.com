@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {useCallback, useEffect, useRef, useState} from "react";
 import Field from "../Field";
-import {resourceUrl} from "@/utils/aws";
+import s3 from "@/utils/aws";
 import Modal from "@/components/misc/Modal";
 import {EditorResource} from "@/pages/posts/[type]/[postId]/editor";
 import ResourceIcon from "./Icon";
@@ -77,7 +77,7 @@ const Resource = ({
         // noinspection JSUnusedLocalSymbols
         const oldResource = await updateResource(index, newResource);
         setCurrentId(newResource.id);
-        setCurrentUrl(resourceUrl(newResource.filename));
+        setCurrentUrl(s3.resourceUrl(newResource.filename));
     }, [resourceStateDependencies, index]);
 
     useEffect(() => {

@@ -1,9 +1,9 @@
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
-import {addResource, getResource, removeResource, resourceUrl} from "@/utils/aws";
+import s3 from "@/utils/aws";
 import type {NextApiRequest, NextApiResponse} from "next";
 import {getServerSession} from "next-auth";
 import {PrismaClient} from "prisma/prisma-client";
-import {auth} from "@/auth/auth";
+import {auth} from "@/auth";
 
 const prisma = new PrismaClient();
 
@@ -16,14 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     const id = req.query.id;
-    const session = await auth();
-    if (session === null && req.method !== "GET") {
-        res.status(401).json({
-            status: "Error",
-            message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
-        });
+    if (!(await auth(req, res)))
         return;
-    }
 
     switch (req.method) {
         case "GET": {
@@ -69,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             let resourceData = null;
             try {
-                resourceData = await getResource(`${markdownId}.md`, "utf-8");
+                resourceData = await s3.getResource(`${markdownId}.md`, "utf-8");
             } catch {
             }
 
@@ -107,7 +101,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         id: markdownId,
                                         title: "Post Markdown",
                                         filename: markdownId + ".md",
-                                        url: resourceUrl(markdownId + ".md"),
+                                        url: s3.resourceUrl(markdownId + ".md"),
                                         type: "markdown",
                                     },
                                 ],
@@ -127,7 +121,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // it with an empty string.
             if ((req.body.markdown && req.body.markdown.data) || !resourceEntry || !resourceData)
                 if (
-                    !(await addResource(
+                    !(await s3.addResource(
                         markdownId + ".md",
                         req.body.markdown?.data || "",
                         "str",
@@ -173,7 +167,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             await Promise.all(
                 post.resources.map((resource) => {
                     try {
-                        removeResource(resource.filename);
+                        s3.removeResource(resource.filename);
                     } catch {
                     }
                 })
@@ -200,7 +194,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             if (req.body.markdown) {
-                await addResource(
+                await s3.addResource(
                     `${req.body.markdown.id}.md`,
                     req.body.markdown.data,
                     "str",

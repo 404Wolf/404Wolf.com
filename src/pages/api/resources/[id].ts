@@ -1,9 +1,7 @@
-import {authOptions} from "@/pages/api/auth/[...nextauth]";
-import {addResource, getResource, removeResource, resourceUrl, uploadFileLink,} from "@/utils/aws";
+import s3 from "@/utils/aws";
 import type {NextApiRequest, NextApiResponse} from "next";
-import {getServerSession} from "next-auth";
 import {PrismaClient} from "prisma/prisma-client";
-import {auth} from "@/auth/auth";
+import {auth} from "@/auth";
 
 const prisma = new PrismaClient();
 
@@ -16,14 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     const id = req.query.id;
-    const session = await auth();
-    if (session === null && req.method !== "GET") {
-        res.status(401).json({
-            status: "Error",
-            message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
-        });
+    if (!(await auth(req, res)))
         return;
-    }
 
     switch (req.method) {
         case "GET": {
@@ -43,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const encoding = resource.type === "markdown" ? "utf-8" : "base64";
             const data =
                 req.headers.data === "true"
-                    ? await getResource(resource.filename, encoding)
+                    ? await s3.getResource(resource.filename, encoding)
                     : null;
 
             res.status(200).json({
@@ -63,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     id: id,
                     title: req.body.title,
                     filename: req.body.filename,
-                    url: resourceUrl(req.body.filename),
+                    url: s3.resourceUrl(req.body.filename),
                     type: req.body.type,
                     description: req.body.description,
                     post: {
@@ -75,7 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 status: "Success",
                 message: `Resource successfully added to database. 
                     Upload the image using the presigned upload URL attached to this body.`,
-                uploadUrl: await uploadFileLink(req.body.filename),
+                uploadUrl: await s3.uploadFileLink(req.body.filename),
             });
             return;
         }
@@ -100,7 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             });
             try {
-                await removeResource(resource.filename);
+                await s3.removeResource(resource.filename);
             } catch {
                 res.status(404).json({
                     status: "Error",
@@ -130,7 +122,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             if (req.body.data)
-                await addResource(
+                await s3.addResource(
                     req.body.filename || resource.filename,
                     req.body.data,
                     req.body.type || resource.type === "image" ? "b64" : "str",
@@ -145,7 +137,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     id: req.body.id,
                     title: req.body.title,
                     filename: req.body.filename,
-                    url: req.body.filename ? resourceUrl(req.body.filename) : undefined,
+                    url: req.body.filename ? s3.resourceUrl(req.body.filename) : undefined,
                     type: req.body.type,
                     description: req.body.description,
                 },

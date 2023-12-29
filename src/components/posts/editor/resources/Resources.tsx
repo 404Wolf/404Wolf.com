@@ -4,7 +4,7 @@ import {useCallback} from "react";
 import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
 import FakeResource from "./FakeResource";
 import ensureLength from "@/utils/ensureLength";
-import {resourceUrl} from "@/utils/aws";
+import s3 from "@/utils/aws";
 import sanitize from "sanitize-filename";
 
 interface ResourcesProps {
@@ -78,10 +78,10 @@ const Resources = ({
                             body: await file.arrayBuffer(),
                         });
                         if (uploadResp.ok) {
-                            console.log(resourceUrl(filename));
+                            console.log(s3.resourceUrl(filename));
                             newResources.push({
                                 ...newResource,
-                                url: resourceUrl(filename),
+                                url: s3.resourceUrl(filename),
                             });
                         } else {
                             console.log(await uploadResp.json());

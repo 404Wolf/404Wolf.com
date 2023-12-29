@@ -1,18 +1,10 @@
-import {addResource, getResource,} from "@/utils/aws";
+import s3 from "@/utils/aws";
 import type {NextApiRequest, NextApiResponse} from "next";
-import {auth} from "@/auth/auth";
+import {auth, unauthorized} from "@/auth";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const session = await auth();
-    if (session === null && req.method !== "GET") {
-        res.status(401).json({
-            status: "Error",
-            message: `You must be authenticated to perform a ${req.method} request to this endpoint.`,
-        });
+    if (!(await auth(req, res)))
         return;
-    }
-    if (req.body) req.body = JSON.parse(req.body);
-
     const objectName = req.headers.object as string;
 
     if (!objectName) {
@@ -27,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         case "GET": {
             const encoding = req.headers.encoding as string;
 
-            const resource = await getResource(objectName, encoding || "utf-8");
+            const resource = await s3.getResource(objectName, encoding || "utf-8");
             if (!resource) {
                 res.status(404).json({
                     status: "Error",
@@ -55,8 +47,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return;
             }
 
-            if (dataType === "str") addResource(objectName, data, "str", "text/plain");
-            else addResource(objectName, data, "b64", mimeType);
+            if (dataType === "str") await s3.addResource(objectName, data, "str", "text/plain");
+            else await s3.addResource(objectName, data, "b64", mimeType);
 
             res.status(200).json({
                 status: "Success",

@@ -1,8 +1,9 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import PushUpdate from "../misc/PushUpdate";
 import CircleButton from "../posts/editor/CircleButton";
 import Markdown from "@/markdown/Markdown";
 import {useSession} from "next-auth/react";
+import editor from "@/pages/posts/[type]/[postId]/editor";
 
 interface EditorAreaProps {
     startingText?: string;
@@ -22,10 +23,13 @@ const EditorArea = ({
     const session = useSession();
 
     const [editorContentCurrentText, setEditorContentCurrentText] = useState(startingText);
+    const updateEditorContentCurrentText = useCallback((text: string) => {
+        setEditorContentCurrentText(text);
+        if (editorArea.current) editorArea.current.innerText = text;
+    }, [editorArea]);
+
     const editorContent = {
-        get: () => {
-            return editorContentCurrentText;
-        },
+        get: () => editorContentCurrentText,
         set: (text: string) => {
             if (editorArea.current) editorArea.current.innerText = text;
         },
@@ -39,26 +43,19 @@ const EditorArea = ({
                 body: JSON.stringify(body),
                 headers: {
                     object: objectName,
+                    "Content-Type": "application/json"
                 },
             });
         },
         fetch: async () => {
-            fetch(`/api/objects`, {
+            const res = await fetch(`/api/objects`, {
                 method: "GET",
                 headers: {
                     object: objectName,
+                    "Content-Type": "application/json"
                 },
-            })
-                .then((res) => res.json())
-                .then((res) => {
-                    if (res.status === "Success") setEditorContentCurrentText(res.data);
-                })
-                .then(() => {
-                    setTimeout(() => {
-                        if (editorArea.current && editorContentCurrentText)
-                            editorArea.current.innerText = editorContentCurrentText;
-                    }, 0);
-                });
+            }).then(res => res.json());
+            if (res.status === "Success") updateEditorContentCurrentText(res.data);
         },
     };
 
