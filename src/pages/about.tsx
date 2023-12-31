@@ -5,7 +5,7 @@ import EditorArea from "@/components/editor/Editor";
 import s3 from "@/utils/aws";
 
 export const getServerSideProps = async () => {
-    const defaultAbout = await s3.getResource(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string, "utf-8");
+    const defaultAbout = await s3.getResource(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!, "utf-8");
 
     return {
         props: {defaultAbout: defaultAbout},
@@ -33,7 +33,7 @@ const About = ({defaultAbout}: AboutProps) => {
                 <div className="markdown pt-2 md:pt-1">
                     <EditorArea
                         startingText={defaultAbout}
-                        objectName={process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string}
+                        objectName={process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!}
                         resourceMap={{profileMe: "/resources/profileMe.webp"}}
                     />
                 </div>

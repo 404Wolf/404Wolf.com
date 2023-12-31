@@ -95,7 +95,7 @@ function getPosts(type: string) {
         const fileUploadRequest = new PutObjectCommand({
             Body: file,
             Bucket: s3.bucket,
-            Key: process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string,
+            Key: process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!,
             ContentType: "text/plain",
         });
 
@@ -105,11 +105,11 @@ function getPosts(type: string) {
     }
 
     // Upload the basic about markdown.
-    await uploadFile(process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME as string);
+    await uploadFile(process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!);
 
     // Upload the extended about markdown.
-    await uploadFile(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string);
+    await uploadFile(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!);
 
     // Upload the resume.
-    await uploadFile(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string);
+    await uploadFile(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!);
 })();

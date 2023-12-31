@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         // Resume is the object with env RESUME_OBJECT_NAME
         props: {
             pdfPath:
-                s3.resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string),
+                s3.resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!),
         },
     };
 };

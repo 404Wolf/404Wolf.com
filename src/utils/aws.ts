@@ -9,7 +9,7 @@ import {getSignedUrl} from "@aws-sdk/s3-request-presigner";
 
 const s3 = {
     client: new S3Client({region: "us-east-2"}),
-    bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME as string,
+    bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
     region: "us-east-2",
 
     resourceUrl: (key: string) => `https://${s3.bucket}.s3.${s3.region}.amazonaws.com/${key}`,

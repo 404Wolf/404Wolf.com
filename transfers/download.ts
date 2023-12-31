@@ -66,21 +66,21 @@ if (!readdirSync("./").includes("output")) mkdirSync("output");
 
     // Download the about markdown.
     await downloadFile(
-        process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME as string,
+        process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!,
         `output/about.md`
     );
     console.log("Downloaded about markdown.");
 
     // Download the extended about markdown.
     await downloadFile(
-        process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME as string,
+        process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!,
         `output/extended-about.md`
     );
     console.log("Downloaded extended about markdown.");
 
     // Download the resume.
     await downloadFile(
-        process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME as string,
+        process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!,
         `output/resume.pdf`
     );
     console.log("Downloaded resume.");
