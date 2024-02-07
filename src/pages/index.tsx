@@ -94,11 +94,7 @@ const Home = ({posts, basicAbout}: HomeProps) => {
                 <p>
                     Information, projects, contacts, my resume, and more can be found on this
                     website. If you have any questions, feel free to{" "}
-                    <InlineButton externalTo={`mailto:${about.email}`}>email me</InlineButton> or{" "}
-                    <InlineButton onClick={() => setMakeApmtOpen(true)}>
-                        meet with me
-                    </InlineButton>
-                    .
+                    <InlineButton externalTo={`mailto:${about.email}`}>email</InlineButton>!
                 </p>
             </div>
         </div>
