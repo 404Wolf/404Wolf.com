@@ -11,7 +11,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
     if (req.method === "POST") {
         // Create an aws link to allow the user to post a new resume.
         // The object name is env RESUME_OBJECT_NAME.
-        if (process.env.RESUME_OBJECT_NAME) {
+        if (process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME) {
             res.status(200);
             res.json({link: await s3.uploadFileLink(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!)});
         } else {
