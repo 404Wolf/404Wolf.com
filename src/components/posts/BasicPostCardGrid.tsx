@@ -1,3 +1,5 @@
+"use client";
+
 import BasicPostCard, {BasicPostData} from "@/components/posts/BasicPostCard";
 
 interface BasicPostCardGridProps {

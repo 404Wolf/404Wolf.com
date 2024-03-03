@@ -1,24 +1,17 @@
 import Tile from "@/components/misc/Tiles/Tile";
 import MainLayout from "@/layouts/MainLayout";
-import useSize from "@/utils/useSize";
 import EditorArea from "@/components/editor/Editor";
 import s3 from "@/utils/aws";
 
-export const getServerSideProps = async () => {
-    const defaultAbout = await s3.getResource(process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!, "utf-8");
-
-    return {
-        props: {defaultAbout: defaultAbout},
-    };
-};
-
-interface AboutProps {
-    defaultAbout: string;
+async function getDefaultAbout(): Promise<string> {
+    const resp = await s3.getResource(
+        process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!,
+        "utf-8"
+    );
+    return resp?.toString() || "";
 }
 
-const About = ({defaultAbout}: AboutProps) => {
-    const screenSize = useSize();
-
+const About = async () => {
     const headerChildren = (
         <p>
             Welcome to the about page, where you can find more information about who I am, why I'm
@@ -32,9 +25,9 @@ const About = ({defaultAbout}: AboutProps) => {
             <Tile title="About">
                 <div className="markdown pt-2 md:pt-1">
                     <EditorArea
-                        startingText={defaultAbout}
+                        startingText={await getDefaultAbout()}
                         objectName={process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!}
-                        resourceMap={{profileMe: "/resources/profileMe.webp"}}
+                        resourceMap={{ profileMe: "/resources/profileMe.webp" }}
                     />
                 </div>
             </Tile>
