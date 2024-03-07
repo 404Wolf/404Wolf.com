@@ -107,7 +107,7 @@ const Home = ({posts, basicAbout}: HomeProps) => {
             </Head>
             <MainLayout
                 title={<Greeter/>}
-                titleWidth="w-[19.5rem] sm:w-[23.6rem]"
+                titleWidth="w-[20.2rem] sm:w-[24.2rem]"
                 headerChildren={headerChildren}
                 subtitleFixedWidth={tileTitleWidths}
             >
