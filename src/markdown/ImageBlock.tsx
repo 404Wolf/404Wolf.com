@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "@/markdown/Image";
 import {useWindowWidth} from "@react-hook/window-size";
 import {Carousel} from "react-responsive-carousel";

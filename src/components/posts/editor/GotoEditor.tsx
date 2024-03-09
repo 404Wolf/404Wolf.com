@@ -1,3 +1,5 @@
+"use client";
+
 import CircleButton from "./CircleButton";
 
 interface GotoEditorProps {

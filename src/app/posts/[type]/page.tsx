@@ -36,9 +36,10 @@ const PostsIndexLayout = async ({ params: { type } }: { params: { type: string }
         : `List of all ${type}s...`;
 
     return (
-        <MainLayout>
+        <MainLayout
             title={toTitleCase(type)}
             headerChildren={<div className="markdown">{typeDescription}</div>}
+        >
             <div className="-mt-3">
                 <Body typeDescription={typeDescription} posts={posts} type={type} />
             </div>

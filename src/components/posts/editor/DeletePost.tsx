@@ -1,6 +1,8 @@
+"use client";
+
 import {useCallback} from "react";
 import CircleButton from "./CircleButton";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 
 interface DeletePostProps {
     postId: string;
