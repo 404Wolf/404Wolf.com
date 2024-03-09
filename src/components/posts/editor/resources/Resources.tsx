@@ -1,7 +1,7 @@
-import {EditorResource} from "@/pages/posts/[type]/[postId]/editor";
+import { EditorResource } from "@/pages/posts/[type]/[postId]/editor";
 import Resource from "@/components/posts/editor/resources/Resource";
-import {useCallback} from "react";
-import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
+import { useCallback } from "react";
+import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
 import FakeResource from "./FakeResource";
 import ensureLength from "@/utils/ensureLength";
 import s3 from "@/utils/aws";
@@ -17,13 +17,13 @@ interface ResourcesProps {
 }
 
 const Resources = ({
-                       resources,
-                       covers,
-                       setResources,
-                       setCovers,
-                       postId,
-                       setMarkdown,
-                   }: ResourcesProps) => {
+    resources,
+    covers,
+    setResources,
+    setCovers,
+    postId,
+    setMarkdown,
+}: ResourcesProps) => {
     const addResource = useCallback(
         async (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => {
             const newResources: EditorResource[] = [];
@@ -39,11 +39,11 @@ const Resources = ({
                 let resourceNumber = 1;
                 while (
                     (await fetch("/api/resources/exists", {
-                        headers: {id: makeId(resourceNumber)},
+                        headers: { id: makeId(resourceNumber) },
                     })
                         .then((resp) => resp.json())
                         .then((exists) => exists.exists)) === "true"
-                    ) {
+                ) {
                     resourceNumber++;
                 }
                 const resourceId = makeId(resourceNumber);
@@ -68,7 +68,6 @@ const Resources = ({
                 })
                     .then(async (addResp) => {
                         const addRespJson = await addResp.json();
-                        console.log(addRespJson);
                         const uploadResp = await fetch(addRespJson.uploadUrl, {
                             method: "PUT",
                             headers: {
@@ -78,13 +77,10 @@ const Resources = ({
                             body: await file.arrayBuffer(),
                         });
                         if (uploadResp.ok) {
-                            console.log(s3.resourceUrl(filename));
                             newResources.push({
                                 ...newResource,
                                 url: s3.resourceUrl(filename),
                             });
-                        } else {
-                            console.log(await uploadResp.json());
                         }
                     })
                     .catch((e) => console.log(e));
@@ -99,7 +95,7 @@ const Resources = ({
         [resources, postId]
     );
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: addResource,
     });
 
@@ -169,8 +165,8 @@ const Resources = ({
                 }).then((resp) => {
                     if (resp.ok) {
                         setCovers(newCovers as string[]);
-                        console.log("Made image a cover image")
-                    } else console.log("Failed to change cover")
+                        console.log("Made image a cover image");
+                    } else console.log("Failed to change cover");
                 });
             }
         },

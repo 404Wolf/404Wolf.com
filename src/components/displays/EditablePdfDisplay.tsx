@@ -25,7 +25,6 @@ export default async function EditablePdfDisplay({ pdfPath }: { pdfPath: string 
     const uploadResumeDrop = useCallback((acceptedFiles: File[]) => {
         // Only possible for one file to be accepted, so choose the first one
         const file = acceptedFiles[0];
-        console.log(file);
 
         file.arrayBuffer().then((buffer) => {
             // Make a post request to "/api/resume" to get a link that we can upload the new resume

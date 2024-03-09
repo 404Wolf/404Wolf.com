@@ -16,7 +16,6 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
             }}
             components={{
                 img: ({ node, ...props }) => {
-                    console.log(props);
                     return (
                         <MdImage
                             alt={props.alt}
