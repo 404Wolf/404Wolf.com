@@ -77,7 +77,7 @@ export default async function Home() {
         <>
             <MainLayout
                 title={<Greeter />}
-                titleWidth="w-[19.5rem] sm:w-[23.6rem]"
+                titleWidth="w-[20.5rem] sm:w-[24.6rem]"
                 headerChildren={headerChildren}
                 subtitleFixedWidth={tileTitleWidths}
             >

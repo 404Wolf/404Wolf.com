@@ -1,4 +1,4 @@
-"useClient";
+"use client";
 
 import { toTitleCase } from "@/utils/misc";
 import Image from "next/image";
