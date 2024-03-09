@@ -10,6 +10,6 @@ export function getAboutData() {
     return JSON.parse(aboutData) as AboutData;
 }
 
-export default function handler(req: NextApiRequest) {
+export function GET(req: NextApiRequest) {
     return NextResponse.json(getAboutData());
 }
