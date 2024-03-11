@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "@/markdown/Image";
-import {useWindowWidth} from "@react-hook/window-size";
-import {Carousel} from "react-responsive-carousel";
+import { useWindowWidth } from "@react-hook/window-size";
+import { Carousel } from "react-responsive-carousel";
 
 export interface ImageBlockProps {
     alts: string;
@@ -18,12 +20,12 @@ interface Image {
 }
 
 const ImageBlock = ({
-                        alts,
-                        srcs,
-                        titles,
-                        properties = "",
-                        resourceMap = {},
-                    }: ImageBlockProps) => {
+    alts,
+    srcs,
+    titles,
+    properties = "",
+    resourceMap = {},
+}: ImageBlockProps) => {
     const screenWidth = useWindowWidth();
 
     const images: Image[] = alts.split(";").map((alt, index) => {
@@ -31,7 +33,7 @@ const ImageBlock = ({
         if (properties)
             properties
                 .split(";")
-                [index].split(",")
+            [index].split(",")
                 .forEach((property) => {
                     const [name, value] = property.split("=");
                     formattedProperties[name] = value;
@@ -59,8 +61,8 @@ const ImageBlock = ({
 
     return images.length == 2 ? (
         <div
-            children={imageElements.map((element) => (
-                <div className="w-full sm:w-[35%]">{element}</div>
+            children={imageElements.map((element, i) => (
+                <div key={i} className="w-full sm:w-[35%]">{element}</div>
             ))}
             className="clear-both flex gap-3 sm:gap-14 w-full justify-between sm:justify-center items-center my-4"
         />

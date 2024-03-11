@@ -1,3 +1,5 @@
+"use client";
+
 import {useCallback, useState} from "react";
 
 const usePushPostUpdates = (postStates, currentId, callback) => {
@@ -37,7 +39,7 @@ const usePushPostUpdates = (postStates, currentId, callback) => {
         }
     }, Object.values(postStates).map(postState => postState[0]))
 
-    return async () => (await updatePost().then(() => {
+    return async () => (updatePost().then(() => {
             resourceUpdateQueue.forEach(func => func());
             setResourceUpdateQueue([]);
             callback();

@@ -1,4 +1,6 @@
-import {useEffect, useState} from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 interface PulsateProps {
     children: React.ReactNode;
@@ -6,7 +8,7 @@ interface PulsateProps {
     period?: number;
 }
 
-const Pulsate = ({period = 800, transition = 300, children}: PulsateProps) => {
+const Pulsate = ({ period = 800, transition = 300, children }: PulsateProps) => {
     const [scale, setScale] = useState(true);
 
     useEffect(() => {
@@ -25,7 +27,7 @@ const Pulsate = ({period = 800, transition = 300, children}: PulsateProps) => {
         >
             {children}
         </div>
-    )
-}
+    );
+};
 
 export default Pulsate;

@@ -1,9 +1,10 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import PushUpdate from "../misc/PushUpdate";
 import CircleButton from "../posts/editor/CircleButton";
 import Markdown from "@/markdown/Markdown";
-import {useSession} from "next-auth/react";
-import editor from "@/pages/posts/[type]/[postId]/editor";
+import { useSession } from "next-auth/react";
 
 interface EditorAreaProps {
     startingText?: string;
@@ -13,20 +14,23 @@ interface EditorAreaProps {
 }
 
 const EditorArea = ({
-                        requireAuth = true,
-                        objectName,
-                        startingText,
-                        resourceMap = {},
-                    }: EditorAreaProps) => {
+    requireAuth = true,
+    objectName,
+    startingText,
+    resourceMap = {},
+}: EditorAreaProps) => {
     const editorArea = useRef<HTMLDivElement>(null);
     const [inEditMode, setInEditMode] = useState(false);
     const session = useSession();
 
     const [editorContentCurrentText, setEditorContentCurrentText] = useState(startingText);
-    const updateEditorContentCurrentText = useCallback((text: string) => {
-        setEditorContentCurrentText(text);
-        if (editorArea.current) editorArea.current.innerText = text;
-    }, [editorArea]);
+    const updateEditorContentCurrentText = useCallback(
+        (text: string) => {
+            setEditorContentCurrentText(text);
+            if (editorArea.current) editorArea.current.innerText = text;
+        },
+        [editorArea]
+    );
 
     const editorContent = {
         get: () => editorContentCurrentText,
@@ -43,7 +47,7 @@ const EditorArea = ({
                 body: JSON.stringify(body),
                 headers: {
                     object: objectName,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
             });
         },
@@ -52,9 +56,9 @@ const EditorArea = ({
                 method: "GET",
                 headers: {
                     object: objectName,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-            }).then(res => res.json());
+            }).then((res) => res.json());
             if (res.status === "Success") updateEditorContentCurrentText(res.data);
         },
     };
@@ -106,7 +110,7 @@ const EditorArea = ({
             )}
             {!inEditMode && (
                 <div className="mt-2">
-                    <Markdown markdown={editorContentCurrentText} resourceMap={resourceMap}/>
+                    <Markdown markdown={editorContentCurrentText} resourceMap={resourceMap} />
                 </div>
             )}
         </div>

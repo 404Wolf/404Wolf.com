@@ -1,3 +1,5 @@
+"use client";
+
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import codeblockStyle from "./codeblock-style.js";
 

@@ -1,4 +1,6 @@
-import BasicPostCard, {BasicPostData} from "@/components/posts/BasicPostCard";
+"use client";
+
+import BasicPostCard, { BasicPostData } from "@/components/posts/BasicPostCard";
 
 interface BasicPostCardGridProps {
     posts: (BasicPostData | null)[];
@@ -10,13 +12,13 @@ interface BasicPostCardGridProps {
 }
 
 const BasicPostCardGrid = ({
-                               posts,
-                               minAmount,
-                               onlyFeatured,
-                               showTags,
-                               tags = [],
-                               gridConfig = "grid grid-cols-2",
-                           }: BasicPostCardGridProps) => {
+    posts,
+    minAmount,
+    onlyFeatured,
+    showTags,
+    tags = [],
+    gridConfig = "grid grid-cols-2",
+}: BasicPostCardGridProps) => {
     if (onlyFeatured) {
         posts = posts.filter((post) => post && post.tags.includes("featured"));
     }
@@ -35,7 +37,7 @@ const BasicPostCardGrid = ({
         >
             {posts.map((post, index) => {
                 if (post === null) {
-                    return <BasicPostCard key={index}/>;
+                    return <BasicPostCard key={index} />;
                 } else {
                     return (
                         <BasicPostCard

@@ -15,15 +15,15 @@ export interface TileProps {
 }
 
 const Tile = ({
-                  title,
-                  children,
-                  className = "",
-                  type = true,
-                  direction = "left",
-                  extraPadding = 0,
-                  fixedTitleWidth = null,
-                  containerClass = "h-full relative",
-              }: TileProps) => {
+    title,
+    children,
+    className = "",
+    type = true,
+    direction = "left",
+    extraPadding = 0,
+    fixedTitleWidth = null,
+    containerClass = "h-full relative",
+}: TileProps) => {
     const titleWidth = title ? useTitleWidth(title, fixedTitleWidth) : 0;
 
     return (
@@ -40,7 +40,7 @@ const Tile = ({
             <div
                 className={`${className} mb-auto p-3 md:p-5 pt-5 md:pt-5 bg-slate-300 rounded-2xl h-full ${className} drop-shadow-sm`}
             >
-                <div style={{padding: `${extraPadding}px`}}>{children}</div>
+                <div style={{ padding: `${extraPadding}px` }}>{children}</div>
             </div>
         </div>
     );

@@ -60,19 +60,15 @@ const s3 = {
 
     getResource: async (filename: string, encoding: string) => {
         // Create a request to fetch the resource
-        console.info(`Fetching resource ${filename} from S3 bucket ${s3.bucket}.`);
-        console.debug(`Resource encoding: ${encoding}`);
-        console.debug(`Resource URL: ${s3.resourceUrl(filename)}`);
         const request = new GetObjectCommand({
             Bucket: s3.bucket,
             Key: filename,
         });
 
         const data = await s3.client.send(request);
-        console.debug(`Response: ${data}`);
 
         if (encoding !== null && encoding !== undefined)
-            return data.Body?.transformToString(encoding);
+            return await data.Body?.transformToString(encoding);
 
         else return data.Body;
     },

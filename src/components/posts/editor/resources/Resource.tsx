@@ -1,23 +1,23 @@
 import Image from "next/image";
-import {useCallback, useEffect, useRef, useState} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Field from "../Field";
 import s3 from "@/utils/aws";
 import Modal from "@/components/misc/Modal";
-import {EditorResource} from "@/pages/posts/[type]/[postId]/editor";
 import ResourceIcon from "./Icon";
-import {useRouter} from "next/router";
-import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
-import {toB64} from "@/utils/toB64";
-import {Tooltip} from "react-tooltip";
+import { useRouter } from "next/navigation";
+import { useDropzone } from "react-dropzone";
+import { toB64 } from "@/utils/toB64";
+import { Tooltip } from "react-tooltip";
+import { EditorResource } from "@/app/posts/[type]/[postId]/editor/page";
 
 interface ResourceProps {
     resource: EditorResource;
     postId: string;
-    isCover: (resourceId: string) => boolean;
-    setIsCover: (coverId: string, newIsCover: boolean) => void;
+    isCover: () => boolean;
+    toggleIsCover: () => void;
     remove: () => void;
     setMarkdown: (markdownData: string, markdownId: string) => void;
-    updateResource: (index: number, resource: EditorResource) => Promise<EditorResource>;
+    updateResource: (newResource: EditorResource) => void;
     index: number;
 }
 
@@ -31,22 +31,19 @@ export interface ResourceStates {
 }
 
 const Resource = ({
-                      resource,
-                      postId,
-                      isCover,
-                      setIsCover,
-                      remove,
-                      setMarkdown,
-                      updateResource,
-                      index,
-                  }: ResourceProps) => {
+    resource,
+    postId,
+    isCover,
+    toggleIsCover,
+    remove,
+    setMarkdown,
+    updateResource,
+}: ResourceProps) => {
     if (!resource) return <></>;
 
     const router = useRouter();
     const [copiedIdTooltipShown, setCopiedIdTooltipShown] = useState(false);
 
-    // noinspection JSUnusedLocalSymbols
-    const [removed, setRemoved] = useState(false);
     const [previewElement, setPreviewElement] = useState<null | React.ReactNode>(null);
     const [previewBackgroundImage, setPreviewBackgroundImage] = useState("");
     const [configOpen, setConfigOpen] = useState(false);
@@ -59,7 +56,7 @@ const Resource = ({
         filename: useState(resource.filename),
         type: useState(resource.type),
         description: useState(resource.description),
-        cover: useState(false),
+        cover: useState(isCover()),
     };
     const resourceStateDependencies = Object.values(resourceStates).map((value) => value[0]);
 
@@ -74,11 +71,12 @@ const Resource = ({
             description: resourceStates.description[0],
             url: currentUrl,
         };
-        // noinspection JSUnusedLocalSymbols
-        const oldResource = await updateResource(index, newResource);
+
+        await updateResource(newResource);
+
         setCurrentId(newResource.id);
         setCurrentUrl(s3.resourceUrl(newResource.filename));
-    }, [resourceStateDependencies, index]);
+    }, [resourceStateDependencies]);
 
     useEffect(() => {
         if (resourceIdRef.current) resourceIdRef.current.innerText = resourceStates.id[0];
@@ -120,7 +118,7 @@ const Resource = ({
 
     const loadMarkdown = useCallback(() => {
         fetch(`/api/posts/${postId}`, {
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             method: "PUT",
             body: JSON.stringify({
                 markdown: currentId,
@@ -128,7 +126,7 @@ const Resource = ({
         }).then((resp) => {
             if (resp.ok) {
                 fetch(`/api/resources/${currentId}`, {
-                    headers: {data: "true"},
+                    headers: { data: "true" },
                     method: "GET",
                 })
                     .then((resp) => resp.json())
@@ -139,16 +137,12 @@ const Resource = ({
     }, [currentId]);
 
     const downloadResource = useCallback(() => {
-        fetch("/api/resources/link", {
-            headers: {id: currentId},
-            method: "GET",
-        })
+        fetch(`/api/resources/${currentId}/link`)
             .then((resp) => resp.json())
             .then((resp) => router.push(resp.url));
     }, [currentId]);
 
     const updateResourceData = useCallback(() => {
-        // noinspection BadExpressionStatementJS
         async (acceptedFiles: File[]) => {
             await fetch(`/api/resources/${currentId}`, {
                 method: "PUT",
@@ -163,7 +157,7 @@ const Resource = ({
         };
     }, [resourceStates.filename[0]]);
 
-    const {getRootProps, isDragActive} = useDropzone({
+    const { getRootProps, isDragActive } = useDropzone({
         onDrop: updateResourceData,
     });
 
@@ -173,35 +167,29 @@ const Resource = ({
                 backgroundImage:
                     resourceStates.type[0] !== "markdown" ? previewBackgroundImage : "",
             }}
-            className={`relative bg-gray-400 text-center h-40 rounded-xl bg-center bg-cover bg-no-repeat ${
-                isDragActive ? "brightness-50" : ""
-            }`}
+            className={`relative bg-gray-400 text-center h-40 rounded-xl bg-center bg-cover bg-no-repeat ${isDragActive ? "brightness-50" : ""
+                }`}
         >
             <div className="flex gap-1 absolute -bottom-1 -right-1 z-50" {...getRootProps}>
                 {resourceStates.type[0] === "markdown" && (
                     <button onClick={loadMarkdown}>
-                        <ResourceIcon icon="load" alt="Load markdown"/>
+                        <ResourceIcon icon="load" alt="Load markdown" />
                     </button>
                 )}
                 {resourceStates.type[0] === "image" && (
-                    <button onClick={() => setIsCover(currentId, !isCover(currentId))}>
+                    <button onClick={() => {toggleIsCover(); resourceStates.cover[1](isCover())}}>
                         <ResourceIcon
                             icon="pin"
-                            alt={isCover(currentId) ? "Unmake cover" : "Make cover"}
-                            enabled={isCover(currentId)}
+                            alt={isCover() ? "Unmake cover" : "Make cover"}
+                            enabled={resourceStates.cover[0]}
                         />
                     </button>
                 )}
                 <button onClick={downloadResource}>
-                    <ResourceIcon icon="download" alt="Download resource"/>
+                    <ResourceIcon icon="download" alt="Download resource" />
                 </button>
-                <button
-                    onClick={() => {
-                        setRemoved(true);
-                        remove();
-                    }}
-                >
-                    <ResourceIcon icon="trash" alt="Delete resource"/>
+                <button onClick={remove}>
+                    <ResourceIcon icon="trash" alt="Delete resource" />
                 </button>
             </div>
 
@@ -216,7 +204,7 @@ const Resource = ({
             <div
                 className="bg-gray-500 text-sm text-white flex px-2 w-fit mx-auto rounded-full absolute -top-2 -left-3 focus:outline-none scale-90 z-40">
                 <div className="inline-block">#</div>
-                <Tooltip id="copied-tooltip"/>
+                <Tooltip id="copied-tooltip" />
                 <div
                     data-tooltip-id="copied-tooltip"
                     data-tooltip-content="Copied!"
@@ -242,7 +230,7 @@ const Resource = ({
                         Resource Editor
                     </h1>
                     <div
-                        style={{zIndex: -20}}
+                        style={{ zIndex: -20 }}
                         className="p-4 bg-slate-300 pt-8 flex-row rounded-2xl drop-shadow-5xl-c"
                     >
                         <div className="flex gap-3">

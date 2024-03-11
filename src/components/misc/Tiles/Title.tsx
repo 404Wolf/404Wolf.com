@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Typewriter from "typewriter-effect";
 
 interface TileTitleProps {
@@ -12,18 +15,23 @@ interface TileTitleProps {
 }
 
 const TileTitle = ({
-                       title,
-                       titleWidth,
-                       fixedTitleWidth,
-                       direction,
-                       type,
-                       absolute = true,
-                       active = true,
-                       showActivity = false,
-                   }: TileTitleProps) => {
+    title,
+    titleWidth,
+    fixedTitleWidth,
+    direction,
+    type,
+    absolute = true,
+    active = true,
+    showActivity = false,
+}: TileTitleProps) => {
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        setReady(true);
+    }, []);
+
     return (
         <div
-            style={titleWidth && !fixedTitleWidth ? {width: `${titleWidth}px`} : {}}
+            style={titleWidth && !fixedTitleWidth ? { width: `${titleWidth}px` } : {}}
             className={`${fixedTitleWidth ? fixedTitleWidth + " " : ""} text-center ${
                 absolute && "absolute"
             } -translate-y-[1.15rem] ${
@@ -38,12 +46,15 @@ const TileTitle = ({
         >
             <h2 className="text-xl sm:text-2xl text-bold">
                 {type ? (
-                    <Typewriter
-                        onInit={(typewriter) => {
-                            typewriter.typeString(title).start();
-                        }}
-                        options={{delay: 100, cursor: " "}}
-                    />
+                    <span>
+                        <Typewriter
+                            onInit={(typewriter) => {
+                                typewriter.typeString(title).start();
+                            }}
+                            options={{ delay: 100, cursor: " ", autoStart: true }}
+                        />
+                        {!ready && <>&nbsp;</>}
+                    </span>
                 ) : (
                     title
                 )}

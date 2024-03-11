@@ -1,6 +1,8 @@
+"use client";
+
 import Navbutton from "@/layouts/header/Navbutton";
 import Pulsate from "@/components/misc/Pulsate";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import ContactsPopup from "../../components/contacts/ContactsPopup";
 

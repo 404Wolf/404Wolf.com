@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Tag from "@/components/misc/Tag";
 import {randomListItem, toTitleCase} from "@/utils/misc";
