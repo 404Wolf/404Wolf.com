@@ -88,6 +88,7 @@ const Image = ({
     const mediaItem = useMemo(() => {
         if (videoExtensions.includes(extension || ""))
             return <video
+                playsInline
                 className="rounded-xl border-slate-300 border-[2px] w-full h-full"
                 key={6666}
                 controls
