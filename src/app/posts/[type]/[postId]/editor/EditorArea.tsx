@@ -50,10 +50,9 @@ export function EditorArea({
     const router = useRouter();
 
     // // Ensure that the user is authenticated or reroute them back to the post.
-    // useEffect(() => {
-    //     if (session.status === "unauthenticated") router.push(`/posts/${type}/${postId}`);
-    //     else setReady(true);
-    // }, []);
+    useEffect(() => {
+        if (session.status === "unauthenticated") router.push(`/posts/${type}/${postId}`);
+    }, []);
 
 
     // All of the current resource objects. If this is updated then on the next user save action
@@ -86,18 +85,10 @@ export function EditorArea({
     const [currentPostId, setCurrentPostId] = useState(postId);
     const [currentPostType, setCurrentPostType] = useState(type);
 
-    const pushPostUpdatesHook = usePushPostUpdates(postStates, currentPostId, () => {
+    const pushPostUpdates = usePushPostUpdates(postStates, currentPostId, () => {
         setCurrentPostId(postStates.id[0]);
         setCurrentPostType(postStates.type[0]);
     });
-
-    const pushPostUpdates = async () => {
-        // Use the postMarkdownAreaRef to get the current markdown
-        postStates.markdownData[1](postMarkdownAreaRef.current?.innerText!)
-        // Then push the post updates
-        await pushPostUpdatesHook()
-
-    }
 
     // For displaying images we need a mapping of the ID of the images to the URL of the images.
     // This is computed and then regenerated whenever the current resources in the panel change.
@@ -109,8 +100,8 @@ export function EditorArea({
         return newResourceMap;
     }, [currentResources]);
 
-    // Instead of constantly setting a state when the user edits these areas, we store references
-    // to them and fetch the contents when the user chooses to save.
+    // The reference to the markdown area so that we can update the markdown area when the user
+    // adds a new markdown resource.
     const postMarkdownAreaRef = useRef<HTMLTextAreaElement>(null);
 
     return (
@@ -137,7 +128,7 @@ export function EditorArea({
                         <div className="-translate-y-6 scale-[90%]">
                             <PushUpdate pushPostUpdates={pushPostUpdates} />
                         </div>
-                    </div> 
+                    </div>
 
                     <div className="mt-[12px] overflow-visible">
                         <div className="flex mb-4 md:mb-6 gap-4">
@@ -227,7 +218,7 @@ export function EditorArea({
                                     tabs={[
                                         {
                                             key: 111, name: "Preview", element: <MarkdownPanel
-                                                currentMarkdown={postMarkdownAreaRef.current?.innerText!}
+                                                currentMarkdown={postStates.markdownData[0]}
                                                 resourceMap={resourceMap} />
                                         },
                                         {
@@ -254,9 +245,9 @@ export function EditorArea({
                                                     }
                                                     )
                                                 )}
-                                                setResources={() => setCurrentResources(currentResources.map(
+                                                setResources={(resources) => setCurrentResources(resources.map(
                                                     (resource) => ({
-                                                        postId: resource.postId,
+                                                        postId: postId,
                                                         id: resource.id,
                                                         title: resource.title,
                                                         filename: resource.filename,
@@ -264,7 +255,6 @@ export function EditorArea({
                                                         description: resource.description || "",
                                                         url: resource.url,
                                                     }
-
                                                     )))} />
                                         },
                                     ]}

@@ -36,13 +36,12 @@ const Resources = ({
                 const makeId = (counter: number) =>
                     `${resourceName}_${ensureLength(String(counter), 4)}`;
 
+                // Find a resource ID that is not used
                 let resourceNumber = 1;
                 while (
-                    (await fetch("/api/resources/exists", {
-                        headers: { id: makeId(resourceNumber) },
-                    })
+                    (await fetch(`/api/resources/${makeId(resourceNumber)}/exists`)
                         .then((resp) => resp.json())
-                        .then((exists) => exists.exists)) === "true"
+                        .then((exists) => exists.exists)) === true
                 ) {
                     resourceNumber++;
                 }
@@ -100,25 +99,23 @@ const Resources = ({
     });
 
     const removeResource = useCallback(
-        (index: number) => {
-            fetch(`/api/resources/${resources[index].id}`, {
+        (resourceId: string) => {
+            fetch(`/api/resources/${resourceId}`, {
                 method: "DELETE",
             }).then((resp) => {
                 if (resp.ok || resp.status === 404) {
-                    const slicedResources = [...resources];
-                    delete slicedResources[index];
-                    setResources(slicedResources);
+                    setResources(resources.filter(
+                        (resource) => resource.id !== resourceId
+                    ));
                 }
             });
         },
-        [resources, postId]
+        [resources]
     );
 
     const updateResource = useCallback(
-        async (index: number, newResource: EditorResource) => {
-            const oldResource = resources[index];
-
-            await fetch(`/api/resources/${oldResource.id}`, {
+        async (resourceId: string, newResource: EditorResource) => {
+            await fetch(`/api/resources/${resourceId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -126,15 +123,32 @@ const Resources = ({
                 body: JSON.stringify(newResource),
             }).then((resp) => {
                 if (resp.ok) {
-                    const newResources = [...resources];
-                    newResources[index] = newResource;
-
-                    setResources(newResources);
+                    setResources([...resources]);
                 }
             });
-            return oldResource;
         },
-        [resources, postId]
+        [resources]
+    );
+
+    const makeCover = useCallback(
+        (resourceId: string) => {
+            console.log(`Making ${resourceId} a cover.`)
+            const newCovers = new Set([...covers, resourceId])
+            setCovers(Array.from(newCovers));
+        },
+        [covers, postId]
+    );
+
+    const removeCover = useCallback(
+        (resourceId: string) => {
+            console.log(`Making ${resourceId} not a cover anymore.`)
+            const newCovers = new Set(covers);
+            try {
+                newCovers.delete(resourceId);
+            } catch { }
+            setCovers(Array.from(newCovers));
+        },
+        [covers, postId]
     );
 
     return (
@@ -143,11 +157,11 @@ const Resources = ({
                 return (
                     <Resource
                         index={index}
-                        remove={() => removeResource(index)}
+                        remove={() => removeResource(resource.id)}
                         resource={resource}
-                        isCover={(resourceId) => covers.includes(resourceId)}
-                        setIsCover={(isCover) => setIsCover(postId, resource.id)}
-                        updateResource={updateResource}
+                        isCover={() => covers.includes(resource.id)}
+                        toggleIsCover={() => covers.includes(resource.id) ? removeCover(resource.id) : makeCover(resource.id)}
+                        updateResource={(newResource) => updateResource(resource.id, newResource)}
                         setMarkdown={setMarkdown}
                         postId={postId}
                         key={index}
@@ -156,9 +170,8 @@ const Resources = ({
             })}
             <div
                 {...getRootProps()}
-                className={`relative cursor-pointer ${
-                    isDragActive ? "brightness-90" : "brightness-100"
-                }`}
+                className={`relative cursor-pointer ${isDragActive ? "brightness-90" : "brightness-100"
+                    }`}
             >
                 <FakeResource placeholderId={null}></FakeResource>
             </div>

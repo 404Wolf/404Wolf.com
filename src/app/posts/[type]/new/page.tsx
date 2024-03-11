@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
 import s3 from "@/utils/aws";
 

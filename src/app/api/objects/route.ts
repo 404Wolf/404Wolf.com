@@ -1,9 +1,7 @@
 import s3 from "@/utils/aws";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { auth, unauthorized } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
     const encoding = req.headers.get("encoding") as string;
     const objectName = req.headers.get("object") as string;
     const resource = await s3.getResource(objectName, encoding || "utf-8");

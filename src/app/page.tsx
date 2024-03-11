@@ -8,7 +8,7 @@ import s3 from "@/utils/aws";
 import HoverImageChange from "@/components/displays/HoverImageChange";
 import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
-import { getAboutData } from "./api/about/route";
+import { getAboutData } from "@/app/api/about/worker";
 
 const prisma = new PrismaClient();
 

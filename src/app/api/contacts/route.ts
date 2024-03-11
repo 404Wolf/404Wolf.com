@@ -1,9 +1,8 @@
-import { NextApiRequest } from "next";
 import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
-export default async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
     return NextResponse.json(await prisma.contact.findMany());
 }

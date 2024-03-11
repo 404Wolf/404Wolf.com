@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import PdfDisplay from "./PdfDisplay";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useDropzone } from "react-dropzone";
 import StatusLayout from "@/layouts/StatusLayout";
 import MainLayout from "@/layouts/MainLayout";

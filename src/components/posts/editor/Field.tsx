@@ -10,15 +10,15 @@ interface FieldProps {
 }
 
 const Field = ({
-                   name,
-                   startValue,
-                   setValue,
-                   tall = false,
-                   height = "auto",
-                   nontallWidth,
-                   tallWidth,
-                   border = true,
-               }: FieldProps) => {
+    name,
+    startValue,
+    setValue,
+    tall = false,
+    height = "auto",
+    nontallWidth,
+    tallWidth,
+    border = true,
+}: FieldProps) => {
     return (
         <div className="relative">
             <div
@@ -29,16 +29,14 @@ const Field = ({
                 <textarea
                     onChange={(e) => setValue(e.target.value)}
                     defaultValue={startValue}
-                    className={`focus:outline-none bg-gray-200 ${
-                        tallWidth || "w-full"
-                    } rounded-xl min-h-[100px] ${border && "border-2 border-white"} pl-1`}
+                    className={`focus:outline-none bg-gray-200 ${tallWidth || "w-full"
+                        } rounded-xl min-h-[100px] ${border && "border-2 border-white"} pl-1`}
                 />
             ) : (
                 <input
-                    style={{height: height}}
-                    className={`focus:outline-none bg-gray-200 ${
-                        nontallWidth || "w-max"
-                    } rounded-xl ${border && "border-white border-2"} pl-1`}
+                    style={{ height: height }}
+                    className={`focus:outline-none bg-gray-200 ${nontallWidth || "w-max"
+                        } rounded-xl ${border && "border-white border-2"} pl-1`}
                     defaultValue={startValue}
                     onChange={(e) => setValue(e.target.value)}
                 />
