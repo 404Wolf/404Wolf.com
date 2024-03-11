@@ -8,17 +8,16 @@ import CodeBlock from "@/markdown/CodeBlock";
 const Markdown = ({ markdown, resourceMap = {} }) => {
     return (
         <ReactMarkdown
-            children={markdown}
+             children={markdown}
             className="markdown"
             remarkPlugins={[remarkImageBlock]}
             remarkRehypeOptions={{
                 handlers: { imgBlock: imgBlockHandler, image: imgHandler },
             }}
             components={{
-                img: ({ node, ...props }) => {
-                    return (
-                        <MdImage
-                            alt={props.alt}
+                img: ({ node, ...props }) => (
+                    <MdImage
+                        alt={props.alt}
                             title={props.title}
                             src={props.src}
                             width={props.width}
@@ -27,15 +26,15 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
                             autoplay={props.autoPlay && props.autoPlay == "true"}
                             resourceMap={resourceMap}
                         />
-                    );
-                },
-                imgBlock: ({ node, ...props }) => (
-                    <ImageBlock
-                        alts={props.alts}
-                        titles={props.titles}
-                        srcs={props.srcs}
-                        resourceMap={resourceMap}
-                    />
+                    
+                ),
+                imgBlock: ({ node, ...props }) =>( 
+                        <ImageBlock
+                            alts={props.alts}
+                            titles={props.titles}
+                            srcs={props.srcs}
+                            resourceMap={resourceMap}
+                        />
                 ),
                 code: ({ node, inline, className, children, ...props }) => (
                     <CodeBlock
@@ -49,6 +48,6 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
             }}
         />
     );
-};
+};    
 
 export default Markdown;

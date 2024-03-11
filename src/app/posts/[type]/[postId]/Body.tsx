@@ -9,6 +9,7 @@ import { Resource } from "@prisma/client";
 import { useWindowWidth } from "@react-hook/window-size";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useMemo } from "react";
 
 export default function Body({
     cover,
@@ -27,10 +28,14 @@ export default function Body({
     description: string;
     tags: string[];
     markdown: string;
-    resources: { [key: string]: string};
+    resources: { [key: string]: string };
 }) {
     const session = useSession();
     const windowWidth = useWindowWidth({ wait: 100, leading: true });
+
+    const markdownArea = useMemo(() => {
+        return <Markdown markdown={markdown} resourceMap={resources} />
+    }, [])
 
     return (
         <div className="mt-[12px] overflow-visible">
@@ -75,8 +80,8 @@ export default function Body({
                 title={windowWidth > 500 ? (title ? title : undefined) : undefined}
                 direction="right"
             >
-                <div className="-mt-4">
-                    <Markdown markdown={markdown} resourceMap={resources} />
+                <div className="-mt-4" key={44}>
+                   {markdownArea}
                 </div>
             </Tile>
         </div>

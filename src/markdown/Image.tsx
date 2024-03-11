@@ -4,7 +4,7 @@ import NextImage from "next/image";
 import imageWidthTree from "@/markdown/imageTree";
 import Tag from "@/components/misc/Tag";
 import { createHash } from "crypto";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Modal from "@/components/misc/Modal";
 
 const videoExtensions = ["avi", "mp4", "webm", "ogg"];
@@ -85,25 +85,22 @@ const Image = ({
         height: nextImgSize[1],
     };
 
-    let mediaItem: JSX.Element;
-    if (videoExtensions.includes(extension || "")) {
-        mediaItem = (
-            <video
-                className={`rounded-xl border-slate-300 border-[2px] w-full h-full ${imgClasses}`}
+    const mediaItem = useMemo(() => {
+        if (videoExtensions.includes(extension || ""))
+            return <video
+                className="rounded-xl border-slate-300 border-[2px] w-full h-full"
+                key={6666}
                 controls
                 autoPlay={autoplay}
             >
                 <source src={resourceMap[src]} type={`video/${extension}`} />
             </video>
-        );
-    } else {
-        mediaItem = (
-            <NextImage
+        else
+            return <NextImage
                 {...imgProps}
                 className={`rounded-xl w-full h-full border-slate-300 border-[2px] ${imgClasses}`}
             />
-        );
-    }
+    }, [imgClasses, resourceMap, autoplay])
 
     return (
         <div className="hover:drop-shadow-2xl">
