@@ -1,4 +1,3 @@
-import { EditorResource } from "@/pages/posts/[type]/[postId]/editor";
 import Resource from "@/components/posts/editor/resources/Resource";
 import { useCallback } from "react";
 import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
@@ -6,6 +5,7 @@ import FakeResource from "./FakeResource";
 import ensureLength from "@/utils/ensureLength";
 import s3 from "@/utils/aws";
 import sanitize from "sanitize-filename";
+import { EditorResource } from "@/app/posts/[type]/[postId]/editor/page";
 
 interface ResourcesProps {
     resources: EditorResource[];
@@ -137,41 +137,6 @@ const Resources = ({
         [resources, postId]
     );
 
-    const setIsCover = useCallback(
-        (coverId: string, newIsCover: boolean) => {
-            let newCovers: string[] | undefined;
-
-            if (newIsCover) {
-                if (covers.includes(coverId)) return;
-                else {
-                    newCovers = [...covers, coverId];
-                }
-            } else {
-                if (!covers.includes(coverId)) return;
-                else {
-                    newCovers = covers.filter((cover) => cover !== coverId);
-                }
-            }
-
-            if (newCovers) {
-                fetch(`/api/posts/${postId}/`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        covers: newCovers,
-                    }),
-                }).then((resp) => {
-                    if (resp.ok) {
-                        setCovers(newCovers as string[]);
-                        console.log("Made image a cover image");
-                    } else console.log("Failed to change cover");
-                });
-            }
-        },
-        [covers, postId]
-    );
     return (
         <div className="grid grid-cols-2 gap-3 mt-4 justify-stretch relative">
             {resources.map((resource, index) => {
@@ -181,7 +146,7 @@ const Resources = ({
                         remove={() => removeResource(index)}
                         resource={resource}
                         isCover={(resourceId) => covers.includes(resourceId)}
-                        setIsCover={setIsCover}
+                        setIsCover={(isCover) => setIsCover(postId, resource.id)}
                         updateResource={updateResource}
                         setMarkdown={setMarkdown}
                         postId={postId}

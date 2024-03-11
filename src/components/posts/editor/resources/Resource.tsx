@@ -3,7 +3,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import Field from "../Field";
 import s3 from "@/utils/aws";
 import Modal from "@/components/misc/Modal";
-import {EditorResource} from "@/pages/posts/[type]/[postId]/editor";
+import {EditorResource} from "@/app/posts/[type]/[postId]/editor";
 import ResourceIcon from "./Icon";
 import {useRouter} from "next/router";
 import {DropEvent, FileRejection, useDropzone} from "react-dropzone";

@@ -72,7 +72,7 @@ const s3 = {
         console.debug(`Response: ${data}`);
 
         if (encoding !== null && encoding !== undefined)
-            return data.Body?.transformToString(encoding);
+            return await data.Body?.transformToString(encoding);
 
         else return data.Body;
     },

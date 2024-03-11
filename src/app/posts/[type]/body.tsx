@@ -15,7 +15,7 @@ export default  function Body({
     typeDescription: string;
 }) {
     const session = useSession();
-    const [newPostId, setNewPostId] = useState<string>("New post ID");
+    const [newPostId, setNewPostId] = useState("New post ID");
 
     return (
         <Tile>

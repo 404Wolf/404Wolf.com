@@ -4,7 +4,7 @@ import { PrismaClient, Resource } from "@prisma/client";
 import MainLayout from "@/layouts/MainLayout";
 import StatusLayout from "@/layouts/StatusLayout";
 import s3 from "@/utils/aws";
-import Body from "./body";
+import Body from "./Body";
 
 const prisma = new PrismaClient();
 
@@ -16,9 +16,7 @@ async function getResources(resources: Resource[]): Promise<{ [key: string]: str
     return resourceMap;
 }
 
-const Post = async ({
-    params: { type, postId },
-}: {
+const Post = async ({ params: { type, postId } }: {
     params: { type: string; postId: string };
 }) => {
     const post = await prisma.post.findUnique({

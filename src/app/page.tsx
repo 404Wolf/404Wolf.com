@@ -8,7 +8,7 @@ import s3 from "@/utils/aws";
 import HoverImageChange from "@/components/displays/HoverImageChange";
 import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
-import { getAboutData } from "@/pages/api/about";
+import { getAboutData } from "./api/about/route";
 
 const prisma = new PrismaClient();
 
@@ -26,15 +26,15 @@ async function getFeaturedPosts() {
         })
     ).map(
         (post) =>
-            ({
-                coverUrls: post.resources.map((resource) => resource.url),
-                coverAlts: post.resources.map((resource) => resource.description),
-                path: `/posts/${post.id}`,
-                type: post.type,
-                tags: post.tags,
-                date: post.date!,
-                title: post.title,
-            } as BasicPostData)
+        ({
+            coverUrls: post.resources.map((resource) => resource.url),
+            coverAlts: post.resources.map((resource) => resource.description),
+            path: `/posts/${post.type}/${post.id}`,
+            type: post.type,
+            tags: post.tags,
+            date: post.date!,
+            title: post.title,
+        } as BasicPostData)
     );
 }
 
@@ -74,37 +74,35 @@ export default async function Home() {
     );
 
     return (
-        <>
-            <MainLayout
-                title={<Greeter />}
-                titleWidth="w-[20.5rem] sm:w-[24.6rem]"
-                headerChildren={headerChildren}
-                subtitleFixedWidth={tileTitleWidths}
-            >
-                <div className="flex flex-col gap-7">
-                    <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
-                        <div className="sm:basis-[30%]">
-                            <Tile title="Featured" fixedTitleWidth={tileTitleWidths}>
-                                <BasicPostCardGrid
-                                    onlyFeatured
-                                    posts={featuredPosts}
-                                    showTags={["ongoing"]}
-                                    gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
-                                />
-                            </Tile>
-                        </div>
+        <MainLayout
+            title={<Greeter />}
+            titleWidth="w-[20.5rem] sm:w-[24.6rem]"
+            headerChildren={headerChildren}
+            subtitleFixedWidth={tileTitleWidths}
+        >
+            <div className="flex flex-col gap-7">
+                <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
+                    <div className="sm:basis-[30%]">
+                        <Tile title="Featured" fixedTitleWidth={tileTitleWidths}>
+                            <BasicPostCardGrid
+                                onlyFeatured
+                                posts={featuredPosts}
+                                showTags={["ongoing"]}
+                                gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
+                            />
+                        </Tile>
+                    </div>
 
-                        <div className="basis-[75%]">
-                            <Tile title="About" fixedTitleWidth={tileTitleWidths}>
-                                <EditorArea
-                                    startingText={basicAbout || "Loading..."}
-                                    objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}
-                                />
-                            </Tile>
-                        </div>
+                    <div className="basis-[75%]">
+                        <Tile title="About" fixedTitleWidth={tileTitleWidths}>
+                            <EditorArea
+                                startingText={basicAbout || "Loading..."}
+                                objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}
+                            />
+                        </Tile>
                     </div>
                 </div>
-            </MainLayout>
-        </>
+            </div>
+        </MainLayout>
     );
 }
