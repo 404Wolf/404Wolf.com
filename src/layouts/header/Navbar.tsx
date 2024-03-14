@@ -32,7 +32,7 @@ const Navbar = ({setBackgroundBlurred}: NavbarProps) => {
                     Contacts
                 </Navbutton>
 
-                <Navbutton onClick={() => push("/resume")}>Resume</Navbutton>
+                <a href="/resume" target="_blank" rel="noopener noreferrer"><Navbutton>Resume</Navbutton></a>
             </div>
 
             <div className="grid grid-cols-2 gap-3">

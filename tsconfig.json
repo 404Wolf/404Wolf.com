@@ -27,7 +27,7 @@
             }
         ]
     },
-    "include": ["./src/**/*", ".next/types/**/*.ts"],
+    "include": ["./src/**/*", ".next/types/**/*.ts", "authOptions.ts"],
     "exclude": ["node_modules"],
 
     "downlevelIteration": true
