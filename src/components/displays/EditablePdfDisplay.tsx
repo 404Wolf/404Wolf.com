@@ -9,6 +9,9 @@ import StatusLayout from "@/layouts/StatusLayout";
 import MainLayout from "@/layouts/MainLayout";
 import CircleButton from "../posts/editor/CircleButton";
 import Tile from "../misc/Tiles/Tile";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export default async function EditablePdfDisplay({ pdfPath }: { pdfPath: string }) {
     const router = useRouter();
