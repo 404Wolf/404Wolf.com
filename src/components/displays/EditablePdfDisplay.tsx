@@ -13,7 +13,7 @@ import { pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-export default async function EditablePdfDisplay({ pdfPath }: { pdfPath: string }) {
+export default function EditablePdfDisplay({ pdfPath }: { pdfPath: string }) {
     const router = useRouter();
     const session = useSession();
     const [pdfKey, setPdfKey] = useState(0);
@@ -40,6 +40,7 @@ export default async function EditablePdfDisplay({ pdfPath }: { pdfPath: string 
             })
                 .then((resp) => resp.json())
                 .then((data) => {
+                    console.log("Uploading resume...")
                     fetch(data.link, {
                         method: "PUT",
                         headers: {
@@ -48,6 +49,7 @@ export default async function EditablePdfDisplay({ pdfPath }: { pdfPath: string 
                         },
                         body: buffer,
                     });
+                    console.log("Resume uploaded.")
                 });
         });
 

@@ -16,5 +16,5 @@ export default function ConditionallyRedirect() {
         },
     });
     
-    return <EditablePdfDisplay pdfPath={process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!} />;
+    return <EditablePdfDisplay pdfPath={resumeUrl} />;
 }
