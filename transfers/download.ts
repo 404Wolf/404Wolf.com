@@ -1,4 +1,4 @@
-import {PrismaClient} from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import {mkdirSync, readdirSync, writeFileSync} from "fs";
 import {downloadFile} from "./utils";
 
