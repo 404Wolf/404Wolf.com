@@ -32,7 +32,7 @@ const Post = async ({ params: { type, postId } }: {
     }
 
     const cover = post.covers[Math.floor(Math.random() * post.covers.length + 1)];
-    const markdown = await fetch(s3.resourceUrl(post.markdown + ".md")).then((res) => res.text());
+    const markdown = await s3.getResource(post.markdown + ".md", "utf-8") as string; 
     const resources: { [key: string]: string } = await getResources(post.resources);
 
     return (
