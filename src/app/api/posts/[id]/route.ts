@@ -92,6 +92,8 @@ export async function POST(req: NextRequest, { params: { id } }: { params: { id:
     }
 
     try {
+        console.log(body);
+
         await prisma.post.create({
             data: {
                 id: id,
