@@ -44,7 +44,8 @@ const Editor = async ({ params: { postId, type } }: { params: { postId: string, 
     if (post === null)
         redirect(`/posts/${type}/${postId}`)
 
-    const markdownData = await s3.getResource(post?.markdown + ".md", "utf-8") as string;
+    const markdownData = await fetch(s3.resourceUrl(post?.markdown + ".md")).then(
+        (response) => response.ok ? response.text() : "Failed to fetch markdown.")
 
     return <EditorArea
         postId={postId}
