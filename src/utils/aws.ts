@@ -5,10 +5,17 @@ import {
     PutObjectCommand,
     S3Client,
 } from "@aws-sdk/client-s3";
-import {getSignedUrl} from "@aws-sdk/s3-request-presigner";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const s3 = {
-    client: new S3Client({region: "us-east-2"}),
+    client: new S3Client({
+        region: "us-east-2",
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+
+        }
+    }),
     bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
     region: "us-east-2",
 
@@ -91,7 +98,7 @@ const s3 = {
             ResponseContentType: "application/octet-stream",
             ResponseContentDisposition: "attachment",
         });
-        const url = await getSignedUrl(s3.client, command, {expiresIn: 3600});
+        const url = await getSignedUrl(s3.client, command, { expiresIn: 3600 });
         return url;
     },
 
@@ -100,7 +107,7 @@ const s3 = {
             Bucket: s3.bucket,
             Key: filename,
         });
-        return await getSignedUrl(s3.client, command, {expiresIn: 60});
+        return await getSignedUrl(s3.client, command, { expiresIn: 60 });
     }
 };
 

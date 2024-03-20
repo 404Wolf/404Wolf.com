@@ -1,6 +1,6 @@
-import { useRouter } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
 import s3 from "@/utils/aws";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -39,10 +39,9 @@ async function createNewPost(newPostId: string, newPostType: string, date: strin
 
 const NewPost = ({ params: { newPostId, newPostType } }:
     { params: { newPostId: string, newPostType: string } }) => {
-    const router = useRouter();
 
     createNewPost(newPostId, newPostType, new Date().getFullYear().toString());
-    router.push(`/posts/${newPostType}/${newPostId}`);
+    redirect(`/posts/${newPostType}/${newPostId}`);
 };
 
 export default NewPost;
