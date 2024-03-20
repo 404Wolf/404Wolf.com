@@ -13,7 +13,6 @@ const s3 = {
         credentials: {
             accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
             secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-
         }
     }),
     bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
@@ -49,12 +48,16 @@ const s3 = {
     },
 
     checkResource: async (filename: string) => {
+        console.info(`Checking if resource ${filename} exists in S3 bucket ${s3.bucket}.`);
+
         // Check if the resource exists by making a fetch for it
         const objectUrl = s3.resourceUrl(filename);
         return (await fetch(objectUrl)).status == 200;
     },
 
     removeResource: async (filename: string) => {
+        console.info(`Removing resource ${filename} from S3 bucket ${s3.bucket}.`);
+
         // Create a request to delete the resource from the S3 bucket
         const request = new DeleteObjectCommand({
             Bucket: s3.bucket,
@@ -66,6 +69,8 @@ const s3 = {
     },
 
     getResource: async (filename: string, encoding: string) => {
+        console.info(`Fetching resource ${filename} from S3 bucket ${s3.bucket}.`);
+
         // Create a request to fetch the resource
         const request = new GetObjectCommand({
             Bucket: s3.bucket,

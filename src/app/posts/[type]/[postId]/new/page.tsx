@@ -5,11 +5,16 @@ import { redirect } from "next/navigation";
 const prisma = new PrismaClient();
 
 async function createNewPost(newPostId: string, newPostType: string, date: string) {
-    const markdownId = `${newPostId}_00001`;
-    const resourceData = await s3.getResource(markdownId + ".md", "utf-8");
-    if (resourceData === "" || resourceData === null) {
-        await s3.addResource(markdownId + ".md", "", "str", "text/plain");
+    let markdownId = `${newPostId}_00001`;
+
+    // Attempt to see if markdown exists and while it does tick up the id
+    while (await s3.checkResource(markdownId + ".md") || await prisma.resource.findUnique({ where: { id: markdownId } }) !== null) {
+        const id = parseInt(markdownId.split("_")[1]) + 1;
+        markdownId = `${newPostId}_${id.toString().padStart(5, "0")}`;
     }
+
+    // Create the new post markdown resource
+    await s3.addResource(markdownId + ".md", "", "str", "text/plain");
 
     await prisma.post.create({
         data: {
@@ -37,11 +42,11 @@ async function createNewPost(newPostId: string, newPostType: string, date: strin
     })
 };
 
-const NewPost = ({ params: { newPostId, newPostType } }:
-    { params: { newPostId: string, newPostType: string } }) => {
+const NewPost = async ({ params: { postId, type } }:
+    { params: { postId: string, type: string } }) => {
 
-    createNewPost(newPostId, newPostType, new Date().getFullYear().toString());
-    redirect(`/posts/${newPostType}/${newPostId}`);
+    await createNewPost(postId, type, new Date().getFullYear().toString());
+    redirect(`/posts/${type}/${postId}`);
 };
 
 export default NewPost;
