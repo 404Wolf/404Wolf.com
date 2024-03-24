@@ -51,7 +51,7 @@ const TileTitle = ({
                         />
                         {!ready && <>&nbsp;</>}
                     </span>
-                    )</>) : (
+                    </>) : (
                     title
                 )}
             </h2>
