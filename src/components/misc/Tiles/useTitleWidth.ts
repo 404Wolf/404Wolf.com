@@ -2,12 +2,12 @@ import measure from "@/utils/measure";
 import {useWindowWidth} from "@react-hook/window-size";
 import {useEffect, useState} from "react";
 
-const useTitleWidth = (title: string, fixedTitleWidth?: string | null) => {
+const useTitleWidth = (title: string) => {
     const [titleWidth, setTitleWidth] = useState(0);
     const windowWidth = useWindowWidth();
 
     useEffect(() => {
-        if (!title || fixedTitleWidth) setTitleWidth(0);
+        if (!title) setTitleWidth(0);
 
         let fontSize = 28;
         if (windowWidth <= 640) {

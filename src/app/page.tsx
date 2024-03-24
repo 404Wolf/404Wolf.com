@@ -49,8 +49,6 @@ export default async function Home() {
     const profileImageMe = "/resources/profileMeAlt.webp";
     const profileImageDog = "/resources/profileDog.webp";
 
-    const tileTitleWidths = "w-[7rem] sm:w-[8rem]";
-
     const headerChildren = (
         <div>
             <div className="hidden xs:block xs:h-32 xs:w-32 md:h-30 md:w-30 relative float-right ml-1 sm:ml-2">
@@ -76,14 +74,12 @@ export default async function Home() {
     return (
         <MainLayout
             title={<Greeter />}
-            titleWidth="w-[20.5rem] sm:w-[24.6rem]"
             headerChildren={headerChildren}
-            subtitleFixedWidth={tileTitleWidths}
         >
             <div className="flex flex-col gap-7">
                 <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
                     <div className="sm:basis-[30%]">
-                        <Tile title="Featured" fixedTitleWidth={tileTitleWidths}>
+                        <Tile title="Featured"> 
                             <BasicPostCardGrid
                                 onlyFeatured
                                 posts={featuredPosts}
@@ -94,7 +90,7 @@ export default async function Home() {
                     </div>
 
                     <div className="basis-[75%]">
-                        <Tile title="About" fixedTitleWidth={tileTitleWidths}>
+                        <Tile title="About"> 
                             <EditorArea
                                 startingText={basicAbout || "Loading..."}
                                 objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}

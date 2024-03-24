@@ -70,7 +70,7 @@ const MainLayout = ({
                     <div className="bg-slate-500 p-6 rounded-3xl drop-shadow-4xl-c">
                         {header && (
                             <div className="pb-9">
-                                <Tile fixedTitleWidth={subtitleFixedWidth}>
+                                <Tile>
                                     <Header
                                         setBackgroundBlurred={setBlurred}
                                         children={headerChildren}

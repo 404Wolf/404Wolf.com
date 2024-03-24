@@ -43,7 +43,6 @@ const TabTile = ({tabs, children, type = false, shown, setShown}: TabTileProps) 
                                 "sans-serif",
                                 windowWidth
                             )}
-                            fixedTitleWidth={titleWidths[index]}
                             direction="left"
                             type={type}
                             absolute={false}

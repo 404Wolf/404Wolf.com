@@ -10,7 +10,6 @@ export interface TileProps {
     children: React.ReactNode;
     direction?: "left" | "right";
     extraPadding?: number;
-    fixedTitleWidth?: string | null;
     containerClass?: string;
 }
 
@@ -21,10 +20,9 @@ const Tile = ({
     type = true,
     direction = "left",
     extraPadding = 0,
-    fixedTitleWidth = null,
     containerClass = "h-full relative",
 }: TileProps) => {
-    const titleWidth = title ? useTitleWidth(title, fixedTitleWidth) : 0;
+    const titleWidth = title ? useTitleWidth(title) : 0;
 
     return (
         <div className={containerClass}>
@@ -32,7 +30,6 @@ const Tile = ({
                 <TileTitle
                     title={title}
                     titleWidth={titleWidth}
-                    fixedTitleWidth={fixedTitleWidth}
                     direction={direction}
                     type={type}
                 />
