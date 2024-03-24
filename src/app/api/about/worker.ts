@@ -2,7 +2,7 @@ export function getAboutData() {
     return {
         "url": "404Wolf.com",
         "name": "Wolf Mermelstein",
-        "email": "wolf.mermelstein@gmail.com",
+        "email": "wolfmermelstein@gmail.com",
         "phone": {
             "display": "(212)767-WOLF",
             "link": "(212) 767-9653"
