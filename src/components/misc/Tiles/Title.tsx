@@ -40,8 +40,8 @@ const TileTitle = ({
 
         >
             <h2 className="text-xl sm:text-2xl text-bold w-full relative">
-                <span className='text-transparent px-2'> {title} </span>
-                {type ? (
+                {type ? (<> <span className='text-transparent px-2' style={{ whiteSpace: "nowrap" }}> {title} </span>
+                 
                     <span className="absolute left-0 px-2">
                         <Typewriter
                             onInit={(typewriter) => {
@@ -51,7 +51,7 @@ const TileTitle = ({
                         />
                         {!ready && <>&nbsp;</>}
                     </span>
-                ) : (
+                    )</>) : (
                     title
                 )}
             </h2>
