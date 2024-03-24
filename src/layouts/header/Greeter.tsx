@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Typewriter from "typewriter-effect";
 
 const Greeter = () => {
-    const [ready, setReady] = useState(false);
-    useEffect(() => {
-        setReady(true);
-    }, []);
-
     return (
         <div className="relative"> 
             <span className="text-transparent"> {"Hi! I'm Wolf Mermelstein"} </span>
@@ -23,8 +17,6 @@ const Greeter = () => {
                     }}
                     options={{ delay: 70, cursor: "", autoStart: true }}
                 />
-
-                {!ready && <>&nbsp;</>}
             </span>
         </div>
     );
