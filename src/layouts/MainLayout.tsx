@@ -67,10 +67,6 @@ const MainLayout = ({
                         <ProfileButton size={18} />
                     </div>
 
-                    <div className="hidden sm:block absolute sm:fixed sm:top-[7.7rem] -sm:right-[8rem] md:-right-[7.7rem] sm:rotate-90">
-                        <BasicContacts />
-                    </div>
-
                     <div className="bg-slate-500 p-6 rounded-3xl drop-shadow-4xl-c">
                         {header && (
                             <div className="pb-9">

@@ -1,8 +1,8 @@
 import BasicContact from "@/components/contacts/BasicContact";
-import useAbout from "@/components/about/useAbout";
+import { getAboutData } from "@/app/api/about/worker";
 
 const BasicContacts = () => {
-    const about = useAbout()
+    const about = getAboutData()
 
     return (
         <div className="py-2 flex flex-col min-[370px]:flex-row gap-2 justify-between">

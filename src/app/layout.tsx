@@ -6,6 +6,7 @@ import "@/styles/tagInputs.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "react-tooltip/dist/react-tooltip.css";
 import Script from "next/script";
+import BasicContacts from "@/components/contacts/BasicContacts";
 
 export const metadata: Metadata = {
     keywords:
@@ -15,10 +16,8 @@ export const metadata: Metadata = {
 
 export default function Document({ children }: { children: React.ReactNode }) {
     return (
-        <html
-            lang="en"
-            className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[100rem] mx-auto"
-        >
+        <html lang="en">
+
             <body>
                 <Script
                     strategy="lazyOnload"
@@ -35,8 +34,19 @@ export default function Document({ children }: { children: React.ReactNode }) {
                     });
                 `}
                 </Script>
+
+                <div className="right-10 top-2 hidden sm:block" style={{
+                    position: 'fixed',
+                    transform: 'rotate(-90deg)',
+                    transformOrigin: 'top right'
+                }}>
+                    <BasicContacts />
+                </div>
+
+                <div className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[100rem] mx-auto">
+                    <Wrappers>{children}</Wrappers>
+                </div>
             </body>
-            <Wrappers>{children}</Wrappers>
         </html>
     );
 }
