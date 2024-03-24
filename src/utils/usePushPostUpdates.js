@@ -20,6 +20,7 @@ const usePushPostUpdates = (postStates, currentId, callback) => {
             tags: postStates.tags[0], // Update with the desired value
             notes: postStates.notes[0], // Update with the desired value
         };
+        console.log("Request body:", requestBody);
 
         try {
             const response = await fetch(`/api/posts/${currentId}`, {
