@@ -1,7 +1,7 @@
 import ExtendedPostCard, { PostData } from "@/components/posts/ExtendedPostCard";
 import { PrismaClient } from "@prisma/client";
 import StatusLayout from "@/layouts/StatusLayout";
-import Body from "./body";
+import Body from "./Body";
 import MainLayout from "@/layouts/MainLayout";
 import { toTitleCase } from "@/utils/misc";
 import postMetadata from "@/metadata/posts.json";

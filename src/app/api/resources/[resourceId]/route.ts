@@ -151,16 +151,6 @@ export async function PUT(req: NextRequest, { params: { resourceId } }: { params
     }
 
     const body = await req.json()
-    let contentUpdated = false;
-    if (body) {
-        await s3.addResource(
-            body.filename || resource.filename,
-            body.data,
-            body.type || resource.type === "image" ? "b64" : "str",
-            body.mimetype
-        );
-        contentUpdated = true;
-    }
 
     await prisma.resource.update({
         where: {
@@ -180,7 +170,6 @@ export async function PUT(req: NextRequest, { params: { resourceId } }: { params
         {
             status: "Success",
             message: "Successfully updated resource.",
-            contentUpdated: contentUpdated,
         }
     )
 }

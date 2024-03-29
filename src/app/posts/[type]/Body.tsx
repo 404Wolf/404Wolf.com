@@ -17,6 +17,11 @@ export default  function Body({
     const session = useSession();
     const [newPostId, setNewPostId] = useState("New post ID");
 
+    const hiddenPosts = posts.filter((post) => post.tags.includes("hidden"));
+    const visiblePosts = posts.filter((post) => !post.tags.includes("hidden"));
+
+    posts = visiblePosts.concat(hiddenPosts);
+
     return (
         <Tile>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-7 md:gap-y-10 p-1 pt-2">
