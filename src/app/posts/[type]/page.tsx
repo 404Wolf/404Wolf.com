@@ -14,7 +14,7 @@ async function getPosts(type: string): Promise<PostData[]> {
     });
 
     return posts.map((post) => {
-        const cover = post.resources.filter((resource) => resource.id === post.covers[0])[0];
+        const cover = post.resources.filter(resource => post.covers.includes(resource.id))[Math.random() * post.covers.length | 0]
         return {
             coverUrl: cover?.url || null,
             coverAlt: cover?.description || null,

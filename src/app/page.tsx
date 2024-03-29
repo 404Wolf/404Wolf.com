@@ -27,8 +27,8 @@ async function getFeaturedPosts() {
     ).map(
         (post) =>
         ({
-            coverUrls: post.resources.map((resource) => resource.url),
-            coverAlts: post.resources.map((resource) => resource.description),
+            coverUrls: post.resources.filter(resource => post.covers.includes(resource.id)).map((resource) => resource.url),
+            coverAlts: post.resources.filter(resource => post.covers.includes(resource.id)).map((resource) => resource.description),
             path: `/posts/${post.type}/${post.id}`,
             type: post.type,
             tags: post.tags,

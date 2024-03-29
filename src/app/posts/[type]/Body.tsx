@@ -5,10 +5,9 @@ import ExtendedPostCard, { PostData } from "@/components/posts/ExtendedPostCard"
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-export default  function Body({
+export default function Body({
     posts,
     type,
-    typeDescription,
 }: {
     posts: PostData[];
     type: string;
