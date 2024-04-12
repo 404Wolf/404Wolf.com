@@ -43,7 +43,7 @@ export default function Document({ children }: { children: React.ReactNode }) {
                     <BasicContacts />
                 </div>
 
-                <div className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[100rem] mx-auto">
+                <div className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[170rem] mx-auto">
                     <Wrappers>{children}</Wrappers>
                 </div>
             </body>
