@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "react-tooltip/dist/react-tooltip.css";
 import Script from "next/script";
 import BasicContacts from "@/components/contacts/BasicContacts";
+import { createContext } from "react";
 
 export const metadata: Metadata = {
     keywords:
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function Document({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="en" style={{zoom: 1.3}}>
 
             <body>
                 <Script
@@ -43,7 +44,7 @@ export default function Document({ children }: { children: React.ReactNode }) {
                     <BasicContacts />
                 </div>
 
-                <div className="py-[6%] px-[4.5%] md:px-[6%] lg:px-[11%] xl:px-[15%] max-w-[170rem] mx-auto">
+                <div className="py-[6%] px-[4.5%] md:px-[10%] lg:px-[16%] xl:px-[15%] max-w-[170rem] mx-auto">
                     <Wrappers>{children}</Wrappers>
                 </div>
             </body>

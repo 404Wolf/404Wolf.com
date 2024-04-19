@@ -78,7 +78,6 @@ const MainLayout = ({
                                 </Tile>
                             </div>
                         )}
-
                         {children}
                     </div>
                 </div>

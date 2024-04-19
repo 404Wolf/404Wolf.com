@@ -63,7 +63,7 @@ export default function Body({
                             </div>
                         </div>
                     )}
-                    <div className="-mt-1 mb-2 sm:mb-1 text-[0.77em] sm:text-[1em]">
+                    <div className="-mt-1 mb-2 sm:mb-1 text-[0.77em] sm:text-[1.2em]">
                         {description}
                     </div>
                 </div>
@@ -80,7 +80,7 @@ export default function Body({
                 title={windowWidth > 500 ? (title ? title : undefined) : undefined}
                 direction="right"
             >
-                <div className="-mt-4" key={44}>
+                <div className="-mt-4 xl:px-[18%]" key={44}>
                    {markdownArea}
                 </div>
             </Tile>
