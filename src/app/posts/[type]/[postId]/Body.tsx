@@ -80,7 +80,7 @@ export default function Body({
                 title={windowWidth > 500 ? (title ? title : undefined) : undefined}
                 direction="right"
             >
-                <div className="-mt-4 xl:px-[18%]" key={44}>
+                <div className="-mt-4 xl:px-[24%]" key={44}>
                    {markdownArea}
                 </div>
             </Tile>
