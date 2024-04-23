@@ -54,7 +54,7 @@ const Markdown = ({ markdown, resourceMap = {}, textClasses = "" }) => {
                 code: ({ node, inline, className, children, ...props }) => (
                     <CodeBlock
                         inline={inline}
-                        className={className + "my-12"}
+                        className={className + "my-4"}
                         children={children}
                         {...props}
                     />
@@ -83,6 +83,22 @@ const Markdown = ({ markdown, resourceMap = {}, textClasses = "" }) => {
                     <h6 className={`text-base font-bold ${textClasses}`}>{props.children}</h6>
                 ),
                 p: ({ node, ...props }) => <p className={`text-base ${textClasses}`}>{props.children}</p>,
+                ul: ({ node, ...props }) => <ul className={`list-disc ${textClasses}`}>{props.children}</ul>,
+                ol: ({ node, ...props }) => <ol className={`list-decimal ${textClasses}`}>{props.children}</ol>,
+                li: ({ node, ...props }) => <li className={`text-base ${textClasses}`}>{props.children}</li>,
+                table: ({ node, ...props }) => <table className={`table-auto ${textClasses}`}>{props.children}</table>,
+                thead: ({ node, ...props }) => <thead className={`bg-gray-200 ${textClasses}`}>{props.children}</thead>,
+                tbody: ({ node, ...props }) => <tbody className={`${textClasses}`}>{props.children}</tbody>,
+                tr: ({ node, ...props }) => <tr className={`${textClasses}`}>{props.children}</tr>,
+                th: ({ node, ...props }) => <th className={`border ${textClasses}`}>{props.children}</th>,
+                td: ({ node, ...props }) => <td className={`border ${textClasses}`}>{props.children}</td>,
+                blockquote: ({ node, ...props }) => (
+                    <blockquote className={`border-l-4 border-gray-400 pl-4 ${textClasses}`}>
+                        {props.children}
+                    </blockquote>
+                ),
+                hr: ({ node, ...props }) => <hr className={`my-4 ${textClasses}`} />,
+                pre: ({ node, ...props }) => <pre className={`my-4 ${textClasses}`}>{props.children}</pre>,
             }}
         />
     );
