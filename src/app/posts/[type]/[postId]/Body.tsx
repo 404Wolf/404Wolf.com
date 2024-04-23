@@ -34,7 +34,7 @@ export default function Body({
     const windowWidth = useWindowWidth({ wait: 100, leading: true });
 
     const markdownArea = useMemo(() => {
-        return <Markdown markdown={markdown} resourceMap={resources} />
+        return <Markdown markdown={markdown} resourceMap={resources} textClasses={"xl:px-[20%]"} />
     }, [])
 
     return (
@@ -80,7 +80,7 @@ export default function Body({
                 title={windowWidth > 500 ? (title ? title : undefined) : undefined}
                 direction="right"
             >
-                <div className="-mt-4 xl:px-[24%]" key={44}>
+                <div className="-mt-4 xl:px-[7%]" key={44}>
                    {markdownArea}
                 </div>
             </Tile>
