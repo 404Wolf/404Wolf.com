@@ -8,7 +8,7 @@ import remarkToc from "remark-toc";
 import remarkSlug from "remark-slug";
 import remarkMath from "remark-math";
 
-const Markdown = ({ markdown, resourceMap = {}, textClasses = "" }) => {
+const Markdown = ({ markdown, resourceMap = {} }) => {
     return (
         <ReactMarkdown
             children={markdown}
@@ -54,7 +54,7 @@ const Markdown = ({ markdown, resourceMap = {}, textClasses = "" }) => {
                 code: ({ node, inline, className, children, ...props }) => (
                     <CodeBlock
                         inline={inline}
-                        className={className + "my-4"}
+                        className={className}
                         children={children}
                         {...props}
                     />
@@ -64,41 +64,6 @@ const Markdown = ({ markdown, resourceMap = {}, textClasses = "" }) => {
                         return <a {...props} target="_blank" rel="noreferrer noopener" />;
                     return <a {...props} />;
                 },
-                h1: ({ node, ...props }) => (
-                    <h1 className={`text-4xl font-bold ${textClasses}`}>{props.children}</h1>
-                ),
-                h2: ({ node, ...props }) => (
-                    <h2 className={`text-3xl font-bold ${textClasses}`}>{props.children}</h2>
-                ),
-                h3: ({ node, ...props }) => (
-                    <h3 className={`text-2xl font-bold ${textClasses}`}>{props.children}</h3>
-                ),
-                h4: ({ node, ...props }) => (
-                    <h4 className={`text-xl font-bold ${textClasses}`}>{props.children}</h4>
-                ),
-                h5: ({ node, ...props }) => (
-                    <h5 className={`text-lg font-bold ${textClasses}`}>{props.children}</h5>
-                ),
-                h6: ({ node, ...props }) => (
-                    <h6 className={`text-base font-bold ${textClasses}`}>{props.children}</h6>
-                ),
-                p: ({ node, ...props }) => <p className={`text-base ${textClasses}`}>{props.children}</p>,
-                ul: ({ node, ...props }) => <ul className={`list-disc ${textClasses}`}>{props.children}</ul>,
-                ol: ({ node, ...props }) => <ol className={`list-decimal ${textClasses}`}>{props.children}</ol>,
-                li: ({ node, ...props }) => <li className={`text-base ${textClasses}`}>{props.children}</li>,
-                table: ({ node, ...props }) => <table className={`table-auto ${textClasses}`}>{props.children}</table>,
-                thead: ({ node, ...props }) => <thead className={`bg-gray-200 ${textClasses}`}>{props.children}</thead>,
-                tbody: ({ node, ...props }) => <tbody className={`${textClasses}`}>{props.children}</tbody>,
-                tr: ({ node, ...props }) => <tr className={`${textClasses}`}>{props.children}</tr>,
-                th: ({ node, ...props }) => <th className={`border ${textClasses}`}>{props.children}</th>,
-                td: ({ node, ...props }) => <td className={`border ${textClasses}`}>{props.children}</td>,
-                blockquote: ({ node, ...props }) => (
-                    <blockquote className={`border-l-4 border-gray-400 pl-4 ${textClasses}`}>
-                        {props.children}
-                    </blockquote>
-                ),
-                hr: ({ node, ...props }) => <hr className={`my-4 ${textClasses}`} />,
-                pre: ({ node, ...props }) => <pre className={`my-4 ${textClasses}`}>{props.children}</pre>,
             }}
         />
     );
