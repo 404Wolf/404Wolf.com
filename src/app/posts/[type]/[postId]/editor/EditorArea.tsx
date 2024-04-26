@@ -49,7 +49,7 @@ export function EditorArea({
     const session = useSession();
     const router = useRouter();
 
-    // // Ensure that the user is authenticated or reroute them back to the post.
+    // Ensure that the user is authenticated or reroute them back to the post.
     useEffect(() => {
         if (session.status === "unauthenticated") router.push(`/posts/${type}/${postId}`);
     }, []);
