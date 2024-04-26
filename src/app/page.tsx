@@ -72,7 +72,7 @@ export default async function Home() {
         </div>
     );
 
-    const heightStyle = { maxHeight: "600px", overflowY: 'auto' } as CSSProperties;
+    const heightStyle = { maxHeight: "600px", overflowY: 'auto', overflowX: "clip" } as CSSProperties;
 
     return (
         <MainLayout
