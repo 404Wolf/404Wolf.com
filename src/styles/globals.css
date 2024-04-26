@@ -12,4 +12,22 @@ body {
     background-image: linear-gradient(to top right, #2b65be, #2658a6);
     background-repeat: no-repeat;
     background-attachment: fixed;
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 12px;
+        margin-left: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 4px rgba(120, 120, 120, .8);
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(160, 160, 160);
+        border-radius: 10px;
+    }
 }

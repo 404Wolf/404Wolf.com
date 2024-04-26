@@ -9,6 +9,7 @@ import HoverImageChange from "@/components/displays/HoverImageChange";
 import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
 import { getAboutData } from "@/app/api/about/worker";
+import { CSSProperties } from "react";
 
 const prisma = new PrismaClient();
 
@@ -71,6 +72,8 @@ export default async function Home() {
         </div>
     );
 
+    const heightStyle = { maxHeight: "600px", overflowY: 'auto' } as CSSProperties;
+
     return (
         <MainLayout
             title={<Greeter />}
@@ -78,23 +81,27 @@ export default async function Home() {
         >
             <div className="flex flex-col gap-7">
                 <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
-                    <div className="sm:basis-[30%]">
-                        <Tile title="Featured"> 
-                            <BasicPostCardGrid
-                                onlyFeatured
-                                posts={featuredPosts}
-                                showTags={["ongoing"]}
-                                gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
-                            />
+                    <div className="sm:basis-[30%] overflow-visible">
+                        <Tile title="Featured" className="overflow-visible">
+                            <div className="overflow-visible z-50" style={heightStyle}>
+                                <BasicPostCardGrid
+                                    onlyFeatured
+                                    posts={featuredPosts}
+                                    showTags={["ongoing"]}
+                                    gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
+                                />
+                            </div>
                         </Tile>
                     </div>
 
                     <div className="basis-[75%]">
-                        <Tile title="About"> 
-                            <EditorArea
-                                startingText={basicAbout || "Loading..."}
-                                objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}
-                            />
+                        <Tile title="About">
+                            <div style={heightStyle}>
+                                <EditorArea
+                                    startingText={basicAbout || "Loading..."}
+                                    objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}
+                                />
+                            </div>
                         </Tile>
                     </div>
                 </div>
