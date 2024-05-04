@@ -10,6 +10,7 @@ import { BasicPostData } from "@/components/posts/BasicPostCard";
 import { PrismaClient } from "@prisma/client";
 import { getAboutData } from "@/app/api/about/worker";
 import { CSSProperties } from "react";
+import Script from "next/script";
 
 const prisma = new PrismaClient();
 
@@ -75,37 +76,45 @@ export default async function Home() {
     const heightStyle = { maxHeight: "600px", overflowY: 'auto', overflowX: "clip" } as CSSProperties;
 
     return (
-        <MainLayout
-            title={<Greeter />}
-            headerChildren={headerChildren}
-        >
-            <div className="flex flex-col gap-7">
-                <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
-                    <div className="sm:basis-[30%] overflow-visible">
-                        <Tile title="Featured" className="overflow-visible">
-                            <div className="overflow-visible z-50" style={heightStyle}>
-                                <BasicPostCardGrid
-                                    onlyFeatured
-                                    posts={featuredPosts}
-                                    showTags={["ongoing"]}
-                                    gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
-                                />
-                            </div>
-                        </Tile>
-                    </div>
+        <div>
+            <div
+                className="rc-scout hidden lg:block origin-bottom-left fixed bottom-1 left-1 scale-50"
+            >
+                <Script async defer src="https://www.recurse-scout.com/loader.js?t=1a9819584f6b47bb6e25db8483543a8f" />
+            </div>
 
-                    <div className="basis-[75%]">
-                        <Tile title="About">
-                            <div style={heightStyle}>
-                                <EditorArea
-                                    startingText={basicAbout || "Loading..."}
-                                    objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}
-                                />
-                            </div>
-                        </Tile>
+            <MainLayout
+                title={<Greeter />}
+                headerChildren={headerChildren}
+            >
+                <div className="flex flex-col gap-7">
+                    <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
+                        <div className="sm:basis-[30%] overflow-visible">
+                            <Tile title="Featured" className="overflow-visible">
+                                <div className="overflow-visible z-50" style={heightStyle}>
+                                    <BasicPostCardGrid
+                                        onlyFeatured
+                                        posts={featuredPosts}
+                                        showTags={["ongoing"]}
+                                        gridConfig="grid-cols-2 min-[520px]:grid-cols-1"
+                                    />
+                                </div>
+                            </Tile>
+                        </div>
+
+                        <div className="basis-[75%]">
+                            <Tile title="About">
+                                <div style={heightStyle}>
+                                    <EditorArea
+                                        startingText={basicAbout || "Loading..."}
+                                        objectName={process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!}
+                                    />
+                                </div>
+                            </Tile>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </MainLayout>
+            </MainLayout>
+        </div>
     );
 }

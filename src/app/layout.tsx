@@ -17,8 +17,7 @@ export const metadata: Metadata = {
 
 export default function Document({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" style={{zoom: 1.3}}>
-
+        <html lang="en" style={{ zoom: 1.3 }}>
             <body>
                 <Script
                     strategy="lazyOnload"
@@ -47,6 +46,7 @@ export default function Document({ children }: { children: React.ReactNode }) {
                 <div className="py-[6%] px-[4.5%] md:px-[10%] lg:px-[16%] xl:px-[15%] max-w-[170rem] mx-auto">
                     <Wrappers>{children}</Wrappers>
                 </div>
+                <Script async defer src="https://www.recurse-scout.com/loader.js?t=1a9819584f6b47bb6e25db8483543a8f" />
             </body>
         </html>
     );
