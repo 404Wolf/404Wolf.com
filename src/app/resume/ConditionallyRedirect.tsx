@@ -6,15 +6,15 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function ConditionallyRedirect() {
-    const resumeUrl = s3.resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!);
+  const resumeUrl = s3.resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!);
 
-    const { push } = useRouter();
-    const session = useSession({
-        required: true,
-        onUnauthenticated() {
-            push(resumeUrl);
-        },
-    });
-    
-    return <EditablePdfDisplay pdfPath={resumeUrl} />;
+  const { push } = useRouter();
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      push(resumeUrl);
+    },
+  });
+
+  return <EditablePdfDisplay pdfPath={resumeUrl} />;
 }
