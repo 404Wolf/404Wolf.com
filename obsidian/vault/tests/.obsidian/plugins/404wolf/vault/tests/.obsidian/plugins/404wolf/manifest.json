@@ -1,0 +1,10 @@
+{
+	"id": "404wolf.com",
+	"name": "404Wolf.com Connector",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Plugin to sync and post to Wolf's personal website.",
+	"author": "Wolf",
+	"authorUrl": "https://404wolf.com",
+	"isDesktopOnly": true
+}

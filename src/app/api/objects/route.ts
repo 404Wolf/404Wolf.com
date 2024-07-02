@@ -1,5 +1,6 @@
 import s3 from "@/utils/aws";
 import { NextRequest, NextResponse } from "next/server";
+import { personalAuthRequest } from "../../auth/personalAuth";
 
 export async function GET(req: NextRequest) {
   const encoding = req.headers.get("encoding") as string;
