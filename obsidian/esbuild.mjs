@@ -1,10 +1,19 @@
 import { build } from "esbuild";
+import fs from "fs/promises";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 build({
   entryPoints: ["src/main.ts"],
   bundle: true,
-  outfile: "dist/bundle.js",
-  minify: true,
+  outfile: "dist/main.js",
+  minify: isProduction,
   sourcemap: true,
-  external: ["obsidian"]
-}).catch(() => process.exit(1));
+  external: ["obsidian"],
+  logLevel: "info",
+  platform: "node",
+})
+  .then(() => {
+    return fs.copyFile("manifest.json", "dist/manifest.json");
+  })
+  .catch(() => process.exit(1));

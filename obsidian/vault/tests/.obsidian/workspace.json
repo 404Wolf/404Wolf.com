@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "e2b4666f69716d34",
+        "id": "52340033ee648b04",
         "type": "tabs",
         "children": [
           {
-            "id": "4844c210ab3c867b",
+            "id": "b71733ec025808e0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "test.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "test.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "test.md"
+              }
             }
           }
         ]
@@ -138,6 +146,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4844c210ab3c867b",
-  "lastOpenFiles": []
+  "active": "b71733ec025808e0",
+  "lastOpenFiles": [
+    "Screenshot_from_2024-04-14_23-29-12_0001.md",
+    "test.md",
+    "Markdown Example.md",
+    "NewFile.md",
+    "Welcome.md",
+    "().md"
+  ]
 }
