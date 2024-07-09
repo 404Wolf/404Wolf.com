@@ -8,25 +8,29 @@ import { notify } from "./misc";
  * @param {string} name The file name for the file to create.
  * @param {string} contents The contents of the file.
  * @param {boolean} parents Whether to create the parent folders if they don't exist.
+ * @param {boolean} modify Whether to modify the file if it already exists.
  * @returns A list of all the files in the vault.
  */
 export async function createFile(
   vault: Vault,
   name: string,
   contents: ArrayBuffer,
-  parents?: boolean
+  parents?: boolean,
+  modify?: boolean
 ): Promise<void>;
 export async function createFile(
   vault: Vault,
   name: string,
   contents: string,
-  parents?: boolean
+  parents?: boolean,
+  modify?: boolean
 ): Promise<void>;
 export async function createFile(
   vault: Vault,
   name: string,
   contents: string | ArrayBuffer,
-  parents: boolean = false
+  parents: boolean = true,
+  modify: boolean = true
 ): Promise<void> {
   try {
     if (parents) {
@@ -34,14 +38,19 @@ export async function createFile(
       path.pop();
       await createPath(vault, join(...path));
     }
-    if (typeof contents === "object") {
-      await vault.createBinary(name, contents);
-    } else if (typeof contents === "string") {
-      await vault.create(name, contents);
-    }
+    if (typeof contents === "object") await vault.createBinary(name, contents);
+    else if (typeof contents === "string") await vault.create(name, contents);
   } catch (error) {
-    console.error("Failed to create file:", error);
-    notify("Failed to create file.");
+    try {
+      const file = vault.getFileByPath(name);
+      if (file !== null && modify) {
+        if (typeof contents === "object")
+          await vault.modifyBinary(file, contents);
+        else await vault.modify(file, contents);
+      }
+    } catch (error) {
+      notify("Failed to create file.");
+    }
   }
 }
 

@@ -10,7 +10,7 @@ export interface PluginSettings {
 export const DEFAULT_PLUGIN_SETTINGS: PluginSettings = {
   domain: "https://404wolf.com",
   secret: "",
-  path: "404Wolf",
+  path: "404Wolf"
 };
 
 export default class SettingsTab extends PluginSettingTab {
@@ -25,37 +25,42 @@ export default class SettingsTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    new Setting(containerEl)
-      .setName("Domain")
-      .setDesc("Domain of 404wolf.com instance")
-      .addText(text =>
-        text
-          .setPlaceholder("https://")
-          .setValue(this.plugin.settings.domain)
-          .onChange(async value => {
-            this.plugin.settings.domain = value;
+    const mkSetting = (
+      name: string,
+      desc: string,
+      value: string,
+      callback: (value: string) => void
+    ) => {
+      new Setting(containerEl)
+        .setName(name)
+        .setDesc(desc)
+        .addText(text =>
+          text.setValue(value).onChange(async value => {
+            callback(value);
             await this.plugin.saveSettings();
           })
-      );
+        );
+    };
 
-    new Setting(containerEl)
-      .setName("API Key")
-      .setDesc("Access key for website")
-      .addText(text =>
-        text.setValue(this.plugin.settings.secret).onChange(async value => {
-          this.plugin.settings.secret = value;
-          await this.plugin.saveSettings();
-        })
-      );
+    mkSetting(
+      "Domain",
+      "Domain of 404wolf.com instance",
+      this.plugin.settings.domain,
+      (value: string) => (this.plugin.settings.domain = value)
+    );
 
-    new Setting(containerEl)
-      .setName("Path")
-      .setDesc("Path to store posts for 404Wolf")
-      .addText(text =>
-        text.setValue(this.plugin.settings.path).onChange(async value => {
-          this.plugin.settings.path = value;
-          await this.plugin.saveSettings();
-        })
-      );
+    mkSetting(
+      "API Key",
+      "Access key for website",
+      this.plugin.settings.secret,
+      (value: string) => (this.plugin.settings.secret = value)
+    );
+
+    mkSetting(
+      "Path",
+      "Path to store posts for 404Wolf",
+      this.plugin.settings.path,
+      (value: string) => (this.plugin.settings.path = value)
+    );
   }
 }

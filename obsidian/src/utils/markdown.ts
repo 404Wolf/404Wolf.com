@@ -1,8 +1,9 @@
+import { visit } from "unist-util-visit";
+import type { Root, Heading, Paragraph, Text } from 'mdast';
+import type { Node } from "unist";
+import * as yaml from "js-yaml";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
-import { visit } from "unist-util-visit";
-import { Root } from "remark-parse/lib";
 
 /**
  * Combines frontmatter properties from an object and appends markdown to create a complete markdown string with frontmatter.
@@ -23,7 +24,7 @@ export function createMarkdownWithFrontmatter(
 }
 
 interface MarkdownWithFrontmatter {
-  frontmatter: string;
+  frontmatter: { [key: string]: any };
   markdown: string;
 }
 
@@ -35,8 +36,9 @@ interface MarkdownWithFrontmatter {
 export function parseMarkdownWithFrontmatter(
   input: string
 ): MarkdownWithFrontmatter {
+  console.assert(typeof input === "string")
   // Regular expression to extract frontmatter
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n*---/;
   const match = input.match(frontmatterRegex);
 
   let frontmatter = "";
@@ -47,7 +49,7 @@ export function parseMarkdownWithFrontmatter(
     markdown = input.slice(match[0].length);
   }
 
-  return { frontmatter, markdown };
+  return { frontmatter: yaml.load(frontmatter) as any, markdown };
 }
 
 /**
@@ -102,3 +104,43 @@ export function prependHeading(
     };
   };
 }
+export function captureSection(
+  markdown: string,
+  name: string,
+  depth: 1 | 2 | 3 | 4 | 5 | 6,
+): string {
+  const processor = unified().use(remarkParse);
+  let capture = false;
+  let output = "";
+
+  const tree = processor.parse(markdown);
+
+  visit<Node, Root>(tree, (node: Node) => {
+    // Type guard for heading with depth and children
+    if (
+      node.type === "heading" &&
+      "depth" in node &&
+      (node as Heading).depth === depth
+    ) {
+      const headingNode = node as Heading;
+      if (
+        headingNode.children[0]?.type === "text" &&
+        headingNode.children[0].value === name
+      ) {
+        capture = true;
+      } else {
+        capture = false;
+      }
+    } else if (capture && node.type === "paragraph") {
+      const paragraphNode = node as Paragraph;
+      output +=
+        paragraphNode.children
+          .filter((child) => child.type === "text")
+          .map((child: Text) => child.value)
+          .join(" ") + "\n";
+    }
+  });
+
+  return output;
+}
+
