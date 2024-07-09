@@ -1,25 +1,22 @@
-import { getPostIds, getPost } from "src/404wolf/posts";
-import { Vault } from "obsidian";
+import type MyPlugin from "src/main";
+import Post from "src/404wolf/Post";
 import { notify, toTitleCase } from "src/utils/misc";
-import PostFetcher from "./postFetcher";
+import PostFetcher from "./PostFetcher";
 
-export default async function fetchPosts(
-  vault: Vault,
-  reservedRoot: string,
-  domain: string
-) {
-  const postIds = await getPostIds(domain);
+/**
+ * Fetches all the posts from the given domain and stores them in the vault.
+ */
+export default async function fetchPosts(plugin: MyPlugin) {
+  const postIds = await Post.getAllPostIds(plugin);
+
   console.log(`Fetching posts ${postIds}`);
+  notify(`Fetching ${postIds.length} posts...`);
 
-  postIds.forEach(postId => {
-    console.log(`Processing post id:${postId}`);
-
-    // Fetch the post and its resources
-    getPost(domain, postId).then(postData => {
-      notify(`Fetching ${postId}`);
-      const root = [reservedRoot, `${toTitleCase(postData.type)}s`];
-      const postFetcher = new PostFetcher(vault, root, postData, domain);
+  await Promise.all(postIds.map((postId: string) => {
+    Post.fromId(plugin, postId).then((post: Post) => {
+      const root = [plugin.settings.path, `${toTitleCase(post.type)}s`];
+      const postFetcher = new PostFetcher(root, post);
       postFetcher.fetchPost().then(() => notify(`Fetched ${postId}`));
     });
-  });
-}
+  }))
+};
