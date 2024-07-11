@@ -44,6 +44,8 @@ export default async function getActivePost(
   const currentPostId =
     currentProjectFullPath[currentProjectFullPath.length - 2];
   const postIds = await Post.getAllPostIds(plugin);
+  console.log(postIds)
+  console.log(currentPostId)
   if (!postIds.includes(currentPostId)) {
     doNotify &&
       notify(

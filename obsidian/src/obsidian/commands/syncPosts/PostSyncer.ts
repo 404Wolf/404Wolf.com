@@ -1,14 +1,14 @@
-import { makeCodeBlock } from "src/utils/misc";
 import { PostResourceLock } from "./resourceLock";
 
-import { join } from "path/posix";
-import Post, { PostResource } from "src/404wolf/Post";
+import { join } from "path";
+import Post from "src/404wolf/Post";
+import { PostResource } from "src/404wolf/PostResource";
 import MyPlugin from "src/main";
 import { notify } from "src/utils/misc";
 import { createFile } from "src/utils/vault";
 import lockResource from "./resourceLock";
 
-export default class PostFetcher {
+export default class PostSyncer {
   path: string[];
 
   constructor(path: string[], public plugin: MyPlugin, public post: Post) {
@@ -17,10 +17,10 @@ export default class PostFetcher {
 
   /**
    * Fetch the post and all its resources.
-   * @param contents Whether to fetch the post content.
-   * @param notes Whether to fetch the post notes.
-   * @param resources Whether to fetch the post resources.
-   * @param doNotify Whether to notify the user after fetching.
+   * @param1 {Object} param1
+   * @param {string} param1.notes Whether to fetch the post notes.
+   * @param {PostResource[]} param1.resources Whether to fetch the post resources.
+   * @param {boolean} param1.doNotify Whether to notify the user after fetching.
    */
   fetchPost = async ({
     contents = true,
@@ -70,6 +70,12 @@ export default class PostFetcher {
    */
   fetchResource = async (resource: PostResource) => {
     const filePathArr = [...this.path, "Resources", resource.filename];
+    const foundResource = this.plugin.app.vault.getFileByPath(
+      join(...this.path, "Resources", resource.filename)
+    );
+    if (foundResource !== null) {
+      return;
+    }
     const filepath = join(...filePathArr);
     const resourceData = await resource.getData();
     await createFile(this.post.plugin.app.vault, filepath, resourceData);
@@ -107,5 +113,5 @@ export default class PostFetcher {
         async (resource: PostResource) => await this.lockResource(resource)
       )
     );
-  }
+  };
 }

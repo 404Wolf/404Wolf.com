@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "52340033ee648b04",
+        "id": "d578d0d5a8f8989e",
         "type": "tabs",
         "children": [
           {
-            "id": "b71733ec025808e0",
+            "id": "621f34c026a9801d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "test.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "test.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "test.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,13 +138,53 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b71733ec025808e0",
+  "active": "621f34c026a9801d",
   "lastOpenFiles": [
-    "Screenshot_from_2024-04-14_23-29-12_0001.md",
-    "test.md",
-    "Markdown Example.md",
-    "NewFile.md",
-    "Welcome.md",
-    "().md"
+    "404Wolf/Projects/6ff757b9-1db8-4921-9d73-ac5f7e4b3733/Post.md",
+    "404Wolf/Projects/6ff757b9-1db8-4921-9d73-ac5f7e4b3733/Resources/6ff757b9-1db8-4921-9d73-ac5f7e4b3733_00001.md",
+    "404Wolf/Projects/6ff757b9-1db8-4921-9d73-ac5f7e4b3733/Resources",
+    "404Wolf/Projects/6ff757b9-1db8-4921-9d73-ac5f7e4b3733/Notes.md",
+    "404Wolf/Projects/6ff757b9-1db8-4921-9d73-ac5f7e4b3733",
+    "404Wolf/Blogs/1851a1c0-9588-461b-a6c5-62699a4aa0e4/Post.md",
+    "404Wolf/Blogs/0a6b207f-5eb7-4aa0-81eb-cef0d2e8f269/Post.md",
+    "404Wolf/Blogs/1851a1c0-9588-461b-a6c5-62699a4aa0e4/Resources/1851a1c0-9588-461b-a6c5-62699a4aa0e4_00001.md",
+    "404Wolf/Blogs/1851a1c0-9588-461b-a6c5-62699a4aa0e4/Resources",
+    "404Wolf/Blogs/1851a1c0-9588-461b-a6c5-62699a4aa0e4/Notes.md",
+    "404Wolf/Blogs/1851a1c0-9588-461b-a6c5-62699a4aa0e4",
+    "404Wolf/Blogs/0a6b207f-5eb7-4aa0-81eb-cef0d2e8f269/Resources/0a6b207f-5eb7-4aa0-81eb-cef0d2e8f269_00001.md",
+    "404Wolf/Blogs/0a6b207f-5eb7-4aa0-81eb-cef0d2e8f269/Resources",
+    "404Wolf/Blogs/0a6b207f-5eb7-4aa0-81eb-cef0d2e8f269/Notes.md",
+    "404Wolf/Blogs/0a6b207f-5eb7-4aa0-81eb-cef0d2e8f269",
+    "404Wolf/Blogs/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c/Post.md",
+    "404Wolf/Blogs/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c/Resources/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c_00001.md",
+    "404Wolf/Blogs/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c/Resources",
+    "404Wolf/Blogs/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c/Notes.md",
+    "404Wolf/Blogs/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c",
+    "404Wolf/Blogs/b85d5ba9-ea9f-4895-aa8f-c54d7d19382c",
+    "404Wolf/Blogs/thisisatestpostatestpost/Post.md",
+    "404Wolf/Blogs/stlinkingScooter/Post.md",
+    "404Wolf/Blogs/svgShenanigans/Post.md",
+    "404Wolf/Blogs/svgShenanigans/Notes.md",
+    "404Wolf/Projects/eclecticVocab/Resources/exampleFlashcard1_0001.png",
+    "404Wolf/Projects/eclecticVocab/Resources/wireframing1_0001.png",
+    "404Wolf/Projects/eclecticVocab/Resources/wireframing2_0001.png",
+    "404Wolf/Projects/coinSortBot/Resources/wiresInBox_0001.JPG",
+    "404Wolf/Projects/coinSortBot/Resources/coinSortBot_00001.md",
+    "404Wolf/Projects/coinSortBot/Resources/motor_0001.JPG",
+    "404Wolf/Blogs/cordBackpack/Resources/cordBackpack_00002.md",
+    "404Wolf/Blogs/cordBackpack/Resources",
+    "404Wolf/Projects/eclecticVocab/Resources/exampleAPIRequest_0001.png",
+    "404Wolf/Projects/coinSortBot/Resources/addressingHats_0001.jpg",
+    "404Wolf/Projects/coinSortBot/Resources/frontView_0001.png",
+    "404Wolf/Projects/coinSortBot/Resources/motorHat_0001.jpg",
+    "404Wolf/Projects/eclecticVocab/Resources/exampleFlashcard2_0001.png",
+    "404Wolf/Projects/bitwardenBackup/Resources/bitwardenBackup_0001.md",
+    "404Wolf/Projects/eclecticVocab/Resources/eclecticVocab_0001.md",
+    "404Wolf/Projects/bitwardenBackup/Post.md",
+    "404Wolf/Projects/eclecticVocab/Post.md",
+    "404Wolf/Blogs/cordBackpack/Post.md",
+    "404Wolf/Blogs/cordBackpack/Notes.md",
+    "404Wolf/Projects/coinSortBot/Post.md",
+    "404Wolf/Projects/coinSortBot/Notes.md"
   ]
 }

@@ -1,4 +1,4 @@
-import { PostResource } from "src/404wolf/Post";
+import { PostResource } from "src/404wolf/PostResource";
 import * as crypto from "crypto";
 import * as path from "path";
 import MyPlugin from "src/main";

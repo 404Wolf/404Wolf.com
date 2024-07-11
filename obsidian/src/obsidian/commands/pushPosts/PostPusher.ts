@@ -1,4 +1,5 @@
-import Post, { PostResource } from "src/404wolf/Post";
+import Post from "src/404wolf/Post";
+import { PostResource } from "src/404wolf/PostResource";
 import MyPlugin from "src/main";
 import { notify, toTitleCase } from "src/utils/misc";
 import * as path from "path";
@@ -10,9 +11,6 @@ export default class PostPusher {
   /**
    * Push the post and all its resources.
    * @param contents Whether to push the post content.
-   * @param notes Whether to push the post notes.
-   * @param resources Whether to push the post resources.
-   * @param doNotify Whether to notify the user after pushing.
    */
   pushPost = async ({
     contents = true,

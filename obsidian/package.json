@@ -11,7 +11,7 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/node": "^16.11.6",
+		"@types/node": "^16.18.101",
 		"@typescript-eslint/eslint-plugin": "5.29.0",
 		"@typescript-eslint/parser": "5.29.0",
 		"builtin-modules": "3.3.0",
@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@types/js-yaml": "^4.0.9",
 		"@types/mdast": "^4.0.4",
-		"js-yaml": "^4.1.0"
+		"js-yaml": "^4.1.0",
+		"uuid": "^10.0.0"
 	}
 }

@@ -1,6 +1,8 @@
 import { Plugin } from "obsidian";
-import * as fetchPostCommands from "./obsidian/commands/fetchPosts";
-import * as pushPostCommands from "./obsidian/commands/pushPost";
+import * as syncPostsCommands from "./obsidian/commands/syncPosts";
+import * as pushPostsCommands from "./obsidian/commands/pushPosts";
+import * as createPostsCommands from "./obsidian/commands/createPosts";
+import * as deletePostsCommands from "./obsidian/commands/deletePosts";
 import ConfirmDialog from "./obsidian/modals/confirm";
 import SettingsTab, {
   DEFAULT_PLUGIN_SETTINGS,
@@ -17,11 +19,11 @@ export default class MyPlugin extends Plugin {
       this.addCommand({ id, name, callback });
     };
 
-    mkCommand("fetchMany", "Fetch Posts", () => {
+    mkCommand("fetchMany", "Sync Posts", () => {
       new ConfirmDialog(
         this.app,
         "Are you sure you want to fetch ALL posts? This is a big operation!",
-        () => fetchPostCommands.fetchPosts(this)
+        () => syncPostsCommands.syncPosts(this)
       ).open();
     });
 
@@ -29,15 +31,28 @@ export default class MyPlugin extends Plugin {
       new ConfirmDialog(
         this.app,
         "Are you sure you want to refetch this post? You will lose any changes to this post.",
-        () => fetchPostCommands.fetchPost(this)
+        () => syncPostsCommands.syncPost(this)
       ).open();
     });
 
-    mkCommand("pushOne", "Push the current post", () => {
+    mkCommand("pushOne", "Push current post", () => {
       new ConfirmDialog(
         this.app,
         "Are you sure you want to push this post? This will overwrite the post on the server.",
-        () => pushPostCommands.pushPost(this)
+        () => pushPostsCommands.pushPost(this)
+      ).open();
+    });
+
+    mkCommand("createPost", "Create a new post", () => {
+      createPostsCommands.createPost(this);
+    });
+
+    mkCommand("deletePost", "Delete current post", () => {
+      new ConfirmDialog(
+        this.app,
+        "Are you sure you want to delete the current post?" +
+          "This is not reversable and the post will be gone forever.",
+        () => deletePostsCommands.deletePost(this)
       ).open();
     });
 
