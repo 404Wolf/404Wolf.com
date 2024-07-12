@@ -1,0 +1,73 @@
+type: object
+properties:
+  id:
+    summary: Unique identifier of the post.
+    type: string
+  title:
+    summary: Title of the post.
+    description: This is what is displayed to users.
+    type: string
+    nullable: true
+  description:
+    summary: Description of the post.
+    description: This is shown at the top of posts and in previews.
+    type: string
+    nullable: true
+  markdown:
+    summary: The resource id
+    type: object
+    properties:
+      - id:
+          summary: The ID of the Resource that is the markdown
+          type: string
+      - data:
+          summary: The markdown data
+          type: string
+  covers:
+    type: array
+    items:
+      summary: The cover image of the post
+      description: Each post has associated resources. Of these, the IDs in `covers`
+        will get shown as the cover image.
+      type: string
+  type:
+    summary: The type of post
+    description: Posts show up in two tabs, one for blogs, and another for projects
+    type: string
+    enum:
+      - project
+      - blog
+  date:
+    summary: The date of the post
+    description: This is the date that the post was created. Defaults to the current YEAR
+    type: string
+    format: date-time
+    nullable: true
+  tags:
+    summary: Tags for the post
+    description: Tags are used to categorize posts. They are used to filter posts 
+      in the frontend. `featured` will ensure the post shows up on the home page.
+      `hidden` will ensure the post does not show up to users who are not logged in.
+    type: array
+    items:
+      type: string
+  createdAt:
+    type: string
+    format: date-time
+    readOnly: true
+    example: "2023-10-10T14:48:00.000Z"
+  editedAt:
+    type: string
+    format: date-time
+    readOnly: true
+    example: "2023-10-10T14:48:00.000Z"
+  notes:
+    summary: Notes for the post
+    description: Notes are used to store additional information about the post. These
+      do not show up anywhere except in editors.
+    type: string
+    nullable: true
+  resources:
+    type: array
+    items:
+      $ref: "./schemas/resource.yaml" 

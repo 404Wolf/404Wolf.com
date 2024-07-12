@@ -1,0 +1,43 @@
+type: object
+properties:
+  url:
+    type: string
+    example: "404Wolf.com"
+  name:
+    type: string
+    example: "Wolf Mermelstein"
+  email:
+    type: string
+    example: "wolfmermelstein@gmail.com"
+  phone:
+    type: object
+    properties:
+      display:
+        type: string
+        example: "(212)767-WOLF"
+      link:
+        type: string
+        example: "(212) 767-9653"
+  location:
+    type: string
+    example: "Brooklyn, NY"
+  booking:
+    type: string
+    example: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3IzOEw1Pqg1..."
+  contacts:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "linkedIn"
+        username:
+          type: string
+          example: "WolfMermelstein"
+        link:
+          type: string
+          example: "https://www.linkedin.com/in/WolfMermelstein"
+        at:
+          type: boolean
+          example: true

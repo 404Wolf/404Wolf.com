@@ -1,0 +1,23 @@
+type: object
+properties:
+  id:
+    type: string
+    uniqueItems: true
+  title:
+    type: string
+  filename:
+    type: string
+    uniqueItems: true
+  url:
+    type: string
+    uniqueItems: true
+  type:
+    type: string
+  postId:
+    type: string
+    nullable: true
+  description:
+    type: string
+    nullable: true
+  post:
+    $ref: "./post.yml"
