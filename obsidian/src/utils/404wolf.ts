@@ -46,13 +46,13 @@ export default async function getActivePost(
   const postIds = await Post.getAllPostIds(plugin);
   console.log(postIds)
   console.log(currentPostId)
-  if (!postIds.includes(currentPostId)) {
-    doNotify &&
-      notify(
-        "This post has not been fetched yet. Please fetch all posts before pushing this post."
-      );
-    return [null, ActivePostState.INEXISTENT_POST];
-  }
+  //if (!postIds.includes(currentPostId)) {
+  //  doNotify &&
+  //    notify(
+  //      "This post has not been fetched yet. Please fetch all posts before pushing this post."
+  //    );
+  //  return [null, ActivePostState.INEXISTENT_POST];
+  //}
 
   // The post fetch was a success; fetch it and return
   return [await Post.fromId(plugin, currentPostId), ActivePostState.VALID_POST];
