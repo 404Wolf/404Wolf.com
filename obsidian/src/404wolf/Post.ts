@@ -17,7 +17,7 @@ export default class Post {
   constructor(
     public plugin: MyPlugin,
     public id: string,
-public title: string,
+    public title: string,
     public description: string,
     public markdown: PostMarkdown,
     public covers: string[],
@@ -180,18 +180,21 @@ public title: string,
   };
 
   /**
-    * Delete the post from the server.
-    */
+   * Delete the post from the server.
+   */
   delete = async () => {
-    const resp = await fetch(`${this.plugin.settings.domain}/api/posts/${this.id}`, {
-      method: "DELETE",
-      headers: {
-        secret: this.plugin.settings.secret
+    const resp = await fetch(
+      `${this.plugin.settings.domain}/api/posts/${this.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          secret: this.plugin.settings.secret
+        }
       }
-    }).catch(notify);
+    ).catch(notify);
 
     if (!resp || !resp.ok) {
       throw new Error("Failed to delete post.");
     }
-  }
+  };
 }

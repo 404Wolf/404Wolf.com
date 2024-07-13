@@ -3,6 +3,7 @@ import remarkStringify from "remark-stringify";
 import MyPlugin from "src/main";
 import {
   createMarkdownWithFrontmatter,
+  getContentOfSection,
   parseMarkdownWithFrontmatter,
   prependHeading,
   updateImageLinks
@@ -16,6 +17,7 @@ interface PostMarkdownMetadata {
   title: string;
   type: string;
   date: string;
+  covers: string[];
   tags: string[];
   postDescription: string;
   cssclasses: string[];
@@ -24,6 +26,25 @@ interface PostMarkdownMetadata {
 export interface UnpackedPostMarkdown {
   postMarkdownMetadata: PostMarkdownMetadata;
   markdown: string;
+}
+
+function assertIsMarkdownMetadata(
+  metadata: any
+): asserts metadata is PostMarkdownMetadata {
+  const keys = [
+    "id",
+    "title",
+    "type",
+    "date",
+    "covers",
+    "tags",
+    "cssclasses"
+  ];
+  for (const key of keys) {
+    if (!(key in metadata)) {
+      throw new Error(`Missing key "${key}" in metadata.`);
+    }
+  }
 }
 
 export class PostMarkdown {
@@ -46,7 +67,8 @@ export class PostMarkdown {
     const { frontmatter: data, markdown } = parseMarkdownWithFrontmatter(
       markdownWithMetadata
     );
-    const description = markdown.split("\n")[3];
+    assertIsMarkdownMetadata(data);
+    const description = getContentOfSection(markdown, "Description", 1);
 
     const imageFilenamesToIds = Object.fromEntries(
       this.post.resources.map((resource: PostResource) => [
@@ -70,7 +92,10 @@ export class PostMarkdown {
       title: data.title,
       type: data.type,
       date: data.date,
-      tags: data.tags,
+      covers: ((data.covers as unknown) as string)
+        .split(", ")
+        .map((el: string) => el.trim()),
+      tags: data.tags.map((tag: string) => tag.split("/")[1]),
       postDescription: description,
       cssclasses: data.cssclasses
     };
@@ -81,6 +106,7 @@ export class PostMarkdown {
       this.post.type = postMarkdownMetadata.type;
       this.post.date = postMarkdownMetadata.date;
       this.post.tags = postMarkdownMetadata.tags;
+      this.post.covers = postMarkdownMetadata.covers;
       this.post.description = postMarkdownMetadata.postDescription;
       this.data = markdownWithProperIds;
       console.assert(this.post.markdown.data === this.data);
@@ -108,7 +134,8 @@ export class PostMarkdown {
       title: this.post.title,
       type: this.post.type,
       date: this.post.date,
-      tags: this.post.tags,
+      covers: this.post.covers.join(", "),
+      tags: this.post.tags.map(tag => `404wolf/${tag}`),
       cssclasses: ["404WolfMarkdown"]
     };
     let result = await unified()
