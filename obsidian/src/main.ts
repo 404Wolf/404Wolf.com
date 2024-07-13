@@ -3,6 +3,7 @@ import * as syncPostsCommands from "./obsidian/commands/syncPosts";
 import * as pushPostsCommands from "./obsidian/commands/pushPosts";
 import * as createPostsCommands from "./obsidian/commands/createPosts";
 import * as deletePostsCommands from "./obsidian/commands/deletePosts";
+import * as aboutCommands from "./obsidian/commands/about";
 import ConfirmDialog from "./obsidian/modals/confirm";
 import SettingsTab, {
   DEFAULT_PLUGIN_SETTINGS,
@@ -53,6 +54,22 @@ export default class MyPlugin extends Plugin {
         "Are you sure you want to delete the current post?" +
           "This is not reversable and the post will be gone forever.",
         () => deletePostsCommands.deletePost(this)
+      ).open();
+    });
+
+    mkCommand("fetchBio", "Sync Bio", () => {
+      new ConfirmDialog(
+        this.app,
+        "Are you sure you want to fetch the bio? This will overwrite the bio in the vault.",
+        () => aboutCommands.sync(this)
+      ).open();
+    });
+
+    mkCommand("pushBio", "Push Bio", () => {
+      new ConfirmDialog(
+        this.app,
+        "Are you sure you want to push the bio? This will overwrite the bio on the server.",
+        () => aboutCommands.push(this)
       ).open();
     });
 

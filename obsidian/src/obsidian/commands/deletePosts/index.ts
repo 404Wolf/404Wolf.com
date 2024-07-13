@@ -10,10 +10,11 @@ export async function deletePost(plugin: MyPlugin) {
     notify(`Deleting ${currentPost.id}...`);
     const currentPostDirectoryArr = [
       plugin.settings.path,
+      "Posts",
       toTitleCase(currentPost.type) + "s",
       currentPost.id
     ];
-    console.log(currentPostDirectoryArr)
+    console.log(currentPostDirectoryArr);
     const currentPostDirectory = plugin.app.vault.getFolderByPath(
       path.join(...currentPostDirectoryArr)
     );

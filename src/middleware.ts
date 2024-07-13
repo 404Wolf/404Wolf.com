@@ -20,6 +20,7 @@ export async function middleware(request: NextRequest) {
   applyHeaders(nextResponse);
 
   if (request.method === "OPTIONS") {
+    console.log("Options request received; returning 204")
     const response = new NextResponse(null, { status: 204 });
     applyHeaders(response);
     return response;

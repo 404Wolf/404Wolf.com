@@ -1,6 +1,6 @@
 import { visit } from "unist-util-visit";
-import type { Root, Heading, Paragraph, Text } from 'mdast';
-import type { Node } from "unist";
+import { Root, Heading, Paragraph, Text } from "mdast";
+import { Node } from "unist";
 import * as yaml from "js-yaml";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -36,7 +36,7 @@ interface MarkdownWithFrontmatter {
 export function parseMarkdownWithFrontmatter(
   input: string
 ): MarkdownWithFrontmatter {
-  console.assert(typeof input === "string")
+  console.assert(typeof input === "string");
   // Regular expression to extract frontmatter
   const frontmatterRegex = /^---\s*\n([\s\S]*?)\n*---/;
   const match = input.match(frontmatterRegex);
@@ -107,7 +107,7 @@ export function prependHeading(
 export function captureSection(
   markdown: string,
   name: string,
-  depth: 1 | 2 | 3 | 4 | 5 | 6,
+  depth: 1 | 2 | 3 | 4 | 5 | 6
 ): string {
   const processor = unified().use(remarkParse);
   let capture = false;
@@ -135,7 +135,7 @@ export function captureSection(
       const paragraphNode = node as Paragraph;
       output +=
         paragraphNode.children
-          .filter((child) => child.type === "text")
+          .filter(child => child.type === "text")
           .map((child: Text) => child.value)
           .join(" ") + "\n";
     }
@@ -144,3 +144,17 @@ export function captureSection(
   return output;
 }
 
+/**
+ * Extracts image source links from a markdown string.
+ * @param markdown The markdown content to extract image source links from.
+ * @returns An array of image source links.
+ */
+function extractImageSrcs(markdown: string): string[] {
+  const regex = /!\[.*?\]\((.*?)\)/g;
+  const srcs: string[] = [];
+  let match;
+  while ((match = regex.exec(markdown)) !== null) {
+    srcs.push(match[1]);
+  }
+  return srcs;
+}

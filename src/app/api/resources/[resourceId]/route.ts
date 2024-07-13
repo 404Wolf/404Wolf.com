@@ -1,4 +1,4 @@
-import s3 from "@/utils/aws";
+mport s3 from "@/utils/aws";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

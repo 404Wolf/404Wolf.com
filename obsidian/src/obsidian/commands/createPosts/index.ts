@@ -24,7 +24,11 @@ export async function createPost(plugin: MyPlugin) {
     });
     notify("Created new post record.");
 
-    const newPostPath = [plugin.settings.path, toTitleCase(newPost.type) + "s"];
+    const newPostPath = [
+      plugin.settings.path,
+      "Posts",
+      toTitleCase(newPost.type) + "s"
+    ];
     const postFetcher = new PostSyncer(newPostPath, plugin, newPost);
     await postFetcher.fetchPost({});
     notify("Fetched new post content");

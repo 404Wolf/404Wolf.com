@@ -39,6 +39,25 @@ paths:
                   type: array
                   items:
                     $ref: "./schemas/contact.yaml"
+    /objects/special:
+      get:
+        summary: Get a list of object IDs for special s3 objects
+        description: Get a list of special object IDs that get used in special
+          ways on the website
+        responses:
+          200:
+            description: The special object id aliases and their object IDs
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    basicAbout:
+                      type: string
+                    extendedAbout:
+                      type: string
+                    resume:
+                      type: string
     /objects:
       get:
         summary: Get a specific text S3 object
