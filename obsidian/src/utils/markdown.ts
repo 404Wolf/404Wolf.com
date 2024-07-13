@@ -1,4 +1,4 @@
-import { visit } from "unist-util-visit";
+import { visit, VisitorResult } from "unist-util-visit";
 import { Root, Heading, Paragraph, Text } from "mdast";
 import { Node } from "unist";
 import * as yaml from "js-yaml";
@@ -149,7 +149,7 @@ export function captureSection(
  * @param markdown The markdown content to extract image source links from.
  * @returns An array of image source links.
  */
-function extractImageSrcs(markdown: string): string[] {
+export function extractImageSrcs(markdown: string): string[] {
   const regex = /!\[.*?\]\((.*?)\)/g;
   const srcs: string[] = [];
   let match;
@@ -157,4 +157,36 @@ function extractImageSrcs(markdown: string): string[] {
     srcs.push(match[1]);
   }
   return srcs;
+}
+
+export function getContentOfSection(
+  markdown: string,
+  header: string,
+  depth: number = 1
+) {
+  const ast = unified()
+    .use(remarkParse)
+    .parse(markdown);
+
+  const output: string[] = [];
+  let inHeadersSection = false;
+  let nextIsWantedText = false;
+  visit(ast, node => {
+    if (
+      node.type === "heading" &&
+      node.depth === depth &&
+      node.children.length > 0 &&
+      node.children[0].type === "text" &&
+      node.children[0].value === header
+    )
+      inHeadersSection = true;
+    if (inHeadersSection) {
+      if (nextIsWantedText) {
+        if (node.type === "text") output.push(node.value);
+        else if (node.type !== "paragraph") return false;
+      }
+      if (node.type === "paragraph") nextIsWantedText = true;
+    }
+  });
+  return output.join("\n");
 }
