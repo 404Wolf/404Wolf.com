@@ -33,7 +33,7 @@ export default class PostPusher {
   };
 
   #getRoot = () => {
-    return [this.plugin.settings.path, `${toTitleCase(this.post.type)}s`];
+    return [this.plugin.settings.path, "Posts", `${toTitleCase(this.post.type)}s`];
   } 
 
   /**
