@@ -1,326 +1,321 @@
-@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&family=Varta:wght@400;450;500;550;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Slabo+27px&family=Varta:wght@400;450;500;550;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
 .markdown * {
-    font-family: Trebuchet MS, sans-serif;
-    /* font-family: 'Varta', sans-serif; */
+  font-family: Trebuchet MS, sans-serif;
+  font-family: 'Varta', sans-serif; 
 }
 
 .markdown img {
-    border-radius: 0.75rem;
+  border-radius: 0.75rem;
+}
+
+.markdown span, div, li, ul, ol {
+  font-size: 19px;
 }
 
 .markdown h1 {
-    text-align: center;
-    padding-bottom: 0.3em;
-    padding-top: 0.8em;
-    font-size: 2.6em;
-    line-height: 1.3;
-    font-weight: 500;
-    clear: both;
+  text-align: center;
+  padding-bottom: 0.3em;
+  padding-top: 0.8em;
+  font-size: 2.6em;
+  line-height: 1.3;
+  font-weight: 500;
+  clear: both;
 }
 
 .markdown h2 {
-    font-size: 2em;
-    font-weight: 500;
-    clear: both;
+  font-size: 2em;
+  font-weight: 500;
+  clear: both;
 }
 
 .markdown h3 {
-    font-size: 1.6em;
-    clear: both;
+  font-size: 1.6em;
+  clear: both;
 }
 
 .markdown h4 {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 .markdown h5,
 h6 {
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
 
 .markdown p {
-    font-size: 1.2em;
-    margin-bottom: 0.4em;
+  margin-bottom: 1.4em;
 }
 
-p:not(li > p) {
-    text-indent: 2em;
+.markdown p:not(li > p) {
+  text-indent: 0.3em;
 }
 
 .markdown li {
-    font-size: 1em;
-    padding-bottom: 0.15em;
-    padding-left: 2px;
+  padding-bottom: 0.15em;
+  padding-left: 2px;
 }
 
 .markdown ul {
-    list-style-type: disc;
-    padding-left: 1em;
+  list-style-type: disc;
+  padding-left: 1em;
 }
 
 .markdown ol {
-    list-style-type: decimal;
-    padding-left: 1em;
-    margin-left: 1em;
+  list-style-type: decimal;
+  padding-left: 1em;
+  margin-left: 1em;
 }
 
 .markdown a {
-    color: rgb(46, 62, 102);
-    text-decoration: underline;
-    text-decoration-color: rgb(118, 141, 172);
-    text-decoration-thickness: 1px;
-    transition: color 0.15s;
+  color: rgb(46, 62, 102);
+  text-decoration: underline;
+  text-decoration-color: rgb(118, 141, 172);
+  text-decoration-thickness: 1px;
+  transition: color 0.15s;
 }
 
 .markdown a:hover {
-    color: rgb(100 116 139);
+  color: rgb(100 116 139);
 }
 
 .markdown b {
-    font-weight: 600;
+  font-weight: 600;
 }
 
-.markdown u,
-strong {
-    text-decoration: underline;
-    font-weight: bold;
+.markdown u strong {
+  text-decoration: underline;
 }
 
 .markdown pre,
 code {
-    font-family: 'Roboto Mono', monospace !important;
-    font-size: 0.9em;
-    border-radius: 6px;
-    clear: both;
+  font-family: "Roboto Mono", monospace !important;
+  border-radius: 6px;
+  clear: both;
 }
 
 .markdown pre {
-    font-size: 14px;
-    line-height: 130%;
+  line-height: 130%;
 }
 
 .markdown html {
-    background-color: #eee;
-    /* Neutral background to contrast with the page. */
-    color: var(--color-text);
-    /* Slightly less "harsh" black;
+  background-color: #eee;
+  /* Neutral background to contrast with the page. */
+  color: var(--color-text);
+  /* Slightly less "harsh" black;
     looks subtly better. */
-    tab-size: 4;
-    /* Tab size of 4 is probably more common in editors etc. */
+  tab-size: 4;
+  /* Tab size of 4 is probably more common in editors etc. */
 }
 
-.link {
-    color: #00f;
-    /* Make sure colour is the same in all browsers. */
-    text-decoration: none;
-    transition: color 0.2s;
-    /* Animate the change in colour effect on hover */
+.markdown .link {
+  color: #00f;
+  /* Make sure colour is the same in all browsers. */
+  text-decoration: none;
+  transition: color 0.2s;
+  /* Animate the change in colour effect on hover */
 }
 
 .markdown a:hover,
 .link:hover,
 summary:hover {
-    text-decoration: underline;
-    color: #6491ff;
+  text-decoration: underline;
+  color: #6491ff;
 }
 
 .markdown a:hover code {
-    color: #6491ff;
-    /* Also change colour of code on hover. */
+  color: #6491ff;
+  /* Also change colour of code on hover. */
 }
 
 .markdown blockquote {
-    font-style: italic;
+  font-style: italic;
 }
 
 .markdown figure {
-    text-align: center;
-    margin: 1rem 0;
+  text-align: center;
+  margin: 1rem 0;
 }
 
 .markdown figure.border:not(.full) {
-    border: 1px solid var(--color-border);
-    padding: 5px;
-    margin: -5px;
+  border: 1px solid var(--color-border);
+  padding: 5px;
+  margin: -5px;
 }
 
 .markdown figure.full {
-    margin-left: var(--full-margin-left);
-    width: var(--full-width);
+  margin-left: var(--full-margin-left);
+  width: var(--full-width);
 }
 
 .markdown code,
 pre,
 kbd,
 samp {
-    background-color: #dae1ec;
-    color: #000;
-    white-space: pre-wrap;
+  background-color: #dae1ec;
+  color: #000;
+  white-space: pre-wrap;
 }
 
 .codeblock * {
-    background-color: #e4e8ed !important;
+  background-color: #e4e8ed !important;
 }
 
 .markdown pre {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.8em 1em;
-    border-radius: 12px;
-    overflow-x: clip;
-    overflow-y: auto;
-    max-height: 400px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.8em 1em;
+  border-radius: 12px;
+  overflow-x: clip;
+  overflow-y: auto;
+  max-height: 400px;
 }
 
 .markdown code,
 kbd,
 samp {
-    padding: 1px 2px;
+  padding: 1px 2px;
 }
 
 .markdown pre > code {
-    padding: 0;
-    box-shadow: none;
-    border: none;
+  padding: 0;
+  box-shadow: none;
+  border: none;
 }
 
 /* width */
 .markdown pre::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 /* Track */
 .markdown pre::-webkit-scrollbar-track {
-    background: #eceff0;
-    border-radius: 12px;
+  background: #eceff0;
+  border-radius: 12px;
 }
 
 /* Handle */
 .markdown pre::-webkit-scrollbar-thumb {
-    background: #c0c3c5;
-    border-radius: 12px;
+  background: #c0c3c5;
+  border-radius: 12px;
 }
 
 .markdown table {
-    border-collapse: collapse;
-    /* No space between borders. */
-    width: 100%;
+  border-collapse: collapse;
+  /* No space between borders. */
+  width: 100%;
 }
 
 .markdown table + table {
-    margin-top: 2em;
-    /* Add margin for subsequent tables. */
+  margin-top: 2em;
+  /* Add margin for subsequent tables. */
 }
-
 .markdown table.full {
-    /* Not quite full width so text isn't flush against border. */
-    margin-left: calc(var(--full-margin-left) + 0.5rem);
-    width: calc(var(--full-width) - 1em);
+  /* Not quite full width so text isn't flush against border. */
+  margin-left: calc(var(--full-margin-left) + 0.5rem);
+  width: calc(var(--full-width) - 1em);
 }
 
 .markdown caption {
-    font-weight: bold;
-    /* Make caption stand out more. */
+  font-weight: bold;
+  /* Make caption stand out more. */
 }
 
 .markdown tr {
-    border-bottom: 1px solid #ddd;
-    /* Divide rows with a border. */
+  border-bottom: 1px solid #ddd;
+  /* Divide rows with a border. */
 }
 
 .markdown table > tr:last-child,
 tbody tr:last-child,
 tfoot tr:last-child {
-    border-bottom: none;
-    /* No border on the last row. */
+  border-bottom: none;
+  /* No border on the last row. */
 }
 
 .markdown tfoot tr:first-child {
-    border-top: 1px solid #ddd;
-    /* Continue border on first tfoot row;
+  border-top: 1px solid #ddd;
+  /* Continue border on first tfoot row;
     removed with tbody tr:last-child. */
 }
 
 .markdown td,
 th {
-    padding: 0.2em 0.5em;
-    /* Whitespace on top/bottom to make it less dense. */
-    /* And to the side to prevent cells from touching. */
-    hyphens: none;
-    /* Disable hyphenation by default, as it tends to wreak havoc with cell width calculations. */
+  padding: 0.2em 0.5em;
+  /* Whitespace on top/bottom to make it less dense. */
+  /* And to the side to prevent cells from touching. */
+  hyphens: none;
+  /* Disable hyphenation by default, as it tends to wreak havoc with cell width calculations. */
 }
 
 .markdown td.left,
 th.left {
-    /* Left aligned table cells (mainly for <th>). */
-    text-align: left;
+  /* Left aligned table cells (mainly for <th>). */
+  text-align: left;
 }
 
 .markdown td.right,
 th.right {
-    /* Right aligned table cells. */
-    text-align: right;
+  /* Right aligned table cells. */
+  text-align: right;
 }
 
 .markdown table td.right {
-    font-feature-settings: "tnum" on;
-    /* Use tabular numbers for alignment. */
-    font-variant-numeric: tabular-nums;
-    font-family: sans-serif;
-    /* Libre Baskerville has no aligned numbers :-( */
+  font-feature-settings: "tnum" on;
+  /* Use tabular numbers for alignment. */
+  font-variant-numeric: tabular-nums;
+  font-family: sans-serif;
+  /* Libre Baskerville has no aligned numbers :-( */
 }
 
 /* SUPER- AND SUBSCRIPT */
 .markdown sup,
 sub {
-    /* Make sure the line height isn't affected. */
-    height: 0;
-    line-height: 1;
-    vertical-align: baseline;
-    position: relative;
+  /* Make sure the line height isn't affected. */
+  height: 0;
+  line-height: 1;
+  vertical-align: baseline;
+  position: relative;
 }
 
 .markdown sup {
-    bottom: 1ex;
+  bottom: 1ex;
 }
 
 .markdown sub {
-    top: 0.5ex;
+  top: 0.5ex;
 }
 
 .markdown hr {
-    border: none;
-    text-align: center;
-    font-size: 60px;
-    color: var(--color-text);
-    opacity: 0.9;
+  border: none;
+  text-align: center;
+  color: var(--color-text);
+  opacity: 0.9;
+  border: none;
+  margin-top: .7em;
+  margin-bottom: .7em;
+  border-top: 1px solid black;
 }
 
 @media not all and (min-width: 640px) {
-    /* 1024px is "lg" with tailwind */
-    .markdown h1 {
-        padding-bottom: 0.4em;
-        padding-top: 0.5em;
-        font-size: 2em;
-    }
+  /* 1024px is "lg" with tailwind */
+  .markdown h1 {
+    padding-bottom: 0.4em;
+    padding-top: 0.5em;
+    font-size: 2em;
+  }
 
-    .markdown h2 {
-        font-size: 1.35em;
-    }
+  .markdown h2 {
+    font-size: 1.35em;
+  }
 
-    .markdown p {
-        text-indent: 0.75em;
-        font-size: 0.77em;
-    }
+  .markdown p {
+    text-indent: 0.75em;
+    font-size: 0.77em;
+  }
 
-    .markdown li {
-        font-size: 0.77em !important;
-    }
-
-    .markdown pre,
-    code {
-        font-size: 0.8em;
-    }
+  .markdown li {
+    font-size: 0.77em !important;
+  }
 }
