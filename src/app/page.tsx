@@ -94,12 +94,14 @@ export default async function Home() {
 
   return (
     <div>
-      <div className="rc-scout hidden lg:block origin-bottom-left fixed bottom-1 left-1 scale-50">
-        <Script
-          async
-          defer
-          src="https://www.recurse-scout.com/loader.js?t=1a9819584f6b47bb6e25db8483543a8f"
-        />
+      <div className="hidden lg:block origin-bottom-left fixed bottom-1 left-1 scale-50">
+        <div className="rc-scout">
+          <Script
+            async
+            defer
+            src="https://www.recurse-scout.com/loader.js?t=1a9819584f6b47bb6e25db8483543a8f"
+          />
+        </div>
       </div>
 
       <MainLayout title={<Greeter />} headerChildren={headerChildren}>

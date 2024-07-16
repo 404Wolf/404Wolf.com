@@ -39,7 +39,7 @@ const MainLayout = ({
   containerClasses,
 }: MainLayoutProps) => {
   const [blurred, setBlurred] = useState(false);
-  const titleElementClasses = `absolute hover:brightness-90 -top-3 md:-top-5 -left-3 md:-left-5 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-30`;
+  const titleElementClasses = `absolute hover:brightness-90 md:scale-125 scale-[105%] -top-1 md:-top-2 -left-1 md:-left-1 bg-gray-700 text-white rounded-3xl sm:rounded-full py-[5px] md:py-2 sm:py-[6px] px-4 ${titleWidth} text-[22px] sm:text-[30px] font-bold z-30`;
 
   return (
     <>

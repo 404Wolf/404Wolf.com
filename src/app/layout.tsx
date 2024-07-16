@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function Document({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" style={{zoom: 1.3}}>
+    <html lang="en">
       <body>
         <Script
           strategy="lazyOnload"

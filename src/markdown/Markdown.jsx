@@ -4,11 +4,11 @@ import ImageBlock from "@/markdown/ImageBlock";
 import MdImage from "@/markdown/Image";
 import { imgBlockHandler, imgHandler } from "./hast-handlers.js";
 import CodeBlock from "@/markdown/CodeBlock";
-import remarkToc from "remark-toc";
 import remarkSlug from "remark-slug";
 import remarkMath from "remark-math";
+import rehypeToc from "rehype-toc"
 
-const Markdown = ({ markdown, resourceMap = {} }) => {
+const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
   return (
     <ReactMarkdown
       children={markdown}
@@ -16,16 +16,39 @@ const Markdown = ({ markdown, resourceMap = {} }) => {
       remarkPlugins={[
         [remarkSlug],
         [remarkMath, {}],
-        [
-          remarkToc,
-          {
-            tight: false,
-            ordered: true,
-            maxDepth: 5,
-            heading: "Contents|Table of Contents",
-          },
-        ],
         [remarkImageBlock],
+      ]}
+      rehypePlugins={[
+        [
+          rehypeToc,
+          addContents ? {
+            customizeTOC: (ast) => {
+              return {
+                type: 'element',
+                tagName: 'div',
+                properties: { className: 'markdown toc-container' },
+                children: [
+                  // Heading 
+                  {
+                    type: 'element',
+                    tagName: 'h1',
+                    properties: { className: 'markdown toc-heading' },
+                    children: [{ type: 'text', value: 'Contents' }]
+                  },
+                  // Original AST
+                  { ...ast },
+                  // Heading 
+                  {
+                    type: 'element',
+                    tagName: 'hr',
+                    properties: { className: 'markdown' },
+                    children: []
+                  },
+                ]
+              }
+            }
+          } : {}
+        ]
       ]}
       remarkRehypeOptions={{
         handlers: { imgBlock: imgBlockHandler, image: imgHandler },

@@ -34,7 +34,7 @@ export default function Body({
   const windowWidth = useWindowWidth({ wait: 100, leading: true });
 
   const markdownArea = useMemo(() => {
-    return <Markdown markdown={markdown} resourceMap={resources} />;
+    return <Markdown addContents={true} markdown={markdown} resourceMap={resources} />;
   }, []);
 
   return (

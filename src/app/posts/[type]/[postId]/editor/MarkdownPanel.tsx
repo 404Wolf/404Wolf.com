@@ -9,7 +9,7 @@ export default function MarkdownPanel({
 }) {
   return (
     <div className="-mt-4 overflow-y-auto overflow-x-clip px-5 pb-5">
-      <Markdown markdown={currentMarkdown} resourceMap={resourceMap} />
+      <Markdown addContents={true} markdown={currentMarkdown} resourceMap={resourceMap} />
     </div>
   );
 }
