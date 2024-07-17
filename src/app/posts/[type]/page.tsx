@@ -1,8 +1,5 @@
-import ExtendedPostCard, {
-  PostData,
-} from "@/components/posts/ExtendedPostCard";
+import { PostData, } from "@/components/posts/ExtendedPostCard";
 import { PrismaClient } from "@prisma/client";
-import StatusLayout from "@/layouts/StatusLayout";
 import Body from "./Body";
 import MainLayout from "@/layouts/MainLayout";
 import { toTitleCase } from "@/utils/misc";
@@ -27,8 +24,14 @@ async function getPosts(type: string): Promise<PostData[]> {
       description: post.description || "",
       date: post.date || "",
       tags: post.tags,
+      createdAt: post.createdAt,
+      editedAt: post.editedAt,
     };
-  });
+  })
+    .sort(
+      (post1: PostData, post2: PostData) =>
+        ((new Date(post2.createdAt).getTime()) - (new Date(post1.createdAt).getTime()))
+    );
 }
 
 const PostsIndexLayout = async ({

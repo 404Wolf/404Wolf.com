@@ -22,6 +22,8 @@ export interface PostData {
   description: string;
   date: string;
   tags: string[];
+  createdAt: Date;
+  editedAt: Date;
 }
 
 interface ExtendedPostCardProps {

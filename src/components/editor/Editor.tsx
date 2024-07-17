@@ -11,12 +11,14 @@ interface EditorAreaProps {
   requireAuth?: boolean;
   objectName: string;
   resourceMap?: { [key: string]: string };
+  addContents?: boolean;
 }
 
 const EditorArea = ({
   requireAuth = true,
   objectName,
   startingText,
+  addContents = true,
   resourceMap = {},
 }: EditorAreaProps) => {
   const editorArea = useRef<HTMLDivElement>(null);
@@ -98,7 +100,7 @@ const EditorArea = ({
         </div>
       )}
 
-      {inEditMode && (
+      {inEditMode ? (
         <div
           ref={editorArea}
           contentEditable={true}
@@ -108,15 +110,16 @@ const EditorArea = ({
           }
           className="markdown w-full h-full bg-transparent rounded-lg focus:outline-none"
         />
-      )}
-      {!inEditMode && (
-        <div className="mt-2">
-          <Markdown
-            markdown={editorContentCurrentText}
-            resourceMap={resourceMap}
-          />
-        </div>
-      )}
+      ) :
+        (
+          <div className="mt-2">
+            <Markdown
+              addContents={addContents}
+              markdown={editorContentCurrentText}
+              resourceMap={resourceMap}
+            />
+          </div>
+        )}
     </div>
   );
 };

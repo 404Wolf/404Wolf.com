@@ -19,9 +19,10 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
         [remarkImageBlock],
       ]}
       rehypePlugins={[
+        addContents &&
         [
           rehypeToc,
-          addContents ? {
+          {
             customizeTOC: (ast) => {
               return {
                 type: 'element',
@@ -47,9 +48,9 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
                 ]
               }
             }
-          } : {}
+          }
         ]
-      ]}
+      ].filter(Boolean)}
       remarkRehypeOptions={{
         handlers: { imgBlock: imgBlockHandler, image: imgHandler },
       }}

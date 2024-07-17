@@ -26,6 +26,7 @@ const About = async () => {
       <Tile title="About">
         <div className="markdown pt-2 md:pt-1">
           <EditorArea
+            addContents={false}
             startingText={await getDefaultAbout()}
             objectName={process.env.NEXT_PUBLIC_EXTENDED_ABOUT_OBJECT_NAME!}
             resourceMap={{ profileMe: "/resources/profileMe.webp" }}
