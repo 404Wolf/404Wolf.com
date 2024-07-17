@@ -124,6 +124,7 @@ export default async function Home() {
               <Tile title="About">
                 <div style={heightStyle}>
                   <EditorArea
+                    addContents={false}
                     startingText={basicAbout || "Loading..."}
                     objectName={
                       process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!
