@@ -1,5 +1,5 @@
-import {Metadata} from "next";
-import {Wrappers} from "./wrappers";
+import { Metadata } from "next";
+import { Wrappers } from "./wrappers";
 import "@/styles/globals.css";
 import "@/styles/markdown.css";
 import "@/styles/tagInputs.css";
@@ -7,7 +7,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "react-tooltip/dist/react-tooltip.css";
 import Script from "next/script";
 import BasicContacts from "@/components/contacts/BasicContacts";
-import {createContext} from "react";
 
 export const metadata: Metadata = {
   keywords:
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
-export default function Document({children}: {children: React.ReactNode}) {
+export default function Document({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
@@ -26,13 +25,13 @@ export default function Document({children}: {children: React.ReactNode}) {
 
         <Script strategy="lazyOnload">
           {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-                    page_path: window.location.pathname,
-                    });
-                `}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+            page_path: window.location.pathname,
+            });
+          `}
         </Script>
 
         <div

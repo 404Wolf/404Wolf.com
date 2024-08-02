@@ -76,7 +76,7 @@ export default function EditablePdfDisplay({ pdfPath }: { pdfPath: string }) {
           </div>
 
           <Tile>
-            <div className="pt-5">
+            <div className="p-5">
               <div {...getRootProps()} className="flex justify-center">
                 <PdfDisplay key={pdfKey} pdfPath={pdfPath} />
               </div>

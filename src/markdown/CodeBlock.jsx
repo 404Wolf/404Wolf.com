@@ -1,11 +1,10 @@
 "use client";
-
+import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import codeblockStyle from "./codeblock-style.js";
 
 const CodeBlock = ({ inline, className, children, ...props }) => {
   const defaultReturn = (
-    <code {...props} className={className}>
+    <code {...props} className={`${className} inline-markdown-codeblock`}>
       {children}
     </code>
   );
@@ -15,14 +14,24 @@ const CodeBlock = ({ inline, className, children, ...props }) => {
   if (!match) return defaultReturn;
 
   return (
-    <div className="codeblock">
+    <div className={"rounded"} class="markdown-codeblock">
       <SyntaxHighlighter
         {...props}
         children={String(children).replace(/\n$/, "")}
-        style={codeblockStyle}
+        style={oneLight}
+        customStyle={{
+          fontSize: "12px"
+        }}
+        codeTagProps={{
+          style: {
+            lineHeight: "inherit",
+            fontSize: "inherit"
+          }
+        }}
         language={match[1]}
         showLineNumbers={true}
         PreTag="div"
+        codeblock
       />
     </div>
   );

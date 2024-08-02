@@ -1,16 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Slabo+27px&family=Varta:wght@400;450;500;550;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
-.markdown * {
+.markdown not(.markdown-codeblock) {
   font-family: Trebuchet MS, sans-serif;
-  font-family: 'Varta', sans-serif; 
+  font-family: "Varta", sans-serif;
 }
 
 .markdown img {
   border-radius: 0.75rem;
 }
 
-.markdown span, div, li, ul, ol {
+.markdown (span,
+div,
+li,
+ul,
+ol):not(.markdown-codeblock) {
   font-size: 19px;
 }
 
@@ -89,7 +93,7 @@ h6 {
 }
 
 .markdown pre,
-code {
+.inline-markdown-codeblock {
   font-family: "Roboto Mono", monospace !important;
   border-radius: 6px;
   clear: both;
@@ -124,11 +128,6 @@ summary:hover {
   color: #6491ff;
 }
 
-.markdown a:hover code {
-  color: #6491ff;
-  /* Also change colour of code on hover. */
-}
-
 .markdown blockquote {
   font-style: italic;
 }
@@ -149,36 +148,29 @@ summary:hover {
   width: var(--full-width);
 }
 
-.markdown code,
+.markdown .inline-markdown-codeblock,
 pre,
-kbd,
 samp {
   background-color: #dae1ec;
-  color: #000;
-  white-space: pre-wrap;
 }
 
-.codeblock * {
-  background-color: #e4e8ed !important;
-}
-
-.markdown pre {
+.markdown-codeblock {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 0.8em 1em;
+  padding: 0.5em 1em;
   border-radius: 12px;
   overflow-x: clip;
   overflow-y: auto;
   max-height: 400px;
 }
 
-.markdown code,
+.inline-markdown-codeblock,
 kbd,
 samp {
   padding: 1px 2px;
 }
 
-.markdown pre > code {
+.markdown pre > .inline-markdown-codeblock {
   padding: 0;
   box-shadow: none;
   border: none;
@@ -293,8 +285,8 @@ sub {
   color: var(--color-text);
   opacity: 0.9;
   border: none;
-  margin-top: .7em;
-  margin-bottom: .7em;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
   border-top: 1px solid black;
 }
 
