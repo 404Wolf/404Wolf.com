@@ -9,6 +9,7 @@ import SettingsTab, {
   DEFAULT_PLUGIN_SETTINGS,
   PluginSettings
 } from "./obsidian/settings";
+import gotoCurrentPost from "./obsidian/commands/goto";
 
 export default class MyPlugin extends Plugin {
   settings: PluginSettings;
@@ -56,6 +57,8 @@ export default class MyPlugin extends Plugin {
         () => deletePostsCommands.deletePost(this)
       ).open();
     });
+
+    mkCommand("openPost", "Go to post webpage", () => gotoCurrentPost(this));
 
     mkCommand("fetchBio", "Sync Bio", () => {
       new ConfirmDialog(
