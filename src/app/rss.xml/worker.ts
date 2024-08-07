@@ -23,7 +23,7 @@ export async function createRSSFeed() {
     site_url: "https://404wolf.com",
     image_url: "https://404wolf.com/images/profileMe.jpg",
     managingEditor: "wolfmermelstein@gmail.com (Wolf Mermelstein)",
-    webMaster: "Wolf Mermelstein (wolfmermelstein@gmail.com)",
+    webMaster: "wolfmermelstein@gmail.com (Wolf Mermelstein)",
     copyright: `${new Date().getFullYear()} Wolf Mermelstein`,
     language: "en",
     categories: [
@@ -33,7 +33,7 @@ export async function createRSSFeed() {
       "Nix",
       "Coding"
     ],
-    pubDate: new Date(),
+    pubDate: new Date().toUTCString(),
     ttl: 60
   });
 
@@ -53,7 +53,9 @@ export async function createRSSFeed() {
       guid: post.id,
       categories: post.tags,
       author: "Wolf Mermelstein",
-      date: post.date ? new Date(post.date) : post.createdAt,
+      date: post.date
+        ? new Date(post.date).toUTCString()
+        : new Date(post.createdAt).toUTCString(),
       enclosure:
         post.covers.length > 0 && postFilename
           ? {
