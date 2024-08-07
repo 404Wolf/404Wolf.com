@@ -22,8 +22,8 @@ export async function createRSSFeed() {
     feed_url: "https://404wolf.com/rss.xml",
     site_url: "https://404wolf.com",
     image_url: "https://404wolf.com/images/profileMe.jpg",
-    managingEditor: "wolfmermelstein@gmail.com",
-    webMaster: "Wolf Mermelstein",
+    managingEditor: "wolfmermelstein@gmail.com (Wolf Mermelstein)",
+    webMaster: "Wolf Mermelstein (wolfmermelstein@gmail.com)",
     copyright: `${new Date().getFullYear()} Wolf Mermelstein`,
     language: "en",
     categories: [
@@ -33,7 +33,7 @@ export async function createRSSFeed() {
       "Nix",
       "Coding"
     ],
-    pubDate: new Date().toUTCString(),
+    pubDate: new Date(),
     ttl: 60
   });
 
@@ -41,8 +41,10 @@ export async function createRSSFeed() {
     const postImageID = post.covers[0];
     const postResources: any = {};
     post.resources.forEach(resource => (postResources[resource.id] = resource));
-    const postFilename = postResources[postImageID].filename;
-    const resourceType = "image/" + postFilename.split(".").pop();
+    const postFilename = postResources[postImageID]?.filename;
+    const resourceType = postFilename
+      ? "image/" + postFilename.split(".").pop()
+      : undefined;
 
     feed.item({
       title: post.title || "Untitled",
@@ -53,9 +55,9 @@ export async function createRSSFeed() {
       author: "Wolf Mermelstein",
       date: post.date ? new Date(post.date) : post.createdAt,
       enclosure:
-        post.covers.length > 0
+        post.covers.length > 0 && postFilename
           ? {
-              url: post.covers[0],
+              url: `https://404wolf.com/resources/${postImageID}`,
               type: resourceType
             }
           : undefined
