@@ -24,7 +24,6 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
       rehypePlugins={[
         addContents &&
         [
-          rehypeMathjax,
           rehypeToc,
           {
             customizeTOC: (ast) => {
@@ -53,7 +52,8 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
               }
             }
           }
-        ]
+        ],
+        rehypeMathjax,
       ].filter(Boolean)}
       remarkRehypeOptions={{
         handlers: { imgBlock: imgBlockHandler, image: imgHandler },
