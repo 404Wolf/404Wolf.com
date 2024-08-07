@@ -5,29 +5,45 @@ const prisma = new PrismaClient();
 
 export async function createRSSFeed() {
   const blogs = (
-    await prisma.post.findMany({ where: { type: "blog" } })
+    await prisma.post.findMany({
+      where: { type: "blog" },
+      include: { resources: true }
+    })
   ).filter(
     (post: Post) =>
       !post.tags.includes("hidden") &&
       !(post.title && post.title.includes("Recurse Checkin"))
   );
+
   const feed = new RSS({
     title: "Wolf Mermelstein's Blog",
     description:
-      "A space for eclectic rants on tooling, tinkering, fullstack, and, Nix, and more; a trove of many adventures.",
+      "A space for eclectic rants on tooling, tinkering, fullstack, Nix, and more; a trove of many adventures.",
     feed_url: "https://404wolf.com/rss.xml",
     site_url: "https://404wolf.com",
     image_url: "https://404wolf.com/images/profileMe.jpg",
-    managingEditor: "Wolf Mermelstein",
+    managingEditor: "wolfmermelstein@gmail.com",
     webMaster: "Wolf Mermelstein",
     copyright: `${new Date().getFullYear()} Wolf Mermelstein`,
     language: "en",
-    categories: ["Technology", "Programming", "Computer Science"],
+    categories: [
+      "Technology",
+      "Programming",
+      "Computer Science",
+      "Nix",
+      "Coding"
+    ],
     pubDate: new Date().toUTCString(),
     ttl: 60
   });
 
   blogs.forEach(post => {
+    const postImageID = post.covers[0];
+    const postResources: any = {};
+    post.resources.forEach(resource => (postResources[resource.id] = resource));
+    const postFilename = postResources[postImageID].filename;
+    const resourceType = "image/" + postFilename.split(".").pop();
+
     feed.item({
       title: post.title || "Untitled",
       description: post.description || "",
@@ -36,7 +52,13 @@ export async function createRSSFeed() {
       categories: post.tags,
       author: "Wolf Mermelstein",
       date: post.date ? new Date(post.date) : post.createdAt,
-      enclosure: post.covers.length > 0 ? { url: post.covers[0] } : undefined
+      enclosure:
+        post.covers.length > 0
+          ? {
+              url: post.covers[0],
+              type: resourceType
+            }
+          : undefined
       // custom_elements: [{ "content:encoded": post.markdown }]
     });
   });
