@@ -5,8 +5,10 @@ import MdImage from "@/markdown/Image";
 import { imgBlockHandler, imgHandler } from "./hast-handlers.js";
 import CodeBlock from "@/markdown/CodeBlock";
 import remarkSlug from "remark-slug";
-import remarkMath from "remark-math";
+import remarkMath from 'remark-math'
 import rehypeToc from "rehype-toc"
+import rehypeMathjax from 'rehype-mathjax'
+import remarkGfm from 'remark-gfm'
 
 const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
   return (
@@ -14,13 +16,15 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
       children={markdown}
       className="markdown"
       remarkPlugins={[
+        // [[remarkGfm, { singleTilde: false }]]
         [remarkSlug],
         [remarkMath, {}],
         [remarkImageBlock],
       ]}
-      rehypePlugins={[
+      rehypePlugins={false && [
         addContents &&
         [
+          rehypeMathjax,
           rehypeToc,
           {
             customizeTOC: (ast) => {
@@ -51,10 +55,10 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
           }
         ]
       ].filter(Boolean)}
-      remarkRehypeOptions={{
+      remarkRehypeOptions={false && {
         handlers: { imgBlock: imgBlockHandler, image: imgHandler },
       }}
-      components={{
+      components={false && {
         img: ({ node, ...props }) => (
           <MdImage
             alt={props.alt}
