@@ -46,3 +46,4 @@ yarn-error.log*
 
 # envs
 /prisma/.env
+.direnv
