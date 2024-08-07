@@ -21,7 +21,7 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
         [remarkMath, {}],
         [remarkImageBlock],
       ]}
-      rehypePlugins={false && [
+      rehypePlugins={[
         addContents &&
         [
           rehypeMathjax,
@@ -55,10 +55,10 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
           }
         ]
       ].filter(Boolean)}
-      remarkRehypeOptions={false && {
+      remarkRehypeOptions={{
         handlers: { imgBlock: imgBlockHandler, image: imgHandler },
       }}
-      components={false && {
+      components={{
         img: ({ node, ...props }) => (
           <MdImage
             alt={props.alt}
