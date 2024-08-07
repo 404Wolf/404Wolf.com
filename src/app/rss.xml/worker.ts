@@ -41,6 +41,7 @@ export async function createRSSFeed() {
     const postImageID = post.covers[0];
     const postResources: any = {};
     post.resources.forEach(resource => (postResources[resource.id] = resource));
+    const postResource = postResources[postImageID];
     const postFilename = postResources[postImageID]?.filename;
     const resourceType = postFilename
       ? "image/" + postFilename.split(".").pop()
@@ -59,7 +60,7 @@ export async function createRSSFeed() {
       enclosure:
         post.covers.length > 0 && postFilename
           ? {
-              url: `https://404wolf.com/resources/${postImageID}`,
+              url: postResource.url,
               type: resourceType
             }
           : undefined
