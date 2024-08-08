@@ -76,7 +76,7 @@ const ImageBlock = ({
         </div>
       ))}
       centerMode={true}
-      centerSlidePercentage={screenWidth < 600 ? 47 : 30}
+      centerSlidePercentage={screenWidth < 600 ? 70 : 60}
       swipeable={true}
       emulateTouch={true}
       useKeyboardArrows={true}

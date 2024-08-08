@@ -161,7 +161,7 @@ samp {
   border-radius: 12px;
   overflow-x: clip;
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 800px;
 }
 
 .inline-markdown-codeblock,
