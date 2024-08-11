@@ -2,7 +2,12 @@ import type MyPlugin from "src/main";
 import getActivePost, { ActivePostState } from "src/utils/404wolf";
 import { notify } from "src/utils/misc";
 
+function copyToClipboard(text: string): Promise<void> {
+    return navigator.clipboard.writeText(text);
+};
+
 function openUrlInDefaultBrowser(url: string): void {
+  copyToClipboard(url);
   const { exec } = require('child_process');
   let command: string;
 
