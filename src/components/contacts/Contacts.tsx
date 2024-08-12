@@ -33,7 +33,7 @@ const Contacts = () => {
         </>
       )}
       {contacts.map((contact: ContactType, index) => {
-        return (
+        return contact.name != "Instagram" && (
           <>
             <Contact
               name={contact.name}
