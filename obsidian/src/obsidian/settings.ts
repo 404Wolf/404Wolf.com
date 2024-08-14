@@ -5,12 +5,14 @@ export interface PluginSettings {
   domain: string;
   secret: string;
   path: string;
+  devMode: boolean;
 }
 
 export const DEFAULT_PLUGIN_SETTINGS: PluginSettings = {
   domain: "https://404wolf.com",
   secret: "",
-  path: "404Wolf"
+  path: "404Wolf",
+  devMode: false
 };
 
 export default class SettingsTab extends PluginSettingTab {
@@ -62,5 +64,15 @@ export default class SettingsTab extends PluginSettingTab {
       this.plugin.settings.path,
       (value: string) => (this.plugin.settings.path = value)
     );
+
+    new Setting(containerEl)
+      .setName("Development Mode")
+      .setDesc("Enable development mode")
+      .addToggle(toggle =>
+        toggle.setValue(this.plugin.settings.devMode).onChange(async value => {
+          this.plugin.settings.devMode = value;
+          await this.plugin.saveSettings();
+        })
+      );
   }
 }

@@ -13,8 +13,12 @@ export async function syncPosts(plugin: MyPlugin) {
   console.log(`Fetching posts ${postIds}`);
   notify(`Fetching ${postIds.length} posts...`);
 
+  let postIdsToFetch: string[];
+  if (plugin.settings.devMode) postIdsToFetch = postIds.splice(0, 1);
+  else postIdsToFetch = postIds;
+
   await Promise.all(
-    postIds.splice(0,1).map((postId: string) => {
+    postIdsToFetch.map((postId: string) => {
       Post.fromId(plugin, postId).then((post: Post) => {
         const root = [
           plugin.settings.path,
