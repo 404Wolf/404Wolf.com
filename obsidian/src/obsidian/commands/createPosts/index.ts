@@ -34,7 +34,7 @@ export async function createPost(plugin: MyPlugin) {
     notify("Fetched new post content");
 
     const newPostMarkdown = plugin.app.vault.getFileByPath(
-      path.join(...newPostPath, newPost.id, "Post.md")
+      path.join(...newPostPath, newPost.id, `${newPost.title}.md`)
     )!;
     const newLeaf = plugin.app.workspace.getLeaf();
     newLeaf.openFile(newPostMarkdown);

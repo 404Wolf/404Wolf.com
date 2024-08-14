@@ -40,7 +40,7 @@ export default class PostPusher {
    * Push the content of the post to the server.
    */
   postMarkdown = async () => {
-    const filepath = path.join(...this.#getRoot(), this.post.id, "Post.md");
+    const filepath = path.join(...this.#getRoot(), this.post.id, `${this.post.title}.md`);
     const postFile = this.plugin.app.vault.getFileByPath(filepath)!;
     const postFileContents = await this.plugin.app.vault.read(postFile);
     await this.post.markdown.unpackMetadataMarkdown(postFileContents, true);

@@ -1,5 +1,3 @@
-import { PostResourceLock } from "./resourceLock";
-
 import { join } from "path";
 import Post from "src/404wolf/Post";
 import { PostResource } from "src/404wolf/PostResource";
@@ -48,7 +46,7 @@ export default class PostSyncer {
   fetchContent = async () => {
     await createFile(
       this.post.plugin.app.vault,
-      join(...this.path, "Post.md"),
+      join(...this.path, `${this.post.title}.md`),
       await this.post.markdown.packMetadata()
     );
   };

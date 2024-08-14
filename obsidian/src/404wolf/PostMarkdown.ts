@@ -14,7 +14,6 @@ import Post from "./Post";
 
 interface PostMarkdownMetadata {
   id: string;
-  title: string;
   type: string;
   date: string;
   covers: string[];
@@ -31,15 +30,7 @@ export interface UnpackedPostMarkdown {
 function assertIsMarkdownMetadata(
   metadata: any
 ): asserts metadata is PostMarkdownMetadata {
-  const keys = [
-    "id",
-    "title",
-    "type",
-    "date",
-    "covers",
-    "tags",
-    "cssclasses"
-  ];
+  const keys = ["id", "type", "date", "covers", "tags", "cssclasses"];
   for (const key of keys) {
     if (!(key in metadata)) {
       throw new Error(`Missing key "${key}" in metadata.`);
@@ -89,7 +80,6 @@ export class PostMarkdown {
 
     const postMarkdownMetadata = {
       id: data.id,
-      title: data.title,
       type: data.type,
       date: data.date,
       covers: ((data.covers as unknown) as string)
@@ -102,7 +92,6 @@ export class PostMarkdown {
 
     if (applyToPost) {
       this.post.id = postMarkdownMetadata.id;
-      this.post.title = postMarkdownMetadata.title;
       this.post.type = postMarkdownMetadata.type;
       this.post.date = postMarkdownMetadata.date;
       this.post.tags = postMarkdownMetadata.tags;
@@ -131,7 +120,6 @@ export class PostMarkdown {
     );
     const frontmatter = {
       id: this.post.id,
-      title: this.post.title,
       type: this.post.type,
       date: this.post.date,
       covers: this.post.covers.join(", "),

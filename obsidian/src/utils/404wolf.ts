@@ -30,12 +30,13 @@ export default async function getActivePost(
     return [null, ActivePostState.NO_POST];
   }
   if (
-    activeFile.name !== "Post.md" ||
+    activeFile.parent !== null &&
+    !(await Post.getAllPostIds(plugin)).includes(activeFile.name) &&
     !activeFile.path.startsWith(plugin.settings.path)
   ) {
     doNotify &&
       notify(
-        "The active file must be named 'Post.md' and be within the root 404Wolf directory."
+        "The active file must be named '{post-title}.md' and be within the root 404Wolf directory."
       );
     return [null, ActivePostState.WRONG_POST_FILE];
   }
@@ -44,16 +45,10 @@ export default async function getActivePost(
   const currentPostId =
     currentProjectFullPath[currentProjectFullPath.length - 2];
   const postIds = await Post.getAllPostIds(plugin);
-  console.log(postIds)
-  console.log(currentPostId)
-  //if (!postIds.includes(currentPostId)) {
-  //  doNotify &&
-  //    notify(
-  //      "This post has not been fetched yet. Please fetch all posts before pushing this post."
-  //    );
-  //  return [null, ActivePostState.INEXISTENT_POST];
-  //}
+
+  console.log(postIds);
+  console.log(currentPostId);
 
   // The post fetch was a success; fetch it and return
-  return [await Post.fromId(plugin, currentPostId), ActivePostState.VALID_POST];
+  return [await Post.fromId(plugin, currentPostId, currentProjectFullPath[-1]), ActivePostState.VALID_POST];
 }

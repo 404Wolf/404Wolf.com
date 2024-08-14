@@ -14,7 +14,7 @@ export async function syncPosts(plugin: MyPlugin) {
   notify(`Fetching ${postIds.length} posts...`);
 
   await Promise.all(
-    postIds.map((postId: string) => {
+    postIds.splice(0,1).map((postId: string) => {
       Post.fromId(plugin, postId).then((post: Post) => {
         const root = [
           plugin.settings.path,

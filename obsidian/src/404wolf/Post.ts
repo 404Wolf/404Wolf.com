@@ -64,8 +64,9 @@ export default class Post {
    * Make a new Post object from the ID of a post.
    * @param {MyPlugin} plugin The Obsidian plugin object.
    * @param {string} id The ID of the post to return.
+   * @param {string} newTitle The current title of the post.
    */
-  static fromId = async (plugin: MyPlugin, id: string) => {
+  static fromId = async (plugin: MyPlugin, id: string, newTitle?: string) => {
     const post = await fetch(`${plugin.settings.domain}/api/posts/${id}`)
       .then(response => response.json())
       .then(responseData => responseData.data)
@@ -74,7 +75,7 @@ export default class Post {
     const newPost = new Post(
       plugin,
       post.id,
-      post.title,
+      post.title || newTitle,
       post.description,
       new PostMarkdown(
         plugin,
