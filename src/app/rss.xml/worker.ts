@@ -22,8 +22,8 @@ export async function createRSSFeed() {
     feed_url: "https://404wolf.com/rss.xml",
     site_url: "https://404wolf.com",
     image_url: "https://404wolf.com/images/profileMe.jpg",
-    managingEditor: "wolfmermelstein@gmail.com (Wolf Mermelstein)",
-    webMaster: "wolfmermelstein@gmail.com (Wolf Mermelstein)",
+    managingEditor: "wolf@404wolf.com (Wolf Mermelstein)",
+    webMaster: "wolf@404wolf.com (Wolf Mermelstein)",
     copyright: `${new Date().getFullYear()} Wolf Mermelstein`,
     language: "en",
     categories: [

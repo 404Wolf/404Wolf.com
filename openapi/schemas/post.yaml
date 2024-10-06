@@ -70,4 +70,4 @@ properties:
   resources:
     type: array
     items:
-      $ref: "./schemas/resource.yaml" 
+      $ref: "./resource.yaml" 

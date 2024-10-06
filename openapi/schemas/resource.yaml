@@ -20,4 +20,4 @@ properties:
     type: string
     nullable: true
   post:
-    $ref: "./post.yml"
+    $ref: "./post.yaml"

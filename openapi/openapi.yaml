@@ -1,5 +1,5 @@
-# https://spec.openapis.org/oas/v3.1.0#openapi-object
-openapi: 3.1.0
+# https://spec.openapis.org/oas/v3.0.3#openapi-object
+openapi: 3.0.3
 info:
   title: Wolf Personal Website API
   description: This is the API for my personal websites

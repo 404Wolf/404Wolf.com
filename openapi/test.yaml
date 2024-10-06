@@ -1,0 +1,458 @@
+openapi: 3.0.3
+info:
+  title: Wolf Personal Website API
+  description: This is the API for my personal websites
+  version: 0.0.1
+servers:
+  - url: https://404wolf.com
+    description: Personal website production
+  - url: https://www.404wolf.com
+    description: Personal website production alias
+paths:
+  /api/about:
+    get:
+      summary: Get about information
+      responses:
+        "200":
+          description: Information about Wolf Mermelstein
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: 404Wolf.com
+                  name:
+                    type: string
+                    example: Wolf Mermelstein
+                  email:
+                    type: string
+                    example: wolf@404wolf.com
+                  phone:
+                    type: object
+                    properties:
+                      display:
+                        type: string
+                        example: "(212)767-WOLF"
+                      link:
+                        type: string
+                        example: "(212) 767-9653"
+                  location:
+                    type: string
+                    example: Brooklyn, NY
+                  booking:
+                    type: string
+                    example: https://calendar.google.com/calendar/appointments/schedules/AcZssZ3IzOEw1Pqg1...
+                  contacts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: linkedIn
+                        username:
+                          type: string
+                          example: WolfMermelstein
+                        link:
+                          type: string
+                          example: https://www.linkedin.com/in/WolfMermelstein
+                        at:
+                          type: boolean
+                          example: true
+
+  /api/contacts:
+    get:
+      summary: Get a list of contacts
+      description: Get a list of contacts, only. /about also provides this information, and this route will be removed in the future.
+      deprecated: true
+      responses:
+        "200":
+          description: A list of contacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    username:
+                      type: string
+                    link:
+                      type: string
+                    at:
+                      type: boolean
+                      default: true
+                  required:
+                    - name
+
+  /api/objects/special:
+    get:
+      summary: Get a list of object IDs for special s3 objects
+      description: Get a list of special object IDs that get used in special ways on the website
+      responses:
+        "200":
+          description: The special object id aliases and their object IDs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  basicAbout:
+                    type: string
+                  extendedAbout:
+                    type: string
+                  resume:
+                    type: string
+
+  /api/objects:
+    get:
+      summary: Get a specific text S3 object
+      parameters:
+        - name: encoding
+          in: header
+          required: false
+          schema:
+            type: string
+          description: The encoding of the object. Default is UTF-8.
+        - name: object
+          in: header
+          required: true
+          schema:
+            type: string
+          description: The name of the object to retrieve.
+      responses:
+        "200":
+          description: The string object requested
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    description: The object requested
+        "404":
+          description: The object requested was not found
+    post:
+      summary: Create a new text S3 object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object:
+                  type: string
+                  description: The name of the object to create
+                data:
+                  type: string
+                  description: The data to store in the object
+                dataType:
+                  type: string
+                  description: The type of data to store in the object.
+                  enum:
+                    - str
+                    - b64
+      responses:
+        "200":
+          description: The object was created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    description: The data stored in the object
+        "400":
+          description: The object could not be created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Invalid datatype or no data provided
+
+  /api/posts:
+    get:
+      summary: Get a list of all posts
+      responses:
+        "200":
+          description: A list of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+
+  /api/posts/{postId}:
+    parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the post to retrieve, make, update, or delete
+    get:
+      summary: Get a specific post
+      responses:
+        "200":
+          description: The post requested
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+        "404":
+          description: The post requested was not found
+    post:
+      summary: Create a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        "200":
+          description: The post was created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    put:
+      summary: Update a post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        "200":
+          description: The post was updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/resources/{resourceId}:
+    parameters:
+      - name: resourceId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the resource to retrieve
+    get:
+      summary: Get a specific resource
+      responses:
+        "200":
+          description: The resource requested
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Resource"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    post:
+      summary: Create a new resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Resource"
+      responses:
+        "200":
+          description: The resource was created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Resource"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+    delete:
+      summary: Delete a resource
+      responses:
+        "200":
+          description: The resource was deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Resource"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      summary: Update a resource
+      description: Update a resource. Changing the ID or the actual resource contents is currently not possible.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Resource"
+      responses:
+        "200":
+          description: The resource was updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Resource"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/resume:
+    post:
+      summary: Update the resume
+      responses:
+        "200":
+          description: Get a link to update the resume
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        markdown:
+          type: object
+          properties:
+            id:
+              type: string
+            data:
+              type: string
+        covers:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+            - project
+            - blog
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        editedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        notes:
+          type: string
+          nullable: true
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        filename:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+        postId:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        post:
+          $ref: "#/components/schemas/Post"
+
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+    Conflict:
+      description: The resource already exists
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+    InternalServerError:
+      description: An internal server error occurred
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

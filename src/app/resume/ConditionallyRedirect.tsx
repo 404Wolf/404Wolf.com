@@ -9,10 +9,10 @@ export default function ConditionallyRedirect() {
   const resumeUrl = s3.resourceUrl(process.env.NEXT_PUBLIC_RESUME_OBJECT_NAME!);
 
   const { push } = useRouter();
-  const session = useSession({
+  useSession({
     required: true,
     onUnauthenticated() {
-      push(resumeUrl);
+      push(resumeUrl, {});
     },
   });
 

@@ -1,29 +1,29 @@
 {
-	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
-	"main": "main.js",
-	"scripts": {
-		"dev": "NODE_ENV=production npx nodemon",
-		"build": "NODE_ENV=development node esbuild.mjs"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "MIT",
-	"devDependencies": {
-		"@types/node": "^16.18.101",
-		"@typescript-eslint/eslint-plugin": "5.29.0",
-		"@typescript-eslint/parser": "5.29.0",
-		"builtin-modules": "3.3.0",
-		"esbuild": "0.17.3",
-		"obsidian": "latest",
-		"tslib": "2.4.0",
-		"typescript": "4.7.4"
-	},
-	"dependencies": {
-		"@types/js-yaml": "^4.0.9",
-		"@types/mdast": "^4.0.4",
-		"js-yaml": "^4.1.0",
-		"uuid": "^10.0.0"
-	}
+  "name": "404wolf-dot-com-companion-plugin",
+  "version": "1.0.0",
+  "description": "Companion plugin for 404wolf.com",
+  "main": "main.js",
+  "scripts": {
+    "dev": "NODE_ENV=development npx nodemon",
+    "build": "NODE_ENV=production node esbuild.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.18.101",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
+    "builtin-modules": "3.3.0",
+    "esbuild": "0.17.3",
+    "obsidian": "latest",
+    "tslib": "2.4.0",
+    "typescript": "4.7.4"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/mdast": "^4.0.4",
+    "js-yaml": "^4.1.0",
+    "uuid": "^10.0.0"
+  }
 }

@@ -1,0 +1,811 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Wolf Personal Website API",
+    "description": "This is the API for my personal websites",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://404wolf.com",
+      "description": "Personal website production"
+    },
+    {
+      "url": "https://www.404wolf.com",
+      "description": "Personal website production alias"
+    }
+  ],
+  "paths": {
+    "/api": {
+      "/about": {
+        "get": {
+          "summary": "Get about information",
+          "responses": {
+            "200": {
+              "description": "Information about Wolf Mermelstein",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "example": "404Wolf.com"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Wolf Mermelstein"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "wolf@404wolf.com"
+                      },
+                      "phone": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "example": "(212)767-WOLF"
+                          },
+                          "link": {
+                            "type": "string",
+                            "example": "(212) 767-9653"
+                          }
+                        }
+                      },
+                      "location": {
+                        "type": "string",
+                        "example": "Brooklyn, NY"
+                      },
+                      "booking": {
+                        "type": "string",
+                        "example": "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3IzOEw1Pqg1..."
+                      },
+                      "contacts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "linkedIn"
+                            },
+                            "username": {
+                              "type": "string",
+                              "example": "WolfMermelstein"
+                            },
+                            "link": {
+                              "type": "string",
+                              "example": "https://www.linkedin.com/in/WolfMermelstein"
+                            },
+                            "at": {
+                              "type": "boolean",
+                              "example": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/contacts": {
+        "get": {
+          "summary": "Get a list of contacts",
+          "description": "Get a list of contacts, only. /about also provides this information, and this route will be removed in the future.",
+          "deprecated": true,
+          "responses": {
+            "200": {
+              "description": "A list of contacts",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "Contact": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "at": {
+                            "type": "boolean",
+                            "default": true
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/objects/special": {
+        "get": {
+          "summary": "Get a list of object IDs for special s3 objects",
+          "description": "Get a list of special object IDs that get used in special ways on the website",
+          "responses": {
+            "200": {
+              "description": "The special object id aliases and their object IDs",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "basicAbout": {
+                        "type": "string"
+                      },
+                      "extendedAbout": {
+                        "type": "string"
+                      },
+                      "resume": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/objects": {
+        "get": {
+          "summary": "Get a specific text S3 object",
+          "parameters": [
+            {
+              "name": "encoding",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The encoding of the object. Default is UTF-8."
+            },
+            {
+              "name": "object",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The name of the object to retrieve."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The string object requested",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "string",
+                        "description": "The object requested"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "The object requested was not found"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new text S3 object",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "description": "The name of the object to create"
+                    },
+                    "data": {
+                      "description": "The data to store in the object",
+                      "type": "string"
+                    },
+                    "dataType": {
+                      "description": "The type of data to store in the object.",
+                      "type": "string",
+                      "enum": [
+                        "str",
+                        "b64"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "The object was created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "string",
+                        "description": "The data stored in the object"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "summary": "The object could not be created",
+              "description": "Invalid datatype or no data provided"
+            }
+          }
+        }
+      },
+      "/posts": {
+        "get": {
+          "summary": "Get a list of all posts",
+          "responses": {
+            "200": {
+              "description": "A list of posts",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/paths/~1api/~1posts~1%7BpostId%7D/put/requestBody/content/application~1json/schema"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/posts/{postId}": {
+        "description": "CRUD endpoint for manipulating Posts",
+        "get": {
+          "summary": "Get a specific post",
+          "parameters": [
+            {
+              "name": "postId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the post to retrieve, make, update, or delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The post requested",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "object": {
+                      "properties": {
+                        "data": {
+                          "schema": {
+                            "$ref": "#/paths/~1api/~1posts~1%7BpostId%7D/put/requestBody/content/application~1json/schema"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "The post requested was not found"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": null,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "uniqueItems": true
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "markdown": {
+                    "description": "The ID of the resource file for markdown",
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "covers": {
+                    "description": "The `id`s of the resources to use for the cover images of the post.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "blog",
+                      "project"
+                    ]
+                  },
+                  "date": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "notes": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "The post was created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "$ref": "#/paths/~1api/~1posts~1%7BpostId%7D/put/requestBody/content/application~1json/schema"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "The post could not be created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "summary": "The error message",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "The post could not be created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "summary": "The error message",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "summary": "Unique identifier of the post.",
+                      "type": "string"
+                    },
+                    "title": {
+                      "summary": "Title of the post.",
+                      "description": "This is what is displayed to users.",
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "summary": "Description of the post.",
+                      "description": "This is shown at the top of posts and in previews.",
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "markdown": {
+                      "summary": "The resource id",
+                      "type": "object",
+                      "properties": [
+                        {
+                          "id": {
+                            "summary": "The ID of the Resource that is the markdown",
+                            "type": "string"
+                          }
+                        },
+                        {
+                          "data": {
+                            "summary": "The markdown data",
+                            "type": "string"
+                          }
+                        }
+                      ]
+                    },
+                    "covers": {
+                      "type": "array",
+                      "items": {
+                        "summary": "The cover image of the post",
+                        "description": "Each post has associated resources. Of these, the IDs in `covers` will get shown as the cover image.",
+                        "type": "string"
+                      }
+                    },
+                    "type": {
+                      "summary": "The type of post",
+                      "description": "Posts show up in two tabs, one for blogs, and another for projects",
+                      "type": "string",
+                      "enum": [
+                        "project",
+                        "blog"
+                      ]
+                    },
+                    "date": {
+                      "summary": "The date of the post",
+                      "description": "This is the date that the post was created. Defaults to the current YEAR",
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true
+                    },
+                    "tags": {
+                      "summary": "Tags for the post",
+                      "description": "Tags are used to categorize posts. They are used to filter posts in the frontend. `featured` will ensure the post shows up on the home page. `hidden` will ensure the post does not show up to users who are not logged in.",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "example": "2023-10-10T14:48:00.000Z"
+                    },
+                    "editedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "example": "2023-10-10T14:48:00.000Z"
+                    },
+                    "notes": {
+                      "summary": "Notes for the post",
+                      "description": "Notes are used to store additional information about the post. These do not show up anywhere except in editors.",
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "resources": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/paths/~1api/~1resources%7BresourceId%7D/post/put/requestBody/content/application~1json/schema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "The post was updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "$ref": "#/paths/~1api/~1posts~1%7BpostId%7D/put/requestBody/content/application~1json/schema"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "summary": "Could not locate post",
+              "description": "The post requested was not found"
+            }
+          }
+        }
+      },
+      "/resources{resourceId}": {
+        "get": {
+          "summary": "Get a specific resource",
+          "parameters": [
+            {
+              "name": "resourceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the resource to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The resource requested",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "$ref": "#/paths/~1api/~1resources%7BresourceId%7D/post/put/requestBody/content/application~1json/schema"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "The resource requested was not found"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new resource",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "uniqueItems": true
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string",
+                      "uniqueItems": true
+                    },
+                    "url": {
+                      "type": "string",
+                      "uniqueItems": true
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "postId": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "post": {
+                      "$ref": "#/paths/~1api/~1posts~1%7BpostId%7D/put/requestBody/content/application~1json/schema"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "The resource was created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "$ref": "#/paths/~1api/~1resources%7BresourceId%7D/post/put/requestBody/content/application~1json/schema"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "The resource could not be created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "summary": "The error message",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "The resource already exists",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "summary": "The error message",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete a resource",
+            "parameters": [
+              {
+                "name": "resourceId",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                },
+                "description": "The ID of the resource to delete"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "The resource was deleted successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/paths/~1api/~1resources%7BresourceId%7D/post/put/requestBody/content/application~1json/schema"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "The resource requested was not found"
+              }
+            }
+          },
+          "put": {
+            "summary": "Update a resource",
+            "description": "Update a resource. Changing the ID or the actual resource conotents is currently not possible.",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "uniqueItems": true
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "filename": {
+                        "type": "string",
+                        "uniqueItems": true
+                      },
+                      "url": {
+                        "type": "string",
+                        "uniqueItems": true
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "postId": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "post": {
+                        "$ref": "#/paths/~1api/~1posts~1%7BpostId%7D/put/requestBody/content/application~1json/schema"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The resource was updated successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/paths/~1api/~1resources%7BresourceId%7D/post/put/requestBody/content/application~1json/schema"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "The resource requested was not found"
+              }
+            }
+          }
+        },
+        "/resume": {
+          "summary": "Update the resume",
+          "post": {
+            "200": {
+              "description": "Get a link to update the resume",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "link": {
+                        "schema": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

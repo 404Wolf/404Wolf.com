@@ -8,7 +8,7 @@ properties:
     example: "Wolf Mermelstein"
   email:
     type: string
-    example: "wolfmermelstein@gmail.com"
+    example: "wolf@404wolf.com"
   phone:
     type: object
     properties:
