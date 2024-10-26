@@ -63,7 +63,7 @@ export default function Body({
               </div>
             </div>
           )}
-          <div className="-mt-1 mb-2 sm:mb-1 text-[0.77em] sm:text-[1.2em]">
+          <div className="-mt-1 mb-2 sm:mb-1 text-[1.45em] sm:text-[1.4em]">
             {description}
           </div>
         </div>
