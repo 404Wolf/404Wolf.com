@@ -298,7 +298,12 @@ sub {
 }
 
 @media not all and (min-width: 640px) {
-  body {
-    zoom: 70%;
+  .markdown * {
+    line-height: 1.6em;
+    font-size: 17px;
+  }
+  .markdown h2 {
+    margin-bottom: 0.1em;
+    margin-top: 0.1em;
   }
 }
