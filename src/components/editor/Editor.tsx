@@ -48,6 +48,7 @@ const EditorArea = ({
       await fetch(`/api/objects`, {
         method: "POST",
         body: JSON.stringify(body),
+        next: { revalidate: 3600 }, // 1 hr
         headers: {
           object: objectName,
           "Content-Type": "application/json",
@@ -57,6 +58,7 @@ const EditorArea = ({
     fetch: async () => {
       const res = await fetch(`/api/objects`, {
         method: "GET",
+        next: { revalidate: 3600 }, // 1 hr
         headers: {
           object: objectName,
           "Content-Type": "application/json",

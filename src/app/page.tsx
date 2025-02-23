@@ -44,6 +44,19 @@ async function getFeaturedPosts() {
   );
 }
 
+async function getLastDatabaseUpdate() {
+  const latestEditedPost = await prisma.post.findFirst({
+    orderBy: {
+      editedAt: 'desc'
+    },
+    select: {
+      editedAt: true
+    }
+  });
+
+  return latestEditedPost?.editedAt ?? new Date(0);
+}
+
 export default async function Home() {
   const basicAbout = (
     await s3.getResource(
@@ -70,17 +83,16 @@ export default async function Home() {
       <div className="markdown">
         <p className="mb-2">
           I'm a <InlineButton externalTo="https://case.edu">CWRU</InlineButton>{" "}
-          student with a passion for tinkering, tech, coding, Ancient Latin,
-          D&D, strategy board games, creating, designing, engineering, geeking,
-          making, and figuring things out.
+          student with a passion for developer tooling, coding and hacking, a
+          love of strategy board games, and overall enjoyer of creating,
+          designing, engineering, geeking, making, and figuring things out.
         </p>
         <p>
           Information, projects, contacts, my resume, and more can be found on
           this website. If you have any questions, feel free to{" "}
           <InlineButton externalTo={`mailto:${about.email}`}>
             email
-          </InlineButton>
-          !
+          </InlineButton>!
         </p>
       </div>
     </div>
@@ -106,6 +118,7 @@ export default async function Home() {
 
       <MainLayout title={<Greeter />} headerChildren={headerChildren}>
         <div className="flex flex-col gap-7">
+
           <div className="flex flex-col min-[520px]:flex-row gap-7 sm:gap-6">
             <div className="sm:basis-[30%] overflow-visible">
               <Tile title="Featured" className="overflow-visible">
@@ -121,18 +134,31 @@ export default async function Home() {
             </div>
 
             <div className="basis-[75%]">
-              <Tile title="About">
-                <div style={heightStyle}>
-                  <EditorArea
-                    addContents={false}
-                    startingText={basicAbout || "Loading..."}
-                    objectName={
-                      process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!
-                    }
-                  />
-                </div>
-              </Tile>
+              <div>
+                <Tile title="About">
+                  <div style={heightStyle}>
+                    <EditorArea
+                      addContents={false}
+                      startingText={basicAbout || "Loading..."}
+                      objectName={
+                        process.env.NEXT_PUBLIC_BASIC_ABOUT_OBJECT_NAME!
+                      }
+                    />
+                  </div>
+                </Tile>
+              </div>
+
+              <div className="hidden sm:block absolute bottom-0 -left-10 rotate-[20deg] bg-slate-300/30 px-2 py-[2px] rounded-xl">
+                <p className="text-xs">
+                  Updated @ {(await getLastDatabaseUpdate()).toLocaleDateString('en-US', {
+                    month: 'numeric',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </p>
+              </div>
             </div>
+
           </div>
         </div>
       </MainLayout>

@@ -93,27 +93,37 @@ const Image = ({
   };
 
   const mediaItem = useMemo(() => {
-    if (videoExtensions.includes(extension || ""))
+    if (videoExtensions.includes(extension || "")) {
+
+      const videoElement = <video
+        playsInline
+        className="rounded-xl border-slate-300 border-[2px] w-full h-full"
+        key={6666}
+        controls
+        autoPlay={autoplay}
+      >
+        <source src={resourceMap[src]} type={`video/${extension}`} />
+      </video>
+
       return (
-        <a href={resourceMap[src]} target="_blank" rel="noopener noreferrer">
-          <video
-            playsInline
-            className="rounded-xl border-slate-300 border-[2px] w-full h-full"
-            key={6666}
-            controls
-            autoPlay={autoplay}
-          >
-            <source src={resourceMap[src]} type={`video/${extension}`} />
-          </video>
-        </a>
+        <>
+          <a href={resourceMap[src]} target="_blank" rel="noopener noreferrer" className="md:hidden">
+            {videoElement}
+          </a>
+          <div className="md:block">
+            {videoElement}
+          </div>
+        </>
       );
-    else
+    }
+    else {
       return (
         <NextImage
           {...imgProps}
           className={`rounded-xl w-full h-full border-slate-300 border-[2px] ${imgClasses}`}
         />
       );
+    }
   }, [imgClasses, resourceMap, autoplay]);
 
   return (
