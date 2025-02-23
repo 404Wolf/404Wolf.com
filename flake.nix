@@ -23,12 +23,12 @@
             pkgs.bun
             pkgs.openssl
             pkgs.prisma-engines
-            pkgs.swagger-cli
+            # pkgs.swagger-cli
           ];
           shellHook = ''
             export PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
             export PRISMA_MIGRATION_ENGINE_BINARY="${pkgs.prisma-engines}/bin/query-engine"
-            export PRISMA_QUERY_ENGINE_BINARY="${pkgs.prisma-engines}/bin/query-engine"
+            export PRISMA_SCHEMA_ENGINE_BINARY="${pkgs.prisma-engines}/bin/query-engine"
             export PRISMA_QUERY_ENGINE_LIBRARY="${pkgs.prisma-engines}/lib/libquery_engine.node"
             export PRISMA_FMT_BINARY="${pkgs.prisma-engines}/bin/prisma-fmt"
             export PATH="$PWD/node_modules/.bin/:$PATH"
