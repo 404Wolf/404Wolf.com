@@ -3,6 +3,7 @@
 import Tile from "@/components/misc/Tiles/Tile";
 import Tags from "@/components/posts/Tags";
 import DeletePost from "@/components/posts/editor/DeletePost";
+import DownloadMarkdown from "@/components/posts/editor/DownloadMarkdown";
 import GotoEditor from "@/components/posts/editor/GotoEditor";
 import Markdown from "@/markdown/Markdown";
 import { Resource } from "@prisma/client";
@@ -39,14 +40,21 @@ export default function Body({
 
   return (
     <div className="mt-[12px] overflow-visible">
-      {session.status === "authenticated" && (
-        <div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">
-          <DeletePost postId={postId} postType={type} />
-          <div className="hidden sm:block">
-            <GotoEditor postId={postId} postType={type} />
-          </div>
-        </div>
-      )}
+      <div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">
+        {session.status === "authenticated" && (
+          <>
+            <DeletePost postId={postId} postType={type} />
+            <div className="hidden sm:block">
+              <GotoEditor postId={postId} postType={type} />
+            </div>
+          </>
+        )}
+        <DownloadMarkdown 
+          markdown={markdown}
+          resourceMap={resources}
+          postId={postId}
+        />
+      </div>
 
       <Tile title="Overview" direction="right">
         <div className="h-fit overflow-auto">
