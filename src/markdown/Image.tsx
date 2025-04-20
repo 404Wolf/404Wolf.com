@@ -40,8 +40,14 @@ const Image = ({
   let [imageStyleWidthTree, setImageStyleWidthTree] = useState<null | string>(
     null,
   );
-  if (!Object.keys(resourceMap).includes(src)) resourceMap[src] = "";
-  const extension = resourceMap[src].split(".").pop();
+  
+  // Determine if src is a direct URL or an ID to be resolved via resourceMap
+  const actualSrc = src.startsWith('http://') || src.startsWith('https://') ? src : resourceMap[src] || "";
+  if (!Object.keys(resourceMap).includes(src) && !src.startsWith('http://') && !src.startsWith('https://')) {
+    resourceMap[src] = "";
+  }
+  
+  const extension = actualSrc.split(".").pop();
   const [margin, setMargin] = useState({
     marginLeft: "0px",
     marginRight: "0px",
@@ -86,7 +92,7 @@ const Image = ({
 
   const imgProps = {
     alt: alt,
-    src: resourceMap[src],
+    src: actualSrc,
     title: title,
     width: nextImgSize[0],
     height: nextImgSize[1],
@@ -102,12 +108,12 @@ const Image = ({
         controls
         autoPlay={autoplay}
       >
-        <source src={resourceMap[src]} type={`video/${extension}`} />
+        <source src={actualSrc} type={`video/${extension}`} />
       </video>
 
       return (
         <>
-          <a href={resourceMap[src]} target="_blank" rel="noopener noreferrer" className="md:hidden">
+          <a href={actualSrc} target="_blank" rel="noopener noreferrer" className="md:hidden">
             {videoElement}
           </a>
           <div className="md:block">
@@ -124,7 +130,7 @@ const Image = ({
         />
       );
     }
-  }, [imgClasses, resourceMap, autoplay]);
+  }, [imgClasses, actualSrc, autoplay]);
 
   return (
     <div className="hover:drop-shadow-2xl">
