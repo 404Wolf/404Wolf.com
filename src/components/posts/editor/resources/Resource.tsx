@@ -189,7 +189,8 @@ const Resource = ({
           <button
             onClick={() => {
               toggleIsCover();
-              resourceStates.cover[1](isCover());
+              // Update the local state AFTER calling toggleIsCover() to reflect the new state
+              resourceStates.cover[1](!resourceStates.cover[0]);
             }}
           >
             <ResourceIcon
