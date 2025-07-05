@@ -13,11 +13,9 @@ async function getDefaultAbout(): Promise<string> {
 
 const About = async () => {
   const headerChildren = (
-    <p>
-      Welcome to the about page, where you can find more information about who I
-      am, why I'm interested in CS, and what I can do. Feel free to reach out if
-      you have any questions, and thank you for spending time getting to know me
-      better!
+    <p className="text-[17px] sm:text-[1.4em]">
+      Welcome to my brief bio page! Feel free to reach out if you have any
+      questions, and thank you for spending time getting to know me better!
     </p>
   );
 
