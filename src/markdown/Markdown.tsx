@@ -8,7 +8,6 @@ import remarkSlug from "remark-slug";
 import remarkMath from "remark-math";
 import rehypeToc from "rehype-toc";
 import rehypeMathjax from "rehype-mathjax";
-import remarkGfm from "remark-gfm";
 
 const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
 	return (
@@ -31,16 +30,13 @@ const Markdown = ({ markdown, addContents = false, resourceMap = {} }) => {
 								tagName: "div",
 								properties: { className: "markdown toc-container" },
 								children: [
-									// Heading
 									{
 										type: "element",
 										tagName: "h1",
 										properties: { className: "markdown toc-heading" },
 										children: [{ type: "text", value: "Contents" }],
 									},
-									// Original AST
 									{ ...ast },
-									// Heading
 									{
 										type: "element",
 										tagName: "hr",

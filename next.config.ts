@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   reactStrictMode: true,
   images: {
     domains: ["wolf-mermelstein-personal-website.s3.us-east-2.amazonaws.com"],
@@ -16,13 +16,6 @@ module.exports = {
         permanent: false,
       },
     ];
-  },
-  webpack: (
-    config,
-    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
-  ) => {
-    config.externals.push({ canvas: "commonjs canvas" });
-    return config;
   },
   async headers() {
     return [

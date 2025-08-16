@@ -23,7 +23,7 @@
             pkgs.bun
             pkgs.openssl
             pkgs.prisma-engines
-            # pkgs.swagger-cli
+            pkgs.biome
           ];
           shellHook = ''
             export PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1

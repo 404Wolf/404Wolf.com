@@ -1,6 +1,6 @@
-const path = require("path");
+import path from "node:path";
 
-module.exports = {
+export default {
   entry: "./src/index.ts",
   module: {
     rules: [
