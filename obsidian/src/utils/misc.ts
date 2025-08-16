@@ -5,7 +5,7 @@ import { Notice } from "obsidian";
  * @param {string} notification - The message to display.
  */
 export async function notify(notification: string) {
-  new Notice(notification);
+	new Notice(notification);
 }
 
 /**
@@ -14,7 +14,7 @@ export async function notify(notification: string) {
  * @param {string} code - The code to format.
  */
 export function makeCodeBlock(language: string, code: string) {
-  return `\`\`\`${language}\n${code}\n\`\`\``;
+	return `\`\`\`${language}\n${code}\n\`\`\``;
 }
 
 /**
@@ -24,17 +24,17 @@ export function makeCodeBlock(language: string, code: string) {
  * @param {string} code - The code to read.
  */
 export function readCodeBlock(code: string) {
-  return code.replace(/^```.*\n/, "").replace(/```$/, "");
+	return code.replace(/^```.*\n/, "").replace(/```$/, "");
 }
 
 /**
  * Make a string titlecase
  */
 export function toTitleCase(str: string) {
-  return str.replace(
-    /\w\S*/g,
-    txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-  );
+	return str.replace(
+		/\w\S*/g,
+		(txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
+	);
 }
 
 /**
@@ -42,13 +42,12 @@ export function toTitleCase(str: string) {
  * @param {ArrayBuffer} buffer - The buffer to hash.
  */
 export async function hashArrayBuffer(buffer: ArrayBuffer): Promise<string> {
-  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+	const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 interface MarkdownWithFrontmatter {
-  frontmatter: string;
-  markdown: string;
+	frontmatter: string;
+	markdown: string;
 }
-

@@ -13,85 +13,91 @@ import Image from "next/image";
 import { useMemo } from "react";
 
 export default function Body({
-  cover,
-  postId,
-  type,
-  title,
-  description,
-  tags,
-  markdown,
-  resources,
+	cover,
+	postId,
+	type,
+	title,
+	description,
+	tags,
+	markdown,
+	resources,
 }: {
-  cover: string;
-  postId: string;
-  type: string;
-  title: string;
-  description: string;
-  tags: string[];
-  markdown: string;
-  resources: { [key: string]: string };
+	cover: string;
+	postId: string;
+	type: string;
+	title: string;
+	description: string;
+	tags: string[];
+	markdown: string;
+	resources: { [key: string]: string };
 }) {
-  const session = useSession();
-  const windowWidth = useWindowWidth({ wait: 100, leading: true });
+	const session = useSession();
+	const windowWidth = useWindowWidth({ wait: 100, leading: true });
 
-  const markdownArea = useMemo(() => {
-    return <Markdown addContents={true} markdown={markdown} resourceMap={resources} />;
-  }, []);
+	const markdownArea = useMemo(() => {
+		return (
+			<Markdown
+				addContents={true}
+				markdown={markdown}
+				resourceMap={resources}
+			/>
+		);
+	}, []);
 
-  return (
-    <div className="mt-[12px] overflow-visible">
-      <div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">
-        {session.status === "authenticated" && (
-          <>
-            <DeletePost postId={postId} postType={type} />
-            <div className="hidden sm:block">
-              <GotoEditor postId={postId} postType={type} />
-            </div>
-          </>
-        )}
-        <DownloadMarkdown 
-          markdown={markdown}
-          resourceMap={resources}
-          postId={postId}
-        />
-      </div>
+	return (
+		<div className="mt-[12px] overflow-visible">
+			<div className="absolute -top-12 -right-4 scale-[90%] flex gap-3">
+				{session.status === "authenticated" && (
+					<>
+						<DeletePost postId={postId} postType={type} />
+						<div className="hidden sm:block">
+							<GotoEditor postId={postId} postType={type} />
+						</div>
+					</>
+				)}
+				<DownloadMarkdown
+					markdown={markdown}
+					resourceMap={resources}
+					postId={postId}
+				/>
+			</div>
 
-      <Tile title="Overview" direction="right">
-        <div className="h-fit overflow-auto">
-          {cover && (
-            <div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
-              <div className="max-h-[15rem] overflow-clip border-4 border-slate-500 rounded-xl">
-                <Image
-                  width={400}
-                  height={400}
-                  src={cover}
-                  className="rounded-xl scale-[103%]"
-                  alt={`${title}'s cover image`}
-                />
-              </div>
-            </div>
-          )}
-          <div className="-mt-1 mb-2 sm:mb-1 text-[17px] sm:text-[1.4em]">
-            {description}
-          </div>
-        </div>
-      </Tile>
+			<Tile title="Overview" direction="right">
+				<div className="h-fit overflow-auto">
+					{cover && (
+						<div className="relative pointer-events-none rounded-xl w-2/5 sm:w-1/4 sm:mt-4 sm:ml-2 float-right">
+							<div className="max-h-[15rem] overflow-clip border-4 border-slate-500 rounded-xl">
+								<Image
+									width={400}
+									height={400}
+									src={cover}
+									className="rounded-xl scale-[103%]"
+									alt={`${title}'s cover image`}
+								/>
+							</div>
+						</div>
+					)}
+					<div className="-mt-1 mb-2 sm:mb-1 text-[17px] sm:text-[1.4em]">
+						{description}
+					</div>
+				</div>
+			</Tile>
 
-      <div className="brightness-[125%] absolute left-2 -translate-y-6 z-50">
-        <Tags tags={tags} readOnly={true} />
-      </div>
+			<div className="brightness-[125%] absolute left-2 -translate-y-6 z-50">
+				<Tags tags={tags} readOnly={true} />
+			</div>
 
-      <div className="m-6" />
+			<div className="m-6" />
 
-      <Tile
-        className="overflow-auto"
-        title={windowWidth > 500 ? (title ? title : undefined) : undefined}
-        direction="right"
-      >
-        <div className="-mt-4 xl:px-[14%]" key={44}>
-          {markdownArea}
-        </div>
-      </Tile>
-    </div>
-  );
+			<Tile
+				className="overflow-auto"
+				title={windowWidth > 500 ? (title ? title : undefined) : undefined}
+				direction="right"
+			>
+				<div className="-mt-4 xl:px-[14%]" key={44}>
+					{markdownArea}
+				</div>
+			</Tile>
+		</div>
+	);
 }

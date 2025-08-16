@@ -4,30 +4,30 @@ import AboutData from "@/components/about/AboutData";
 import { useEffect, useState } from "react";
 
 const blankAbout = {
-  url: "",
-  name: "",
-  email: "",
-  phone: {
-    display: "",
-    link: "",
-  },
-  location: "",
-  booking: "",
+	url: "",
+	name: "",
+	email: "",
+	phone: {
+		display: "",
+		link: "",
+	},
+	location: "",
+	booking: "",
 };
 
 const useAbout = (): AboutData => {
-  const [about, setAbout] = useState<AboutData>(blankAbout);
+	const [about, setAbout] = useState<AboutData>(blankAbout);
 
-  useEffect(() => {
-    const fetchAbout = async () => {
-      const response = await fetch("/api/about");
-      const about = await response.json();
-      setAbout(about);
-    };
-    fetchAbout();
-  }, []);
+	useEffect(() => {
+		const fetchAbout = async () => {
+			const response = await fetch("/api/about");
+			const about = await response.json();
+			setAbout(about);
+		};
+		fetchAbout();
+	}, []);
 
-  return about;
+	return about;
 };
 
 export default useAbout;
