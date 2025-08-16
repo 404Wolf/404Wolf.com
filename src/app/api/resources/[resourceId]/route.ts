@@ -1,11 +1,11 @@
-import s3 from "@/utils/aws";
 import { PrismaClient } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import s3 from "@/utils/aws";
 
 const prisma = new PrismaClient();
 
 export async function GET(
-	req: NextRequest,
+	_req: NextRequest,
 	{ params: { resourceId } }: { params: { resourceId: string } },
 ) {
 	const resource = await prisma.resource.findUnique({
@@ -91,7 +91,7 @@ export async function POST(
 }
 
 export async function DELETE(
-	req: NextRequest,
+	_req: NextRequest,
 	{ params: { resourceId } }: { params: { resourceId: string } },
 ) {
 	const resource = await prisma.resource.findUnique({

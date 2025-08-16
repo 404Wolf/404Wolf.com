@@ -1,4 +1,4 @@
-import { Post, PrismaClient } from "@prisma/client";
+import { type Post, PrismaClient } from "@prisma/client";
 import RSS from "rss";
 
 const prisma = new PrismaClient();
@@ -11,8 +11,7 @@ export async function createRSSFeed() {
 		})
 	).filter(
 		(post: Post) =>
-			!post.tags.includes("hidden") &&
-			!(post.title && post.title.includes("Recurse Checkin")),
+			!post.tags.includes("hidden") && !post.title?.includes("Recurse Checkin"),
 	);
 
 	const feed = new RSS({
@@ -46,7 +45,7 @@ export async function createRSSFeed() {
 		const postResource = postResources[postImageID];
 		const postFilename = postResources[postImageID]?.filename;
 		const resourceType = postFilename
-			? "image/" + postFilename.split(".").pop()
+			? `image/${postFilename.split(".").pop()}`
 			: undefined;
 
 		if (post.tags.includes("hidden")) return;

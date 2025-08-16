@@ -1,6 +1,6 @@
-import measure from "@/utils/measure";
 import { useWindowWidth } from "@react-hook/window-size";
 import { useEffect, useState } from "react";
+import measure from "@/utils/measure";
 
 const useTitleWidth = (title: string) => {
 	const [titleWidth, setTitleWidth] = useState(0);
@@ -24,7 +24,7 @@ const useTitleWidth = (title: string) => {
 				windowWidth,
 			),
 		);
-	}, []);
+	}, [title, windowWidth]);
 
 	return titleWidth;
 };

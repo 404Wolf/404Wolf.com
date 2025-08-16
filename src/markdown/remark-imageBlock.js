@@ -1,7 +1,7 @@
 import { visit } from "unist-util-visit";
 
 export default function remarkImageBlock() {
-	return (tree, file) => {
+	return (tree, _file) => {
 		visit(tree, "paragraph", (node, index, parent) => {
 			if (node.children) {
 				const children = node.children.filter(

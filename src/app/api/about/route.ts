@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getAboutData } from "./worker";
 
-export function GET(req: NextRequest) {
+export function GET(_req: NextRequest) {
 	return NextResponse.json(getAboutData());
 }

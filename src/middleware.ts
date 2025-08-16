@@ -1,7 +1,6 @@
-import { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { personalAuthRequest as auth } from "./app/auth/personalAuth";
+import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { personalAuthRequest as auth } from "./app/auth/personalAuth";
 
 export async function middleware(request: NextRequest) {
 	const nextResponse = NextResponse.next();

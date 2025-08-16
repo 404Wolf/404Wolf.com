@@ -1,7 +1,7 @@
 "use client";
 
-import AboutData from "@/components/about/AboutData";
 import { useEffect, useState } from "react";
+import type AboutData from "@/components/about/AboutData";
 
 const blankAbout = {
 	url: "",

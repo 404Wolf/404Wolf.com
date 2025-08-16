@@ -9,7 +9,7 @@ const useStoredState = (key: string, value: any) => {
 		if (storedValue) setState(storedValue);
 		else setState(value);
 		setSetting(false);
-	}, []);
+	}, [key, value]);
 
 	return [
 		state,

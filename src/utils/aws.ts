@@ -55,7 +55,7 @@ const s3 = {
 
 		// Check if the resource exists by making a fetch for it
 		const objectUrl = s3.resourceUrl(filename);
-		return (await fetch(objectUrl)).status == 200;
+		return (await fetch(objectUrl)).status === 200;
 	},
 
 	removeResource: async (filename: string) => {

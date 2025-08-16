@@ -1,6 +1,6 @@
 import { normalizeUri } from "micromark-util-sanitize-uri";
 
-export function imgBlockHandler(state, node, parent) {
+export function imgBlockHandler(_state, node, _parent) {
 	return {
 		type: "element",
 		tagName: "imgBlock",
@@ -14,7 +14,7 @@ export function imgBlockHandler(state, node, parent) {
 	};
 }
 
-export function imgHandler(state, node, parent) {
+export function imgHandler(_state, node, _parent) {
 	const properties = {};
 	for (const property of node.url.matchAll(/((\w+)=(\w+))/g)) {
 		properties[property[2]] = property[3];
@@ -22,7 +22,7 @@ export function imgHandler(state, node, parent) {
 	let url = node.url;
 	try {
 		url = /\w*|\w=*/.test(node.url)
-			? node.url.match(/([^\s^\|]*)\|/)[1]
+			? node.url.match(/([^\s^|]*)\|/)[1]
 			: node.url;
 	} catch {}
 

@@ -32,7 +32,7 @@ const usePushPostUpdates = (postStates, currentId, callback) => {
 					body: JSON.stringify(requestBody),
 				});
 				if (response.ok) {
-					const data = await response.json();
+					const _data = await response.json();
 				} else {
 					console.log("Error:", response.statusText);
 				}

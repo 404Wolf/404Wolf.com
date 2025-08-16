@@ -1,14 +1,14 @@
-import s3 from "@/utils/aws";
 import { PrismaClient } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import s3 from "@/utils/aws";
 
 const prisma = new PrismaClient();
 
 export async function GET(
-	req: NextRequest,
+	_req: NextRequest,
 	{ params: { id } }: { params: { id: string } },
 ) {
-	let post: any = await prisma.post.findUnique({
+	const post: any = await prisma.post.findUnique({
 		where: {
 			id: id,
 		},
@@ -20,7 +20,7 @@ export async function GET(
 	try {
 		post.markdown = {
 			id: post?.markdown,
-			data: await fetch(s3.resourceUrl(post.markdown + ".md")).then((res) =>
+			data: await fetch(s3.resourceUrl(`${post.markdown}.md`)).then((res) =>
 				res.text(),
 			),
 		};
@@ -56,7 +56,7 @@ export async function POST(
 	const body = await req.json();
 
 	let markdownId;
-	if (body && body.markdown && body.markdown.id) {
+	if (body?.markdown?.id) {
 		markdownId = body.markdown.id;
 	} else {
 		markdownId = `${id}_00001`;
@@ -122,8 +122,8 @@ export async function POST(
 								{
 									id: markdownId,
 									title: "Post Markdown",
-									filename: markdownId + ".md",
-									url: s3.resourceUrl(markdownId + ".md"),
+									filename: `${markdownId}.md`,
+									url: s3.resourceUrl(`${markdownId}.md`),
 									type: "markdown",
 								},
 							],
@@ -145,10 +145,10 @@ export async function POST(
 	// If we detected that the markdown file exists and is empty and
 	// they have passed data, update its contents. If it didn't exist create
 	// it with an empty string.
-	if ((body.markdown && body.markdown.data) || !resourceEntry || !resourceData)
+	if (body.markdown?.data || !resourceEntry || !resourceData)
 		if (
 			!(await s3.addResource(
-				markdownId + ".md",
+				`${markdownId}.md`,
 				body.markdown?.data || "",
 				"str",
 				"text/plain",
@@ -173,7 +173,7 @@ export async function POST(
 }
 
 export async function DELETE(
-	req: NextRequest,
+	_req: NextRequest,
 	{ params: { id } }: { params: { id: string } },
 ) {
 	const post = await prisma.post.findUnique({
