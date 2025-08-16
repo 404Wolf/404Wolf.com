@@ -3,7 +3,7 @@
 import TileTitle from "./Title";
 import useTitleWidth from "./useTitleWidth";
 
-export interface TileProps {
+interface TileProps {
 	title?: string;
 	className?: string;
 	type?: boolean;

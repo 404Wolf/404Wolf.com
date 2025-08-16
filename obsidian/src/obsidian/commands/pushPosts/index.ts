@@ -7,14 +7,14 @@ import PostPusher from "./PostPusher";
  * Pushes the current viewport post to the server.
  */
 export async function pushPost(plugin: MyPlugin) {
-	const [currentPost, postFetchStatus] = await getActivePost(plugin);
-	if (postFetchStatus !== ActivePostState.VALID_POST) {
-		notify("Failed to fetch post.");
-		return;
-	}
+  const [currentPost, postFetchStatus] = await getActivePost(plugin);
+  if (postFetchStatus !== ActivePostState.VALID_POST) {
+    notify("Failed to fetch post.");
+    return;
+  }
 
-	notify(`Pushing post "${currentPost.id}"`);
-	const postPusher = new PostPusher(plugin, currentPost);
-	await postPusher.pushPost({});
-	notify(`Post "${currentPost.id}" pushed.`);
+  notify(`Pushing post "${currentPost.id}"`);
+  const postPusher = new PostPusher(plugin, currentPost);
+  await postPusher.pushPost({});
+  notify(`Post "${currentPost.id}" pushed.`);
 }

@@ -13,19 +13,19 @@ import remarkParse from "remark-parse";
  */
 
 export function createMarkdownWithFrontmatter(
-	frontmatter: Record<string, any>,
-	markdown: string,
+  frontmatter: Record<string, any>,
+  markdown: string,
 ): string {
-	const frontmatterString = Object.entries(frontmatter)
-		.map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
-		.join("\n");
+  const frontmatterString = Object.entries(frontmatter)
+    .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
+    .join("\n");
 
-	return `---\n${frontmatterString}\n---\n${markdown}`;
+  return `---\n${frontmatterString}\n---\n${markdown}`;
 }
 
 interface MarkdownWithFrontmatter {
-	frontmatter: { [key: string]: any };
-	markdown: string;
+  frontmatter: { [key: string]: any };
+  markdown: string;
 }
 
 /**
@@ -34,22 +34,22 @@ interface MarkdownWithFrontmatter {
  * @returns An object containing frontmatter and markdown content.
  */
 export function parseMarkdownWithFrontmatter(
-	input: string,
+  input: string,
 ): MarkdownWithFrontmatter {
-	console.assert(typeof input === "string");
-	// Regular expression to extract frontmatter
-	const frontmatterRegex = /^---\s*\n([\s\S]*?)\n*---/;
-	const match = input.match(frontmatterRegex);
+  console.assert(typeof input === "string");
+  // Regular expression to extract frontmatter
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n*---/;
+  const match = input.match(frontmatterRegex);
 
-	let frontmatter = "";
-	let markdown = input;
+  let frontmatter = "";
+  let markdown = input;
 
-	if (match) {
-		frontmatter = match[1];
-		markdown = input.slice(match[0].length);
-	}
+  if (match) {
+    frontmatter = match[1];
+    markdown = input.slice(match[0].length);
+  }
 
-	return { frontmatter: yaml.load(frontmatter) as any, markdown };
+  return { frontmatter: yaml.load(frontmatter) as any, markdown };
 }
 
 /**
@@ -59,16 +59,16 @@ export function parseMarkdownWithFrontmatter(
  * @returns A unified plugin.
  */
 export const updateImageLinks =
-	(idToFilenames: { [key: string]: string }) => () => {
-		return (tree: Root) => {
-			visit(tree, "image", (node) => {
-				if (node.url) {
-					const id = node.url.split("|")[0];
-					node.url = node.url.replace(id, idToFilenames[id] || id);
-				}
-			});
-		};
-	};
+  (idToFilenames: { [key: string]: string }) => () => {
+    return (tree: Root) => {
+      visit(tree, "image", (node) => {
+        if (node.url) {
+          const id = node.url.split("|")[0];
+          node.url = node.url.replace(id, idToFilenames[id] || id);
+        }
+      });
+    };
+  };
 
 /** Unified plugin to prepend a header and body below it to markdown.
  * @param {number} headerLevel The level of header. 1 is the highest level.
@@ -78,69 +78,69 @@ export const updateImageLinks =
  * @returns A unified plugin.
  */
 export function prependHeading(
-	headerLevel: 1 | 2 | 3 | 4 | 5 | 6,
-	headerText: string,
-	bodyText: string,
-	lineBelow: boolean = false,
+  headerLevel: 1 | 2 | 3 | 4 | 5 | 6,
+  headerText: string,
+  bodyText: string,
+  lineBelow: boolean = false,
 ) {
-	return () => {
-		return (tree: Root) => {
-			lineBelow &&
-				tree.children.unshift({
-					type: "thematicBreak",
-				});
+  return () => {
+    return (tree: Root) => {
+      lineBelow &&
+        tree.children.unshift({
+          type: "thematicBreak",
+        });
 
-			tree.children.unshift({
-				type: "paragraph",
-				children: [{ type: "text", value: bodyText }],
-			});
+      tree.children.unshift({
+        type: "paragraph",
+        children: [{ type: "text", value: bodyText }],
+      });
 
-			tree.children.unshift({
-				type: "heading",
-				depth: headerLevel,
-				children: [{ type: "text", value: headerText }],
-			});
-		};
-	};
+      tree.children.unshift({
+        type: "heading",
+        depth: headerLevel,
+        children: [{ type: "text", value: headerText }],
+      });
+    };
+  };
 }
 export function captureSection(
-	markdown: string,
-	name: string,
-	depth: 1 | 2 | 3 | 4 | 5 | 6,
+  markdown: string,
+  name: string,
+  depth: 1 | 2 | 3 | 4 | 5 | 6,
 ): string {
-	const processor = unified().use(remarkParse);
-	let capture = false;
-	let output = "";
+  const processor = unified().use(remarkParse);
+  let capture = false;
+  let output = "";
 
-	const tree = processor.parse(markdown);
+  const tree = processor.parse(markdown);
 
-	visit<Node, Root>(tree, (node: Node) => {
-		// Type guard for heading with depth and children
-		if (
-			node.type === "heading" &&
-			"depth" in node &&
-			(node as Heading).depth === depth
-		) {
-			const headingNode = node as Heading;
-			if (
-				headingNode.children[0]?.type === "text" &&
-				headingNode.children[0].value === name
-			) {
-				capture = true;
-			} else {
-				capture = false;
-			}
-		} else if (capture && node.type === "paragraph") {
-			const paragraphNode = node as Paragraph;
-			output +=
-				paragraphNode.children
-					.filter((child) => child.type === "text")
-					.map((child: Text) => child.value)
-					.join(" ") + "\n";
-		}
-	});
+  visit<Node, Root>(tree, (node: Node) => {
+    // Type guard for heading with depth and children
+    if (
+      node.type === "heading" &&
+      "depth" in node &&
+      (node as Heading).depth === depth
+    ) {
+      const headingNode = node as Heading;
+      if (
+        headingNode.children[0]?.type === "text" &&
+        headingNode.children[0].value === name
+      ) {
+        capture = true;
+      } else {
+        capture = false;
+      }
+    } else if (capture && node.type === "paragraph") {
+      const paragraphNode = node as Paragraph;
+      output +=
+        paragraphNode.children
+          .filter((child) => child.type === "text")
+          .map((child: Text) => child.value)
+          .join(" ") + "\n";
+    }
+  });
 
-	return output;
+  return output;
 }
 
 /**
@@ -149,41 +149,41 @@ export function captureSection(
  * @returns An array of image source links.
  */
 export function extractImageSrcs(markdown: string): string[] {
-	const regex = /!\[.*?\]\((.*?)\)/g;
-	const srcs: string[] = [];
-	let match;
-	while ((match = regex.exec(markdown)) !== null) {
-		srcs.push(match[1]);
-	}
-	return srcs;
+  const regex = /!\[.*?\]\((.*?)\)/g;
+  const srcs: string[] = [];
+  let match;
+  while ((match = regex.exec(markdown)) !== null) {
+    srcs.push(match[1]);
+  }
+  return srcs;
 }
 
 export function getContentOfSection(
-	markdown: string,
-	header: string,
-	depth: number = 1,
+  markdown: string,
+  header: string,
+  depth: number = 1,
 ) {
-	const ast = unified().use(remarkParse).parse(markdown);
+  const ast = unified().use(remarkParse).parse(markdown);
 
-	const output: string[] = [];
-	let inHeadersSection = false;
-	let nextIsWantedText = false;
-	visit(ast, (node) => {
-		if (
-			node.type === "heading" &&
-			node.depth === depth &&
-			node.children.length > 0 &&
-			node.children[0].type === "text" &&
-			node.children[0].value === header
-		)
-			inHeadersSection = true;
-		if (inHeadersSection) {
-			if (nextIsWantedText) {
-				if (node.type === "text") output.push(node.value);
-				else if (node.type !== "paragraph") return false;
-			}
-			if (node.type === "paragraph") nextIsWantedText = true;
-		}
-	});
-	return output.join("\n");
+  const output: string[] = [];
+  let inHeadersSection = false;
+  let nextIsWantedText = false;
+  visit(ast, (node) => {
+    if (
+      node.type === "heading" &&
+      node.depth === depth &&
+      node.children.length > 0 &&
+      node.children[0].type === "text" &&
+      node.children[0].value === header
+    )
+      inHeadersSection = true;
+    if (inHeadersSection) {
+      if (nextIsWantedText) {
+        if (node.type === "text") output.push(node.value);
+        else if (node.type !== "paragraph") return false;
+      }
+      if (node.type === "paragraph") nextIsWantedText = true;
+    }
+  });
+  return output.join("\n");
 }
